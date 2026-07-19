@@ -1,0 +1,128 @@
+[gd_scene load_steps=2 format=3 uid="uid://c10xt899playerprofilepanel"]
+
+[ext_resource type="Script" path="res://settings/scripts/PlayerProfilePanel.gd" id="1_playerprofilepanel"]
+
+[node name="PlayerProfilePanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_playerprofilepanel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="IdentityHBox" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AvatarVBox" type="VBoxContainer" parent="Margin/Layout/IdentityHBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AvatarContainer" type="PanelContainer" parent="Margin/Layout/IdentityHBox/AvatarVBox"]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+
+[node name="AvatarLabel" type="Label" parent="Margin/Layout/IdentityHBox/AvatarVBox/AvatarContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🧙"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ChangeAvatarButton" type="Button" parent="Margin/Layout/IdentityHBox/AvatarVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 30)
+layout_mode = 2
+text = "CYCLE"
+
+[node name="MetaVBox" type="VBoxContainer" parent="Margin/Layout/IdentityHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="NameHBox" type="HBoxContainer" parent="Margin/Layout/IdentityHBox/MetaVBox"]
+layout_mode = 2
+
+[node name="PlayerNameLabel" type="Label" parent="Margin/Layout/IdentityHBox/MetaVBox/NameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lord Aurelius"
+
+[node name="EditNameButton" type="Button" parent="Margin/Layout/IdentityHBox/MetaVBox/NameHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "  ✏️  "
+
+[node name="VipLevelLabel" type="Label" parent="Margin/Layout/IdentityHBox/MetaVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "VIP 4"
+
+[node name="IdHBox" type="HBoxContainer" parent="Margin/Layout/IdentityHBox/MetaVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlayerIdLabel" type="Label" parent="Margin/Layout/IdentityHBox/MetaVBox/IdHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ID: CS-984210"
+
+[node name="CopyIdButton" type="Button" parent="Margin/Layout/IdentityHBox/MetaVBox/IdHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " COPY "
+
+[node name="HSeparator" type="HSeparator" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="StatsTitle" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+text = "PLAYER VANGUARD STATISTICS"
+
+[node name="StatsGrid" type="GridContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 32
+theme_override_constants/vertical_separation = 12
+columns = 2
+
+[node name="PowerLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+layout_mode = 2
+text = "🛡️ Active Force Power:"
+
+[node name="PowerValueLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "⚔️ 1.25M"
+
+[node name="AllianceLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+layout_mode = 2
+text = "👑 Sworn Alliance:"
+
+[node name="AllianceValueLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "[DAWN] Dawn Alliance"
+
+[node name="SkinLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+layout_mode = 2
+text = "🏰 Fortress Appearance:"
+
+[node name="CastleSkinLabel" type="Label" parent="Margin/Layout/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🏰 Skin: Default Citadel"

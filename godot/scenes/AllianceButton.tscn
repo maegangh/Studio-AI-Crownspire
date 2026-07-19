@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy25muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/AllianceButton.gd" id="1_e7b8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.0509804, 0.121569, 0.180392, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0627451, 0.72549, 0.505882, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.0784314, 0.180392, 0.258824, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0627451, 0.72549, 0.505882, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_help"]
+bg_color = Color(0.0627451, 0.72549, 0.505882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 2
+
+[node name="AllianceButton" type="Button"]
+custom_minimum_size = Vector2(56, 56)
+offset_right = 56.0
+offset_bottom = 56.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_btn")
+script = ExtResource("1_e7b8f")
+
+[node name="Icon" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "🛡"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HelpIndicator" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -12.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 12.0
+grow_horizontal = 0
+pivot_offset = Vector2(8, 8)
+theme_override_styles/panel = SubResource("StyleBoxFlat_help")
+
+[node name="HelpLabel" type="Label" parent="HelpIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "🤝"
+horizontal_alignment = 1
+vertical_alignment = 1

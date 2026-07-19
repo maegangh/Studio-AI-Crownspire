@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/InventoryGrid.gd" id="1_gri"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gribg"]
+
+[node name="InventoryGrid" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gribg")
+horizontal_scroll_mode = 0
+script = ExtResource("1_gri")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/horizontal_separation = 12
+theme_override_constants/vertical_separation = 12
+columns = 4

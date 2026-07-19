@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroBiographyPanel.gd" id="1_bio"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_box"]
+
+[node name="HeroBiographyPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_box")
+script = ExtResource("1_bio")
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BioHeader" type="Label" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0)
+theme_override_font_sizes/font_size = 11
+text = "GENERAL HISTORY & BACKGROUND"
+
+[node name="BioDescLabel" type="Label" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 1, 0.75)
+text = "Sworn defender of Crownspire, trained in the tactical combat of long range archery. She handles critical defense with supreme swiftness and focus."
+autowrap_mode = 2
+
+[node name="Divider" type="HSeparator" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+
+[node name="ChaptersHeader" type="Label" parent="Scroll/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "UNLOCKABLE LEGION CHRONICLES"
+
+[node name="ChaptersVBox" type="VBoxContainer" parent="Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8

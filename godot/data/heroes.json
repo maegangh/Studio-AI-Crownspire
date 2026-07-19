@@ -1,0 +1,98 @@
+[
+  {
+    "id": "valerius",
+    "name": "Valerius the Sun-Sworn",
+    "title": "Sovereign Paladin",
+    "class": "Defender",
+    "rarity": "Legendary",
+    "rarity_stars": 5,
+    "level": 45,
+    "max_level": 60,
+    "xp": 2500,
+    "xp_required": 5000,
+    "shards": 30,
+    "shards_required": 100,
+    "unlocked": true,
+    "power": 15200,
+    "favorite": true,
+    "biography": "Born under the zenith of the temporal sun, Valerius swore a blood-oath to defend the emerald walls of Crownspire from the wildling tundra legions. His golden solar shield has never cracked.",
+    "story_chapters": [
+      "Chapter 1: The Blood-Oath of the Zenith",
+      "Chapter 2: Siege of the Iron Citadel",
+      "Chapter 3: Legacy of Sun-forged steel"
+    ],
+    "emoji": "☀️"
+  },
+  {
+    "id": "aria",
+    "name": "Aria Wind-Runner",
+    "title": "Elven Ranger Core",
+    "class": "Marksman",
+    "rarity": "Epic",
+    "rarity_stars": 4,
+    "level": 32,
+    "max_level": 50,
+    "xp": 1200,
+    "xp_required": 3000,
+    "shards": 45,
+    "shards_required": 50,
+    "unlocked": true,
+    "power": 9800,
+    "favorite": false,
+    "biography": "Whispering through the ancient branches of the Elderwood, Aria acts as the eyes of Crownspire. Her speed-bow strikes down enemies before they hear the release of her bowstring.",
+    "story_chapters": [
+      "Chapter 1: Wind-whisperer origin",
+      "Chapter 2: Shadow in the Canopy",
+      "Chapter 3: The Sovereign Arrow"
+    ],
+    "emoji": "🏹"
+  },
+  {
+    "id": "kaelen",
+    "name": "Kaelen the Chrono-Mage",
+    "title": "Arch-Mage of Eternity",
+    "class": "Chronomancer",
+    "rarity": "Legendary",
+    "rarity_stars": 3,
+    "level": 1,
+    "max_level": 60,
+    "xp": 0,
+    "xp_required": 1000,
+    "shards": 80,
+    "shards_required": 100,
+    "unlocked": false,
+    "power": 0,
+    "favorite": false,
+    "biography": "An enigmatic scholar of chronal patterns, Kaelen manipulates historical loops to speed up sovereign construction projects and slow down invading tundra legions.",
+    "story_chapters": [
+      "Chapter 1: The Broken Sands of Time",
+      "Chapter 2: Infinite Paradoxes",
+      "Chapter 3: Portal of the Sovereign Crown"
+    ],
+    "emoji": "⏳"
+  },
+  {
+    "id": "garrick",
+    "name": "Garrick Iron-Fist",
+    "title": "Dwarven Vanguard Lord",
+    "class": "Warrior",
+    "rarity": "Rare",
+    "rarity_stars": 3,
+    "level": 20,
+    "max_level": 40,
+    "xp": 400,
+    "xp_required": 1500,
+    "shards": 15,
+    "shards_required": 30,
+    "unlocked": true,
+    "power": 4500,
+    "favorite": false,
+    "biography": "A rough and tumble master mason who loves dark dwarven ale and heavy volcanic steel warhammers. He personally rebuilt the outer ramparts during the Great Tundra Siege.",
+    "story_chapters": [
+      "Chapter 1: Deep Hearth Forgework",
+      "Chapter 2: Hammer of the Mountain King",
+      "Chapter 3: The Unbreakable Rampart"
+    ],
+    "emoji": "🔨"
+  }
+]

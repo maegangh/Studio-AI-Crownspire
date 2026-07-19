@@ -1,0 +1,97 @@
+{
+  "$schema": "./schemas/hero_signature_crownmarks.schema.json",
+  "title": "HeroSignatureCrownmarks",
+  "description": "Historical alignment mapping linking each commander to their signature equipment crownmarks.",
+  "hero_signature_mappings": [
+    {
+      "hero_id": "maegan",
+      "display_name": "Maegan Violet",
+      "class_title": "Royal Vanguard Marshal",
+      "signature_crownmark_ids": [
+        "maegan_scepter",
+        "maegan_crown",
+        "maegan_crest",
+        "maegan_charter",
+        "maegan_signet"
+      ],
+      "unlocked_milestone": "Vanguard Chapter II completed",
+      "affinity_lore_unlocked": {
+        "level_1": "The scepter's crystal resonates when Maegan draws her ancestral blade, emitting a protective violet flash.",
+        "level_3": "As crown and crest align, her legion units inherit standard Vanguard immunity to direct fear debuffs.",
+        "level_5": "With all 5 signature items equipped, her visual portrait adapts, showcasing her true Sovereign Crownspire Vanguard armor."
+      }
+    },
+    {
+      "hero_id": "lorelai",
+      "display_name": "Lorelai Archon",
+      "class_title": "Lunar Archon High Priestess",
+      "signature_crownmark_ids": [
+        "lorelai_bow",
+        "lorelai_diadem",
+        "lorelai_mantle",
+        "lorelai_scroll",
+        "lorelai_pendant"
+      ],
+      "unlocked_milestone": "Reach Level 30 inside Moonlight Sanctuary",
+      "affinity_lore_unlocked": {
+        "level_1": "The moonkeeper bow sings when touched by moonlight, granting marksmen arrows a minor freeze chance.",
+        "level_3": "The combined silver of her diadem and mantle emits a barrier that redirects the first curse back to its caster.",
+        "level_5": "Full 5-piece resonance transforms Lorelai's aura, highlighting floating lunar crescents and celestial moonbeams."
+      }
+    },
+    {
+      "hero_id": "shadow",
+      "display_name": "Syndicate Shadow",
+      "class_title": "Obsidian Syndicate Grandmaster",
+      "signature_crownmark_ids": [
+        "shadow_daggers",
+        "shadow_cowl",
+        "shadow_cloak",
+        "shadow_flag",
+        "shadow_emblem"
+      ],
+      "unlocked_milestone": "Defeat the Crimson Outpost Commander",
+      "affinity_lore_unlocked": {
+        "level_1": "The dual daggers whisper in dark corridors, adding high armor piercing capabilities during cavalry flanks.",
+        "level_3": "Cowl and Cloak mesh together to render the squadron invisible on all regional radars.",
+        "level_5": "Maximum syndicate resonance triggers a phantom shadow mist on the map, concealing moving allied units."
+      }
+    },
+    {
+      "hero_id": "remi",
+      "display_name": "Remi Brass",
+      "class_title": "Grandmaster of Steam Alchemists",
+      "signature_crownmark_ids": [
+        "remi_crucible",
+        "remi_watch",
+        "remi_goggles",
+        "remi_catalyst",
+        "remi_loop"
+      ],
+      "unlocked_milestone": "Unlock Steam Barracks Technology",
+      "affinity_lore_unlocked": {
+        "level_1": "The crucible's core flares when Remi triggers mechanical systems, burning down incoming shields.",
+        "level_3": "Chrono watch and goggles together allow engineers to detect trajectory hazards and speed up construction loops.",
+        "level_5": "Complete mechanical alignment triggers a copper clockwork halo, speeding up troop production speeds by 20%."
+      }
+    },
+    {
+      "hero_id": "allanna",
+      "display_name": "Allanna Voidweaver",
+      "class_title": "Gloom Weaver Archon",
+      "signature_crownmark_ids": [
+        "allanna_bow",
+        "allanna_quiver",
+        "allanna_cloak",
+        "allanna_pendant",
+        "allanna_ring"
+      ],
+      "unlocked_milestone": "Survive Wave 50 inside Abyssal Gates",
+      "affinity_lore_unlocked": {
+        "level_1": "Voidbringer bow arrows draw shadows, stealing enemy commander mana on hit.",
+        "level_3": "Combined quiver and cloak siphon lifeforce from targets, recovering vital health of the front ranks.",
+        "level_5": "Sovereign void-awakening triggers a vibrant dark pink aura, summoning three auxiliary shadow marksmen."
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+[
+  {
+    "type": "daily_activity",
+    "milestones": [
+      {
+        "points_required": 20,
+        "claimed": false,
+        "rewards": [
+          { "name": "Gold", "type": "gold", "quantity": 5000, "rarity": 1, "icon": "🪙" },
+          { "name": "Food Provisions", "type": "food", "quantity": 10000, "rarity": 1, "icon": "🥩" }
+        ]
+      },
+      {
+        "points_required": 50,
+        "claimed": false,
+        "rewards": [
+          { "name": "Aurora Crystals", "type": "aurora_crystal", "quantity": 100, "rarity": 2, "icon": "💎" },
+          { "name": "15m Speedup", "type": "speedup_15m", "quantity": 4, "rarity": 1, "icon": "⚡" }
+        ]
+      },
+      {
+        "points_required": 100,
+        "claimed": false,
+        "rewards": [
+          { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 150, "rarity": 3, "icon": "💎" },
+          { "name": "Crystallite Cores", "type": "crystallite_cores", "quantity": 200, "rarity": 3, "icon": "🌀" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "weekly_activity",
+    "milestones": [
+      {
+        "points_required": 100,
+        "claimed": false,
+        "rewards": [
+          { "name": "Gold Coins", "type": "gold", "quantity": 30000, "rarity": 1, "icon": "🪙" },
+          { "name": "1-Hour speedup", "type": "speedup_1h", "quantity": 3, "rarity": 2, "icon": "⚡" }
+        ]
+      },
+      {
+        "points_required": 250,
+        "claimed": false,
+        "rewards": [
+          { "name": "Hero Tokens", "type": "hero_tokens", "quantity": 15, "rarity": 3, "icon": "🎟️" },
+          { "name": "Iron Ores", "type": "iron", "quantity": 25000, "rarity": 2, "icon": "⛓️" }
+        ]
+      },
+      {
+        "points_required": 500,
+        "claimed": false,
+        "rewards": [
+          { "name": "Legendary Hero Shard", "type": "hero_shard", "hero_id": "maegan", "quantity": 15, "rarity": 4, "icon": "🦁" },
+          { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 500, "rarity": 3, "icon": "💎" }
+        ]
+      }
+    ]
+  }
+]

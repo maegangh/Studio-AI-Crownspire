@@ -1,0 +1,9 @@
+{
+  "push_enabled": true,
+  "options": [
+    {"id": "energy_full", "name": "Energy Fully Charged", "desc": "Alerts when Lord stamina has restored to max capacity"},
+    {"id": "shield_expiry", "name": "Peace Shield Expiry", "desc": "Critical alert when Citadel shields are down"},
+    {"id": "alliance_rallies", "name": "Alliance Rallies Underway", "desc": "Alerts when a guild war campaign starts matching"},
+    {"id": "mail_received", "name": "Guild Mail Received", "desc": "Alerts when new alliance or administrative scrolls arrive"}
+  ]
+}

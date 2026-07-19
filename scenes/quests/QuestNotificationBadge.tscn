@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://qubadge1"]
+
+[ext_resource type="Script" path="res://scripts/quests/QuestNotificationBadge.gd" id="1_qbadge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbadge"]
+bg_color = Color(0.9, 0.15, 0.15, 1.0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_qbadge"]
+font_size = 11
+font_color = Color(1, 1, 1, 1)
+
+[node name="QuestNotificationBadge" type="Panel"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+pivot_offset = Vector2(10, 10)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qbadge")
+script = ExtResource("1_qbadge")
+
+[node name="CountLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_qbadge")
+horizontal_alignment = 1
+vertical_alignment = 1

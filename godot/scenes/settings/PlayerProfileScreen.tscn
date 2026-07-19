@@ -1,0 +1,411 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy20g0l5n9425q"]
+
+[ext_resource type="Script" path="res://scripts/settings/PlayerProfileScreen.gd" id="1_profile"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.0431373, 0.0588235, 0.0901961, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831373, 0.686275, 0.215686, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frame"]
+bg_color = Color(0.0901961, 0.113725, 0.160784, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831373, 0.686275, 0.215686, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rename_popup"]
+bg_color = Color(0.0588235, 0.0784314, 0.117647, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831373, 0.686275, 0.215686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="PlayerProfileScreen" type="PanelContainer"]
+custom_minimum_size = Vector2(560, 800)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -400.0
+offset_right = 280.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+script = ExtResource("1_profile")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="HeaderBar" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/VBox/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "🧙 LORDLY PROFILE"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Margin/VBox/HeaderBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="RulerSummary" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="AvatarFrame" type="Panel" parent="Margin/VBox/RulerSummary"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame")
+
+[node name="PortraitFallback" type="Label" parent="Margin/VBox/RulerSummary/AvatarFrame"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "🧙"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DetailsVBox" type="VBoxContainer" parent="Margin/VBox/RulerSummary"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="NameRow" type="HBoxContainer" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox/NameRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "Lord Aurelius"
+
+[node name="RenameBtn" type="Button" parent="Margin/VBox/RulerSummary/DetailsVBox/NameRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 11
+text = "✏️"
+
+[node name="KingdomLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "🏛️ KINGDOM OF DAWN #42"
+
+[node name="PowerLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 1)
+theme_override_font_sizes/font_size = 12
+text = "PWR: 1.25M"
+
+[node name="AllianceLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "🛡️ DAWN CITADEL [DAWN]"
+
+[node name="VipLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "VIP TIER 4"
+
+[node name="IdLabel" type="Label" parent="Margin/VBox/RulerSummary/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5)
+theme_override_font_sizes/font_size = 9
+text = "PLAYER ID: CS-984251"
+
+[node name="ActiveCustomizations" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FrameNameLabel" type="Label" parent="Margin/VBox/ActiveCustomizations"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "Frame: Royal Filigree"
+
+[node name="TitleLabel" type="Label" parent="Margin/VBox/ActiveCustomizations"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "Title: Sovereign of Dawn"
+
+[node name="TabButtons" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatsTabBtn" type="Button" parent="Margin/VBox/TabButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Statistics"
+
+[node name="AchTabBtn" type="Button" parent="Margin/VBox/TabButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Achievements"
+
+[node name="CustomTabBtn" type="Button" parent="Margin/VBox/TabButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "Customise"
+
+[node name="PanelContent" type="Control" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatsScroll" type="ScrollContainer" parent="Margin/VBox/PanelContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="StatsGrid" type="GridContainer" parent="Margin/VBox/PanelContent/StatsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="AchScroll" type="ScrollContainer" parent="Margin/VBox/PanelContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="AchVBox" type="VBoxContainer" parent="Margin/VBox/PanelContent/AchScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="CustomScroll" type="ScrollContainer" parent="Margin/VBox/PanelContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="CustomVBox" type="VBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="AvatarRow" type="HBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/AvatarRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Ruler Portrait"
+
+[node name="AvatarSelect" type="OptionButton" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/AvatarRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="FrameRow" type="HBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/FrameRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Avatar Frame"
+
+[node name="FrameSelect" type="OptionButton" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/FrameRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="TitleRow" type="HBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/TitleRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Ruler Title"
+
+[node name="TitleSelect" type="OptionButton" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/TitleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="CastleRow" type="HBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/CastleRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "Citadel Castle Skin"
+
+[node name="CastleSelect" type="OptionButton" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/CastleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="MarchRow" type="HBoxContainer" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/MarchRow"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "March Skin Decals"
+
+[node name="MarchSelect" type="OptionButton" parent="Margin/VBox/PanelContent/CustomScroll/CustomVBox/MarchRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="RenamePopup" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_rename_popup")
+
+[node name="Margin" type="MarginContainer" parent="RenamePopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="RenamePopup/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="RenamePopup/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "PROCLAIM NEW NAME"
+horizontal_alignment = 1
+
+[node name="NewNameInput" type="LineEdit" parent="RenamePopup/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+placeholder_text = "Enter Lordly name..."
+alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="RenamePopup/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="RenameCancel" type="Button" parent="RenamePopup/Margin/VBox/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 38)
+layout_mode = 2
+text = "Recant"
+
+[node name="RenameSubmit" type="Button" parent="RenamePopup/Margin/VBox/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 38)
+layout_mode = 2
+text = "Inscribe"

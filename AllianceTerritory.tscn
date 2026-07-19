@@ -1,0 +1,217 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8crspireterritory"]
+
+[ext_resource type="Script" path="res://AllianceTerritory.gd" id="1_territory"]
+
+[node name="AllianceTerritory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_territory")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Split" type="HSplitContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.1
+split_offset = 120
+
+[node name="LeftPanel" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Split/LeftPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Landmark Outposts"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Split/LeftPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Split/LeftPanel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="RightPanel" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+
+[node name="DetailContainer" type="PanelContainer" parent="Layout/Split/RightPanel"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Layout/Split/RightPanel/DetailContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="VBoxContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Structure Name"
+
+[node name="LevelLabel" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 11
+text = "Structure Level: 1 / 5"
+
+[node name="DescLabel" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "Fortress core provides protection barriers over territory nodes."
+autowrap_mode = 2
+
+[node name="ConstructionBox" type="VBoxContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox"]
+layout_mode = 2
+
+[node name="Bar" type="ProgressBar" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/ConstructionBox"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/ConstructionBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "0 / 500,000 Building Supplies"
+horizontal_alignment = 1
+
+[node name="BuffsBox" type="VBoxContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/BuffsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 11
+text = "Landmark Outpost Bonuses"
+
+[node name="Label" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/BuffsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Current Active Buffs: None"
+
+[node name="DonationBox" type="VBoxContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 11
+text = "Contribute Outpost Supplies"
+
+[node name="Grid" type="GridContainer" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 4
+
+[node name="ConstWood" type="Button" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "Wood
+(100k)"
+
+[node name="ConstStone" type="Button" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "Stone
+(50k)"
+
+[node name="ConstIron" type="Button" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "Iron
+(25k)"
+
+[node name="ConstGems" type="Button" parent="Layout/Split/RightPanel/DetailContainer/Margin/VBox/DonationBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+text = "Gems
+(1000)"
+
+[node name="GridSection" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+theme_override_constants/separation = 12
+
+[node name="GridContainer" type="GridContainer" parent="Layout/GridSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 4
+
+[node name="DetailPanel" type="PanelContainer" parent="Layout/GridSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Margin" type="MarginContainer" parent="Layout/GridSection/DetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Layout/GridSection/DetailPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="Layout/GridSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "Crownspire Node"
+
+[node name="PosLabel" type="Label" parent="Layout/GridSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Grid coordinate: [X, Y]"
+
+[node name="StatusLabel" type="Label" parent="Layout/GridSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "Select a coordinate sector to dispatch conquest legions."
+autowrap_mode = 2
+size_flags_vertical = 3
+
+[node name="DeployBtn" type="Button" parent="Layout/GridSection/DetailPanel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "Claim & Garrison"

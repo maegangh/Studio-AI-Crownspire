@@ -1,0 +1,33 @@
+[
+  {
+    "id": "bundle_welcome",
+    "name": "Sovereign Welcome Pack",
+    "description": "Unlock immediate progression with this starter package.",
+    "cost_amount": 4.99,
+    "cost_currency": "USD",
+    "items": [
+      { "item_id": "gold", "quantity": 100000, "name": "Gold", "rarity": "common" },
+      { "item_id": "crystals", "quantity": 500, "name": "Crystals", "rarity": "rare" },
+      { "item_id": "speedup_5m", "quantity": 10, "name": "5m Speedup", "rarity": "common" }
+    ],
+    "value_multiplier": 5,
+    "limit_type": "account",
+    "limit_count": 1
+  },
+  {
+    "id": "bundle_conqueror",
+    "name": "Grand Conqueror Treasury",
+    "description": "A high-tier arsenal boost for the ultimate commander.",
+    "cost_amount": 99.99,
+    "cost_currency": "USD",
+    "items": [
+      { "item_id": "gold", "quantity": 5000000, "name": "Gold", "rarity": "common" },
+      { "item_id": "crystals", "quantity": 12000, "name": "Crystals", "rarity": "epic" },
+      { "item_id": "speedup_1h", "quantity": 50, "name": "1h Speedup", "rarity": "rare" },
+      { "item_id": "hero_shard_gold", "quantity": 50, "name": "Legendary Hero Shards", "rarity": "legendary" }
+    ],
+    "value_multiplier": 8,
+    "limit_type": "weekly",
+    "limit_count": 3
+  }
+]

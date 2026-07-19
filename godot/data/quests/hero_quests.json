@@ -1,0 +1,51 @@
+[
+  {
+    "id": "hero_level_up_maegan",
+    "category_id": "hero",
+    "name": "Maegan's Resolve",
+    "description": "Level up your legendary Defender, Maegan, to unlock her advanced defensive barrier traits.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 30,
+    "objectives": [
+      {
+        "id": "obj_hero_level_maegan",
+        "description": "Level up Maegan to level 15",
+        "type": "hero_upgrade",
+        "target_id": "maegan",
+        "current": 5,
+        "target": 15,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Hero Tokens", "type": "hero_tokens", "quantity": 10, "rarity": 3, "icon": "🎟️" },
+      { "name": "Maegan Shards", "type": "hero_shard", "hero_id": "maegan", "quantity": 5, "rarity": 4, "icon": "🦁" }
+    ]
+  },
+  {
+    "id": "hero_equipment_upgrade_all",
+    "category_id": "hero",
+    "name": "Armory Upgrade",
+    "description": "Upgrade hero equipment items in the blacksmith to increase commander combat power.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 25,
+    "objectives": [
+      {
+        "id": "obj_hero_equip_level",
+        "description": "Upgrade 3 Equipment items to Level 5",
+        "type": "hero_equip_upgrade",
+        "current": 1,
+        "target": 3,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 15000, "rarity": 1, "icon": "🪙" },
+      { "name": "Iron Ores", "type": "iron", "quantity": 5000, "rarity": 2, "icon": "⛓️" }
+    ]
+  }
+]

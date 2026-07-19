@@ -1,0 +1,139 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm5tabs"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailCategoryTabs.gd" id="1_tabs"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailNotificationBadge.tscn" id="2_badge"]
+
+[sub_name="StyleBoxFlat_tab_btn" type="StyleBoxFlat"]
+bg_color = Color(0.1, 0.12, 0.18, 1.0)
+border_width_bottom = 2
+border_color = Color(0.2, 0.25, 0.35, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="MailCategoryTabs" type="Control"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_tabs")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TabAll" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_btn")
+theme_override_font_sizes/font_size = 11
+text = "All"
+
+[node name="BadgeAll" parent="HBoxContainer/TabAll" instance=ExtResource("2_badge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+
+[node name="TabSystem" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_btn")
+theme_override_font_sizes/font_size = 11
+text = "System"
+
+[node name="BadgeSystem" parent="HBoxContainer/TabSystem" instance=ExtResource("2_badge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+
+[node name="TabBattle" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_btn")
+theme_override_font_sizes/font_size = 11
+text = "Combat"
+
+[node name="BadgeBattle" parent="HBoxContainer/TabBattle" instance=ExtResource("2_badge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+
+[node name="TabAlliance" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_btn")
+theme_override_font_sizes/font_size = 11
+text = "Alliance"
+
+[node name="BadgeAlliance" parent="HBoxContainer/TabAlliance" instance=ExtResource("2_badge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 0
+
+[node name="TabEvent" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab_btn")
+theme_override_font_sizes/font_size = 11
+text = "Events"
+
+[node name="BadgeEvent" parent="HBoxContainer/TabEvent" instance=ExtResource("2_badge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -6.0
+offset_right = 4.0
+offset_bottom = 14.0
+grow_horizontal = 0

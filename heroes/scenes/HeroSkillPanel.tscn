@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://b12xt899heroskillpanel"]
+
+[ext_resource type="Script" path="res://heroes/scripts/HeroSkillPanel.gd" id="1_heroskillpanel"]
+
+[node name="HeroSkillPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 95)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_heroskillpanel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SkillIcon" type="Label" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+text = "🌀"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLayout" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TopHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+
+[node name="SkillNameLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skill Name"
+
+[node name="SkillLevelLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "LVL 1/5"
+
+[node name="TypeTagLabel" type="Label" parent="Margin/HBox/TextLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ACTIVE"
+
+[node name="SkillDescLabel" type="Label" parent="Margin/HBox/TextLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill description goes here..."
+autowrap_mode = 2
+
+[node name="UpgradeSkillButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 36)
+layout_mode = 2
+size_flags_vertical = 4
+text = "UPGRADE (5000)"

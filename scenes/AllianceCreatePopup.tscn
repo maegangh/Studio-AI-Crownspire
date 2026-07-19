@@ -1,0 +1,148 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsu24y3u24y19"]
+
+[ext_resource type="Script" path="res://scripts/AllianceCreatePopup.gd" id="1_create"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.0431373, 0.0980392, 0.14902, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.92549, 0.709804, 0.168627, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="AllianceCreatePopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_create")
+
+[node name="Popup" type="Panel" parent="."]
+custom_minimum_size = Vector2(460, 520)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -260.0
+offset_right = 230.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Title" type="Label" parent="Popup"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "👑 FOUND NEW ALLIANCE"
+horizontal_alignment = 1
+
+[node name="LblName" type="Label" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 430.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 15
+text = "Alliance Name"
+
+[node name="NameInput" type="LineEdit" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 115.0
+offset_right = 430.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 15
+placeholder_text = "E.g., Zenith Watchers"
+
+[node name="LblTag" type="Label" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 190.0
+offset_right = 430.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 15
+text = "Alliance Tag (3-4 characters)"
+
+[node name="TagInput" type="LineEdit" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 225.0
+offset_right = 430.0
+offset_bottom = 275.0
+theme_override_font_sizes/font_size = 15
+max_length = 4
+placeholder_text = "E.g., ZEN"
+
+[node name="LblFlag" type="Label" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 300.0
+offset_right = 430.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 15
+text = "Imperial Banner Insignia"
+
+[node name="FlagOptions" type="OptionButton" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 335.0
+offset_right = 430.0
+offset_bottom = 385.0
+theme_override_font_sizes/font_size = 15
+
+[node name="CostLabel" type="Label" parent="Popup"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.231373, 0.690196, 0.952941, 1)
+text = "Creation Fee: 500 Royal Crystals"
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="Popup"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -80.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BtnClose" type="Button" parent="Popup/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Close"
+
+[node name="BtnCreate" type="Button" parent="Popup/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "👑 Create"

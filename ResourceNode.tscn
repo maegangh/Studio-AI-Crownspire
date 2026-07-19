@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8v6k73o29t4q"]
+
+[ext_resource type="Script" path="res://ResourceNode.gd" id="1_rnode"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_click"]
+radius = 48.0
+
+[node name="ResourceNode" type="Node2D"]
+script = ExtResource("1_rnode")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource("CircleShape2D_click")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -80.0
+offset_top = -90.0
+offset_right = 80.0
+offset_bottom = -10.0
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="NameLabel" type="Label" parent="UI/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 11
+text = "Food Farm Lvl 1"
+horizontal_alignment = 1
+
+[node name="AmountLabel" type="Label" parent="UI/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+text = "10,000 / 10,000"
+horizontal_alignment = 1
+
+[node name="GatheringProgress" type="ProgressBar" parent="UI/Panel/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+show_percentage = false
+
+[node name="TimerLabel" type="Label" parent="UI/Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.8, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 9
+text = "⛏️ Gathering 2.5s"
+horizontal_alignment = 1

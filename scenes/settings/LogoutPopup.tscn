@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb5s0a8m9425c"]
+
+[ext_resource type="Script" path="res://scripts/settings/LogoutPopup.gd" id="1_logout"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_popup"]
+bg_color = Color(0.0588235, 0.0784314, 0.117647, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.92549, 0.352941, 0.352941, 0.9)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 10
+
+[node name="LogoutPopup" type="Panel"]
+custom_minimum_size = Vector2(480, 240)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -120.0
+offset_right = 240.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_popup")
+script = ExtResource("1_logout")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92549, 0.352941, 0.352941, 1)
+theme_override_font_sizes/font_size = 18
+text = "DEPART CITADEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BodyLabel" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 13
+text = "Are you absolutely certain you wish to return your profile to the sanctum vault? Your local city will sleep in peace until you return."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="Margin/Layout/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Remain Lord"
+
+[node name="ConfirmButton" type="Button" parent="Margin/Layout/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Exit Vault"

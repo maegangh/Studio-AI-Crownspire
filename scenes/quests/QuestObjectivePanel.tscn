@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://quobj1"]
+
+[ext_resource type="Script" path="res://scripts/quests/QuestObjectivePanel.gd" id="1_qobj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obj"]
+bg_color = Color(0.06, 0.08, 0.12, 0.8)
+border_width_bottom = 1
+border_color = Color(0.12, 0.15, 0.22, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_name="LabelSettings_obj_desc" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.85, 0.9, 0.95, 1.0)
+
+[sub_name="LabelSettings_obj_prog" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.6, 0.7, 0.8, 1.0)
+
+[sub_name="LabelSettings_checkmark" type="LabelSettings"]
+font_size = 14
+
+[node name="QuestObjectivePanel" type="Panel"]
+custom_minimum_size = Vector2(600, 36)
+offset_right = 600.0
+offset_bottom = 36.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_obj")
+script = ExtResource("1_qobj")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="VSeparator" type="VSeparator" parent="HBox"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="Checkmark" type="Label" parent="HBox"]
+layout_mode = 2
+text = "⭕"
+label_settings = SubResource("LabelSettings_checkmark")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DescLabel" type="Label" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Construct Military Barracks"
+label_settings = SubResource("LabelSettings_obj_desc")
+vertical_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="HBox"]
+layout_mode = 2
+text = "0 / 1"
+label_settings = SubResource("LabelSettings_obj_prog")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="HBox"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2

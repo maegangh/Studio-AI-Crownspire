@@ -1,0 +1,159 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm4filter"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailFilterMenu.gd" id="1_filter"]
+
+[sub_name="StyleBoxFlat_btn" type="StyleBoxFlat"]
+bg_color = Color(0.12, 0.15, 0.22, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.3, 0.45, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="StyleBoxFlat_opt_panel" type="StyleBoxFlat"]
+bg_color = Color(0.08, 0.1, 0.16, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.3, 0.45, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+
+[node name="MailFilterMenu" type="Control"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_filter")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="FilterButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_font_sizes/font_size = 13
+text = "🔍 All Inbox"
+
+[node name="SortButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_font_sizes/font_size = 13
+text = "⇅ Newest Date"
+
+[node name="FilterOptionsPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_top = 48.0
+offset_bottom = 224.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_opt_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FilterOptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="FilterAll" type="Button" parent="FilterOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "All Messages"
+flat = true
+
+[node name="FilterUnread" type="Button" parent="FilterOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Unread Only"
+flat = true
+
+[node name="FilterRewards" type="Button" parent="FilterOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Claimable Rewards"
+flat = true
+
+[node name="FilterWins" type="Button" parent="FilterOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Combat Wins"
+flat = true
+
+[node name="FilterLosses" type="Button" parent="FilterOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Combat Losses"
+flat = true
+
+[node name="SortOptionsPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+offset_top = 48.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_opt_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SortOptionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="SortNewest" type="Button" parent="SortOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Newest Date"
+flat = true
+
+[node name="SortOldest" type="Button" parent="SortOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Oldest Date"
+flat = true
+
+[node name="SortExpiring" type="Button" parent="SortOptionsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "Expiring Soon"
+flat = true

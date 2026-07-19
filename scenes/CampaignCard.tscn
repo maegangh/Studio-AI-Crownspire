@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy19muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/CampaignCard.gd" id="1_e7b8f"]
+
+[node name="CampaignCard" type="PanelContainer"]
+custom_minimum_size = Vector2(660, 220)
+offset_right = 660.0
+offset_bottom = 220.0
+size_flags_horizontal = 3
+script = ExtResource("1_e7b8f")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderRow" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="CampaignTitle" type="Label" parent="Margin/Layout/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 15
+text = "AGE OF DAWN: KINGDOM LAUNCH"
+vertical_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="Margin/Layout/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0, 0.82, 1.0, 1)
+theme_override_font_sizes/font_size = 12
+text = "45 / 150 MARKS"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CampaignDesc" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "Complete your daily administrative activities to gather Dawn Seals and claim rare crystal chests."
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="ProgressSection" type="VBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ProgressBar" type="ProgressBar" parent="Margin/Layout/ProgressSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="ChestsContainer" type="HBoxContainer" parent="Margin/Layout/ProgressSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1

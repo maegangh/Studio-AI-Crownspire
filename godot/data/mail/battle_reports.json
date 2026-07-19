@@ -1,0 +1,161 @@
+[
+	{
+		"id": "bat_wildling_01",
+		"category_id": "battle",
+		"sender": "Aurelius' Vanguard",
+		"title": "Victory: Wildling Camp Level 6 Devastation!",
+		"body": "Commander, your Vanguard has successfully crushed a Level 6 Wildling outpost. The barbarians fled in panic, leaving behind stockpiled goods and crystalline materials.",
+		"timestamp": 1783231200,
+		"expires_in_days": 15,
+		"read": false,
+		"claimed": false,
+		"battle_info": {
+			"type": "wildling",
+			"winner": "Lord Aurelius",
+			"loser": "Kargath the Wildling",
+			"coordinates": "(X: 342, Y: 198)",
+			"my_power": 450000,
+			"enemy_power": 320000,
+			"my_troop_losses": 124,
+			"enemy_troop_losses": 1420,
+			"resources_gained": {
+				"food": 8000,
+				"wood": 6000
+			}
+		},
+		"attachments": [
+			{
+				"id": "gold",
+				"type": "gold",
+				"name": "Sovereign Gold",
+				"quantity": 2500,
+				"icon": "🪙"
+			},
+			{
+				"id": "item_speedup_15m",
+				"type": "speedup_15m",
+				"name": "15m Generic Speedup",
+				"quantity": 2,
+				"icon": "⚡"
+			}
+		]
+	},
+	{
+		"id": "bat_pvp_02",
+		"category_id": "battle",
+		"sender": "Garrison Commander",
+		"title": "Defeat: Defended Outpost against Lady Seraphina",
+		"body": "Commander, a massive strike force from Lady Seraphina's alliance launched an assault on our Crystal Outpost. Despite a heroic defense, our walls were breached, and we lost territory controls.",
+		"timestamp": 1783195200,
+		"expires_in_days": 15,
+		"read": false,
+		"claimed": true,
+		"battle_info": {
+			"type": "pvp",
+			"winner": "Lady Seraphina",
+			"loser": "Lord Aurelius",
+			"coordinates": "(X: 124, Y: 567)",
+			"my_power": 620000,
+			"enemy_power": 850000,
+			"my_troop_losses": 3450,
+			"enemy_troop_losses": 2180,
+			"resources_gained": {}
+		},
+		"attachments": []
+	},
+	{
+		"id": "bat_gather_03",
+		"category_id": "battle",
+		"sender": "Gathering Convoy",
+		"title": "Gathering Report: Ruined Crystal Quarry Sweep",
+		"body": "Your gathering expedition has safely returned from the Ruined Crystal Quarry. The transport carts are fully loaded with ore and crystallite debris.",
+		"timestamp": 1783188000,
+		"expires_in_days": 15,
+		"read": true,
+		"claimed": false,
+		"battle_info": {
+			"type": "gather",
+			"winner": "Lord Aurelius",
+			"loser": "N/A",
+			"coordinates": "(X: 450, Y: 450)",
+			"my_power": 120000,
+			"enemy_power": 0,
+			"my_troop_losses": 0,
+			"enemy_troop_losses": 0,
+			"resources_gained": {
+				"iron": 15000,
+				"stone": 10000
+			}
+		},
+		"attachments": [
+			{
+				"id": "item_vault_artifact",
+				"type": "vault_artifact",
+				"name": "Unidentified Vault Artifact",
+				"quantity": 1,
+				"icon": "🏺"
+			}
+		]
+	},
+	{
+		"id": "bat_scout_04",
+		"category_id": "battle",
+		"sender": "Falcon Scouting Unit",
+		"title": "Scout Report: Blackwood Castle Layout",
+		"body": "Our scouts infiltrated the perimeter of Blackwood Castle. We successfully gathered detailed data regarding their garrison levels, resource stockpiles, and active hero guards.",
+		"timestamp": 1783162800,
+		"expires_in_days": 7,
+		"read": true,
+		"claimed": true,
+		"battle_info": {
+			"type": "scout",
+			"winner": "Lord Aurelius",
+			"loser": "Sovereign Blackwood",
+			"coordinates": "(X: 890, Y: 112)",
+			"my_power": 15000,
+			"enemy_power": 1200000,
+			"my_troop_losses": 0,
+			"enemy_troop_losses": 0,
+			"resources_gained": {}
+		},
+		"attachments": []
+	},
+	{
+		"id": "bat_vault_05",
+		"category_id": "battle",
+		"sender": "Crystal Vault Custodian",
+		"title": "Victory: Crystal Vault Trial Level 15",
+		"body": "Commander, you have successfully cleared Level 15 of the Crystal Vault trial. The ancestral guardian core has been safely extracted.",
+		"timestamp": 1783144800,
+		"expires_in_days": 30,
+		"read": true,
+		"claimed": false,
+		"battle_info": {
+			"type": "vault",
+			"winner": "Lord Aurelius",
+			"loser": "Ancient Stone Sentinel",
+			"coordinates": "Vault Level 15",
+			"my_power": 850000,
+			"enemy_power": 900000,
+			"my_troop_losses": 412,
+			"enemy_troop_losses": 0,
+			"resources_gained": {}
+		},
+		"attachments": [
+			{
+				"id": "crystal_vault_coins",
+				"type": "crystal_vault_coins",
+				"name": "Crystal Vault Coins",
+				"quantity": 500,
+				"icon": "🪙"
+			},
+			{
+				"id": "hero_tokens",
+				"type": "hero_tokens",
+				"name": "Legendary Hero Tokens",
+				"quantity": 2,
+				"icon": "🎟️"
+			}
+		]
+	}
+]

@@ -1,0 +1,16 @@
+{
+  "resource_food_100k": 25,
+  "resource_wood_100k": 20,
+  "resource_stone_50k": 10,
+  "resource_iron_25k": 8,
+  "resource_diamond_1000": 3,
+  "speedup_research_1h": 15,
+  "speedup_construction_1h": 12,
+  "speedup_universal_5m": 45,
+  "hero_xp_potion_large": 6,
+  "statue_hero_shard": 15,
+  "eq_weapon_recruit_s_training": 1,
+  "eq_helmet_recruit_s_training": 1,
+  "crafting_stardust_gem": 30,
+  "chest_golden_crown": 4
+}

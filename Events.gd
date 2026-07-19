@@ -1,0 +1,1318 @@
+# ==============================================================================
+# Crownspire MMO Strategy Game - Royal Event Center & Battle Pass Controller
+# Godot 4 / GDScript 2.0 client-side event manager
+# ==============================================================================
+
+extends Control
+
+# --- Signals ---
+signal add_log_requested(text, type)
+signal events_closed
+
+# --- Save Paths ---
+const EVENTS_SAVE_PATH = "user://crownspire_events_v1.save"
+const BAG_SAVE_PATH = "user://crownspire_bag_inventory_v1.save"
+
+# --- Onready Nodes ---
+@onready var close_btn: Button = $Layout/Header/Margin/HBox/CloseButton
+@onready var category_tab_box: HBoxContainer = $Layout/TabScroll/TabBox
+@onready var events_list_box: VBoxContainer = $Layout/Content/HSplit/LeftPanel/Scroll/List
+
+# --- Currency Counters ---
+@onready var gold_label: Label = $Layout/Header/Margin/HBox/Currencies/GoldBox/Value
+@onready var diamonds_label: Label = $Layout/Header/Margin/HBox/Currencies/DiamondBox/Value
+@onready var vip_label: Label = $Layout/Header/Margin/HBox/Currencies/VIPBox/Value
+
+# --- Detail View Nodes ---
+@onready var right_detail_empty: PanelContainer = $Layout/Content/HSplit/RightPanel/EmptyPrompt
+@onready var right_detail_normal: ScrollContainer = $Layout/Content/HSplit/RightPanel/EventDetailsScroll
+@onready var right_detail_bp: ScrollContainer = $Layout/Content/HSplit/RightPanel/BPDetailsScroll
+
+# --- Normal Event Detail Nodes ---
+@onready var det_type_badge: PanelContainer = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/TypeBadge
+@onready var det_type_lbl: Label = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/TypeBadge/Margin/Label
+@onready var det_title_lbl: Label = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/Title
+@onready var det_timer_lbl: Label = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/Timer
+@onready var det_desc_lbl: Label = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Desc
+@onready var det_progress_bar: ProgressBar = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ProgressSection/Bar
+@onready var det_progress_lbl: Label = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ProgressSection/HBox/Label
+
+# --- Milestone Chest Boxes (Tiered Rewards) ---
+@onready var milestone_container: HBoxContainer = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/MilestonesSection/Grid
+
+# --- Simulated Action Interactive Work Panel ---
+@onready var quest_container: VBoxContainer = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ActionsSection/QuestList
+
+# --- Leaderboard Panel ---
+@onready var leaderboard_container: VBoxContainer = $Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/LeaderboardSection/LeaderboardList
+
+# --- Battle Pass Nodes ---
+@onready var bp_progress_bar: ProgressBar = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/ProgressBox/Bar
+@onready var bp_level_lbl: Label = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/ProgressBox/LevelLbl
+@onready var bp_xp_lbl: Label = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/ProgressBox/XpLbl
+@onready var bp_unlock_premium_btn: Button = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/UnlockPremiumBtn
+@onready var bp_gain_xp_btn: Button = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/GainXpBtn
+@onready var bp_list_container: VBoxContainer = $Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/TiersSection/TiersList
+
+# --- Toast System ---
+@onready var toast_notification: PanelContainer = $ToastNotification
+@onready var toast_label: Label = $ToastNotification/ToastLabel
+
+# --- Internal State Database ---
+var _inventory: Dictionary = {}
+var _events_db: Dictionary = {}
+var _active_category: String = "All"
+var _selected_event_id: String = ""
+var _toast_timer: Timer
+
+# --- Master Category Listing ---
+const CATEGORIES = ["All", "Server", "Alliance", "Personal", "Season", "Battle Pass"]
+
+# --- Simulated Timer Seconds ---
+var _simulated_timers: Dictionary = {
+	"server_fortification": 124200.0, # ~34 hours
+	"alliance_frontier": 41800.0,     # ~11 hours
+	"personal_speedup": 18200.0,      # ~5 hours
+	"season_magma": 348200.0          # ~96 hours
+}
+
+# --- Event Configurations ---
+var _events_catalog: Dictionary = {
+	"server_fortification": {
+		"id": "server_fortification",
+		"type": "server",
+		"name": "Crownspire Sovereign Inauguration",
+		"desc": "The Celestial Spire prepares to crown its first true king. All Lords in the continent must construct fortress bastions, fortify walls, and expand territory bounds to sustain the realm's ascension.",
+		"max_target": 12000,
+		"milestones": [
+			{"target": 2000, "reward_id": "resource_food_100k", "amount": 5, "desc": "5x 100k Food Packs"},
+			{"target": 6000, "reward_id": "speedup_construction_1h", "amount": 8, "desc": "8x 1h Builders"},
+			{"target": 12000, "reward_id": "resource_diamond_1000", "amount": 3, "desc": "3,000 Diamonds"}
+		],
+		"actions": [
+			{"id": "sf_wall", "label": "Upgrade City Walls & Bastions", "points": 1500, "desc": "Contribute 250k Wood to erect heavy bastion fortifications."},
+			{"id": "sf_guards", "label": "Draft Sovereign Elite Sentinels", "points": 800, "desc": "Train high-tier garrison infantry to defend inner courtyards."}
+		],
+		"rivals": [
+			{"name": "Sovereign Ronald", "alliance": "VALR", "score": 11500},
+			{"name": "Queen Maegan", "alliance": "CSTLE", "score": 9800},
+			{"name": "Duke Alistair", "alliance": "SVRN", "score": 8200},
+			{"name": "Baron Cedric", "alliance": "VNGD", "score": 5400}
+		]
+	},
+	"alliance_frontier": {
+		"id": "alliance_frontier",
+		"type": "alliance",
+		"name": "Wasteland Frontier Alliance Rally",
+		"desc": "Coordinate active campaign marches with your alliance brothers. Cleanse peripheral rogue bandit outposts, capture deep obsidian mines, and erect territory towers to dominate the sector.",
+		"max_target": 8000,
+		"milestones": [
+			{"target": 1500, "reward_id": "resource_stone_50k", "amount": 6, "desc": "6x 50k Granite Slates"},
+			{"target": 4000, "reward_id": "speedup_training_1h", "amount": 6, "desc": "6x 1h Training Orders"},
+			{"target": 8000, "reward_id": "statue_hero_shard", "amount": 6, "desc": "6x Valkyrie Shards"}
+		],
+		"actions": [
+			{"id": "af_outpost", "label": "Launch Coalition Rally on Outpost", "points": 1000, "desc": "Deploy active war march to eliminate high-level rogue fortresses."},
+			{"id": "af_funds", "label": "Donate Tech Resources to Treasury", "points": 500, "desc": "Inject raw minerals to speed up active Alliance research."}
+		],
+		"rivals": [
+			{"name": "Lord Brandon", "alliance": "VALR", "score": 7800},
+			{"name": "Lady Cassandra", "alliance": "CSTLE", "score": 6200},
+			{"name": "Prince Daniel", "alliance": "SVRN", "score": 3900},
+			{"name": "Elder Gabriel", "alliance": "VNGD", "score": 2100}
+		]
+	},
+	"personal_speedup": {
+		"id": "personal_speedup",
+		"type": "personal",
+		"name": "Lord's Solo Apex Speed-Up Boost",
+		"desc": "Unleash speed boosters and universal construction scrolls. Fast-track your academy tech branches and resource quarries to prove your personal kingdom optimization is the finest in the realm.",
+		"max_target": 6000,
+		"milestones": [
+			{"target": 1000, "reward_id": "resource_iron_25k", "amount": 6, "desc": "6x 25k Iron Ore"},
+			{"target": 3000, "reward_id": "speedup_research_1h", "amount": 8, "desc": "8x 1h Research Scrolls"},
+			{"target": 6000, "reward_id": "crafting_stardust_gem", "amount": 8, "desc": "8x Forge Crystals"}
+		],
+		"actions": [
+			{"id": "ps_universal", "label": "Trigger 1-Hour Speed Booster", "points": 400, "desc": "Deploy rush scrolls to complete current queue projects instantly."},
+			{"id": "ps_academy", "label": "Decrypt High Military Academy Tech", "points": 1000, "desc": "Complete deep tech research to increase army defense ratios."}
+		],
+		"rivals": [
+			{"name": "Lord Michael", "alliance": "SVRN", "score": 5800},
+			{"name": "Valkyrie Sarah", "alliance": "VALR", "score": 4200},
+			{"name": "Sir Robert", "alliance": "VNGD", "score": 3100},
+			{"name": "Earl Arthur", "alliance": "CSTLE", "score": 1500}
+		]
+	},
+	"season_magma": {
+		"id": "season_magma",
+		"type": "season",
+		"name": "Magma Overlord Volcanic Scourge",
+		"desc": "Deep magma ruptures have awakened Fire Giant generals. Coordinate Realm defense lines, erect frost-canopies over boundary cities, and banish magma invaders to extract volcanic Obsidian forging plates.",
+		"max_target": 15000,
+		"milestones": [
+			{"target": 3000, "reward_id": "resource_wood_100k", "amount": 10, "desc": "10x 100k Wood Packs"},
+			{"target": 8000, "reward_id": "crafting_obsidian", "amount": 5, "desc": "5x Volcanic Obsidian Plates"},
+			{"target": 15000, "reward_id": "cosmetic_neon_frame", "amount": 1, "desc": "Neon Cybernetic Frame"}
+		],
+		"actions": [
+			{"id": "sm_giant", "label": "Banish Magma Giant Invader", "points": 1500, "desc": "Simulate heavy defensive tactics against magma siege behemoths."},
+			{"id": "sm_shield", "label": "Deploy Frost-Dome Thermic Shields", "points": 600, "desc": "Erect thermal boundary devices adjacent to volcanic fissures."}
+		],
+		"rivals": [
+			{"name": "Emperor Zhao", "alliance": "DRGN", "score": 14200},
+			{"name": "Warlord Ragnar", "alliance": "NORSE", "score": 12800},
+			{"name": "Grandmaster Luke", "alliance": "VALR", "score": 9500},
+			{"name": "Dutchess Helen", "alliance": "CSTLE", "score": 5100}
+		]
+	}
+}
+
+# --- Battle Pass Levels Config ---
+var _bp_catalog: Array = [
+	{
+		"level": 1,
+		"xp_needed": 1000,
+		"free_reward": {"id": "resource_food_100k", "amount": 2, "desc": "2x 100k Food Packs"},
+		"premium_reward": {"id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds"}
+	},
+	{
+		"level": 2,
+		"xp_needed": 1000,
+		"free_reward": {"id": "speedup_universal_5m", "amount": 15, "desc": "15x 5m Speedups"},
+		"premium_reward": {"id": "statue_hero_shard", "amount": 3, "desc": "3x Valkyrie Shards"}
+	},
+	{
+		"level": 3,
+		"xp_needed": 1000,
+		"free_reward": {"id": "resource_stone_50k", "amount": 4, "desc": "4x 50k Stones"},
+		"premium_reward": {"id": "crafting_stardust_gem", "amount": 3, "desc": "3x Forge Crystals"}
+	},
+	{
+		"level": 4,
+		"xp_needed": 1000,
+		"free_reward": {"id": "speedup_construction_1h", "amount": 3, "desc": "3x 1h Builders"},
+		"premium_reward": {"id": "crafting_obsidian", "amount": 2, "desc": "2x Volcanic Obsidian"}
+	},
+	{
+		"level": 5,
+		"xp_needed": 1000,
+		"free_reward": {"id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds"},
+		"premium_reward": {"id": "cosmetic_castle_skin_lava", "amount": 1, "desc": "Volcanic Citadels Skin"}
+	}
+]
+
+# ==============================================================================
+# LIFECYCLE INITIALIZATION
+# ==============================================================================
+
+func _ready() -> void:
+	print("[Events] Launching Grand Event Center & Battle Pass...")
+	
+	# Load client saves
+	_load_inventory_state()
+	_load_events_state()
+	
+	# Toast timer
+	_toast_timer = Timer.new()
+	_toast_timer.one_shot = true
+	_toast_timer.wait_time = 2.5
+	_toast_timer.timeout.connect(_on_toast_timeout)
+	add_child(_toast_timer)
+	
+	# Close signals
+	close_btn.pressed.connect(_on_close_pressed)
+	
+	# Battle pass interactions
+	bp_unlock_premium_btn.pressed.connect(_on_unlock_premium_pass_pressed)
+	bp_gain_xp_btn.pressed.connect(_on_gain_bp_xp_pressed)
+	
+	# Layout
+	_setup_horizontal_tabs()
+	_refresh_overall_ui()
+	
+	# Auto-select first event card if list is not empty
+	_select_default_event()
+
+func _process(delta: float) -> void:
+	# Tick event timers down
+	for key in _simulated_timers.keys():
+		_simulated_timers[key] -= delta
+		if _simulated_timers[key] < 0:
+			_simulated_timers[key] = 172800.0 # automatic simulated restart loop
+			
+	# Update active detail timers
+	_update_active_timers_display()
+
+# ==============================================================================
+# DATA LOADING & PERSISTENCE
+# ==============================================================================
+
+func _load_inventory_state() -> void:
+	_inventory = {}
+	if FileAccess.file_exists(BAG_SAVE_PATH):
+		var file = FileAccess.open(BAG_SAVE_PATH, FileAccess.READ)
+		if file:
+			var content = file.get_as_text()
+			file.close()
+			var json = JSON.new()
+			if json.parse(content) == OK:
+				var data = json.get_data()
+				if typeof(data) == TYPE_DICTIONARY:
+					_inventory = data
+					
+	# Fallbacks to ensure user starts with a testing balance
+	var updated = false
+	if not _inventory.has("diamonds"):
+		_inventory["diamonds"] = 28500
+		updated = true
+	if not _inventory.has("gold"):
+		_inventory["gold"] = 1250000
+		updated = true
+	if not _inventory.has("vip_points"):
+		_inventory["vip_points"] = 5400
+		updated = true
+		
+	if updated:
+		_save_inventory_to_disk()
+
+func _save_inventory_to_disk() -> void:
+	var file = FileAccess.open(BAG_SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(_inventory))
+		file.close()
+
+func _load_events_state() -> void:
+	_events_db = {}
+	if FileAccess.file_exists(EVENTS_SAVE_PATH):
+		var file = FileAccess.open(EVENTS_SAVE_PATH, FileAccess.READ)
+		if file:
+			var content = file.get_as_text()
+			file.close()
+			var json = JSON.new()
+			if json.parse(content) == OK:
+				var data = json.get_data()
+				if typeof(data) == TYPE_DICTIONARY:
+					_events_db = data
+					
+	# Bootstrap defaults if empty
+	var updated = false
+	if not _events_db.has("scores"):
+		_events_db["scores"] = {
+			"server_fortification": 1500,
+			"alliance_frontier": 500,
+			"personal_speedup": 2500,
+			"season_magma": 0,
+			"bp_xp": 1200 # Battle pass starts at level 2 (cumulative 1200 xp)
+		}
+		updated = true
+		
+	if not _events_db.has("claimed_milestones"):
+		_events_db["claimed_milestones"] = {
+			"server_fortification": [], # indices of claimed milestones
+			"alliance_frontier": [],
+			"personal_speedup": [],
+			"season_magma": [],
+			"bp_free": [],      # Level numbers of claimed rewards
+			"bp_premium": []    # Level numbers of claimed rewards
+		}
+		updated = true
+		
+	if not _events_db.has("bp_premium_unlocked"):
+		_events_db["bp_premium_unlocked"] = false
+		updated = true
+		
+	if updated:
+		_save_events_to_disk()
+
+func _save_events_to_disk() -> void:
+	var file = FileAccess.open(EVENTS_SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(_events_db))
+		file.close()
+
+# ==============================================================================
+# UI GENERATOR & STATE REFRESHERS
+# ==============================================================================
+
+func _setup_horizontal_tabs() -> void:
+	for child in category_tab_box.get_children():
+		child.queue_free()
+		
+	for cat in CATEGORIES:
+		var btn = Button.new()
+		btn.text = "   " + cat + "   "
+		btn.custom_minimum_size = Vector2(90, 36)
+		btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		btn.focus_mode = Control.FOCUS_NONE
+		
+		var cap_cat = cat
+		btn.pressed.connect(func(): _on_category_selected(cap_cat))
+		category_tab_box.add_child(btn)
+		
+	_update_category_decorations()
+
+func _update_category_decorations() -> void:
+	var children = category_tab_box.get_children()
+	for i in range(children.size()):
+		var btn = children[i] as Button
+		if not btn: continue
+		
+		var cat_name = CATEGORIES[i]
+		var is_active = (cat_name == _active_category)
+		
+		var style = StyleBoxFlat.new()
+		if is_active:
+			style.bg_color = Color(0.90, 0.47, 0.08, 1) # Golden Orange Accent
+			btn.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		else:
+			style.bg_color = Color(0.10, 0.12, 0.15, 1)
+			btn.add_theme_color_override("font_color", Color(0.65, 0.70, 0.75, 1))
+			
+		style.corner_radius_top_left = 6
+		style.corner_radius_top_right = 6
+		style.corner_radius_bottom_right = 6
+		style.corner_radius_bottom_left = 6
+		
+		btn.add_theme_stylebox_override("normal", style)
+		btn.add_theme_stylebox_override("hover", style)
+		btn.add_theme_stylebox_override("pressed", style)
+		btn.add_theme_stylebox_override("focus", style)
+		
+		# Notification Badge dots for unclaimed rewards!
+		for c in btn.get_children():
+			if c.name == "RedAlertDot":
+				c.queue_free()
+				
+		if _has_category_unclaimed_rewards(cat_name):
+			var dot = PanelContainer.new()
+			dot.name = "RedAlertDot"
+			dot.custom_minimum_size = Vector2(8, 8)
+			dot.size_flags_horizontal = Control.SIZE_SHRINK_END
+			dot.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+			
+			var dot_style = StyleBoxFlat.new()
+			dot_style.bg_color = Color(0.9, 0.1, 0.15, 1) # Hot Crimson
+			dot_style.corner_radius_top_left = 4
+			dot_style.corner_radius_top_right = 4
+			dot_style.corner_radius_bottom_right = 4
+			dot_style.corner_radius_bottom_left = 4
+			dot.add_theme_stylebox_override("panel", dot_style)
+			
+			btn.add_child(dot)
+			dot.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+			dot.position = Vector2(btn.size.x - 6, -2)
+
+func _has_category_unclaimed_rewards(category: String) -> bool:
+	if category == "All":
+		for cat in ["Server", "Alliance", "Personal", "Season", "Battle Pass"]:
+			if _has_category_unclaimed_rewards(cat): return true
+		return false
+		
+	if category == "Battle Pass":
+		# Check free BP rewards
+		var xp = _events_db.get("scores", {}).get("bp_xp", 0)
+		var current_lvl = _get_bp_level_from_xp(xp)
+		var premium_unlocked = _events_db.get("bp_premium_unlocked", false)
+		
+		var claimed_free = _events_db.get("claimed_milestones", {}).get("bp_free", [])
+		var claimed_prem = _events_db.get("claimed_milestones", {}).get("bp_premium", [])
+		
+		for level in range(1, current_lvl + 1):
+			if level <= 5:
+				if not level in claimed_free: return true
+				if premium_unlocked and not level in claimed_prem: return true
+		return false
+		
+	# Check standard catalog events
+	for ev_id in _events_catalog.keys():
+		var event = _events_catalog[ev_id]
+		if event.get("type").to_lower() == category.to_lower():
+			var score = _events_db.get("scores", {}).get(ev_id, 0)
+			var claimed = _events_db.get("claimed_milestones", {}).get(ev_id, [])
+			var milestones = event.get("milestones", [])
+			for i in range(milestones.size()):
+				if score >= milestones[i].get("target") and not i in claimed:
+					return true
+	return false
+
+func _refresh_overall_ui() -> void:
+	# Refresh currency counters
+	var gold = _inventory.get("gold", 0)
+	var diamonds = _inventory.get("diamonds", 0)
+	var vip_pts = _inventory.get("vip_points", 0)
+	var vip_lvl = clamp(1 + int(vip_pts / 1000.0), 1, 15)
+	
+	gold_label.text = "🪙 " + _format_large_number(gold)
+	diamonds_label.text = "💎 " + _format_large_number(diamonds)
+	vip_label.text = "👑 VIP " + str(vip_lvl)
+	
+	# Tabs alert dots
+	_update_category_decorations()
+	
+	# Clear & Rebuild left event lists
+	_clear_container(events_list_box)
+	
+	# Generate list of matches
+	var matches: Array = []
+	
+	# Special Battle Pass list entry
+	if _active_category == "All" or _active_category == "Battle Pass":
+		var bp_entry = {
+			"id": "battle_pass",
+			"type": "battle pass",
+			"name": "Vanguard Valor: Season I",
+			"desc": "Advance tier stages to reap exclusive legendary equipment and stardust fragments.",
+			"score": _events_db.get("scores", {}).get("bp_xp", 0) % 1000,
+			"max_target": 1000,
+			"rank": 3,
+			"seconds_left": 348200.0 # Synced to season duration
+		}
+		matches.append(bp_entry)
+		
+	for ev_id in _events_catalog.keys():
+		var cfg = _events_catalog[ev_id]
+		if _active_category == "All" or cfg.get("type").to_lower() == _active_category.to_lower():
+			var card_data = {
+				"id": ev_id,
+				"type": cfg.get("type"),
+				"name": cfg.get("name"),
+				"desc": cfg.get("desc"),
+				"score": _events_db.get("scores", {}).get(ev_id, 0),
+				"max_target": cfg.get("max_target"),
+				"rank": _compute_player_rank(ev_id),
+				"seconds_left": _simulated_timers.get(ev_id, 3600.0)
+			}
+			matches.append(card_data)
+			
+	for m_data in matches:
+		var card_inst = preload("res://EventCard.tscn").instantiate()
+		events_list_box.add_child(card_inst)
+		card_inst.setup_card(m_data)
+		card_inst.view_details_requested.connect(_on_event_card_selected)
+
+func _select_default_event() -> void:
+	if events_list_box.get_child_count() > 0:
+		var first_card = events_list_box.get_child(0)
+		if first_card:
+			_on_event_card_selected(first_card._event_data.get("id"))
+	else:
+		_hide_all_detail_panels()
+
+func _hide_all_detail_panels() -> void:
+	right_detail_empty.visible = true
+	right_detail_normal.visible = false
+	right_detail_bp.visible = false
+
+# ==============================================================================
+# DETAIL PANEL CONTROLLERS
+# ==============================================================================
+
+func _on_event_card_selected(event_id: String) -> void:
+	_selected_event_id = event_id
+	
+	if event_id == "battle_pass":
+		_open_battle_pass_details()
+	else:
+		_open_standard_event_details(event_id)
+
+func _open_standard_event_details(event_id: String) -> void:
+	right_detail_empty.visible = false
+	right_detail_bp.visible = false
+	right_detail_normal.visible = true
+	
+	var event = _events_catalog.get(event_id)
+	if not event: return
+	
+	det_title_lbl.text = event.get("name")
+	det_desc_lbl.text = event.get("desc")
+	
+	# Type Badge
+	var type_str = event.get("type", "personal")
+	det_type_lbl.text = type_str.to_upper()
+	var type_style = StyleBoxFlat.new()
+	type_style.corner_radius_top_left = 4
+	type_style.corner_radius_top_right = 4
+	type_style.corner_radius_bottom_right = 4
+	type_style.corner_radius_bottom_left = 4
+	
+	var accent_color = Color(0.6, 0.65, 0.7, 1)
+	match type_str.to_lower():
+		"server": accent_color = Color(0.9, 0.2, 0.2, 1)
+		"alliance": accent_color = Color(0.19, 0.48, 0.82, 1)
+		"personal": accent_color = Color(0.15, 0.68, 0.37, 1)
+		"season": accent_color = Color(0.95, 0.75, 0.15, 1)
+	type_style.bg_color = accent_color
+	det_type_badge.add_theme_stylebox_override("panel", type_style)
+	
+	# Progress Math
+	var score = _events_db.get("scores", {}).get(event_id, 0)
+	var max_target = event.get("max_target", 1000)
+	det_progress_bar.max_value = float(max_target)
+	det_progress_bar.value = float(score)
+	det_progress_lbl.text = "Event Target Progress: %d / %d" % [score, max_target]
+	
+	# Populate MileStones / Tier Rewards Grid
+	_generate_milestone_widgets(event, score)
+	
+	# Populate Interactive Simulated Quests/Actions
+	_generate_action_widgets(event)
+	
+	# Populate Leaderboard Grid
+	_generate_leaderboard_widgets(event, score)
+	
+	_update_active_timers_display()
+
+func _generate_milestone_widgets(event: Dictionary, current_score: int) -> void:
+	_clear_container(milestone_container)
+	
+	var event_id = event.get("id")
+	var milestones = event.get("milestones", [])
+	var claimed_list = _events_db.get("claimed_milestones", {}).get(event_id, [])
+	
+	for idx in range(milestones.size()):
+		var m = milestones[idx]
+		var target = m.get("target")
+		var reached = current_score >= target
+		var claimed = idx in claimed_list
+		
+		var cell = PanelContainer.new()
+		cell.custom_minimum_size = Vector2(160, 110)
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		
+		# Styling cell
+		var cell_style = StyleBoxFlat.new()
+		cell_style.corner_radius_top_left = 8
+		cell_style.corner_radius_top_right = 8
+		cell_style.corner_radius_bottom_right = 8
+		cell_style.corner_radius_bottom_left = 8
+		cell_style.bg_color = Color(0.12, 0.15, 0.18, 1)
+		
+		if claimed:
+			cell_style.border_width_left = 1
+			cell_style.border_width_top = 1
+			cell_style.border_width_right = 1
+			cell_style.border_width_bottom = 1
+			cell_style.border_color = Color(0.25, 0.3, 0.35, 1)
+		elif reached:
+			cell_style.border_width_left = 1
+			cell_style.border_width_top = 1
+			cell_style.border_width_right = 1
+			cell_style.border_width_bottom = 1
+			cell_style.border_color = Color(0.95, 0.75, 0.15, 1) # Gold glow
+		else:
+			cell_style.border_width_left = 1
+			cell_style.border_width_top = 1
+			cell_style.border_width_right = 1
+			cell_style.border_width_bottom = 1
+			cell_style.border_color = Color(0.18, 0.22, 0.28, 1)
+			
+		cell.add_theme_stylebox_override("panel", cell_style)
+		
+		var cell_vbox = VBoxContainer.new()
+		cell_vbox.add_theme_constant_override("separation", 4)
+		cell_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+		cell.add_child(cell_vbox)
+		
+		var tier_lbl = Label.new()
+		tier_lbl.text = "TIER %d - %d Pts" % [idx + 1, target]
+		tier_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		tier_lbl.add_theme_font_size_override("font_size", 10)
+		tier_lbl.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15, 1) if reached else Color(0.55, 0.60, 0.65, 1))
+		cell_vbox.add_child(tier_lbl)
+		
+		# Emoji chest icon
+		var emoji_lbl = Label.new()
+		if claimed:
+			emoji_lbl.text = "📭" # opened
+		elif reached:
+			emoji_lbl.text = "🎁" # shiny gift
+		else:
+			emoji_lbl.text = "🔒" # locked
+		emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		emoji_lbl.add_theme_font_size_override("font_size", 22)
+		cell_vbox.add_child(emoji_lbl)
+		
+		var reward_lbl = Label.new()
+		reward_lbl.text = m.get("desc")
+		reward_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		reward_lbl.add_theme_font_size_override("font_size", 10)
+		reward_lbl.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9, 1))
+		reward_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		cell_vbox.add_child(reward_lbl)
+		
+		# Claim button
+		var claim_btn = Button.new()
+		claim_btn.custom_minimum_size = Vector2(100, 24)
+		claim_btn.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		claim_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		claim_btn.focus_mode = Control.FOCUS_NONE
+		claim_btn.add_theme_font_size_override("font_size", 10)
+		
+		var btn_style = StyleBoxFlat.new()
+		btn_style.corner_radius_top_left = 4
+		btn_style.corner_radius_top_right = 4
+		btn_style.corner_radius_bottom_right = 4
+		btn_style.corner_radius_bottom_left = 4
+		
+		if claimed:
+			claim_btn.text = "Claimed"
+			claim_btn.disabled = true
+			btn_style.bg_color = Color(0.18, 0.20, 0.23, 1)
+		elif reached:
+			claim_btn.text = "Claim Reward"
+			btn_style.bg_color = Color(0.15, 0.55, 0.30, 1) # Green claimable
+			claim_btn.pressed.connect(func(): _claim_milestone_reward(event_id, idx))
+		else:
+			claim_btn.text = "Locked"
+			claim_btn.disabled = true
+			btn_style.bg_color = Color(0.20, 0.24, 0.28, 1)
+			
+		claim_btn.add_theme_stylebox_override("normal", btn_style)
+		claim_btn.add_theme_stylebox_override("disabled", btn_style)
+		claim_btn.add_theme_stylebox_override("hover", btn_style)
+		claim_btn.add_theme_stylebox_override("pressed", btn_style)
+		
+		cell_vbox.add_child(claim_btn)
+		milestone_container.add_child(cell)
+
+func _claim_milestone_reward(event_id: String, milestone_idx: int) -> void:
+	var event = _events_catalog.get(event_id)
+	if not event: return
+	
+	var milestone = event.get("milestones")[milestone_idx]
+	var reward_id = milestone.get("reward_id")
+	var amount = milestone.get("amount")
+	
+	# Add index to claimed lists
+	var claimed = _events_db.get("claimed_milestones", {}).get(event_id, [])
+	if not milestone_idx in claimed:
+		claimed.append(milestone_idx)
+		
+	# Flush to Bag inventory state
+	_credit_reward_item_to_bag(reward_id, amount)
+	_save_events_to_disk()
+	
+	var reward_msg = "Milestone tier claimed! Obtained %d [%s]." % [amount, milestone.get("desc")]
+	_show_toast(reward_msg)
+	add_log_requested.emit(reward_msg, "success")
+	
+	# Rebuild Details & Left panel list
+	_open_standard_event_details(event_id)
+	_refresh_overall_ui()
+
+func _credit_reward_item_to_bag(reward_id: String, amount: int) -> void:
+	if reward_id == "resource_diamond_1000":
+		_inventory["diamonds"] = _inventory.get("diamonds", 0) + (amount * 1000)
+	elif "vip_points_high_decree" in reward_id:
+		_inventory["vip_points"] = _inventory.get("vip_points", 0) + (amount * 1000)
+	elif "vip_points_100" in reward_id:
+		_inventory["vip_points"] = _inventory.get("vip_points", 0) + (amount * 100)
+	elif "vip_points" in reward_id:
+		_inventory["vip_points"] = _inventory.get("vip_points", 0) + amount
+	else:
+		_inventory[reward_id] = _inventory.get(reward_id, 0) + amount
+		
+	_save_inventory_to_disk()
+
+func _generate_action_widgets(event: Dictionary) -> void:
+	_clear_container(quest_container)
+	
+	var actions = event.get("actions", [])
+	for act in actions:
+		var panel = PanelContainer.new()
+		var p_style = StyleBoxFlat.new()
+		p_style.bg_color = Color(0.12, 0.14, 0.18, 1)
+		p_style.corner_radius_top_left = 6
+		p_style.corner_radius_top_right = 6
+		p_style.corner_radius_bottom_right = 6
+		p_style.corner_radius_bottom_left = 6
+		p_style.border_width_left = 2
+		p_style.border_color = Color(0.2, 0.25, 0.32, 1)
+		panel.add_theme_stylebox_override("panel", p_style)
+		
+		var margin = MarginContainer.new()
+		margin.add_theme_constant_override("margin_left", 12)
+		margin.add_theme_constant_override("margin_right", 12)
+		margin.add_theme_constant_override("margin_top = ", 8) # Wait, simple syntax
+		margin.add_theme_constant_override("margin_top", 8)
+		margin.add_theme_constant_override("margin_bottom", 8)
+		panel.add_child(margin)
+		
+		var hbox = HBoxContainer.new()
+		hbox.add_theme_constant_override("separation", 10)
+		margin.add_child(hbox)
+		
+		var vbox = VBoxContainer.new()
+		vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		vbox.add_theme_constant_override("separation", 2)
+		hbox.add_child(vbox)
+		
+		var title_lbl = Label.new()
+		title_lbl.text = act.get("label")
+		title_lbl.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		title_lbl.add_theme_font_size_override("font_size", 12)
+		vbox.add_child(title_lbl)
+		
+		var desc_lbl = Label.new()
+		desc_lbl.text = act.get("desc")
+		desc_lbl.add_theme_color_override("font_color", Color(0.55, 0.60, 0.65, 1))
+		desc_lbl.add_theme_font_size_override("font_size", 11)
+		desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		vbox.add_child(desc_lbl)
+		
+		var points_btn = Button.new()
+		points_btn.text = "+%d Points" % act.get("points")
+		points_btn.custom_minimum_size = Vector2(110, 28)
+		points_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		points_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		points_btn.focus_mode = Control.FOCUS_NONE
+		points_btn.add_theme_font_size_override("font_size", 11)
+		
+		var btn_style = StyleBoxFlat.new()
+		btn_style.bg_color = Color(0.19, 0.48, 0.82, 1) # Royal blue
+		btn_style.corner_radius_top_left = 5
+		btn_style.corner_radius_top_right = 5
+		btn_style.corner_radius_bottom_right = 5
+		btn_style.corner_radius_bottom_left = 5
+		points_btn.add_theme_stylebox_override("normal", btn_style)
+		points_btn.add_theme_stylebox_override("hover", btn_style)
+		
+		var pts = act.get("points")
+		var act_lbl = act.get("label")
+		var ev_id = event.get("id")
+		points_btn.pressed.connect(func(): _on_quest_action_simulated(ev_id, act_lbl, pts))
+		
+		hbox.add_child(points_btn)
+		quest_container.add_child(panel)
+
+func _on_quest_action_simulated(event_id: String, action_label: String, points: int) -> void:
+	var scores = _events_db.get("scores", {})
+	var current = scores.get(event_id, 0)
+	var cfg = _events_catalog.get(event_id)
+	if not cfg: return
+	
+	var max_target = cfg.get("max_target")
+	var newly_added = current + points
+	
+	# Cap at maximum event target bounds
+	newly_added = min(newly_added, max_target)
+	scores[event_id] = newly_added
+	
+	_save_events_to_disk()
+	
+	var log_str = "Simulated action [%s] completed! Earned +%d points towards event." % [action_label, points]
+	_show_toast(log_str)
+	add_log_requested.emit(log_str, "info")
+	
+	# Refresh layout details & lists
+	_open_standard_event_details(event_id)
+	_refresh_overall_ui()
+
+func _generate_leaderboard_widgets(event: Dictionary, current_score: int) -> void:
+	_clear_container(leaderboard_container)
+	
+	# Assemble dynamic list including user
+	var list: Array = []
+	var user_node = {
+		"name": "Sovereign Maegan (You)",
+		"alliance": _get_alliance_tag(),
+		"score": current_score,
+		"is_player": true
+	}
+	list.append(user_node)
+	
+	var rivals = event.get("rivals", [])
+	for r in rivals:
+		list.append({
+			"name": r.get("name"),
+			"alliance": r.get("alliance"),
+			"score": r.get("score"),
+			"is_player": false
+		})
+		
+	# Sort by score descending
+	list.sort_custom(func(a, b): return a.get("score") > b.get("score"))
+	
+	# Render top entries
+	for idx in range(list.size()):
+		var entry = list[idx]
+		var rank = idx + 1
+		
+		var panel = PanelContainer.new()
+		var p_style = StyleBoxFlat.new()
+		
+		if entry.get("is_player"):
+			p_style.bg_color = Color(0.18, 0.22, 0.28, 1) # Highlight player line
+			p_style.border_width_left = 2
+			p_style.border_color = Color(0.95, 0.75, 0.15, 1) # Gold highlight border
+		else:
+			p_style.bg_color = Color(0.08, 0.10, 0.12, 1)
+			
+		p_style.corner_radius_top_left = 4
+		p_style.corner_radius_top_right = 4
+		p_style.corner_radius_bottom_right = 4
+		p_style.corner_radius_bottom_left = 4
+		panel.add_theme_stylebox_override("panel", p_style)
+		
+		var margin = MarginContainer.new()
+		margin.add_theme_constant_override("margin_left", 12)
+		margin.add_theme_constant_override("margin_right", 12)
+		margin.add_theme_constant_override("margin_top", 4)
+		margin.add_theme_constant_override("margin_bottom", 4)
+		panel.add_child(margin)
+		
+		var hbox = HBoxContainer.new()
+		margin.add_child(hbox)
+		
+		# Rank number tag
+		var rank_lbl = Label.new()
+		rank_lbl.custom_minimum_size = Vector2(30, 0)
+		if rank == 1: rank_lbl.text = "🥇"
+		elif rank == 2: rank_lbl.text = "🥈"
+		elif rank == 3: rank_lbl.text = "🥉"
+		else: rank_lbl.text = "#" + str(rank)
+		rank_lbl.add_theme_font_size_override("font_size", 11)
+		rank_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		hbox.add_child(rank_lbl)
+		
+		# Player name
+		var name_lbl = Label.new()
+		name_lbl.text = "[%s] %s" % [entry.get("alliance"), entry.get("name")]
+		name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		name_lbl.add_theme_font_size_override("font_size", 11)
+		if entry.get("is_player"):
+			name_lbl.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15, 1))
+		else:
+			name_lbl.add_theme_color_override("font_color", Color(0.85, 0.90, 0.95, 1))
+		hbox.add_child(name_lbl)
+		
+		# Score value
+		var score_lbl = Label.new()
+		score_lbl.text = "%s Pts" % _format_large_number(entry.get("score"))
+		score_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		score_lbl.add_theme_font_size_override("font_size", 11)
+		score_lbl.add_theme_color_override("font_color", Color(0.18, 0.8, 0.44, 1))
+		hbox.add_child(score_lbl)
+		
+		leaderboard_container.add_child(panel)
+
+func _get_alliance_tag() -> String:
+	# Try to check if alliance save file exists to fetch actual tag
+	if FileAccess.file_exists("user://crownspire_alliance_v1.save"):
+		var f = FileAccess.open("user://crownspire_alliance_v1.save", FileAccess.READ)
+		if f:
+			var text = f.get_as_text()
+			f.close()
+			var json = JSON.new()
+			if json.parse(text) == OK:
+				var data = json.get_data()
+				if typeof(data) == TYPE_DICTIONARY and data.has("tag"):
+					return data.get("tag")
+	return "VALR" # Default coalition fallback
+
+func _compute_player_rank(event_id: String) -> int:
+	var event = _events_catalog.get(event_id)
+	if not event: return 99
+	
+	var current_score = _events_db.get("scores", {}).get(event_id, 0)
+	var list: Array = [current_score]
+	for r in event.get("rivals", []):
+		list.append(r.get("score"))
+		
+	list.sort_custom(func(a, b): return a > b)
+	
+	var r = list.find(current_score) + 1
+	return max(r, 1)
+
+# ==============================================================================
+# BATTLE PASS ENGINE CONTROLLERS
+# ==============================================================================
+
+func _open_battle_pass_details() -> void:
+	right_detail_empty.visible = false
+	right_detail_normal.visible = false
+	right_detail_bp.visible = true
+	
+	# Current battle pass XP status
+	var total_xp = _events_db.get("scores", {}).get("bp_xp", 0)
+	
+	# Deduce Level and remainder XP from cumulative XP pool
+	# e.g., Level 1 starts at 0 XP. Needs 1000 to hit Level 2.
+	var current_lvl = _get_bp_level_from_xp(total_xp)
+	var xp_in_level = total_xp % 1000
+	
+	bp_level_lbl.text = "👑 Vanguard Battle Pass Level: %d" % current_lvl
+	bp_xp_lbl.text = "XP Tracker: %d / 1000" % xp_in_level
+	bp_progress_bar.max_value = 1000.0
+	bp_progress_bar.value = float(xp_in_level)
+	
+	# Check premium unlock status
+	var premium_unlocked = _events_db.get("bp_premium_unlocked", false)
+	if premium_unlocked:
+		bp_unlock_premium_btn.text = "✓ ELITE PREMIUM ACTIVATED"
+		bp_unlock_premium_btn.disabled = true
+	else:
+		bp_unlock_premium_btn.text = "🔒 Unlock Elite Pass (💎 1,500)"
+		bp_unlock_premium_btn.disabled = false
+		
+	# Populate Battle Pass Level rewards tracks
+	_generate_battle_pass_tracks(current_lvl, premium_unlocked)
+
+func _get_bp_level_from_xp(xp: int) -> int:
+	var lvl = 1 + int(xp / 1000.0)
+	return clamp(lvl, 1, 5)
+
+func _generate_battle_pass_tracks(active_level: int, premium_unlocked: bool) -> void:
+	_clear_container(bp_list_container)
+	
+	var claimed_free = _events_db.get("claimed_milestones", {}).get("bp_free", [])
+	var claimed_premium = _events_db.get("claimed_milestones", {}).get("bp_premium", [])
+	
+	for idx in range(_bp_catalog.size()):
+		var stage = _bp_catalog[idx]
+		var stage_lvl = stage.get("level")
+		var unlocked = active_level >= stage_lvl
+		
+		# Stage Box flat panel container
+		var stage_panel = PanelContainer.new()
+		var stage_style = StyleBoxFlat.new()
+		stage_style.bg_color = Color(0.12, 0.15, 0.19, 1)
+		
+		# Highlights current targeted level block boundary
+		if stage_lvl == active_level:
+			stage_style.border_width_left = 3
+			stage_style.border_width_top = 1
+			stage_style.border_width_right = 1
+			stage_style.border_width_bottom = 1
+			stage_style.border_color = Color(0.9, 0.47, 0.08, 1) # gold highlights
+		else:
+			stage_style.border_width_bottom = 1
+			stage_style.border_color = Color(0.18, 0.22, 0.28, 1)
+			
+		stage_style.corner_radius_top_left = 8
+		stage_style.corner_radius_top_right = 8
+		stage_style.corner_radius_bottom_right = 8
+		stage_style.corner_radius_bottom_left = 8
+		stage_panel.add_theme_stylebox_override("panel", stage_style)
+		
+		var margin = MarginContainer.new()
+		margin.add_theme_constant_override("margin_left", 12)
+		margin.add_theme_constant_override("margin_right", 12)
+		margin.add_theme_constant_override("margin_top", 10)
+		margin.add_theme_constant_override("margin_bottom", 10)
+		stage_panel.add_child(margin)
+		
+		var layout_hbox = HBoxContainer.new()
+		layout_hbox.add_theme_constant_override("separation", 14)
+		margin.add_child(layout_hbox)
+		
+		# LEVEL TEXT INDICATOR
+		var lvl_lbl_box = VBoxContainer.new()
+		lvl_lbl_box.custom_minimum_size = Vector2(70, 0)
+		lvl_lbl_box.alignment = BoxContainer.ALIGNMENT_CENTER
+		layout_hbox.add_child(lvl_lbl_box)
+		
+		var lvl_num = Label.new()
+		lvl_num.text = "STAGE %d" % stage_lvl
+		lvl_num.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lvl_num.add_theme_font_size_override("font_size", 13)
+		lvl_num.add_theme_color_override("font_color", Color(1, 1, 1, 1) if unlocked else Color(0.5, 0.55, 0.6, 1))
+		lvl_lbl_box.add_child(lvl_num)
+		
+		var status_text = Label.new()
+		status_text.text = "Unlocked" if unlocked else "Locked"
+		status_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		status_text.add_theme_font_size_override("font_size", 9)
+		status_text.add_theme_color_override("font_color", Color(0.15, 0.68, 0.37, 1) if unlocked else Color(0.9, 0.2, 0.2, 1))
+		lvl_lbl_box.add_child(status_text)
+		
+		# SPLIT tracks (Free Box vs Premium Box)
+		# Track 1: Free rewards
+		var free_box = _create_bp_reward_slot(
+			stage_lvl,
+			unlocked,
+			stage.get("free_reward"),
+			stage_lvl in claimed_free,
+			false,
+			premium_unlocked
+		)
+		layout_hbox.add_child(free_box)
+		
+		# Track 2: Premium rewards
+		var prem_box = _create_bp_reward_slot(
+			stage_lvl,
+			unlocked,
+			stage.get("premium_reward"),
+			stage_lvl in claimed_premium,
+			true,
+			premium_unlocked
+		)
+		layout_hbox.add_child(prem_box)
+		
+		bp_list_container.add_child(stage_panel)
+
+func _create_bp_reward_slot(stage_lvl: int, unlocked: bool, reward_cfg: Dictionary, claimed: bool, is_premium: bool, premium_active: bool) -> PanelContainer:
+	var slot = PanelContainer.new()
+	slot.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	
+	var style = StyleBoxFlat.new()
+	style.corner_radius_top_left = 6
+	style.corner_radius_top_right = 6
+	style.corner_radius_bottom_right = 6
+	style.corner_radius_bottom_left = 6
+	
+	if is_premium:
+		style.bg_color = Color(0.18, 0.14, 0.22, 1) # Royal dark violet theme
+		style.border_width_left = 1
+		style.border_color = Color(0.7, 0.3, 0.9, 1) if premium_active else Color(0.35, 0.25, 0.45, 1)
+	else:
+		style.bg_color = Color(0.08, 0.10, 0.12, 1)
+		style.border_width_left = 1
+		style.border_color = Color(0.2, 0.25, 0.3, 1)
+		
+	slot.add_theme_stylebox_override("panel", style)
+	
+	var margin = MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 8)
+	margin.add_theme_constant_override("margin_right", 8)
+	margin.add_theme_constant_override("margin_top", 8)
+	margin.add_theme_constant_override("margin_bottom", 8)
+	slot.add_child(margin)
+	
+	var hbox = HBoxContainer.new()
+	hbox.add_theme_constant_override("separation", 8)
+	margin.add_child(hbox)
+	
+	# Emoji / Badge icon visual slot
+	var icon_slot = PanelContainer.new()
+	icon_slot.custom_minimum_size = Vector2(36, 36)
+	icon_slot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	var is_slot_style = StyleBoxFlat.new()
+	is_slot_style.bg_color = Color(0.04, 0.05, 0.06, 1)
+	is_slot_style.corner_radius_top_left = 18
+	is_slot_style.corner_radius_top_right = 18
+	is_slot_style.corner_radius_bottom_right = 18
+	is_slot_style.corner_radius_bottom_left = 18
+	icon_slot.add_theme_stylebox_override("panel", is_slot_style)
+	hbox.add_child(icon_slot)
+	
+	var emoji_lbl = Label.new()
+	if claimed:
+		emoji_lbl.text = "📭"
+	elif is_premium and not premium_active:
+		emoji_lbl.text = "🔒"
+	else:
+		emoji_lbl.text = _get_item_emoji_fallback(reward_cfg.get("id"))
+	emoji_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	emoji_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	emoji_lbl.add_theme_font_size_override("font_size", 16)
+	icon_slot.add_child(emoji_lbl)
+	
+	var text_vbox = VBoxContainer.new()
+	text_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	text_vbox.add_theme_constant_override("separation", 1)
+	hbox.add_child(text_vbox)
+	
+	var title_lbl = Label.new()
+	title_lbl.text = "Premium Reward" if is_premium else "Free Provision"
+	title_lbl.add_theme_color_override("font_color", Color(0.7, 0.3, 0.9, 1) if is_premium else Color(0.55, 0.60, 0.65, 1))
+	title_lbl.add_theme_font_size_override("font_size", 9)
+	text_vbox.add_child(title_lbl)
+	
+	var rew_desc = Label.new()
+	rew_desc.text = "%dx %s" % [reward_cfg.get("amount"), reward_cfg.get("desc")]
+	rew_desc.add_theme_color_override("font_color", Color(1, 1, 1, 1) if unlocked else Color(0.45, 0.50, 0.55, 1))
+	rew_desc.add_theme_font_size_override("font_size", 10)
+	rew_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text_vbox.add_child(rew_desc)
+	
+	# Trigger Claim Button
+	var btn = Button.new()
+	btn.custom_minimum_size = Vector2(65, 24)
+	btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	btn.focus_mode = Control.FOCUS_NONE
+	btn.add_theme_font_size_override("font_size", 10)
+	
+	var btn_style = StyleBoxFlat.new()
+	btn_style.corner_radius_top_left = 4
+	btn_style.corner_radius_top_right = 4
+	btn_style.corner_radius_bottom_right = 4
+	btn_style.corner_radius_bottom_left = 4
+	
+	var can_claim = unlocked and (not claimed)
+	if is_premium and not premium_active:
+		can_claim = false
+		
+	if claimed:
+		btn.text = "Claimed"
+		btn.disabled = true
+		btn_style.bg_color = Color(0.18, 0.20, 0.23, 1)
+	elif can_claim:
+		btn.text = "Claim"
+		btn_style.bg_color = Color(0.15, 0.55, 0.30, 1)
+		btn.pressed.connect(func(): _claim_bp_tier_reward(stage_lvl, is_premium, reward_cfg))
+	else:
+		btn.text = "Locked"
+		btn.disabled = true
+		btn_style.bg_color = Color(0.20, 0.24, 0.28, 1)
+		
+	btn.add_theme_stylebox_override("normal", btn_style)
+	btn.add_theme_stylebox_override("disabled", btn_style)
+	btn.add_theme_stylebox_override("hover", btn_style)
+	btn.add_theme_stylebox_override("pressed", btn_style)
+	hbox.add_child(btn)
+	
+	return slot
+
+func _claim_bp_tier_reward(level_num: int, is_premium: bool, reward_cfg: Dictionary) -> void:
+	var reward_id = reward_cfg.get("id")
+	var amount = reward_cfg.get("amount")
+	
+	# Add level to correct claimed track arrays
+	var milestones_claimed = _events_db.get("claimed_milestones", {})
+	
+	if is_premium:
+		var prem_list = milestones_claimed.get("bp_premium", [])
+		if not level_num in prem_list:
+			prem_list.append(level_num)
+			milestones_claimed["bp_premium"] = prem_list
+	else:
+		var free_list = milestones_claimed.get("bp_free", [])
+		if not level_num in free_list:
+			free_list.append(level_num)
+			milestones_claimed["bp_free"] = free_list
+			
+	# Update database and apply items to Bag inventory
+	_credit_reward_item_to_bag(reward_id, amount)
+	_save_events_to_disk()
+	
+	# Success UI alerts
+	var m = "Battle Pass Stage %d reward claimed! Obtained %s." % [level_num, reward_cfg.get("desc")]
+	_show_toast(m)
+	add_log_requested.emit(m, "success")
+	
+	# Redraw Battle pass views
+	_open_battle_pass_details()
+	_refresh_overall_ui()
+
+func _on_unlock_premium_pass_pressed() -> void:
+	var premium_unlocked = _events_db.get("bp_premium_unlocked", false)
+	if premium_unlocked: return
+	
+	var diamonds = _inventory.get("diamonds", 0)
+	if diamonds < 1500:
+		_show_toast("Insufficient Diamonds! Elite Pass costs 💎 1,500.")
+		return
+		
+	# Deduct diamonds and persist
+	_inventory["diamonds"] = diamonds - 1500
+	_save_inventory_to_disk()
+	
+	_events_db["bp_premium_unlocked"] = true
+	_save_events_to_disk()
+	
+	_show_toast("Vanguard Elite Premium Pass unlocked successfully!")
+	add_log_requested.emit("Unlocked Vanguard Elite Battle Pass for 1500 Diamonds. Triple-A tier rewards unlocked!", "success")
+	
+	_open_battle_pass_details()
+	_refresh_overall_ui()
+
+func _on_gain_bp_xp_pressed() -> void:
+	var scores = _events_db.get("scores", {})
+	var xp = scores.get("bp_xp", 0)
+	
+	# Add +500 XP to Battle pass tracker
+	var cap_max = 5000 # Max Level 5 caps out at cumulative 5000 XP
+	var newly_added = xp + 500
+	newly_added = min(newly_added, cap_max)
+	
+	scores["bp_xp"] = newly_added
+	_save_events_to_disk()
+	
+	var m_str = "Completed daily Vanguard battle challenge! Earned +500 Battle Pass XP."
+	_show_toast(m_str)
+	add_log_requested.emit(m_str, "info")
+	
+	_open_battle_pass_details()
+	_refresh_overall_ui()
+
+# ==============================================================================
+# GENERAL SYSTEM HELPER METHODS
+# ==============================================================================
+
+func _on_category_selected(category: String) -> void:
+	if _active_category == category: return
+	_active_category = category
+	_refresh_overall_ui()
+	_select_default_event()
+
+func _update_active_timers_display() -> void:
+	# Update active detail view timers if visible
+	if right_detail_normal.visible and _selected_event_id != "":
+		var sec = _simulated_timers.get(_selected_event_id, 3600.0)
+		if sec <= 0:
+			det_timer_lbl.text = "⏳ Event Has Ended"
+			det_timer_lbl.add_theme_color_override("font_color", Color(0.8, 0.2, 0.2, 1))
+		else:
+			var total_sec = int(sec)
+			var hrs = total_sec / 3600
+			var mins = (total_sec % 3600) / 60
+			var secs = total_sec % 60
+			det_timer_lbl.text = "⏳ Countdown: %02dh %02dm %02ds left" % [hrs, mins, secs]
+			det_timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15, 1))
+
+func _on_close_pressed() -> void:
+	print("[Events] Closing Event Center...")
+	visible = false
+	events_closed.emit()
+
+func _show_toast(message: String) -> void:
+	toast_label.text = message
+	toast_notification.visible = true
+	toast_notification.modulate = Color(1, 1, 1, 0)
+	
+	var tween = create_tween()
+	tween.tween_property(toast_notification, "modulate:a", 1.0, 0.25)
+	
+	_toast_timer.start()
+
+func _on_toast_timeout() -> void:
+	var tween = create_tween()
+	tween.tween_property(toast_notification, "modulate:a", 0.0, 0.3)
+	tween.finished.connect(func(): toast_notification.visible = false)
+
+func _clear_container(container: Node) -> void:
+	for child in container.get_children():
+		child.queue_free()
+
+func _format_large_number(num: int) -> String:
+	if num >= 1000000:
+		return "%.2fM" % (num / 1000000.0)
+	elif num >= 1000:
+		return "%.1fk" % (num / 1000.0)
+	return str(num)
+
+func _get_item_emoji_fallback(item_id: String) -> String:
+	if "food" in item_id: return "🍖"
+	elif "wood" in item_id: return "🪵"
+	elif "stone" in item_id: return "🧱"
+	elif "iron" in item_id: return "🪙"
+	elif "diamond" in item_id: return "💎"
+	elif "speedup" in item_id: return "⏱️"
+	elif "helmet" in item_id: return "🪖"
+	elif "weapon" in item_id or "sword" in item_id: return "⚔️"
+	elif "vip" in item_id: return "👑"
+	elif "shard" in item_id or "statue" in item_id: return "🎖️"
+	elif "potion" in item_id: return "🧪"
+	elif "teleport" in item_id: return "🌀"
+	elif "shield" in item_id: return "🛡️"
+	elif "stardust" in item_id: return "✨"
+	elif "obsidian" in item_id: return "🖤"
+	elif "castle" in item_id: return "🌋"
+	else: return "🎁"

@@ -1,0 +1,211 @@
+[gd_scene load_steps=3 format=3 uid="uid://df72y37t2o3b1"]
+
+[ext_resource type="Script" path="res://AncientBeastPanel.gd" id="1_ab_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_marble"]
+bg_color = Color(0.96, 0.96, 0.96, 1.0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85, 0.72, 0.44, 1.0)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.42, 0.22, 0.61, 0.35)
+shadow_size = 20
+
+[node name="AncientBeastPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -320.0
+offset_right = 260.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ab_panel")
+
+[node name="WhiteMarbleFrame" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_marble")
+
+[node name="TitleBar" type="Control" parent="WhiteMarbleFrame"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+height = 54.0
+grow_horizontal = 2
+
+[node name="TitleLabel" type="Label" parent="WhiteMarbleFrame/TitleBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -12.0
+offset_right = 160.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ANCIENT BEAST LAIR"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="WhiteMarbleFrame/TitleBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -44.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 44.0
+grow_horizontal = 0
+text = "✕"
+
+[node name="MainPanel" type="VBoxContainer" parent="WhiteMarbleFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 64.0
+offset_right = -20.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="BeastBox" type="HBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Portrait" type="TextureRect" parent="WhiteMarbleFrame/MainPanel/BeastBox"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/BeastBox"]
+layout_mode = 2
+text = "Dire Wolf Alpha"
+
+[node name="LevelLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/BeastBox"]
+layout_mode = 2
+text = "Lv. 5"
+
+[node name="StatGrid" type="GridContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="PowerBox" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/StatGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/PowerBox"]
+layout_mode = 2
+text = "BEAST_POWER"
+
+[node name="Value" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/PowerBox"]
+layout_mode = 2
+text = "45,000"
+
+[node name="RecPowerBox" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/StatGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/RecPowerBox"]
+layout_mode = 2
+text = "RECOMMENDED_POWER"
+
+[node name="Value" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/RecPowerBox"]
+layout_mode = 2
+text = "55,000"
+
+[node name="RallySizeBox" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/StatGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/RallySizeBox"]
+layout_mode = 2
+text = "RALLY_SIZE"
+
+[node name="Value" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/RallySizeBox"]
+layout_mode = 2
+text = "4 Legions"
+
+[node name="StaminaBox" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/StatGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/StaminaBox"]
+layout_mode = 2
+text = "STAMINA_COST"
+
+[node name="Value" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/StaminaBox"]
+layout_mode = 2
+text = "20"
+
+[node name="AttemptsBox" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/StatGrid"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/AttemptsBox"]
+layout_mode = 2
+text = "ATTEMPTS_REMAINING"
+
+[node name="Value" type="Label" parent="WhiteMarbleFrame/MainPanel/StatGrid/AttemptsBox"]
+layout_mode = 2
+text = "3 / 3"
+
+[node name="RewardsSection" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/RewardsSection"]
+layout_mode = 2
+text = "REWARDS"
+
+[node name="GridContainer" type="GridContainer" parent="WhiteMarbleFrame/MainPanel/RewardsSection"]
+layout_mode = 2
+columns = 5
+
+[node name="RallyStatusSection" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/RallyStatusSection"]
+layout_mode = 2
+text = "No active alliance rally for this landmark."
+
+[node name="ButtonTray" type="HBoxContainer" parent="WhiteMarbleFrame"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -74.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="ScoutButton" type="Button" parent="WhiteMarbleFrame/ButtonTray"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SCOUT"
+
+[node name="RallyButton" type="Button" parent="WhiteMarbleFrame/ButtonTray"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RALLY"
+
+[node name="BookmarkButton" type="Button" parent="WhiteMarbleFrame/ButtonTray"]
+layout_mode = 2
+text = "🔖"

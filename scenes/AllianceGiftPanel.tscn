@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://df24y3u24y9"]
+
+[ext_resource type="Script" path="res://scripts/AllianceGiftPanel.gd" id="1_gifts"]
+
+[node name="AllianceGiftPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gifts")
+
+[node name="HeaderBar" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="HeaderBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0509804, 0.121569, 0.180392, 0.9)
+
+[node name="StatsLabel" type="Label" parent="HeaderBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Available Amber Loot Chests: 2"
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12

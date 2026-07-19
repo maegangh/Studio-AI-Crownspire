@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1h5cuxyba23y"]
+
+[ext_resource type="Script" path="res://scripts/CurrencyBar.gd" id="1_4b8f3"]
+[ext_resource type="Texture2D" uid="uid://du27f7a7jpx7r" path="res://assets/ui/icons/hud_royal_crystal.png" id="2_2x2k2"]
+[ext_resource type="Texture2D" uid="uid://b7v7j7x7c7v7r" path="res://assets/ui/buttons/btn_add_normal.png" id="3_3x3k3"]
+
+[sub_resource type="Animation" id="Animation_pulse"]
+resource_name = "pulse_update"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/HBox/IconRect:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.25, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cb"]
+_data = {
+"pulse_update": SubResource("Animation_pulse")
+}
+
+[node name="CurrencyBar" type="MarginContainer"]
+custom_minimum_size = Vector2(180, 48)
+offset_right = 180.0
+offset_bottom = 48.0
+pivot_offset = Vector2(90, 24)
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_4b8f3")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 2
+pivot_offset = Vector2(86, 20)
+
+[node name="HBox" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="IconRect" type="TextureRect" parent="Panel/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_2x2k2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelAmount" type="Label" parent="Panel/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 14
+text = "5,000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddButton" type="TextureButton" parent="Panel/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("3_3x3k3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cb")
+}

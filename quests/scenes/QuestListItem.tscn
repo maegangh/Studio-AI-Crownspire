@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://b10xt899questlistitem"]
+
+[ext_resource type="Script" path="res://quests/scripts/QuestListItem.gd" id="1_questlistitem"]
+
+[node name="QuestListItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_questlistitem")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PinButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+text = "☆"
+
+[node name="TextLayout" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="TopHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+
+[node name="QuestNameLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quest Name"
+
+[node name="PointsLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+10 PTS"
+
+[node name="ObjectiveLabel" type="Label" parent="Margin/HBox/TextLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Objective Description"
+
+[node name="ProgressHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="Margin/HBox/TextLayout/ProgressHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 1.0
+show_percentage = false
+
+[node name="ProgressText" type="Label" parent="Margin/HBox/TextLayout/ProgressHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0/1"
+
+[node name="ClaimButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+size_flags_vertical = 4
+text = "CLAIM"
+
+[node name="SelectButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true

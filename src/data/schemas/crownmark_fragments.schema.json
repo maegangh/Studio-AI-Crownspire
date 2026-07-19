@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrownmarkFragmentsSchema",
+  "description": "Validation schema for duplicate fragments conversion, star promotions, and dismantling yields.",
+  "type": "object",
+  "required": [
+    "awakening_star_costs",
+    "dismantle_returns",
+    "omni_fragment_exchange"
+  ],
+  "properties": {
+    "awakening_star_costs": {
+      "type": "array",
+      "description": "Prerequisites and boundaries for each Star Promotion tier (1-5).",
+      "items": {
+        "type": "object",
+        "required": [
+          "target_star",
+          "fragments_required",
+          "gold_cost",
+          "success_probability",
+          "unlocked_level_cap"
+        ],
+        "properties": {
+          "target_star": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "The promotion level being targeted (e.g. 1 star to 5 star)."
+          },
+          "fragments_required": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Specific character/item fragments required."
+          },
+          "gold_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Gold tax required for forging."
+          },
+          "success_probability": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "description": "The forge success probability rate (1.0 means 100%)."
+          },
+          "unlocked_level_cap": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Max level cap unlocked upon achieving this star rating."
+          }
+        }
+      }
+    },
+    "dismantle_returns": {
+      "type": "object",
+      "required": ["legendary", "epic", "rare"],
+      "description": "Resources refunded to the player when breaking down extra crownmarks of each rarity.",
+      "properties": {
+        "legendary": {
+          "type": "object",
+          "required": ["crownmark_dust", "omni_shards_returned"],
+          "properties": {
+            "crownmark_dust": { "type": "integer", "minimum": 0 },
+            "omni_shards_returned": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "epic": {
+          "type": "object",
+          "required": ["crownmark_dust", "omni_shards_returned"],
+          "properties": {
+            "crownmark_dust": { "type": "integer", "minimum": 0 },
+            "omni_shards_returned": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "rare": {
+          "type": "object",
+          "required": ["crownmark_dust", "omni_shards_returned"],
+          "properties": {
+            "crownmark_dust": { "type": "integer", "minimum": 0 },
+            "omni_shards_returned": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "omni_fragment_exchange": {
+      "type": "object",
+      "required": [
+        "rate_omni_to_legendary",
+        "rate_omni_to_epic",
+        "can_exchange_unlocked_only"
+      ],
+      "description": "Exchange configuration for turning omni shards into specific fragments.",
+      "properties": {
+        "rate_omni_to_legendary": {
+          "type": "number",
+          "minimum": 0.1,
+          "description": "Omni shards required to convert to one legendary fragment."
+        },
+        "rate_omni_to_epic": {
+          "type": "number",
+          "minimum": 0.1,
+          "description": "Omni shards required to convert to one epic fragment."
+        },
+        "can_exchange_unlocked_only": {
+          "type": "boolean",
+          "description": "If true, players can only convert fragments for items they have already discovered."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+[
+  {"name": "Battery Saver", "fps": 30, "shadows": false, "bloom": false},
+  {"name": "Medium", "fps": 60, "shadows": false, "bloom": true},
+  {"name": "High", "fps": 60, "shadows": true, "bloom": true}
+]

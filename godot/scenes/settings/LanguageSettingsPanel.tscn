@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy12g0l5n9425i"]
+
+[ext_resource type="Script" path="res://scripts/settings/LanguageSettingsPanel.gd" id="1_language"]
+
+[node name="LanguageSettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_language")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Select Language"
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="LanguageGrid" type="GridContainer" parent="Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 1

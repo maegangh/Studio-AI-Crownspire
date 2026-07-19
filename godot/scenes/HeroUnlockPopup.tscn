@@ -1,0 +1,130 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroUnlockPopup.gd" id="1_un"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.02, 0.03, 0.05, 0.96)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flare"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 120
+corner_radius_top_right = 120
+corner_radius_bottom_right = 120
+corner_radius_bottom_left = 120
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_close"]
+bg_color = Color(0.85, 0.65, 0.13, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HeroUnlockPopup" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_un")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="ContentBox" type="VBoxContainer" parent="Center"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="SummonHeader" type="Label" parent="Center/ContentBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.65, 0.13, 1)
+theme_override_font_sizes/font_size = 18
+text = "🔮 SOVEREIGN SUMMON SUCCESS 🔮"
+horizontal_alignment = 1
+
+[node name="GlowAnchor" type="Control" parent="Center/ContentBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FlareGlow" type="Panel" parent="Center/ContentBox/GlowAnchor"]
+unique_name_in_owner = true
+self_modulate = Color(1, 0.84, 0, 0.5)
+custom_minimum_size = Vector2(180, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(90, 90)
+theme_override_styles/panel = SubResource("StyleBoxFlat_flare")
+
+[node name="HeroEmojiLbl" type="Label" parent="Center/ContentBox/GlowAnchor"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+theme_override_font_sizes/font_size = 96
+text = "🏹"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IdentityVBox" type="VBoxContainer" parent="Center/ContentBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HeroNameLbl" type="Label" parent="Center/ContentBox/IdentityVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ARIA"
+horizontal_alignment = 1
+
+[node name="TitleLbl" type="Label" parent="Center/ContentBox/IdentityVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 12
+text = "THE SABLE SHADOW"
+horizontal_alignment = 1
+
+[node name="StarsLabel" type="Label" parent="Center/ContentBox/IdentityVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0)
+theme_override_font_sizes/font_size = 14
+text = "★★★★"
+horizontal_alignment = 1
+
+[node name="ActionBox" type="VBoxContainer" parent="Center/ContentBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseBtn" type="Button" parent="Center/ContentBox/ActionBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_close")
+text = "COMMISSION TO THE KEEP"

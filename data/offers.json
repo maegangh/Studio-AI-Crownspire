@@ -1,0 +1,56 @@
+[
+  {
+    "id": "offer_flash_speedups",
+    "name": "Arcane Burst Flash Offer",
+    "description": "A temporal rift has opened! Harness extreme training speedups for a tiny crystal cost. Act now before the rift collapses!",
+    "duration_seconds": 7200,
+    "discount_percent": 85,
+    "cost_currency": "royal_crystal",
+    "cost_amount": 199,
+    "max_claims": 1,
+    "current_claims": 0,
+    "icon": "res://assets/ui/icons/offer_flash_speedups.png",
+    "rarity": 3,
+    "items": [
+      {
+        "name": "Arcane Speedup (1h)",
+        "quantity": 10,
+        "icon": "res://assets/ui/icons/item_speedup_1h.png",
+        "rarity": 1
+      },
+      {
+        "name": "Troop Training Speedup (1h)",
+        "quantity": 5,
+        "icon": "res://assets/ui/icons/item_speedup_training.png",
+        "rarity": 2
+      }
+    ]
+  },
+  {
+    "id": "offer_vip_express",
+    "name": "Sovereign Prestige Pack",
+    "description": "Double your VIP points for the next 2 hours. Propel your rank and unlock powerful passive imperial buffs.",
+    "duration_seconds": 3600,
+    "discount_percent": 75,
+    "cost_currency": "royal_crystal",
+    "cost_amount": 499,
+    "max_claims": 3,
+    "current_claims": 0,
+    "icon": "res://assets/ui/icons/offer_vip_express.png",
+    "rarity": 4,
+    "items": [
+      {
+        "name": "VIP Points (1000)",
+        "quantity": 2,
+        "icon": "res://assets/ui/icons/item_vip_points.png",
+        "rarity": 3
+      },
+      {
+        "name": "Royal Crystal Bonus",
+        "quantity": 150,
+        "icon": "res://assets/ui/icons/hud_royal_crystal.png",
+        "rarity": 4
+      }
+    ]
+  }
+]

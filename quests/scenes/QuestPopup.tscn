@@ -1,0 +1,130 @@
+[gd_scene load_steps=3 format=3 uid="uid://c11xt899questpopupmaster"]
+
+[ext_resource type="Script" path="res://quests/scripts/QuestPopup.gd" id="1_questpopupgd"]
+[ext_resource type="PackedScene" uid="uid://c10xt899questdetailpanel" path="res://quests/scenes/QuestDetailPanel.tscn" id="2_questdetailpanelscene"]
+
+[node name="QuestPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_questpopupgd")
+
+[node name="BackingColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.08, 0.12, 0.96)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="QuestTitleLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "CITADEL CAMPAIGNS"
+
+[node name="QuestCloseButton" type="Button" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " CLOSE "
+
+[node name="ActivityBar" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Margin/Layout/ActivityBar"]
+layout_mode = 2
+text = "Daily Activity:"
+
+[node name="MeterProgressBar" type="ProgressBar" parent="Margin/Layout/ActivityBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 15.0
+show_percentage = false
+
+[node name="MeterPointsLabel" type="Label" parent="Margin/Layout/ActivityBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "15 / 100 Activity Points"
+
+[node name="TabBar" type="ScrollContainer" parent="Margin/Layout"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabsContainer" type="HBoxContainer" parent="Margin/Layout/TabBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="BulkActions" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="ClaimAllButton" type="Button" parent="Margin/Layout/BulkActions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CLAIM ALL COMPLETED"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="QuestArea" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="ListLayout" type="VBoxContainer" parent="Margin/Layout/QuestArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ListScroll" type="ScrollContainer" parent="Margin/Layout/QuestArea/ListLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="QuestListContainer" type="VBoxContainer" parent="Margin/Layout/QuestArea/ListLayout/ListScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="EmptyStateLabel" type="Label" parent="Margin/Layout/QuestArea/ListLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "No quests active."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestDetailPanel" parent="Margin/Layout/QuestArea" instance=ExtResource("2_questdetailpanelscene")]
+unique_name_in_owner = true
+layout_mode = 2

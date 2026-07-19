@@ -1,0 +1,50 @@
+[
+  {
+    "id": "alliance_rally_fight",
+    "category_id": "alliance",
+    "name": "United Front",
+    "description": "Join and participate in a coordinated tactical rally against massive wildling strongholds.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 40,
+    "objectives": [
+      {
+        "id": "obj_rally_participation",
+        "description": "Participate in 1 Alliance Rally",
+        "type": "alliance_rally",
+        "current": 0,
+        "target": 1,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Alliance Honor Coins", "type": "alliance_honor", "quantity": 1200, "rarity": 2, "icon": "🛡️" },
+      { "name": "Crystallite Cores", "type": "crystallite_cores", "quantity": 100, "rarity": 2, "icon": "🌀" }
+    ]
+  },
+  {
+    "id": "alliance_donate_keep",
+    "category_id": "alliance",
+    "name": "Citadel Donations",
+    "description": "Donate wood or stone to fund alliance buildings (Towers or Fortresses) on the World Map.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 35,
+    "objectives": [
+      {
+        "id": "obj_alliance_resource_donations",
+        "description": "Donate 3 times to Alliance Construction",
+        "type": "alliance_construction_donate",
+        "current": 1,
+        "target": 3,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "1-Hour Building Speedup", "type": "speedup_1h", "quantity": 2, "rarity": 2, "icon": "⚡" },
+      { "name": "Alliance Teleport Core", "type": "alliance_teleport", "quantity": 1, "rarity": 3, "icon": "🌀" }
+    ]
+  }
+]

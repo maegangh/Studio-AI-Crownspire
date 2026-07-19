@@ -1,0 +1,128 @@
+[gd_scene load_steps=3 format=3 uid="uid://df24y3u24y16"]
+
+[ext_resource type="Script" path="res://scripts/AllianceSettingsPanel.gd" id="1_settings"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0431373, 0.0980392, 0.14902, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.180392, 0.490196, 0.690196, 0.8)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="AllianceSettingsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_settings")
+
+[node name="Card" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Title" type="Label" parent="Card"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 22
+text = "⚙️ ALLIANCE SETTINGS"
+horizontal_alignment = 1
+
+[node name="Form" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 30.0
+offset_top = 80.0
+offset_right = -30.0
+offset_bottom = 440.0
+grow_horizontal = 2
+theme_override_constants/separation = 12
+
+[node name="LblName" type="Label" parent="Card/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+text = "Alliance Name"
+
+[node name="NameInput" type="LineEdit" parent="Card/Form"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+
+[node name="LblTag" type="Label" parent="Card/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+text = "Alliance Tag (3-4 characters)"
+
+[node name="TagInput" type="LineEdit" parent="Card/Form"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+max_length = 4
+
+[node name="LblDesc" type="Label" parent="Card/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+text = "Alliance Declaration"
+
+[node name="DescInput" type="TextEdit" parent="Card/Form"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+wrap_mode = 1
+
+[node name="PublicToggle" type="CheckButton" parent="Card/Form"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "🔓 Public Recruitment (Auto-Approve)"
+
+[node name="Actions" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -240.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BtnSave" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "💾 Save Parameters"
+
+[node name="BtnLeave" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.321569, 0.321569, 1)
+theme_override_font_sizes/font_size = 16
+text = "🚪 Leave Alliance"
+
+[node name="BtnDisband" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.180392, 0.180392, 1)
+theme_override_font_sizes/font_size = 16
+text = "💀 DISBAND ALLIANCE"

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "legendary",
+    "name": "Legendary",
+    "color": "ffaa00",
+    "star_icon": "⭐"
+  },
+  {
+    "id": "epic",
+    "name": "Epic",
+    "color": "aa00ff",
+    "star_icon": "⭐"
+  },
+  {
+    "id": "rare",
+    "name": "Rare",
+    "color": "00aaff",
+    "star_icon": "⭐"
+  },
+  {
+    "id": "common",
+    "name": "Common",
+    "color": "aaaaaa",
+    "star_icon": "⭐"
+  }
+]

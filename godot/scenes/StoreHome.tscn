@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy17muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/StoreHome.gd" id="1_d7b8f"]
+
+[node name="StoreHome" type="ScrollContainer"]
+custom_minimum_size = Vector2(680, 900)
+offset_right = 680.0
+offset_bottom = 900.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+script = ExtResource("1_d7b8f")
+
+[node name="ContentMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="ContentLayout" type="VBoxContainer" parent="ContentMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="ItemGrid" type="GridContainer" parent="ContentMargin/ContentLayout"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2

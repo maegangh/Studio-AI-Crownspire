@@ -1,0 +1,1504 @@
+{
+  "sets": [
+    {
+      "id": "iron_vanguard",
+      "name": "Iron Vanguard",
+      "rarity": "common",
+      "theme": "Infantry Tank",
+      "description": "Heavy iron plates forged for front-line defenders. Increases survivability under siege.",
+      "pieces": {
+        "weapon": "iron_vanguard_weapon",
+        "helmet": "iron_vanguard_helmet",
+        "chest_armor": "iron_vanguard_chest_armor",
+        "gloves": "iron_vanguard_gloves",
+        "boots": "iron_vanguard_boots",
+        "ring": "iron_vanguard_ring",
+        "necklace": "iron_vanguard_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Health",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "squires_oath",
+      "name": "Squire's Oath",
+      "rarity": "common",
+      "theme": "Balanced Offensive",
+      "description": "Standard issue training gear imbued with a solemn vow to defend the realm.",
+      "pieces": {
+        "weapon": "squires_oath_weapon",
+        "helmet": "squires_oath_helmet",
+        "chest_armor": "squires_oath_chest_armor",
+        "gloves": "squires_oath_gloves",
+        "boots": "squires_oath_boots",
+        "ring": "squires_oath_ring",
+        "necklace": "squires_oath_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+5%"
+        },
+        "sevenPiece": {
+          "stat": "Health",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "apprentice_builder",
+      "name": "Apprentice Builder",
+      "rarity": "common",
+      "theme": "Construction",
+      "description": "Light, flexible tunic and tools designed for high structural work and scaffolding.",
+      "pieces": {
+        "weapon": "apprentice_builder_weapon",
+        "helmet": "apprentice_builder_helmet",
+        "chest_armor": "apprentice_builder_chest_armor",
+        "gloves": "apprentice_builder_gloves",
+        "boots": "apprentice_builder_boots",
+        "ring": "apprentice_builder_ring",
+        "necklace": "apprentice_builder_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Construction Speed",
+          "value": "+3%"
+        },
+        "fourPiece": {
+          "stat": "Gathering Speed",
+          "value": "+5%"
+        },
+        "sevenPiece": {
+          "stat": "Resource Production",
+          "value": "+10%"
+        }
+      }
+    },
+    {
+      "id": "woodcutters_pride",
+      "name": "Woodcutter's Pride",
+      "rarity": "common",
+      "theme": "Wood Gathering",
+      "description": "Flannel linings and heavy axes built for clearing dense thickets in outer rings.",
+      "pieces": {
+        "weapon": "woodcutters_pride_weapon",
+        "helmet": "woodcutters_pride_helmet",
+        "chest_armor": "woodcutters_pride_chest_armor",
+        "gloves": "woodcutters_pride_gloves",
+        "boots": "woodcutters_pride_boots",
+        "ring": "woodcutters_pride_ring",
+        "necklace": "woodcutters_pride_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Wood Gathering Speed",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Timber Production",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "farmers_harvest",
+      "name": "Farmer's Harvest",
+      "rarity": "common",
+      "theme": "Wheat Production",
+      "description": "Reinforced straw-weavings and harvesting sickles tailored for agricultural abundance.",
+      "pieces": {
+        "weapon": "farmers_harvest_weapon",
+        "helmet": "farmers_harvest_helmet",
+        "chest_armor": "farmers_harvest_chest_armor",
+        "gloves": "farmers_harvest_gloves",
+        "boots": "farmers_harvest_boots",
+        "ring": "farmers_harvest_ring",
+        "necklace": "farmers_harvest_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Wheat Gathering Speed",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Wheat Production",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "stonecarvers_zeal",
+      "name": "Stonecarver's Zeal",
+      "rarity": "common",
+      "theme": "Stone Gathering",
+      "description": "Dust-resistant goggles and stone hammers to carve slate blocks efficiently.",
+      "pieces": {
+        "weapon": "stonecarvers_zeal_weapon",
+        "helmet": "stonecarvers_zeal_helmet",
+        "chest_armor": "stonecarvers_zeal_chest_armor",
+        "gloves": "stonecarvers_zeal_gloves",
+        "boots": "stonecarvers_zeal_boots",
+        "ring": "stonecarvers_zeal_ring",
+        "necklace": "stonecarvers_zeal_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Stone Gathering Speed",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Slate Production",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "miners_tenacity",
+      "name": "Miner's Tenacity",
+      "rarity": "common",
+      "theme": "Iron Gathering",
+      "description": "Heavy-duty picks and steel-toed boots constructed for tunneling runic iron veins.",
+      "pieces": {
+        "weapon": "miners_tenacity_weapon",
+        "helmet": "miners_tenacity_helmet",
+        "chest_armor": "miners_tenacity_chest_armor",
+        "gloves": "miners_tenacity_gloves",
+        "boots": "miners_tenacity_boots",
+        "ring": "miners_tenacity_ring",
+        "necklace": "miners_tenacity_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Iron Gathering Speed",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Runic Iron Production",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "scouts_light",
+      "name": "Scout's Light",
+      "rarity": "common",
+      "theme": "March Speed",
+      "description": "Supple leather boots and cloaks to traverse open plains with minimal load.",
+      "pieces": {
+        "weapon": "scouts_light_weapon",
+        "helmet": "scouts_light_helmet",
+        "chest_armor": "scouts_light_chest_armor",
+        "gloves": "scouts_light_gloves",
+        "boots": "scouts_light_boots",
+        "ring": "scouts_light_ring",
+        "necklace": "scouts_light_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "March Speed",
+          "value": "+3%"
+        },
+        "fourPiece": {
+          "stat": "Gathering Speed",
+          "value": "+5%"
+        },
+        "sevenPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "recruits_discipline",
+      "name": "Recruit's Discipline",
+      "rarity": "common",
+      "theme": "Training Speed",
+      "description": "Standard barracks garb designed to instill absolute military coordination.",
+      "pieces": {
+        "weapon": "recruits_discipline_weapon",
+        "helmet": "recruits_discipline_helmet",
+        "chest_armor": "recruits_discipline_chest_armor",
+        "gloves": "recruits_discipline_gloves",
+        "boots": "recruits_discipline_boots",
+        "ring": "recruits_discipline_ring",
+        "necklace": "recruits_discipline_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Training Speed",
+          "value": "+3%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+5%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+10%"
+        }
+      }
+    },
+    {
+      "id": "scholars_quill",
+      "name": "Scholar's Quill",
+      "rarity": "common",
+      "theme": "Research Speed",
+      "description": "Ink-stained vestments worn by catalogers in the early stages of the Research Academy.",
+      "pieces": {
+        "weapon": "scholars_quill_weapon",
+        "helmet": "scholars_quill_helmet",
+        "chest_armor": "scholars_quill_chest_armor",
+        "gloves": "scholars_quill_gloves",
+        "boots": "scholars_quill_boots",
+        "ring": "scholars_quill_ring",
+        "necklace": "scholars_quill_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Research Speed",
+          "value": "+3%"
+        },
+        "fourPiece": {
+          "stat": "Gathering Speed",
+          "value": "+5%"
+        },
+        "sevenPiece": {
+          "stat": "Hero XP Gain",
+          "value": "+10%"
+        }
+      }
+    },
+    {
+      "id": "royal_sentinel",
+      "name": "Royal Sentinel",
+      "rarity": "rare",
+      "theme": "Defensive Infantry",
+      "description": "Polished steel plates designed to hold checkpoints against Void wildlings.",
+      "pieces": {
+        "weapon": "royal_sentinel_weapon",
+        "helmet": "royal_sentinel_helmet",
+        "chest_armor": "royal_sentinel_chest_armor",
+        "gloves": "royal_sentinel_gloves",
+        "boots": "royal_sentinel_boots",
+        "ring": "royal_sentinel_ring",
+        "necklace": "royal_sentinel_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+6%"
+        },
+        "fourPiece": {
+          "stat": "Health",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Defense",
+          "value": "+18%"
+        }
+      }
+    },
+    {
+      "id": "swift_nomad",
+      "name": "Swift Nomad",
+      "rarity": "rare",
+      "theme": "Cavalry Speed",
+      "description": "Flexible composite mail worn by outriders who patrol the dry border deserts.",
+      "pieces": {
+        "weapon": "swift_nomad_weapon",
+        "helmet": "swift_nomad_helmet",
+        "chest_armor": "swift_nomad_chest_armor",
+        "gloves": "swift_nomad_gloves",
+        "boots": "swift_nomad_boots",
+        "ring": "swift_nomad_ring",
+        "necklace": "swift_nomad_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "March Speed",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Cavalry Attack",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "runic_fletcher",
+      "name": "Runic Fletcher",
+      "rarity": "rare",
+      "theme": "Marksman Damage",
+      "description": "Fitted leather studded with copper loops, carrying runes that guide long-distance arrows.",
+      "pieces": {
+        "weapon": "runic_fletcher_weapon",
+        "helmet": "runic_fletcher_helmet",
+        "chest_armor": "runic_fletcher_chest_armor",
+        "gloves": "runic_fletcher_gloves",
+        "boots": "runic_fletcher_boots",
+        "ring": "runic_fletcher_ring",
+        "necklace": "runic_fletcher_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+6%"
+        },
+        "fourPiece": {
+          "stat": "Skill Damage",
+          "value": "+8%"
+        },
+        "sevenPiece": {
+          "stat": "Marksmen Attack",
+          "value": "+18%"
+        }
+      }
+    },
+    {
+      "id": "wildland_tracker",
+      "name": "Wildland Tracker",
+      "rarity": "rare",
+      "theme": "Monster Hunting",
+      "description": "Camouflaged gear lined with beast hide to safely trail monsters in outer territories.",
+      "pieces": {
+        "weapon": "wildland_tracker_weapon",
+        "helmet": "wildland_tracker_helmet",
+        "chest_armor": "wildland_tracker_chest_armor",
+        "gloves": "wildland_tracker_gloves",
+        "boots": "wildland_tracker_boots",
+        "ring": "wildland_tracker_ring",
+        "necklace": "wildland_tracker_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Monster Damage",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "March Speed",
+          "value": "+8%"
+        },
+        "sevenPiece": {
+          "stat": "Hero XP Gain",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "hedge_knight",
+      "name": "Hedge Knight",
+      "rarity": "rare",
+      "theme": "General Combat",
+      "description": "Durable iron chainmail acquired through dozens of localized skirmishes.",
+      "pieces": {
+        "weapon": "hedge_knight_weapon",
+        "helmet": "hedge_knight_helmet",
+        "chest_armor": "hedge_knight_chest_armor",
+        "gloves": "hedge_knight_gloves",
+        "boots": "hedge_knight_boots",
+        "ring": "hedge_knight_ring",
+        "necklace": "hedge_knight_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Health",
+          "value": "+6%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "tavern_bard",
+      "name": "Tavern Bard",
+      "rarity": "rare",
+      "theme": "Support",
+      "description": "Feathered hats and lyrical rings that soothe the hearts of wounded soldiers.",
+      "pieces": {
+        "weapon": "tavern_bard_weapon",
+        "helmet": "tavern_bard_helmet",
+        "chest_armor": "tavern_bard_chest_armor",
+        "gloves": "tavern_bard_gloves",
+        "boots": "tavern_bard_boots",
+        "ring": "tavern_bard_ring",
+        "necklace": "tavern_bard_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Rage Generation",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Healing",
+          "value": "+8%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+12%"
+        }
+      }
+    },
+    {
+      "id": "silver_prospector",
+      "name": "Silver Prospector",
+      "rarity": "rare",
+      "theme": "Advanced Gathering",
+      "description": "Reinforced leather straps carrying heavy pouches to maximize resource transport load.",
+      "pieces": {
+        "weapon": "silver_prospector_weapon",
+        "helmet": "silver_prospector_helmet",
+        "chest_armor": "silver_prospector_chest_armor",
+        "gloves": "silver_prospector_gloves",
+        "boots": "silver_prospector_boots",
+        "ring": "silver_prospector_ring",
+        "necklace": "silver_prospector_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Gathering Speed",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Legion Load",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Resource Gathering",
+          "value": "+12%"
+        }
+      }
+    },
+    {
+      "id": "keep_mason",
+      "name": "Keep Mason",
+      "rarity": "rare",
+      "theme": "Advanced Construction",
+      "description": "Thick heavy aprons and mason mallets that speed up foundation mortar setting.",
+      "pieces": {
+        "weapon": "keep_mason_weapon",
+        "helmet": "keep_mason_helmet",
+        "chest_armor": "keep_mason_chest_armor",
+        "gloves": "keep_mason_gloves",
+        "boots": "keep_mason_boots",
+        "ring": "keep_mason_ring",
+        "necklace": "keep_mason_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Construction Speed",
+          "value": "+6%"
+        },
+        "fourPiece": {
+          "stat": "Stone Gathering Speed",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Defense",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "novice_alchemist",
+      "name": "Novice Alchemist",
+      "rarity": "rare",
+      "theme": "Healing & Training",
+      "description": "Protective glassware and herbal sashes designed to stabilize rapid recovery elixirs.",
+      "pieces": {
+        "weapon": "novice_alchemist_weapon",
+        "helmet": "novice_alchemist_helmet",
+        "chest_armor": "novice_alchemist_chest_armor",
+        "gloves": "novice_alchemist_gloves",
+        "boots": "novice_alchemist_boots",
+        "ring": "novice_alchemist_ring",
+        "necklace": "novice_alchemist_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Healing Speed",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Training Speed",
+          "value": "+10%"
+        },
+        "sevenPiece": {
+          "stat": "Health",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "guild_emissary",
+      "name": "Guild Emissary",
+      "rarity": "rare",
+      "theme": "Alliance Support",
+      "description": "Dignified ceremonial uniform worn during critical border fort covenant negotiations.",
+      "pieces": {
+        "weapon": "guild_emissary_weapon",
+        "helmet": "guild_emissary_helmet",
+        "chest_armor": "guild_emissary_chest_armor",
+        "gloves": "guild_emissary_gloves",
+        "boots": "guild_emissary_boots",
+        "ring": "guild_emissary_ring",
+        "necklace": "guild_emissary_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Alliance Help Effectiveness",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "March Speed",
+          "value": "+8%"
+        },
+        "sevenPiece": {
+          "stat": "Leadership",
+          "value": "+12%"
+        }
+      }
+    },
+    {
+      "id": "frost_guardian",
+      "name": "Frost Guardian",
+      "rarity": "epic",
+      "theme": "Defensive Control",
+      "description": "Deep blue steel plates encased in perpetual ice, slowing incoming enemy shock forces.",
+      "pieces": {
+        "weapon": "frost_guardian_weapon",
+        "helmet": "frost_guardian_helmet",
+        "chest_armor": "frost_guardian_chest_armor",
+        "gloves": "frost_guardian_gloves",
+        "boots": "frost_guardian_boots",
+        "ring": "frost_guardian_ring",
+        "necklace": "frost_guardian_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Health",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Defense",
+          "value": "+22%"
+        }
+      }
+    },
+    {
+      "id": "stormcaller",
+      "name": "Stormcaller",
+      "rarity": "epic",
+      "theme": "Area Skill Damage",
+      "description": "Conductive copper rods and stormy robes that channel massive sky electric discharge.",
+      "pieces": {
+        "weapon": "stormcaller_weapon",
+        "helmet": "stormcaller_helmet",
+        "chest_armor": "stormcaller_chest_armor",
+        "gloves": "stormcaller_gloves",
+        "boots": "stormcaller_boots",
+        "ring": "stormcaller_ring",
+        "necklace": "stormcaller_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Skill Damage",
+          "value": "+6%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+18%"
+        }
+      }
+    },
+    {
+      "id": "blood_oath",
+      "name": "Blood Oath",
+      "rarity": "epic",
+      "theme": "Offensive Lifesteal",
+      "description": "Crimson steel bounds that feed on combat bloodlust, converting raw attack into healing.",
+      "pieces": {
+        "weapon": "blood_oath_weapon",
+        "helmet": "blood_oath_helmet",
+        "chest_armor": "blood_oath_chest_armor",
+        "gloves": "blood_oath_gloves",
+        "boots": "blood_oath_boots",
+        "ring": "blood_oath_ring",
+        "necklace": "blood_oath_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Healing",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+20%"
+        }
+      }
+    },
+    {
+      "id": "ancient_warden",
+      "name": "Ancient Warden",
+      "rarity": "epic",
+      "theme": "High Defense Tank",
+      "description": "Stiff weathered basalt structures carved with old symbols of unmoving durability.",
+      "pieces": {
+        "weapon": "ancient_warden_weapon",
+        "helmet": "ancient_warden_helmet",
+        "chest_armor": "ancient_warden_chest_armor",
+        "gloves": "ancient_warden_gloves",
+        "boots": "ancient_warden_boots",
+        "ring": "ancient_warden_ring",
+        "necklace": "ancient_warden_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Health",
+          "value": "+20%"
+        }
+      }
+    },
+    {
+      "id": "forest_ranger",
+      "name": "Forest Ranger",
+      "rarity": "epic",
+      "theme": "Marksman Critical Hit",
+      "description": "Silent green leather armor that camouflages marksmen in brush for lethal critical burst.",
+      "pieces": {
+        "weapon": "forest_ranger_weapon",
+        "helmet": "forest_ranger_helmet",
+        "chest_armor": "forest_ranger_chest_armor",
+        "gloves": "forest_ranger_gloves",
+        "boots": "forest_ranger_boots",
+        "ring": "forest_ranger_ring",
+        "necklace": "forest_ranger_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Critical Strike Chance",
+          "value": "+5%"
+        },
+        "fourPiece": {
+          "stat": "Marksmen Attack",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+18%"
+        }
+      }
+    },
+    {
+      "id": "volcanic_fury",
+      "name": "Volcanic Fury",
+      "rarity": "epic",
+      "theme": "High Attack Offensive",
+      "description": "Magma-forged plate carrying molten core residue that bursts heat on target contact.",
+      "pieces": {
+        "weapon": "volcanic_fury_weapon",
+        "helmet": "volcanic_fury_helmet",
+        "chest_armor": "volcanic_fury_chest_armor",
+        "gloves": "volcanic_fury_gloves",
+        "boots": "volcanic_fury_boots",
+        "ring": "volcanic_fury_ring",
+        "necklace": "volcanic_fury_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Critical Strike Damage",
+          "value": "+20%"
+        }
+      }
+    },
+    {
+      "id": "desert_nomad",
+      "name": "Desert Nomad",
+      "rarity": "epic",
+      "theme": "Cavalry Speed & Gathering",
+      "description": "Light, heat-resistant linen and chainmail woven to cross massive dunes quickly.",
+      "pieces": {
+        "weapon": "desert_nomad_weapon",
+        "helmet": "desert_nomad_helmet",
+        "chest_armor": "desert_nomad_chest_armor",
+        "gloves": "desert_nomad_gloves",
+        "boots": "desert_nomad_boots",
+        "ring": "desert_nomad_ring",
+        "necklace": "desert_nomad_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Cavalry Speed",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Gathering Speed",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "March Speed",
+          "value": "+12%"
+        }
+      }
+    },
+    {
+      "id": "rune_sage",
+      "name": "Rune Sage",
+      "rarity": "epic",
+      "theme": "Fast Research",
+      "description": "Draped robes lined with glow circuits that accelerate mental projection inside Academies.",
+      "pieces": {
+        "weapon": "rune_sage_weapon",
+        "helmet": "rune_sage_helmet",
+        "chest_armor": "rune_sage_chest_armor",
+        "gloves": "rune_sage_gloves",
+        "boots": "rune_sage_boots",
+        "ring": "rune_sage_ring",
+        "necklace": "rune_sage_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Research Speed",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Skill Damage",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Rage Generation",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "steel_quartermaster",
+      "name": "Steel Quartermaster",
+      "rarity": "epic",
+      "theme": "Mass Training",
+      "description": "Organized heavy pouches containing master logistics scrolls to quicken legion training.",
+      "pieces": {
+        "weapon": "steel_quartermaster_weapon",
+        "helmet": "steel_quartermaster_helmet",
+        "chest_armor": "steel_quartermaster_chest_armor",
+        "gloves": "steel_quartermaster_gloves",
+        "boots": "steel_quartermaster_boots",
+        "ring": "steel_quartermaster_ring",
+        "necklace": "steel_quartermaster_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Training Speed",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Wheat Production",
+          "value": "+20%"
+        },
+        "sevenPiece": {
+          "stat": "Leadership",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "gladiators_glory",
+      "name": "Gladiators Glory",
+      "rarity": "epic",
+      "theme": "PvP Arena Combat",
+      "description": "Spiked heavy brass armor built to survive bloody crowd battles and territory sieges.",
+      "pieces": {
+        "weapon": "gladiators_glory_weapon",
+        "helmet": "gladiators_glory_helmet",
+        "chest_armor": "gladiators_glory_chest_armor",
+        "gloves": "gladiators_glory_gloves",
+        "boots": "gladiators_glory_boots",
+        "ring": "gladiators_glory_ring",
+        "necklace": "gladiators_glory_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+12%"
+        },
+        "sevenPiece": {
+          "stat": "Rage Generation",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "dragon_slayer",
+      "name": "Dragon Slayer",
+      "rarity": "legendary",
+      "theme": "Elite Monster Hunting",
+      "description": "Thick scaly plates harvested from wild drakes, completely immune to low-tier dragon fire.",
+      "pieces": {
+        "weapon": "dragon_slayer_weapon",
+        "helmet": "dragon_slayer_helmet",
+        "chest_armor": "dragon_slayer_chest_armor",
+        "gloves": "dragon_slayer_gloves",
+        "boots": "dragon_slayer_boots",
+        "ring": "dragon_slayer_ring",
+        "necklace": "dragon_slayer_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Monster Damage",
+          "value": "+20%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "Hero XP Gain",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "phoenix_knight",
+      "name": "Phoenix Knight",
+      "rarity": "legendary",
+      "theme": "Rebirth & Healing",
+      "description": "Glowing golden plates adorned with red feathers that burn to heal lethal unit damage.",
+      "pieces": {
+        "weapon": "phoenix_knight_weapon",
+        "helmet": "phoenix_knight_helmet",
+        "chest_armor": "phoenix_knight_chest_armor",
+        "gloves": "phoenix_knight_gloves",
+        "boots": "phoenix_knight_boots",
+        "ring": "phoenix_knight_ring",
+        "necklace": "phoenix_knight_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Healing",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Health",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "Defense",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "shadow_assassin",
+      "name": "Shadow Assassin",
+      "rarity": "legendary",
+      "theme": "Critical Strike & Speed",
+      "description": "Void-touched pitch-black fabric that bends local light waves to shield active legions.",
+      "pieces": {
+        "weapon": "shadow_assassin_weapon",
+        "helmet": "shadow_assassin_helmet",
+        "chest_armor": "shadow_assassin_chest_armor",
+        "gloves": "shadow_assassin_gloves",
+        "boots": "shadow_assassin_boots",
+        "ring": "shadow_assassin_ring",
+        "necklace": "shadow_assassin_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Critical Strike Chance",
+          "value": "+8%"
+        },
+        "fourPiece": {
+          "stat": "March Speed",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "sunforged",
+      "name": "Sunforged",
+      "rarity": "legendary",
+      "theme": "Solid Offensive Siege",
+      "description": "Heavy brass plate constructed under intensive light arrays to break city defenses.",
+      "pieces": {
+        "weapon": "sunforged_weapon",
+        "helmet": "sunforged_helmet",
+        "chest_armor": "sunforged_chest_armor",
+        "gloves": "sunforged_gloves",
+        "boots": "sunforged_boots",
+        "ring": "sunforged_ring",
+        "necklace": "sunforged_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "titanbreaker",
+      "name": "Titanbreaker",
+      "rarity": "legendary",
+      "theme": "Anti-Boss Piercing",
+      "description": "Massive solid iron weaponry engineered to crash high-tier void titan defenses easily.",
+      "pieces": {
+        "weapon": "titanbreaker_weapon",
+        "helmet": "titanbreaker_helmet",
+        "chest_armor": "titanbreaker_chest_armor",
+        "gloves": "titanbreaker_gloves",
+        "boots": "titanbreaker_boots",
+        "ring": "titanbreaker_ring",
+        "necklace": "titanbreaker_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Skill Damage",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Defense Mitigation",
+          "value": "+20%"
+        }
+      }
+    },
+    {
+      "id": "ocean_warden",
+      "name": "Ocean Warden",
+      "rarity": "legendary",
+      "theme": "Ranged Marksman Control",
+      "description": "Coralline scales and oceanic gold that guide liquid magic arrows toward hostile formations.",
+      "pieces": {
+        "weapon": "ocean_warden_weapon",
+        "helmet": "ocean_warden_helmet",
+        "chest_armor": "ocean_warden_chest_armor",
+        "gloves": "ocean_warden_gloves",
+        "boots": "ocean_warden_boots",
+        "ring": "ocean_warden_ring",
+        "necklace": "ocean_warden_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Marksmen Attack",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "Healing",
+          "value": "+20%"
+        }
+      }
+    },
+    {
+      "id": "skybreaker",
+      "name": "Skybreaker",
+      "rarity": "legendary",
+      "theme": "High Speed Shock Cavalry",
+      "description": "Feather-light runic armor that charges with kinetic energy during cavalry sprints.",
+      "pieces": {
+        "weapon": "skybreaker_weapon",
+        "helmet": "skybreaker_helmet",
+        "chest_armor": "skybreaker_chest_armor",
+        "gloves": "skybreaker_gloves",
+        "boots": "skybreaker_boots",
+        "ring": "skybreaker_ring",
+        "necklace": "skybreaker_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Cavalry Speed",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "March Speed",
+          "value": "+15%"
+        }
+      }
+    },
+    {
+      "id": "emerald_protector",
+      "name": "Emerald Protector",
+      "rarity": "legendary",
+      "theme": "Ultra-Defense Tank",
+      "description": "Deep forest crystal shields wrapped in ironwood to lock down defensive lines.",
+      "pieces": {
+        "weapon": "emerald_protector_weapon",
+        "helmet": "emerald_protector_helmet",
+        "chest_armor": "emerald_protector_chest_armor",
+        "gloves": "emerald_protector_gloves",
+        "boots": "emerald_protector_boots",
+        "ring": "emerald_protector_ring",
+        "necklace": "emerald_protector_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Health",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+18%"
+        },
+        "sevenPiece": {
+          "stat": "Health",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "arcane_sage",
+      "name": "Arcane Sage",
+      "rarity": "legendary",
+      "theme": "High Magic Synergy",
+      "description": "Glow conductors sewn in royal silk that resonate to maximize magic caster stats.",
+      "pieces": {
+        "weapon": "arcane_sage_weapon",
+        "helmet": "arcane_sage_helmet",
+        "chest_armor": "arcane_sage_chest_armor",
+        "gloves": "arcane_sage_gloves",
+        "boots": "arcane_sage_boots",
+        "ring": "arcane_sage_ring",
+        "necklace": "arcane_sage_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Skill Damage",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Rage Generation",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "imperial_guard",
+      "name": "Imperial Guard",
+      "rarity": "legendary",
+      "theme": "Alliance Warfare",
+      "description": "Polished gilded plate emblazoned with the Aethelgard emblem to raise coordinate morale.",
+      "pieces": {
+        "weapon": "imperial_guard_weapon",
+        "helmet": "imperial_guard_helmet",
+        "chest_armor": "imperial_guard_chest_armor",
+        "gloves": "imperial_guard_gloves",
+        "boots": "imperial_guard_boots",
+        "ring": "imperial_guard_ring",
+        "necklace": "imperial_guard_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+10%"
+        },
+        "fourPiece": {
+          "stat": "Leadership",
+          "value": "+15%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "celestial_champion",
+      "name": "Celestial Champion",
+      "rarity": "mythic",
+      "theme": "Master Balanced",
+      "description": "Pure white alabaster armor bonded with raw stardust crystals, providing divine balance.",
+      "pieces": {
+        "weapon": "celestial_champion_weapon",
+        "helmet": "celestial_champion_helmet",
+        "chest_armor": "celestial_champion_chest_armor",
+        "gloves": "celestial_champion_gloves",
+        "boots": "celestial_champion_boots",
+        "ring": "celestial_champion_ring",
+        "necklace": "celestial_champion_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+20%"
+        },
+        "sevenPiece": {
+          "stat": "Health",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "moonkeeper",
+      "name": "Moonkeeper",
+      "rarity": "mythic",
+      "theme": "Ultimate Stealth & Critical",
+      "description": "Ethereal silver plates that absorb moon rays, boosting critical burst from dense shadows.",
+      "pieces": {
+        "weapon": "moonkeeper_weapon",
+        "helmet": "moonkeeper_helmet",
+        "chest_armor": "moonkeeper_chest_armor",
+        "gloves": "moonkeeper_gloves",
+        "boots": "moonkeeper_boots",
+        "ring": "moonkeeper_ring",
+        "necklace": "moonkeeper_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Critical Strike Chance",
+          "value": "+12%"
+        },
+        "fourPiece": {
+          "stat": "Skill Damage",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "crystal_sovereign",
+      "name": "Crystal Sovereign",
+      "rarity": "mythic",
+      "theme": "Ultimate Command & Leadership",
+      "description": "Crownspire's majestic centerpiece. Purple amethysts float above pure copper circlets.",
+      "pieces": {
+        "weapon": "crystal_sovereign_weapon",
+        "helmet": "crystal_sovereign_helmet",
+        "chest_armor": "crystal_sovereign_chest_armor",
+        "gloves": "crystal_sovereign_gloves",
+        "boots": "crystal_sovereign_boots",
+        "ring": "crystal_sovereign_ring",
+        "necklace": "crystal_sovereign_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Leadership",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Rage Generation",
+          "value": "+20%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "void_walker",
+      "name": "Void Walker",
+      "rarity": "mythic",
+      "theme": "Interdimensional Piercing",
+      "description": "Active obsidian plates pulsing with silent energy that slide through enemy armor arrays.",
+      "pieces": {
+        "weapon": "void_walker_weapon",
+        "helmet": "void_walker_helmet",
+        "chest_armor": "void_walker_chest_armor",
+        "gloves": "void_walker_gloves",
+        "boots": "void_walker_boots",
+        "ring": "void_walker_ring",
+        "necklace": "void_walker_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "March Speed",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "winter_kings_regalia",
+      "name": "Winter King's Regalia",
+      "rarity": "mythic",
+      "theme": "Ultimate Crowd Control",
+      "description": "Heavy white crystal vestments worn by regional kings to freeze invading legions in tracks.",
+      "pieces": {
+        "weapon": "winter_kings_regalia_weapon",
+        "helmet": "winter_kings_regalia_helmet",
+        "chest_armor": "winter_kings_regalia_chest_armor",
+        "gloves": "winter_kings_regalia_gloves",
+        "boots": "winter_kings_regalia_boots",
+        "ring": "winter_kings_regalia_ring",
+        "necklace": "winter_kings_regalia_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Defense",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Health",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Defense",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "necromancers_regalia",
+      "name": "Necromancer's Regalia",
+      "rarity": "mythic",
+      "theme": "Life Drain & De-buff",
+      "description": "Deep charcoal plates woven with frozen nether threads, drawing vital essence from fallen legions.",
+      "pieces": {
+        "weapon": "necromancers_regalia_weapon",
+        "helmet": "necromancers_regalia_helmet",
+        "chest_armor": "necromancers_regalia_chest_armor",
+        "gloves": "necromancers_regalia_gloves",
+        "boots": "necromancers_regalia_boots",
+        "ring": "necromancers_regalia_ring",
+        "necklace": "necromancers_regalia_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Healing",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Attack",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "holy_crusader",
+      "name": "Holy Crusader",
+      "rarity": "mythic",
+      "theme": "Immortal Shield & Support",
+      "description": "Gilded alabaster armor protected by continuous light halos. Blocks fatal military blows.",
+      "pieces": {
+        "weapon": "holy_crusader_weapon",
+        "helmet": "holy_crusader_helmet",
+        "chest_armor": "holy_crusader_chest_armor",
+        "gloves": "holy_crusader_gloves",
+        "boots": "holy_crusader_boots",
+        "ring": "holy_crusader_ring",
+        "necklace": "holy_crusader_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Health",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Defense",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Healing",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "infernal_legion",
+      "name": "Infernal Legion",
+      "rarity": "mythic",
+      "theme": "Scorching Aggressive Offense",
+      "description": "Blackiron plates filled with active volcanic lava that superheats troop munitions.",
+      "pieces": {
+        "weapon": "infernal_legion_weapon",
+        "helmet": "infernal_legion_helmet",
+        "chest_armor": "infernal_legion_chest_armor",
+        "gloves": "infernal_legion_gloves",
+        "boots": "infernal_legion_boots",
+        "ring": "infernal_legion_ring",
+        "necklace": "infernal_legion_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Attack",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Skill Damage",
+          "value": "+30%"
+        }
+      }
+    },
+    {
+      "id": "dawnbringer",
+      "name": "Dawnbringer",
+      "rarity": "mythic",
+      "theme": "Absolute Light & Speed",
+      "description": "Gleaming golden mesh woven from sun rays, moving the Sovereign's host with dazzling velocity.",
+      "pieces": {
+        "weapon": "dawnbringer_weapon",
+        "helmet": "dawnbringer_helmet",
+        "chest_armor": "dawnbringer_chest_armor",
+        "gloves": "dawnbringer_gloves",
+        "boots": "dawnbringer_boots",
+        "ring": "dawnbringer_ring",
+        "necklace": "dawnbringer_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "March Speed",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Rage Generation",
+          "value": "+25%"
+        }
+      }
+    },
+    {
+      "id": "nightstalker",
+      "name": "Nightstalker",
+      "rarity": "mythic",
+      "theme": "Executioner Critical",
+      "description": "Silent midnight armor worn by high-stakes executioners to deliver instant critical strikes.",
+      "pieces": {
+        "weapon": "nightstalker_weapon",
+        "helmet": "nightstalker_helmet",
+        "chest_armor": "nightstalker_chest_armor",
+        "gloves": "nightstalker_gloves",
+        "boots": "nightstalker_boots",
+        "ring": "nightstalker_ring",
+        "necklace": "nightstalker_necklace"
+      },
+      "bonuses": {
+        "twoPiece": {
+          "stat": "Critical Strike Chance",
+          "value": "+15%"
+        },
+        "fourPiece": {
+          "stat": "Attack",
+          "value": "+25%"
+        },
+        "sevenPiece": {
+          "stat": "Critical Strike Damage",
+          "value": "+35%"
+        }
+      }
+    }
+  ]
+}

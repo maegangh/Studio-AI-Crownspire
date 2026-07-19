@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy20muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/QuestListItem.gd" id="1_e7b8f"]
+[ext_resource type="Texture2D" uid="uid://du27f7a7jpx7r" path="res://assets/ui/icons/hud_royal_crystal.png" id="2_e7b8f"]
+
+[node name="QuestListItem" type="PanelContainer"]
+custom_minimum_size = Vector2(660, 110)
+offset_right = 660.0
+offset_bottom = 110.0
+size_flags_horizontal = 3
+script = ExtResource("1_e7b8f")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="MainLayout" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="DetailsContainer" type="VBoxContainer" parent="Margin/MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HeaderRow" type="HBoxContainer" parent="Margin/MainLayout/DetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="QuestTitle" type="Label" parent="Margin/MainLayout/DetailsContainer/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Imperial Greeting"
+vertical_alignment = 1
+
+[node name="PointsBadge" type="Label" parent="Margin/MainLayout/DetailsContainer/HeaderRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 1)
+theme_override_font_sizes/font_size = 11
+text = "+10 PTS"
+vertical_alignment = 1
+
+[node name="QuestDesc" type="Label" parent="Margin/MainLayout/DetailsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "Report to the Keep. Log into Crownspire to secure administrative seals."
+autowrap_mode = 3
+
+[node name="ProgressLayout" type="HBoxContainer" parent="Margin/MainLayout/DetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ProgressBar" type="ProgressBar" parent="Margin/MainLayout/DetailsContainer/ProgressLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="Margin/MainLayout/DetailsContainer/ProgressLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 11
+text = "1 / 1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="VSeparator1" type="VSeparator" parent="Margin/MainLayout"]
+layout_mode = 2
+
+[node name="RewardBox" type="VBoxContainer" parent="Margin/MainLayout"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="RewardIcon" type="TextureRect" parent="Margin/MainLayout/RewardBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_e7b8f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RewardQty" type="Label" parent="Margin/MainLayout/RewardBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "x100"
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Margin/MainLayout"]
+layout_mode = 2
+
+[node name="ActionButton" type="Button" parent="Margin/MainLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "CLAIM"

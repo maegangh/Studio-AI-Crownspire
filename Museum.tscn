@@ -1,0 +1,355 @@
+[gd_scene load_steps=10 format=3 uid="uid://crownmuseumpanel888"]
+
+[ext_resource type="Script" path="res://Museum.gd" id="1_museum"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0509804, 0.0588235, 0.0784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.0784314, 0.0901961, 0.117647, 1)
+border_width_bottom = 2
+border_color = Color(0.141176, 0.160784, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseNormal"]
+bg_color = Color(0.121569, 0.141176, 0.184314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseHover"]
+bg_color = Color(0.658824, 0.141176, 0.184314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Sidebar"]
+bg_color = Color(0.0666667, 0.0784314, 0.101961, 1)
+border_width_right = 1
+border_color = Color(0.121569, 0.141176, 0.184314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CardPanel"]
+bg_color = Color(0.0823529, 0.0980392, 0.12549, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.168627, 0.219608, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_DetailsPanel"]
+bg_color = Color(0.0666667, 0.0784314, 0.101961, 0.95)
+border_width_left = 1
+border_color = Color(0.141176, 0.168627, 0.219608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Toast"]
+bg_color = Color(0.0784314, 0.0901961, 0.117647, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.858824, 0.537255, 0.0823529, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="Museum" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_museum")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.960784, 0.960784, 0.960784, 1)
+theme_override_font_sizes/font_size = 20
+text = "📖 CITADEL CODEX MUSEUM"
+
+[node name="Subtitle" type="Label" parent="Layout/Header/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.501961, 0.556863, 0.643137, 1)
+theme_override_font_sizes/font_size = 12
+text = "Historical catalog acquisitions & account-wide sovereign ledger buffs"
+
+[node name="CloseButton" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_CloseNormal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_CloseHover")
+text = "✕"
+
+[node name="TabMargin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 8
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout/Header/TabMargin"]
+layout_mode = 2
+horizontal_scroll_mode = 1
+vertical_scroll_mode = 0
+
+[node name="TabsHBox" type="HBoxContainer" parent="Layout/Header/TabMargin/TabScroll"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Content" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Sidebar" type="PanelContainer" parent="Layout/Content"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Sidebar")
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/Sidebar"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SearchMargin" type="MarginContainer" parent="Layout/Content/Sidebar/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+
+[node name="SearchVBox" type="VBoxContainer" parent="Layout/Content/Sidebar/VBox/SearchMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/Sidebar/VBox/SearchMargin/SearchVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Search Registry"
+
+[node name="SearchInput" type="LineEdit" parent="Layout/Content/Sidebar/VBox/SearchMargin/SearchVBox"]
+layout_mode = 2
+placeholder_text = "Key words..."
+
+[node name="FilterMargin" type="MarginContainer" parent="Layout/Content/Sidebar/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="FilterVBox" type="VBoxContainer" parent="Layout/Content/Sidebar/VBox/FilterMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/Sidebar/VBox/FilterMargin/FilterVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Filter Ledger"
+
+[node name="FilterOption" type="OptionButton" parent="Layout/Content/Sidebar/VBox/FilterMargin/FilterVBox"]
+layout_mode = 2
+
+[node name="CompletionPanel" type="PanelContainer" parent="Layout/Content/Sidebar/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CardPanel")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/Sidebar/VBox/CompletionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/Sidebar/VBox/CompletionPanel/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Layout/Content/Sidebar/VBox/CompletionPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.858824, 0.537255, 0.0823529, 1)
+theme_override_font_sizes/font_size = 12
+text = "CITADEL COMPLETION RATE"
+horizontal_alignment = 1
+
+[node name="PercentLabel" type="Label" parent="Layout/Content/Sidebar/VBox/CompletionPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "0%"
+horizontal_alignment = 1
+
+[node name="Progress" type="TextureProgressBar" parent="Layout/Content/Sidebar/VBox/CompletionPanel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+value = 45.0
+nine_patch_stretch = true
+
+[node name="MainArea" type="PanelContainer" parent="Layout/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridScroll" type="ScrollContainer" parent="Layout/Content/MainArea"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/MainArea/GridScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Grid" type="GridContainer" parent="Layout/Content/MainArea/GridScroll/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 4
+
+[node name="DetailsPanel" type="PanelContainer" parent="Layout/Content"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_DetailsPanel")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/DetailsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/DetailsPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="Layout/Content/DetailsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Icon" type="TextureRect" parent="Layout/Content/DetailsPanel/Margin/VBox/Header"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/DetailsPanel/Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/Header/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="Subtitle" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/Header/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.501961, 0.556863, 0.643137, 1)
+theme_override_font_sizes/font_size = 11
+
+[node name="Description" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 2
+
+[node name="StatsSection" type="VBoxContainer" parent="Layout/Content/DetailsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/StatsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.858824, 0.537255, 0.0823529, 1)
+theme_override_font_sizes/font_size = 11
+text = "ACTIVE STAT BONUSES"
+
+[node name="StatsText" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/StatsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 2
+
+[node name="LoreSection" type="VBoxContainer" parent="Layout/Content/DetailsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/LoreSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.439216, 0.501961, 0.627451, 1)
+theme_override_font_sizes/font_size = 11
+text = "HISTORICAL ORIGINS"
+
+[node name="LoreText" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/LoreSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+autowrap_mode = 2
+
+[node name="RewardSection" type="VBoxContainer" parent="Layout/Content/DetailsPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="ClaimBtn" type="Button" parent="Layout/Content/DetailsPanel/Margin/VBox/RewardSection"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "CLAIM REWARD"
+
+[node name="StatusLbl" type="Label" parent="Layout/Content/DetailsPanel/Margin/VBox/RewardSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(280, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -80.0
+offset_right = 140.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Toast")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1

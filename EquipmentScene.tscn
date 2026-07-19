@@ -1,0 +1,391 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8cxm7qip1r2k"]
+
+[ext_resource type="Script" path="res://EquipmentScene.gd" id="1_t2s8p"]
+
+[node name="EquipmentScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t2s8p")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.1, 1)
+
+[node name="UI" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Header" type="HBoxContainer" parent="UI"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="UI/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "🏛️ SOVEREIGN ALTAR ARMORY"
+
+[node name="HeroSelectorLabel" type="Label" parent="UI/Header"]
+layout_mode = 2
+text = "Selected Hero:"
+
+[node name="HeroSelector" type="OptionButton" parent="UI/Header"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="UI/Header"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+text = "X"
+
+[node name="MainLayout" type="HBoxContainer" parent="UI"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="LeftHeroView" type="VBoxContainer" parent="UI/MainLayout"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeroName" type="Label" parent="UI/MainLayout/LeftHeroView"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Marshal Maegan"
+horizontal_alignment = 1
+
+[node name="HeroPower" type="Label" parent="UI/MainLayout/LeftHeroView"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.75, 0.2, 1)
+text = "Total CP: 45000"
+horizontal_alignment = 1
+
+[node name="SlotsGrid" type="GridContainer" parent="UI/MainLayout/LeftHeroView"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/columns = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="WeaponSlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Weapon
+(Empty)"
+
+[node name="HelmetSlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Helmet
+(Empty)"
+
+[node name="ArmorSlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Armor
+(Empty)"
+
+[node name="BootsSlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Boots
+(Empty)"
+
+[node name="AccessorySlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Accessory
+(Empty)"
+
+[node name="RingSlot" type="Button" parent="UI/MainLayout/LeftHeroView/SlotsGrid"]
+custom_minimum_size = Vector2(150, 75)
+layout_mode = 2
+text = "Ring
+(Empty)"
+
+[node name="StatsTitle" type="Label" parent="UI/MainLayout/LeftHeroView"]
+layout_mode = 2
+text = "Active Stat Additions:"
+
+[node name="StatsScroll" type="ScrollContainer" parent="UI/MainLayout/LeftHeroView"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/MainLayout/LeftHeroView/StatsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MiddleInventory" type="VBoxContainer" parent="UI/MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Filters" type="HBoxContainer" parent="UI/MainLayout/MiddleInventory"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SlotLabel" type="Label" parent="UI/MainLayout/MiddleInventory/Filters"]
+layout_mode = 2
+text = "Slot:"
+
+[node name="SlotFilter" type="OptionButton" parent="UI/MainLayout/MiddleInventory/Filters"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+item_count = 7
+selected = 0
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Weapon"
+popup/item_1/id = 1
+popup/item_2/text = "Helmet"
+popup/item_2/id = 2
+popup/item_3/text = "Armor"
+popup/item_3/id = 3
+popup/item_4/text = "Boots"
+popup/item_4/id = 4
+popup/item_5/text = "Amulet"
+popup/item_5/id = 5
+popup/item_6/text = "Ring"
+popup/item_6/id = 6
+
+[node name="RarityLabel" type="Label" parent="UI/MainLayout/MiddleInventory/Filters"]
+layout_mode = 2
+text = "Rarity:"
+
+[node name="RarityFilter" type="OptionButton" parent="UI/MainLayout/MiddleInventory/Filters"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+item_count = 6
+selected = 0
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Common"
+popup/item_1/id = 1
+popup/item_2/text = "Rare"
+popup/item_2/id = 2
+popup/item_3/text = "Epic"
+popup/item_3/id = 3
+popup/item_4/text = "Legendary"
+popup/item_4/id = 4
+popup/item_5/text = "Mythic"
+popup/item_5/id = 5
+
+[node name="SortLabel" type="Label" parent="UI/MainLayout/MiddleInventory/Filters"]
+layout_mode = 2
+text = "Sort:"
+
+[node name="SortSelector" type="OptionButton" parent="UI/MainLayout/MiddleInventory/Filters"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Power"
+popup/item_0/id = 0
+popup/item_1/text = "Level"
+popup/item_1/id = 1
+popup/item_2/text = "Rarity"
+popup/item_2/id = 2
+popup/item_3/text = "Name"
+popup/item_3/id = 3
+
+[node name="Scroll" type="ScrollContainer" parent="UI/MainLayout/MiddleInventory"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Grid" type="GridContainer" parent="UI/MainLayout/MiddleInventory/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 4
+
+[node name="RightDetails" type="PanelContainer" parent="UI/MainLayout"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/MainLayout/RightDetails"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="VBoxContainer" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/MainLayout/RightDetails/VBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Recruit's Iron Broadsword"
+horizontal_alignment = 1
+
+[node name="SlotRarity" type="Label" parent="UI/MainLayout/RightDetails/VBox/Header"]
+layout_mode = 2
+text = "Weapon (Common)"
+horizontal_alignment = 1
+
+[node name="PowerValue" type="Label" parent="UI/MainLayout/RightDetails/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "Combat Power: 350"
+horizontal_alignment = 1
+
+[node name="StatsList" type="VBoxContainer" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+
+[node name="EnhanceInfo" type="Label" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.8, 0.9, 1)
+text = "🌟 Custom Enhancement: +5% Critical strike"
+
+[node name="SetInfo" type="Label" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.9, 0.5, 1)
+text = "💠 Set: Vanguard Warden"
+
+[node name="Description" type="Label" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+text = "A finely crafted sovereign broadsword."
+autowrap_mode = 2
+
+[node name="ComparisonBox" type="VBoxContainer" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+
+[node name="DiffLabel" type="Label" parent="UI/MainLayout/RightDetails/VBox/ComparisonBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+text = "Power change: +150 (UPGRADE)"
+
+[node name="Actions" type="VBoxContainer" parent="UI/MainLayout/RightDetails/VBox"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 8
+
+[node name="EquipBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "🛡️ Equip to Hero"
+
+[node name="UnequipBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "⚔️ Unequip Item"
+
+[node name="LockBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "🔒 Lock Gear"
+
+[node name="ActionRow1" type="HBoxContainer" parent="UI/MainLayout/RightDetails/VBox/Actions"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="UpgradeBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions/ActionRow1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "⚡ Upgrade"
+
+[node name="EnhanceBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions/ActionRow1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🌟 Enhance"
+
+[node name="AscendBtn" type="Button" parent="UI/MainLayout/RightDetails/VBox/Actions/ActionRow1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "⭐ Ascend"
+
+[node name="Overlay" type="Control" parent="UI"]
+layout_mode = 2
+
+[node name="ActionDialog" type="PanelContainer" parent="UI/Overlay"]
+visible = false
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -125.0
+offset_right = 200.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Overlay/ActionDialog"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="UI/Overlay/ActionDialog/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "UPGRADE LEVEL"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="UI/Overlay/ActionDialog/VBox"]
+layout_mode = 2
+text = "Upgrades primary base stats linearly by +10%."
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="UI/Overlay/ActionDialog/VBox"]
+layout_mode = 2
+text = "Cost Required:"
+horizontal_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="UI/Overlay/ActionDialog/VBox"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Confirm" type="Button" parent="UI/Overlay/ActionDialog/VBox/HBox"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="UI/Overlay/ActionDialog/VBox/HBox"]
+custom_minimum_size = Vector2(120, 35)
+layout_mode = 2
+text = "Cancel"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -80.0
+offset_right = 250.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+text = "Success message goes here!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

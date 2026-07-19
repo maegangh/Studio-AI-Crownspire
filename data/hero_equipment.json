@@ -1,0 +1,90 @@
+[
+  {
+    "id": "valerius_eq_weapon",
+    "hero_id": "valerius",
+    "name": "Sun-Forged Broadsword",
+    "slot": "weapon",
+    "level": 12,
+    "rarity": "Legendary",
+    "stat_type": "Attack Power",
+    "stat_value": 320,
+    "emoji": "⚔️"
+  },
+  {
+    "id": "valerius_eq_helmet",
+    "hero_id": "valerius",
+    "name": "Sovereign Sun-Visor",
+    "slot": "helmet",
+    "level": 10,
+    "rarity": "Legendary",
+    "stat_type": "Defense Armor",
+    "stat_value": 800,
+    "emoji": "🪖"
+  },
+  {
+    "id": "valerius_eq_armor",
+    "hero_id": "valerius",
+    "name": "Heavy Aegis Plate",
+    "slot": "armor",
+    "level": 8,
+    "rarity": "Epic",
+    "stat_type": "Max Health HP",
+    "stat_value": 2500,
+    "emoji": "🛡️"
+  },
+  {
+    "id": "valerius_eq_boots",
+    "hero_id": "valerius",
+    "name": "Sol-Greaves of Swiftness",
+    "slot": "boots",
+    "level": 5,
+    "rarity": "Rare",
+    "stat_type": "Movement Velocity",
+    "stat_value": 45,
+    "emoji": "👢"
+  },
+  {
+    "id": "aria_eq_weapon",
+    "hero_id": "aria",
+    "name": "Sylph Whisper Recurve Bow",
+    "slot": "weapon",
+    "level": 8,
+    "rarity": "Epic",
+    "stat_type": "Attack Power",
+    "stat_value": 240,
+    "emoji": "🏹"
+  },
+  {
+    "id": "aria_eq_helmet",
+    "hero_id": "aria",
+    "name": "Elderwood Shadow Hood",
+    "slot": "helmet",
+    "level": 6,
+    "rarity": "Epic",
+    "stat_type": "Defense Armor",
+    "stat_value": 310,
+    "emoji": "👒"
+  },
+  {
+    "id": "aria_eq_armor",
+    "hero_id": "aria",
+    "name": "Wind-Runner Leather Tunic",
+    "slot": "armor",
+    "level": 5,
+    "rarity": "Rare",
+    "stat_type": "Max Health HP",
+    "stat_value": 1100,
+    "emoji": "🦺"
+  },
+  {
+    "id": "aria_eq_boots",
+    "hero_id": "aria",
+    "name": "Swift Gale-Step Sandals",
+    "slot": "boots",
+    "level": 10,
+    "rarity": "Legendary",
+    "stat_type": "Movement Velocity",
+    "stat_value": 75,
+    "emoji": "👟"
+  }
+]

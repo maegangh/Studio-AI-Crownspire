@@ -1,0 +1,22 @@
+[
+  {
+    "id": "featured",
+    "name": "Featured",
+    "icon": "res://assets/ui/icons/category_featured.png"
+  },
+  {
+    "id": "crystals",
+    "name": "Crystals",
+    "icon": "res://assets/ui/icons/category_crystals.png"
+  },
+  {
+    "id": "packs",
+    "name": "Packs",
+    "icon": "res://assets/ui/icons/category_packs.png"
+  },
+  {
+    "id": "alliance",
+    "name": "Alliance",
+    "icon": "res://assets/ui/icons/category_alliance.png"
+  }
+]

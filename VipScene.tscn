@@ -1,0 +1,225 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj8fs91b8yul2"]
+
+[ext_resource type="Script" path="res://VipScene.gd" id="1_r7b3f"]
+
+[node name="VipScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r7b3f")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+text = "PALACE PRESTIGE VIP"
+vertical_alignment = 1
+
+[node name="ValorContainer" type="PanelContainer" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(130, 36)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ValorLabel" type="Label" parent="Layout/Header/Margin/HBox/ValorContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "1,500 VALOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SimValorBtn" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 2
+size_flags_vertical = 4
+text = "+ Valor"
+
+[node name="CloseBtn" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(40, 36)
+layout_mode = 2
+size_flags_vertical = 4
+text = "X"
+
+[node name="Main" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="PrestigeCard" type="PanelContainer" parent="Layout/Main"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Main/PrestigeCard"]
+layout_mode = 2
+alignment = 1
+
+[node name="LevelTitle" type="Label" parent="Layout/Main/PrestigeCard/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Sovereign VIP Level 1"
+horizontal_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="Layout/Main/PrestigeCard/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0 / 200 XP"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Layout/Main/PrestigeCard/VBox"]
+custom_minimum_size = Vector2(300, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+step = 1.0
+show_percentage = false
+
+[node name="DailyTribute" type="PanelContainer" parent="Layout/Main"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Main/DailyTribute"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Main/DailyTribute/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Main/DailyTribute/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
+text = "Daily VIP Tribute Chest"
+
+[node name="Desc" type="Label" parent="Layout/Main/DailyTribute/VBox/HBox"]
+visible = false
+layout_mode = 2
+text = "Claim daily supplies matching your tier"
+
+[node name="ClaimBtn" type="Button" parent="Layout/Main/DailyTribute/VBox/HBox"]
+custom_minimum_size = Vector2(120, 36)
+layout_mode = 2
+text = "CLAIM TRIBUTE"
+
+[node name="RewardsLabel" type="Label" parent="Layout/Main/DailyTribute/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "Contains: 500 Wood, 500 Food, 20 Valor"
+
+[node name="PrestigeListScroll" type="ScrollContainer" parent="Layout/Main"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 1
+vertical_scroll_mode = 0
+
+[node name="LevelGrid" type="HBoxContainer" parent="Layout/Main/PrestigeListScroll"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DetailsPanel" type="PanelContainer" parent="Layout/Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Main/DetailsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HeaderLabel" type="Label" parent="Layout/Main/DetailsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "PRESTIGE BENEFIT FILE: LEVEL 1"
+
+[node name="PerksList" type="VBoxContainer" parent="Layout/Main/DetailsPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CoronationBox" type="PanelContainer" parent="Layout/Main/DetailsPanel/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Main/DetailsPanel/VBox/CoronationBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "VIP Level 1 Royal Coronation Chest"
+
+[node name="RewardsLabel" type="Label" parent="Layout/Main/DetailsPanel/VBox/CoronationBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 11
+text = "Contains: 2,000 Wood, 2,000 Food, 100 Valor"
+
+[node name="ClaimBtn" type="Button" parent="Layout/Main/DetailsPanel/VBox/CoronationBox"]
+layout_mode = 2
+text = "CLAIM REWARDS"
+
+[node name="ShopBox" type="HBoxContainer" parent="Layout/Main"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+alignment = 1
+
+[node name="Btn100" type="Button" parent="Layout/Main/ShopBox"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "+100 XP\n(50 Valor)"
+
+[node name="Btn500" type="Button" parent="Layout/Main/ShopBox"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "+500 XP\n(220 Valor)"
+
+[node name="Btn1000" type="Button" parent="Layout/Main/ShopBox"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "+1,000 XP\n(400 Valor)"
+
+[node name="Btn5000" type="Button" parent="Layout/Main/ShopBox"]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+text = "+5,000 XP\n(1,800 Valor)"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_offset_y = -80.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Prestige action updated successfully."
+horizontal_alignment = 1
+vertical_alignment = 1

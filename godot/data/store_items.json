@@ -1,0 +1,98 @@
+[
+  {
+    "id": "item_shield_24h",
+    "name": "Sovereign Aegis (24h)",
+    "description": "Envelops your citadel in an impenetrable alchemical forcefield for 24 hours, preventing all scout and attack marches.",
+    "category_id": "resources",
+    "cost_currency": "royal_crystal",
+    "cost_amount": 1000,
+    "icon_path": "res://assets/ui/icons/item_shield_24h.png",
+    "rarity": 2,
+    "purchase_limit": 3,
+    "current_purchases": 0
+  },
+  {
+    "id": "item_speedup_8h",
+    "name": "Arcane Speedup (8h)",
+    "description": "Infuses construction, research, or troop training queues with temporal magic, reducing remaining duration by 8 hours.",
+    "category_id": "resources",
+    "cost_currency": "royal_crystal",
+    "cost_amount": 480,
+    "icon_path": "res://assets/ui/icons/item_speedup_8h.png",
+    "rarity": 2,
+    "purchase_limit": 10,
+    "current_purchases": 1
+  },
+  {
+    "id": "item_dragon_blood",
+    "name": "Dragon Blood Elixir",
+    "description": "Potent alchemical mixture that instantly revives 20% of fallen troops in the temple hospital.",
+    "category_id": "resources",
+    "cost_currency": "royal_crystal",
+    "cost_amount": 2500,
+    "icon_path": "res://assets/ui/icons/item_dragon_blood.png",
+    "rarity": 3,
+    "purchase_limit": 1,
+    "current_purchases": 0
+  },
+  {
+    "id": "item_march_size",
+    "name": "Imperial March Order",
+    "description": "Increases maximum march capacity by +50% for 4 hours. Perfect for rallying massive alliance attacks.",
+    "category_id": "resources",
+    "cost_currency": "alliance_honor",
+    "cost_amount": 25000,
+    "icon_path": "res://assets/ui/icons/item_march_size.png",
+    "rarity": 3,
+    "purchase_limit": 2,
+    "current_purchases": 0
+  },
+  {
+    "id": "item_royal_grain",
+    "name": "Citadel Grain Reserve (5M)",
+    "description": "Instantly adds 5,000,000 grain resources directly to your treasury to sustain large armies.",
+    "category_id": "resources",
+    "cost_currency": "alliance_honor",
+    "cost_amount": 15000,
+    "icon_path": "res://assets/ui/icons/item_grain.png",
+    "rarity": 1,
+    "purchase_limit": 5,
+    "current_purchases": 0
+  },
+  {
+    "id": "crystals_tier_1",
+    "name": "Pouch of Crystals",
+    "description": "A minor offering of glistening blue Royal Crystals, condensed from pure mana geysers.",
+    "category_id": "crystals",
+    "cost_currency": "usd",
+    "cost_amount": 4.99,
+    "icon_path": "res://assets/ui/icons/crystal_tier_1.png",
+    "rarity": 1,
+    "purchase_limit": -1,
+    "current_purchases": 0
+  },
+  {
+    "id": "crystals_tier_2",
+    "name": "Chest of Crystals",
+    "description": "A heavy wooden chest filled with brilliant blue Royal Crystals, granting substantial purchasing power.",
+    "category_id": "crystals",
+    "cost_currency": "usd",
+    "cost_amount": 19.99,
+    "icon_path": "res://assets/ui/icons/crystal_tier_2.png",
+    "rarity": 2,
+    "purchase_limit": -1,
+    "current_purchases": 0
+  },
+  {
+    "id": "crystals_tier_3",
+    "name": "Sovereign Vault of Crystals",
+    "description": "An imperial payload of raw Royal Crystals, mined directly from the Crownspire heartlands. Ultimate value.",
+    "category_id": "crystals",
+    "cost_currency": "usd",
+    "cost_amount": 99.99,
+    "icon_path": "res://assets/ui/icons/crystal_tier_3.png",
+    "rarity": 4,
+    "purchase_limit": -1,
+    "current_purchases": 0
+  }
+]

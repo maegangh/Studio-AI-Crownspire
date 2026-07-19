@@ -1,0 +1,33 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://a1r8ca18c8u7t"]
+
+[sub_resource type="Curve" id="Curve_burst_scale"]
+_data = [Vector2(0, 0.1), 0.0, 4.0, 0, 0, Vector2(0.4, 1.0), 0.0, 0.0, 0, 0, Vector2(1, 0.0), -2.5, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_burst"]
+curve = SubResource("Curve_burst_scale")
+
+[sub_resource type="Gradient" id="Gradient_burst_fade"]
+offsets = PackedFloat32Array(0, 0.1, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_burst"]
+gradient = SubResource("Gradient_burst_fade")
+
+[resource]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.7
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_burst")
+color_ramp = SubResource("GradientTexture1D_burst")
+v_radial_accel_min = 50.0
+v_radial_accel_max = 140.0

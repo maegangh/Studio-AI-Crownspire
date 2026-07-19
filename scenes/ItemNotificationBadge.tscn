@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ItemNotificationBadge.gd" id="1_bad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge"]
+bg_color = Color(0.9, 0.15, 0.15, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.6, 0.6, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.9, 0.15, 0.15, 0.4)
+shadow_size = 5
+
+[node name="ItemNotificationBadge" type="PanelContainer"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+pivot_offset = Vector2(8, 8)
+theme_override_styles/panel = SubResource("StyleBoxFlat_badge")
+script = ExtResource("1_bad")
+
+[node name="Lbl" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "N"
+horizontal_alignment = 1
+vertical_alignment = 1

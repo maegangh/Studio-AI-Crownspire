@@ -1,0 +1,102 @@
+[
+  {
+    "id": "crystals_tier_1",
+    "category": "crystals",
+    "name": "60 Crystals",
+    "type": "crystals",
+    "amount": 60,
+    "cost_amount": 0.99,
+    "cost_currency": "USD",
+    "bonus_percent": 0,
+    "is_best_seller": false,
+    "limit_type": "none"
+  },
+  {
+    "id": "crystals_tier_2",
+    "category": "crystals",
+    "name": "300 Crystals",
+    "type": "crystals",
+    "amount": 300,
+    "cost_amount": 4.99,
+    "cost_currency": "USD",
+    "bonus_percent": 10,
+    "is_best_seller": false,
+    "limit_type": "none"
+  },
+  {
+    "id": "crystals_tier_3",
+    "category": "crystals",
+    "name": "980 Crystals",
+    "type": "crystals",
+    "amount": 980,
+    "cost_amount": 14.99,
+    "cost_currency": "USD",
+    "bonus_percent": 15,
+    "is_best_seller": true,
+    "limit_type": "none"
+  },
+  {
+    "id": "crystals_tier_4",
+    "category": "crystals",
+    "name": "1980 Crystals",
+    "type": "crystals",
+    "amount": 1980,
+    "cost_amount": 29.99,
+    "cost_currency": "USD",
+    "bonus_percent": 20,
+    "is_best_seller": false,
+    "limit_type": "none"
+  },
+  {
+    "id": "crystals_tier_5",
+    "category": "crystals",
+    "name": "3280 Crystals",
+    "type": "crystals",
+    "amount": 3280,
+    "cost_amount": 49.99,
+    "cost_currency": "USD",
+    "bonus_percent": 25,
+    "is_best_seller": false,
+    "limit_type": "none"
+  },
+  {
+    "id": "crystals_tier_6",
+    "category": "crystals",
+    "name": "6480 Crystals",
+    "type": "crystals",
+    "amount": 6480,
+    "cost_amount": 99.99,
+    "cost_currency": "USD",
+    "bonus_percent": 30,
+    "is_best_seller": true,
+    "limit_type": "none"
+  },
+  {
+    "id": "alliance_speedup_1",
+    "category": "alliance",
+    "name": "5m Speedup",
+    "type": "item",
+    "item_id": "speedup_5m",
+    "amount": 1,
+    "cost_amount": 50,
+    "cost_currency": "alliance_honor",
+    "bonus_percent": 0,
+    "is_best_seller": false,
+    "limit_type": "daily",
+    "limit_count": 5
+  },
+  {
+    "id": "alliance_teleport",
+    "category": "alliance",
+    "name": "Alliance Teleport",
+    "type": "item",
+    "item_id": "teleport_alliance",
+    "amount": 1,
+    "cost_amount": 400,
+    "cost_currency": "alliance_honor",
+    "bonus_percent": 0,
+    "is_best_seller": false,
+    "limit_type": "weekly",
+    "limit_count": 1
+  }
+]

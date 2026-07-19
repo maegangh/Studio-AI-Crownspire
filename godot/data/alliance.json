@@ -1,0 +1,171 @@
+[
+  {
+    "id": "alliance_1",
+    "name": "Dawn Alliance",
+    "tag": "DAWN",
+    "leader": "Lord Aurelius",
+    "leader_power": 1254300,
+    "description": "The defenders of the Crystallite Spire. Together we forge the eternal dawn!",
+    "power": 15420000,
+    "member_count": 48,
+    "max_members": 100,
+    "banner_color": "#0c2b45",
+    "flag_symbol": "☀️",
+    "flag_color": "#dca620",
+    "crystallite_cores": 1420,
+    "fortress_level": 3,
+    "towers_placed": 12,
+    "max_towers": 20,
+    "help_requests": [
+      {
+        "id": "help_1",
+        "player_name": "Lady Seraphina",
+        "type": "construction",
+        "target": "Barracks Level 18",
+        "current": 4,
+        "max": 15,
+        "time_saved_mins": 4
+      },
+      {
+        "id": "help_2",
+        "player_name": "Garrick Ironfist",
+        "type": "research",
+        "target": "Crystallite Refining IV",
+        "current": 8,
+        "max": 12,
+        "time_saved_mins": 8
+      },
+      {
+        "id": "help_3",
+        "player_name": "Valeria Swift",
+        "type": "healing",
+        "target": "Infirmary Healing (1500 Tier 3 Archers)",
+        "current": 1,
+        "max": 10,
+        "time_saved_mins": 1
+      }
+    ],
+    "gifts": [
+      {
+        "id": "gift_1",
+        "title": "Elite Beast Hunt Loot",
+        "description": "Claim rewards from defeating the Shadow Behemoth Level 4!",
+        "rarity": 3,
+        "claimed": false,
+        "expires_in_secs": 86400,
+        "rewards": [
+          {"icon": "🪙", "name": "Gold", "quantity": 10000, "rarity": 1},
+          {"icon": "⏳", "name": "Speedup (15m)", "quantity": 2, "rarity": 2}
+        ]
+      },
+      {
+        "id": "gift_2",
+        "title": "Leader's Amber Bundle Gift",
+        "description": "Lord Aurelius purchased the Royal Amber Bundle!",
+        "rarity": 4,
+        "claimed": false,
+        "expires_in_secs": 120400,
+        "rewards": [
+          {"icon": "💎", "name": "Aurora Crystal", "quantity": 150, "rarity": 4},
+          {"icon": "🧪", "name": "Hero XP Potion (Large)", "quantity": 3, "rarity": 3}
+        ]
+      }
+    ],
+    "logs": [
+      "Lord Aurelius promoted Valeria Swift to Officer.",
+      "Dawn Alliance placed Alliance Tower #12 near Crystallite Vein.",
+      "Valeria Swift completed donation for Crystallite Hardening IV.",
+      "Garrick Ironfist joined the alliance."
+    ],
+    "members": [
+      {"name": "Lord Aurelius", "rank": 4, "power": 1254300, "is_online": true, "last_online": "Now"},
+      {"name": "Lady Seraphina", "rank": 3, "power": 980400, "is_online": true, "last_online": "Now"},
+      {"name": "Valeria Swift", "rank": 3, "power": 890500, "is_online": true, "last_online": "Now"},
+      {"name": "Garrick Ironfist", "rank": 2, "power": 745200, "is_online": false, "last_online": "3h ago"},
+      {"name": "Eldrin Mage", "rank": 1, "power": 412000, "is_online": true, "last_online": "Now"},
+      {"name": "Sir Roderick", "rank": 1, "power": 382400, "is_online": false, "last_online": "1d ago"},
+      {"name": "Talia Bowmaster", "rank": 1, "power": 310500, "is_online": false, "last_online": "5h ago"}
+    ],
+    "rallies": [
+      {
+        "id": "rally_1",
+        "creator": "Lady Seraphina",
+        "target": "Ruined Crystal Keep",
+        "target_level": 5,
+        "time_left_secs": 180,
+        "max_capacity": 2000000,
+        "current_troops": 450000,
+        "members_joined": [
+          {"name": "Lady Seraphina", "troops": 250000, "hero_icon": "🦁"},
+          {"name": "Eldrin Mage", "troops": 200000, "hero_icon": "🧙"}
+        ]
+      }
+    ],
+    "active_wars": [
+      {
+        "id": "war_1",
+        "enemy_alliance_name": "Shadow Legion",
+        "enemy_tag": "SHDW",
+        "type": "offense",
+        "target": "Shadow Stronghold Level 4",
+        "time_left_secs": 420,
+        "rally_id": "rally_1"
+      }
+    ]
+  },
+  {
+    "id": "alliance_2",
+    "name": "Crownspire Legion",
+    "tag": "CLGN",
+    "leader": "Emperor Vaelen",
+    "leader_power": 2450000,
+    "description": "Rule through iron and crystallite steel. Absolute obedience is demanded.",
+    "power": 28430000,
+    "member_count": 82,
+    "max_members": 100,
+    "banner_color": "#2c0404",
+    "flag_symbol": "🦅",
+    "flag_color": "#df1c1c",
+    "crystallite_cores": 3100,
+    "fortress_level": 5,
+    "towers_placed": 18,
+    "max_towers": 25,
+    "help_requests": [],
+    "gifts": [],
+    "logs": [
+      "Emperor Vaelen declared war on Shadow Legion."
+    ],
+    "members": [
+      {"name": "Emperor Vaelen", "rank": 4, "power": 2450000, "is_online": true, "last_online": "Now"},
+      {"name": "General Kael", "rank": 3, "power": 1540000, "is_online": false, "last_online": "12m ago"}
+    ],
+    "rallies": [],
+    "active_wars": []
+  },
+  {
+    "id": "alliance_3",
+    "name": "Solaris Union",
+    "tag": "SOLR",
+    "leader": "Priestess Solis",
+    "leader_power": 1150000,
+    "description": "In the light of the sun, we thrive and stand united.",
+    "power": 12100000,
+    "member_count": 32,
+    "max_members": 100,
+    "banner_color": "#4b3c0c",
+    "flag_symbol": "⚜️",
+    "flag_color": "#ffc107",
+    "crystallite_cores": 850,
+    "fortress_level": 2,
+    "towers_placed": 8,
+    "max_towers": 15,
+    "help_requests": [],
+    "gifts": [],
+    "logs": [],
+    "members": [
+      {"name": "Priestess Solis", "rank": 4, "power": 1150000, "is_online": true, "last_online": "Now"}
+    ],
+    "rallies": [],
+    "active_wars": []
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "daily_login",
+    "category_id": "daily",
+    "name": "Daily Muster",
+    "description": "Log into the Crownspire citadel to sign the administrative scrolls and receive rations.",
+    "is_completed": true,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 10,
+    "objectives": [
+      {
+        "id": "obj_login",
+        "description": "Log in today",
+        "type": "login",
+        "current": 1,
+        "target": 1,
+        "completed": true
+      }
+    ],
+    "rewards": [
+      { "name": "Food", "type": "food", "quantity": 10000, "rarity": 1, "icon": "🥩" },
+      { "name": "Gold", "type": "gold", "quantity": 5000, "rarity": 1, "icon": "🪙" }
+    ]
+  },
+  {
+    "id": "daily_train_troops",
+    "category_id": "daily",
+    "name": "Arming the Citadel",
+    "description": "Recruit and train active military units to bolster the citadel defense walls.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 20,
+    "objectives": [
+      {
+        "id": "obj_train_troops_qty",
+        "description": "Train 100 T1 Recruits",
+        "type": "troop_train",
+        "target_id": "recruit",
+        "current": 0,
+        "target": 100,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Aurora Crystals", "type": "aurora_crystal", "quantity": 50, "rarity": 2, "icon": "💎" },
+      { "name": "15m Speedup", "type": "speedup_15m", "quantity": 2, "rarity": 1, "icon": "⚡" }
+    ]
+  },
+  {
+    "id": "daily_gather_wood",
+    "category_id": "daily",
+    "name": "Woodcutter Expedition",
+    "description": "Harvest wood supplies from outside the castle walls using dispatch marches.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 15,
+    "objectives": [
+      {
+        "id": "obj_gather_wood_qty",
+        "description": "Gather 5000 Wood",
+        "type": "gather_res",
+        "target_id": "wood",
+        "current": 0,
+        "target": 5000,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Timber Bundle", "type": "wood", "quantity": 15000, "rarity": 1, "icon": "🪵" }
+    ]
+  },
+  {
+    "id": "daily_alliance_help",
+    "category_id": "daily",
+    "name": "Comrade in Arms",
+    "description": "Submit assistance clicks to help ally construction queues inside the Alliance tab.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 15,
+    "objectives": [
+      {
+        "id": "obj_alliance_help_clicks",
+        "description": "Help Alliance Members 5 times",
+        "type": "alliance_help",
+        "current": 0,
+        "target": 5,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Alliance Honor Coins", "type": "alliance_honor", "quantity": 500, "rarity": 2, "icon": "🛡️" }
+    ]
+  }
+]

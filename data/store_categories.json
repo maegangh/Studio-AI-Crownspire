@@ -1,0 +1,26 @@
+[
+  {
+    "id": "featured",
+    "name": "Featured",
+    "icon": "res://assets/ui/icons/category_featured.png",
+    "priority": 1
+  },
+  {
+    "id": "bundles",
+    "name": "Special Bundles",
+    "icon": "res://assets/ui/icons/category_bundles.png",
+    "priority": 2
+  },
+  {
+    "id": "crystals",
+    "name": "Crystal Vault",
+    "icon": "res://assets/ui/icons/category_crystals.png",
+    "priority": 3
+  },
+  {
+    "id": "resources",
+    "name": "Alliance Market",
+    "icon": "res://assets/ui/icons/category_resources.png",
+    "priority": 4
+  }
+]

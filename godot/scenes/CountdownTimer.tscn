@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6v2j5uxba33y"]
+
+[ext_resource type="Script" path="res://scripts/CountdownTimer.gd" id="1_1d8f3"]
+
+[node name="CountdownTimer" type="Label"]
+offset_right = 120.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 1)
+theme_override_font_sizes/font_size = 14
+text = "02:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_1d8f3")

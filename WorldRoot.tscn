@@ -1,0 +1,775 @@
+[gd_scene load_steps=12 format=3 uid="uid://dp64j82y37t2p"]
+
+[ext_resource type="Script" path="res://WorldRoot.gd" id="1_wroot"]
+[ext_resource type="Script" path="res://KingdomManager.gd" id="2_kmanager"]
+[ext_resource type="Script" path="res://ResourceSpawnManager.gd" id="3_rspawn"]
+[ext_resource type="PackedScene" uid="uid://b8v6k73o29t4q" path="res://ResourceNode.tscn" id="4_rscene"]
+[ext_resource type="Script" path="res://WildlingSpawnManager.gd" id="5_wspawn"]
+[ext_resource type="PackedScene" uid="uid://dp64j82y37t2o" path="res://WildlingNode.tscn" id="6_wscene"]
+[ext_resource type="Script" path="res://MarchManager.gd" id="7_mmanager"]
+[ext_resource type="PackedScene" uid="uid://cx40shh1372o2" path="res://MarchIcon.tscn" id="8_mscene"]
+[ext_resource type="Script" path="res://MapCamera2D.gd" id="9_camera"]
+[ext_resource type="Script" path="res://KingdomSpawnRegion.gd" id="10_region"]
+[ext_resource type="Texture2D" uid="uid://worldmaptexture" path="res://world_map.png" id="11_worldmap"]
+
+[node name="WorldRoot" type="Node2D" node_paths=PackedStringArray("kingdom_manager", "camera", "detail_panel", "panel_title", "panel_description", "panel_action_button")]
+script = ExtResource("1_wroot")
+kingdom_manager = NodePath("KingdomManager")
+camera = NodePath("Camera2D")
+detail_panel = NodePath("HUD/Control/DetailPanel")
+panel_title = NodePath("HUD/Control/DetailPanel/Margin/VBox/TitleLabel")
+panel_description = NodePath("HUD/Control/DetailPanel/Margin/VBox/DescLabel")
+panel_action_button = NodePath("HUD/Control/DetailPanel/Margin/VBox/ActionButton")
+
+[node name="TerrainSprite" type="Sprite2D" parent="."]
+texture = ExtResource("11_worldmap")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -1200
+limit_top = -1200
+limit_right = 1200
+limit_bottom = 1200
+script = ExtResource("9_camera")
+min_zoom = Vector2(0.3, 0.3)
+max_zoom = Vector2(2.5, 2.5)
+
+[node name="KingdomManager" type="Node" parent="." node_paths=PackedStringArray("resource_spawner", "wildling_spawner", "march_manager", "resource_regions_root", "wildling_regions_root")]
+script = ExtResource("2_kmanager")
+resource_spawner = NodePath("../ResourceSpawnManager")
+wildling_spawner = NodePath("../WildlingSpawnManager")
+march_manager = NodePath("../MarchManager")
+resource_regions_root = NodePath("../ResourceRegions")
+wildling_regions_root = NodePath("../WildlingRegions")
+
+[node name="ResourceSpawnManager" type="Node" parent="."]
+script = ExtResource("3_rspawn")
+resource_node_scene = ExtResource("4_rscene")
+food_texture = ExtResource("11_worldmap")
+wood_texture = ExtResource("11_worldmap")
+stone_texture = ExtResource("11_worldmap")
+iron_texture = ExtResource("11_worldmap")
+crystal_texture = ExtResource("11_worldmap")
+
+[node name="WildlingSpawnManager" type="Node" parent="."]
+script = ExtResource("5_wspawn")
+wildling_node_scene = ExtResource("6_wscene")
+wolf_texture = ExtResource("11_worldmap")
+bear_texture = ExtResource("11_worldmap")
+spider_texture = ExtResource("11_worldmap")
+boar_texture = ExtResource("11_worldmap")
+troll_texture = ExtResource("11_worldmap")
+dragon_texture = ExtResource("11_worldmap")
+wolf_card = ExtResource("11_worldmap")
+bear_card = ExtResource("11_worldmap")
+spider_card = ExtResource("11_worldmap")
+boar_card = ExtResource("11_worldmap")
+troll_card = ExtResource("11_worldmap")
+dragon_card = ExtResource("11_worldmap")
+max_map_radius = 1200.0
+
+[node name="MarchManager" type="Node2D" parent="."]
+script = ExtResource("7_mmanager")
+march_icon_scene = ExtResource("8_mscene")
+
+[node name="ObjectiveLayer" type="Node2D" parent="."]
+
+[node name="RoyalKeep" type="Marker2D" parent="ObjectiveLayer"]
+
+[node name="ConquestKeep_North" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, -450)
+
+[node name="ConquestKeep_East" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(450, 0)
+
+[node name="ConquestKeep_South" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, 450)
+
+[node name="ConquestKeep_West" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-450, 0)
+
+[node name="WatchKeep_01" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(250, -250)
+
+[node name="WatchKeep_02" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(250, 250)
+
+[node name="WatchKeep_03" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-250, 250)
+
+[node name="WatchKeep_04" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-250, -250)
+
+[node name="WatchKeep_05" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(550, -550)
+
+[node name="WatchKeep_06" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(550, 550)
+
+[node name="WatchKeep_07" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-550, 550)
+
+[node name="WatchKeep_08" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-550, -550)
+
+[node name="BeastLair_01" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(350, -600)
+
+[node name="BeastLair_02" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(600, -350)
+
+[node name="BeastLair_03" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(350, 600)
+
+[node name="BeastLair_04" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(600, 350)
+
+[node name="BeastLair_05" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-350, 600)
+
+[node name="BeastLair_06" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-600, 350)
+
+[node name="AllianceHQ_01" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(900, 0)
+
+[node name="AllianceHQ_02" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(779, 450)
+
+[node name="AllianceHQ_03" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(450, 779)
+
+[node name="AllianceHQ_04" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, 900)
+
+[node name="AllianceHQ_05" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-450, 779)
+
+[node name="AllianceHQ_06" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-779, 450)
+
+[node name="AllianceHQ_07" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-900, 0)
+
+[node name="AllianceHQ_08" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-779, -450)
+
+[node name="AllianceHQ_09" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-450, -779)
+
+[node name="AllianceHQ_10" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, -900)
+
+[node name="AllianceHQ_11" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(450, -779)
+
+[node name="AllianceHQ_12" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(779, -450)
+
+[node name="Gate_North" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, -1100)
+
+[node name="Gate_East" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(1100, 0)
+
+[node name="Gate_South" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(0, 1100)
+
+[node name="Gate_West" type="Marker2D" parent="ObjectiveLayer"]
+position = Vector2(-1100, 0)
+
+[node name="ResourceRegions" type="Node2D" parent="."]
+
+[node name="FoodRegion_01" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-800, -800)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["food"])
+min_level = 1
+max_level = 2
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/FoodRegion_01"]
+polygon = PackedVector2Array(-300, -300, 300, -300, 300, 300, -300, 300)
+
+[node name="FoodRegion_02" type="Area2D" parent="ResourceRegions"]
+position = Vector2(800, 800)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["food"])
+min_level = 1
+max_level = 3
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/FoodRegion_02"]
+polygon = PackedVector2Array(-300, -300, 300, -300, 300, 300, -300, 300)
+
+[node name="FoodRegion_03" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-800, 800)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["food"])
+min_level = 2
+max_level = 4
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/FoodRegion_03"]
+polygon = PackedVector2Array(-300, -300, 300, -300, 300, 300, -300, 300)
+
+[node name="FoodRegion_04" type="Area2D" parent="ResourceRegions"]
+position = Vector2(800, -800)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["food"])
+min_level = 2
+max_level = 4
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/FoodRegion_04"]
+polygon = PackedVector2Array(-300, -300, 300, -300, 300, 300, -300, 300)
+
+[node name="FoodRegion_05" type="Area2D" parent="ResourceRegions"]
+position = Vector2(1000, 0)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["food"])
+min_level = 3
+max_level = 5
+max_active_spawns = 10
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/FoodRegion_05"]
+polygon = PackedVector2Array(-200, -400, 200, -400, 200, 400, -200, 400)
+
+[node name="WoodRegion_01" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-500, -500)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["wood"])
+min_level = 1
+max_level = 3
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/WoodRegion_01"]
+polygon = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+
+[node name="WoodRegion_02" type="Area2D" parent="ResourceRegions"]
+position = Vector2(500, -500)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["wood"])
+min_level = 2
+max_level = 4
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/WoodRegion_02"]
+polygon = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+
+[node name="WoodRegion_03" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-500, 500)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["wood"])
+min_level = 2
+max_level = 5
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/WoodRegion_03"]
+polygon = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+
+[node name="WoodRegion_04" type="Area2D" parent="ResourceRegions"]
+position = Vector2(500, 500)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["wood"])
+min_level = 3
+max_level = 6
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/WoodRegion_04"]
+polygon = PackedVector2Array(-250, -250, 250, -250, 250, 250, -250, 250)
+
+[node name="WoodRegion_05" type="Area2D" parent="ResourceRegions"]
+position = Vector2(0, -800)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["wood"])
+min_level = 3
+max_level = 6
+max_active_spawns = 10
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/WoodRegion_05"]
+polygon = PackedVector2Array(-400, -200, 400, -200, 400, 200, -400, 200)
+
+[node name="StoneRegion_01" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-900, -300)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["stone"])
+min_level = 1
+max_level = 3
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/StoneRegion_01"]
+polygon = PackedVector2Array(-200, -300, 200, -300, 200, 300, -200, 300)
+
+[node name="StoneRegion_02" type="Area2D" parent="ResourceRegions"]
+position = Vector2(900, 300)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["stone"])
+min_level = 2
+max_level = 4
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/StoneRegion_02"]
+polygon = PackedVector2Array(-200, -300, 200, -300, 200, 300, -200, 300)
+
+[node name="StoneRegion_03" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-300, -900)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["stone"])
+min_level = 3
+max_level = 5
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/StoneRegion_03"]
+polygon = PackedVector2Array(-300, -150, 300, -150, 300, 150, -300, 150)
+
+[node name="StoneRegion_04" type="Area2D" parent="ResourceRegions"]
+position = Vector2(300, 900)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["stone"])
+min_level = 3
+max_level = 6
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/StoneRegion_04"]
+polygon = PackedVector2Array(-300, -150, 300, -150, 300, 150, -300, 150)
+
+[node name="StoneRegion_05" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-600, -200)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["stone"])
+min_level = 4
+max_level = 7
+max_active_spawns = 10
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/StoneRegion_05"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="IronRegion_01" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-1100, -1100)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["iron"])
+min_level = 2
+max_level = 4
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/IronRegion_01"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="IronRegion_02" type="Area2D" parent="ResourceRegions"]
+position = Vector2(1100, -1100)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["iron"])
+min_level = 3
+max_level = 5
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/IronRegion_02"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="IronRegion_03" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-1100, 1100)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["iron"])
+min_level = 4
+max_level = 6
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/IronRegion_03"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="IronRegion_04" type="Area2D" parent="ResourceRegions"]
+position = Vector2(1100, 1100)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["iron"])
+min_level = 4
+max_level = 7
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/IronRegion_04"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="IronRegion_05" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-1000, 400)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["iron"])
+min_level = 5
+max_level = 7
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/IronRegion_05"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="CrystalRegion_01" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-150, -150)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["crystal"])
+min_level = 4
+max_level = 6
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/CrystalRegion_01"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="CrystalRegion_02" type="Area2D" parent="ResourceRegions"]
+position = Vector2(150, -150)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["crystal"])
+min_level = 4
+max_level = 7
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/CrystalRegion_02"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="CrystalRegion_03" type="Area2D" parent="ResourceRegions"]
+position = Vector2(-150, 150)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["crystal"])
+min_level = 5
+max_level = 7
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/CrystalRegion_03"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="CrystalRegion_04" type="Area2D" parent="ResourceRegions"]
+position = Vector2(150, 150)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["crystal"])
+min_level = 5
+max_level = 7
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/CrystalRegion_04"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="CrystalRegion_05" type="Area2D" parent="ResourceRegions"]
+position = Vector2(0, -300)
+script = ExtResource("10_region")
+region_type = "Resource"
+allowed_spawn_types = Array[String](["crystal"])
+min_level = 6
+max_level = 7
+max_active_spawns = 5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ResourceRegions/CrystalRegion_05"]
+polygon = PackedVector2Array(-150, -100, 150, -100, 150, 100, -150, 100)
+
+[node name="WildlingRegions" type="Node2D" parent="."]
+
+[node name="WolfRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-1000, -1000)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 1
+max_level = 5
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/WolfRegion_01"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="WolfRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(1000, 1000)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 1
+max_level = 5
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/WolfRegion_02"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="WolfRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-1000, 1000)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 2
+max_level = 5
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/WolfRegion_03"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BearRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-800, 0)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 6
+max_level = 10
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BearRegion_01"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BearRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(800, 0)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 6
+max_level = 10
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BearRegion_02"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BearRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(0, -800)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 7
+max_level = 10
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BearRegion_03"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="SpiderRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-600, -600)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 11
+max_level = 15
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/SpiderRegion_01"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="SpiderRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(600, -600)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 11
+max_level = 15
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/SpiderRegion_02"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="SpiderRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-600, 600)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 12
+max_level = 15
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/SpiderRegion_03"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BoarRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(500, 500)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 16
+max_level = 20
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BoarRegion_01"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BoarRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-500, -500)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 16
+max_level = 20
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BoarRegion_02"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="BoarRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(0, 500)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 17
+max_level = 20
+max_active_spawns = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/BoarRegion_03"]
+polygon = PackedVector2Array(-200, -200, 200, -200, 200, 200, -200, 200)
+
+[node name="TrollRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(-300, 0)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 21
+max_level = 25
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/TrollRegion_01"]
+polygon = PackedVector2Array(-150, -150, 150, -150, 150, 150, -150, 150)
+
+[node name="TrollRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(300, 0)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 21
+max_level = 25
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/TrollRegion_02"]
+polygon = PackedVector2Array(-150, -150, 150, -150, 150, 150, -150, 150)
+
+[node name="TrollRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(0, -300)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 22
+max_level = 25
+max_active_spawns = 6
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/TrollRegion_03"]
+polygon = PackedVector2Array(-150, -150, 150, -150, 150, 150, -150, 150)
+
+[node name="DragonRegion_01" type="Area2D" parent="WildlingRegions"]
+position = Vector2(0, -180)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 26
+max_level = 30
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/DragonRegion_01"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="DragonRegion_02" type="Area2D" parent="WildlingRegions"]
+position = Vector2(180, 0)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 26
+max_level = 30
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/DragonRegion_02"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="DragonRegion_03" type="Area2D" parent="WildlingRegions"]
+position = Vector2(0, 180)
+script = ExtResource("10_region")
+region_type = "Wildling"
+allowed_spawn_types = Array[String]([])
+min_level = 27
+max_level = 30
+max_active_spawns = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WildlingRegions/DragonRegion_03"]
+polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
+
+[node name="ResourceSpawns" type="Node2D" parent="."]
+
+[node name="WildlingSpawns" type="Node2D" parent="."]
+
+[node name="Marches" type="Node2D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InstructionLabel" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 450.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 14
+text = "👑 Crownspire MMO - Kingdom World Map Beta
+• Drag / Middle Mouse to pan the view
+• Scroll Wheel / Touch Pinch to zoom in & out
+• Click on Resource Nodes or Wildlings to interact
+• Dispatched armies will march, gather/attack, and return"
+
+[node name="DetailPanel" type="PanelContainer" parent="HUD/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -180.0
+offset_right = 175.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="HUD/Control/DetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HUD/Control/DetailPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="HUD/Control/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Target Information"
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="HUD/Control/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Detailed sector metrics."
+horizontal_alignment = 1
+
+[node name="ActionButton" type="Button" parent="HUD/Control/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "DISPATCH MARCH"

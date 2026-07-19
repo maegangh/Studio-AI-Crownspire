@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroUpgradePopup.gd" id="1_up"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0, 0, 0, 0.75)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.0627451, 0.0901961, 0.141176, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85098, 0.647059, 0.12549, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_feed"]
+bg_color = Color(0.121569, 0.529412, 0.901961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.121569, 0.529412, 0.901961, 0.2)
+shadow_size = 5
+
+[node name="HeroUpgradePopup" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+script = ExtResource("1_up")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="Modal" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(360, 280)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="Center/Modal"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Center/Modal/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="Center/Modal/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Modal/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.647059, 0.12549, 1)
+theme_override_font_sizes/font_size = 12
+text = "✨ ELIXIR FORTIFICATION"
+
+[node name="Spacer" type="Control" parent="Center/Modal/Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseBtn" type="Button" parent="Center/Modal/Margin/VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "X"
+
+[node name="IdentityBox" type="HBoxContainer" parent="Center/Modal/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="HeroEmojiLbl" type="Label" parent="Center/Modal/Margin/VBox/IdentityBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "👤"
+
+[node name="NameLevelBox" type="VBoxContainer" parent="Center/Modal/Margin/VBox/IdentityBox"]
+layout_mode = 2
+
+[node name="HeroNameLbl" type="Label" parent="Center/Modal/Margin/VBox/IdentityBox/NameLevelBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "VALERIUS"
+
+[node name="LevelLbl" type="Label" parent="Center/Modal/Margin/VBox/IdentityBox/NameLevelBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.8, 0.5)
+theme_override_font_sizes/font_size = 11
+text = "LEVEL 12 / 60"
+
+[node name="Divider" type="HSeparator" parent="Center/Modal/Margin/VBox"]
+layout_mode = 2
+
+[node name="PotionCountLabel" type="Label" parent="Center/Modal/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "🧪 ELIXIRS HELD: 24"
+horizontal_alignment = 1
+
+[node name="FeedBtn" type="Button" parent="Center/Modal/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_feed")
+text = "CONSUME ELIXIR (+500 XP)"
+
+[node name="StatusMsgLabel" type="Label" parent="Center/Modal/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 10
+text = "Each elixir grants 500 XP."
+horizontal_alignment = 1
+autowrap_mode = 2

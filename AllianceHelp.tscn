@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8crspirehelp"]
+
+[ext_resource type="Script" path="res://AllianceHelp.gd" id="1_help"]
+
+[node name="AllianceHelp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_help")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Layout/Header/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "Logistics Help Desk"
+
+[node name="Spacer" type="Control" parent="Layout/Header/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HelpAllBtn" type="Button" parent="Layout/Header/HBox"]
+custom_minimum_size = Vector2(100, 36)
+layout_mode = 2
+text = "Help All"
+
+[node name="SimRequestBtn" type="Button" parent="Layout/Header/HBox"]
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+text = "Simulate Request"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8

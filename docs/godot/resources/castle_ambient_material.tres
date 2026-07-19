@@ -1,0 +1,33 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://d7g8ca18c8u7q"]
+
+[sub_resource type="Curve" id="Curve_ambient_rise"]
+_data = [Vector2(0, 0.1), 0.0, 1.4, 0, 0, Vector2(0.5, 0.9), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.4, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_size"]
+curve = SubResource("Curve_ambient_rise")
+
+[sub_resource type="Gradient" id="Gradient_spark_fade"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.6, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_spark"]
+gradient = SubResource("Gradient_spark_fade")
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(60, 20, 1)
+direction = Vector3(0, -1, 0)
+spread = 30.0
+gravity = Vector3(0, -50, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+scale_min = 0.5
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_size")
+color_ramp = SubResource("GradientTexture1D_spark")

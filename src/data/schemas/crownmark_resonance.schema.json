@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrownmarkResonanceSchema",
+  "description": "Validation schema for commander set resonance matching, tactical bonuses, and custom pixel shader parameters.",
+  "type": "object",
+  "required": ["heroes_resonance"],
+  "properties": {
+    "heroes_resonance": {
+      "type": "object",
+      "description": "Mapping of individual hero resonance sets indexed by hero ID.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["set_name", "visual_effects", "tiers"],
+        "properties": {
+          "set_name": {
+            "type": "string",
+            "description": "The unique localized name for the 5-piece matching equipment set."
+          },
+          "visual_effects": {
+            "type": "object",
+            "required": [
+              "aura_visual_style",
+              "aura_color",
+              "halo_unlocked_tier",
+              "overdrive_particle_count",
+              "portrait_shader_override"
+            ],
+            "properties": {
+              "aura_visual_style": {
+                "type": "string",
+                "description": "Standard identification key for aura particle effects (e.g. celestial_glow)."
+              },
+              "aura_color": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}$",
+                "description": "The visual emission hex color."
+              },
+              "halo_unlocked_tier": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "description": "The minimum tier level required to render a floating halo."
+              },
+              "overdrive_particle_count": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Count limits for customized active GPU particle emitters in Godot 4."
+              },
+              "portrait_shader_override": {
+                "type": "string",
+                "pattern": "^res://.*$",
+                "description": "GDScript standard absolute path to the .gdshader script."
+              }
+            }
+          },
+          "tiers": {
+            "type": "array",
+            "description": "Equipment count tiers (2, 3, 4, 5 pieces required) and their modifiers.",
+            "items": {
+              "type": "object",
+              "required": [
+                "count_required",
+                "name",
+                "description",
+                "stat_modifiers"
+              ],
+              "properties": {
+                "count_required": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 5,
+                  "description": "Total pieces from the same signature group that must be equipped."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "The name of the tier's active blessing."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Detailed description of the passive skill or combat behavior."
+                },
+                "stat_modifiers": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "description": "Key-value dictionary of numeric stat multipliers or adjustments applied on activation."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

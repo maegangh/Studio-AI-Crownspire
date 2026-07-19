@@ -1,0 +1,86 @@
+[
+  {
+    "id": "main_01",
+    "category_id": "main",
+    "name": "Establish the Citadel",
+    "description": "Construct the outer defense gatehouse and recruit your first vanguard legion to establish base security.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 50,
+    "current_progress": 0,
+    "target_progress": 1,
+    "objective_desc": "Upgrade Gatehouse to Level 1",
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 10000, "icon": "🪙" },
+      { "name": "Crystals", "type": "crystals", "quantity": 100, "icon": "💎" }
+    ]
+  },
+  {
+    "id": "daily_01",
+    "category_id": "daily",
+    "name": "Daily Muster",
+    "description": "Gather troops at the central rally point to sign the administrative scrolls and receive basic rations.",
+    "is_completed": true,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 10,
+    "current_progress": 1,
+    "target_progress": 1,
+    "objective_desc": "Sign in at the Citadel",
+    "rewards": [
+      { "name": "Food", "type": "food", "quantity": 5000, "icon": "🥩" },
+      { "name": "Gold", "type": "gold", "quantity": 2000, "icon": "🪙" }
+    ]
+  },
+  {
+    "id": "daily_02",
+    "category_id": "daily",
+    "name": "Spars and Training",
+    "description": "Engage in combat drills in the Citadel Arena with members of your faction.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 15,
+    "current_progress": 2,
+    "target_progress": 5,
+    "objective_desc": "Win Arena Sparring Matches",
+    "rewards": [
+      { "name": "XP Scroll", "type": "xp_scroll", "quantity": 3, "icon": "📜" }
+    ]
+  },
+  {
+    "id": "weekly_01",
+    "category_id": "weekly",
+    "name": "Legion Expansion",
+    "description": "Strengthen and expand your combat units by training a substantial army of royal recruits.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 40,
+    "current_progress": 350,
+    "target_progress": 1000,
+    "objective_desc": "Train Royal Recruits",
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 25000, "icon": "🪙" },
+      { "name": "Crystallite Cores", "type": "crystallite", "quantity": 50, "icon": "🌀" }
+    ]
+  },
+  {
+    "id": "event_01",
+    "category_id": "event",
+    "name": "repel the Trebuchets",
+    "description": "Venture into the frost plains outer perimeters and disable the invading Wildling siege mechanics.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 30,
+    "current_progress": 1,
+    "target_progress": 3,
+    "objective_desc": "Destroy Wildling Trebuchets",
+    "rewards": [
+      { "name": "Legendary Shard", "type": "hero_shard", "quantity": 5, "icon": "🦁" },
+      { "name": "Crystals", "type": "crystals", "quantity": 200, "icon": "💎" }
+    ]
+  }
+]

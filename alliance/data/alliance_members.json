@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Lord Aurelius",
+    "rank": "Leader",
+    "power": 1254300,
+    "is_online": true,
+    "last_online": "Now"
+  },
+  {
+    "name": "Lady Seraphina",
+    "rank": "Officer",
+    "power": 980400,
+    "is_online": true,
+    "last_online": "Now"
+  },
+  {
+    "name": "Valeria Swift",
+    "rank": "Officer",
+    "power": 890500,
+    "is_online": true,
+    "last_online": "Now"
+  },
+  {
+    "name": "Garrick Ironfist",
+    "rank": "Veteran",
+    "power": 745200,
+    "is_online": false,
+    "last_online": "3h ago"
+  },
+  {
+    "name": "Eldrin Mage",
+    "rank": "Member",
+    "power": 412000,
+    "is_online": true,
+    "last_online": "Now"
+  },
+  {
+    "name": "Sir Roderick",
+    "rank": "Member",
+    "power": 382400,
+    "is_online": false,
+    "last_online": "1d ago"
+  },
+  {
+    "name": "Talia Bowmaster",
+    "rank": "Member",
+    "power": 310500,
+    "is_online": false,
+    "last_online": "5h ago"
+  }
+]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroPortraitFrame.gd" id="1_frame"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glow"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.12, 0.53, 0.9, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0.12, 0.53, 0.9, 0.3)
+shadow_size = 12
+
+[node name="HeroPortraitFrame" type="Control"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 160.0
+offset_bottom = 160.0
+script = ExtResource("1_frame")
+
+[node name="GlowBorder" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_glow")
+
+[node name="VBox" type="VBoxContainer" parent="GlowBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PortraitEmoji" type="Label" parent="GlowBorder/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "👤"
+horizontal_alignment = 1
+
+[node name="StarsLabel" type="Label" parent="GlowBorder/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0)
+theme_override_font_sizes/font_size = 14
+text = "★★★"
+horizontal_alignment = 1
+
+[node name="ClassLabel" type="Label" parent="GlowBorder/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 10
+text = "DEFENDER"
+horizontal_alignment = 1
+
+[node name="RarityBanner" type="Label" parent="GlowBorder"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -24.0
+offset_right = 72.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 9
+text = " LEGENDARY "
+horizontal_alignment = 1
+vertical_alignment = 1

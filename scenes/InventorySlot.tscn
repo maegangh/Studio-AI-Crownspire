@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/InventorySlot.gd" id="1_slo"]
+[ext_resource type="PackedScene" path="res://scenes/ItemRarityFrame.tscn" id="2_slo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slotnormal"]
+bg_color = Color(0.1, 0.12, 0.18, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slothover"]
+bg_color = Color(0.18, 0.24, 0.35, 0.35)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="InventorySlot" type="Button"]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 80.0
+offset_bottom = 80.0
+pivot_offset = Vector2(40, 40)
+theme_override_styles/normal = SubResource("StyleBoxFlat_slotnormal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_slothover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_slothover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_slotnormal")
+theme_override_styles/focus = SubResource("StyleBoxFlat_slothover")
+script = ExtResource("1_slo")
+
+[node name="ItemRarityFrame" parent="." instance=ExtResource("2_slo")]
+layout_mode = 1
+
+[node name="IconLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "🪵"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QtyLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -20.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "x99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="FavMarker" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 22.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 11
+text = "⭐"
+
+[node name="LockMarker" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -22.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = 20.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 11
+text = "🔒"
+
+[node name="BadgeAnchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+mouse_filter = 2

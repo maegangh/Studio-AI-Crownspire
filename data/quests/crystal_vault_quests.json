@@ -1,0 +1,50 @@
+[
+  {
+    "id": "vault_match_elements",
+    "category_id": "crystal_vault",
+    "name": "Elemental Alchemy",
+    "description": "Unlock alchemical energy by matching matching fire, water, and earth tiles inside the Mahjong Crystal Vault trials.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 35,
+    "objectives": [
+      {
+        "id": "obj_vault_tile_matches",
+        "description": "Match 50 elemental tiles in the Vault",
+        "type": "vault_tile_match",
+        "current": 10,
+        "target": 50,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Crystal Vault Coins", "type": "crystal_vault_coins", "quantity": 500, "rarity": 3, "icon": "🪙" },
+      { "name": "Gold Coins", "type": "gold", "quantity": 10000, "rarity": 1, "icon": "🪙" }
+    ]
+  },
+  {
+    "id": "vault_speed_trial",
+    "category_id": "crystal_vault",
+    "name": "Chrono Matching",
+    "description": "Solve trials within rapid speed records. Match sets under 3 minutes inside the trial arena.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 40,
+    "objectives": [
+      {
+        "id": "obj_vault_speed_clears",
+        "description": "Solve a Vault match in under 3 minutes",
+        "type": "vault_speed_clear",
+        "current": 0,
+        "target": 1,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Ancient Skill Codex", "type": "skill_codex", "quantity": 1, "rarity": 3, "icon": "📜" },
+      { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 150, "rarity": 3, "icon": "💎" }
+    ]
+  }
+]

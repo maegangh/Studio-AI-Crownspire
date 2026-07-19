@@ -1,0 +1,432 @@
+{
+  "$schema": "./schemas/crownmarks.schema.json",
+  "title": "CrownspireCrownmarks",
+  "description": "Core catalog of all crownmarks in the game, categorized by hero and equipment slots.",
+  "crownmarks": [
+    {
+      "id": "maegan_scepter",
+      "name": "Founder's Scepter",
+      "slot": "weapon",
+      "hero_affinity": "maegan",
+      "rarity": "legendary",
+      "base_stats": {
+        "army_attack_percentage": 12.5,
+        "crit_strike_chance": 4.5
+      },
+      "growth_per_level": {
+        "army_attack_percentage": 0.8,
+        "crit_strike_chance": 0.15
+      },
+      "description": "Conduits of lethal steel forged with star-dust. Guides legion morale in combat.",
+      "visual_asset_path": "res://assets/crownmarks/maegan_scepter.png"
+    },
+    {
+      "id": "maegan_crown",
+      "name": "Founder's Crown",
+      "slot": "crown",
+      "hero_affinity": "maegan",
+      "rarity": "legendary",
+      "base_stats": {
+        "army_defense_percentage": 10.0,
+        "siege_mitigation": 8.0
+      },
+      "growth_per_level": {
+        "army_defense_percentage": 0.6,
+        "siege_mitigation": 0.4
+      },
+      "description": "The divine sigil of ruling lineage. Fits the high-fantasy royalty of Crownspire.",
+      "visual_asset_path": "res://assets/crownmarks/maegan_crown.png"
+    },
+    {
+      "id": "maegan_crest",
+      "name": "Royal Crest",
+      "slot": "armor",
+      "hero_affinity": "maegan",
+      "rarity": "legendary",
+      "base_stats": {
+        "army_health_percentage": 15.0,
+        "counter_attack_damage": 5.0
+      },
+      "growth_per_level": {
+        "army_health_percentage": 0.9,
+        "counter_attack_damage": 0.3
+      },
+      "description": "Volcanic plate mail layered with celestial shields, representing the heavy vanguard.",
+      "visual_asset_path": "res://assets/crownmarks/maegan_crest.png"
+    },
+    {
+      "id": "maegan_charter",
+      "name": "Royal Charter",
+      "slot": "banner",
+      "hero_affinity": "maegan",
+      "rarity": "legendary",
+      "base_stats": {
+        "legion_size_capacity_percentage": 10.0,
+        "coop_strike_chance": 5.0
+      },
+      "growth_per_level": {
+        "legion_size_capacity_percentage": 0.7,
+        "coop_strike_chance": 0.25
+      },
+      "description": "A battle-worn standard of high-glory, raising absolute morale to expand legion size.",
+      "visual_asset_path": "res://assets/crownmarks/maegan_charter.png"
+    },
+    {
+      "id": "maegan_signet",
+      "name": "Heart of Crownspire",
+      "slot": "accessory",
+      "hero_affinity": "maegan",
+      "rarity": "legendary",
+      "base_stats": {
+        "legion_load_percentage": 15.0,
+        "march_speed_percentage": 8.0
+      },
+      "growth_per_level": {
+        "legion_load_percentage": 1.0,
+        "march_speed_percentage": 0.5
+      },
+      "description": "The mystical glowing essence of Crownspire itself, pulsing with ancient command magic.",
+      "visual_asset_path": "res://assets/crownmarks/maegan_signet.png"
+    },
+    {
+      "id": "lorelai_bow",
+      "name": "Moonkeeper's Bow",
+      "slot": "weapon",
+      "hero_affinity": "lorelai",
+      "rarity": "legendary",
+      "base_stats": {
+        "marksmen_attack_percentage": 14.0,
+        "crit_strike_chance": 5.0
+      },
+      "growth_per_level": {
+        "marksmen_attack_percentage": 0.9,
+        "crit_strike_chance": 0.2
+      },
+      "description": "Extends marksmen range and infuses normal arrows with moon flare skills.",
+      "visual_asset_path": "res://assets/crownmarks/lorelai_bow.png"
+    },
+    {
+      "id": "lorelai_diadem",
+      "name": "Lunar Silver Diadem",
+      "slot": "crown",
+      "hero_affinity": "lorelai",
+      "rarity": "legendary",
+      "base_stats": {
+        "marksmen_defense_percentage": 9.5,
+        "curse_purge_rate": 6.0
+      },
+      "growth_per_level": {
+        "marksmen_defense_percentage": 0.6,
+        "curse_purge_rate": 0.4
+      },
+      "description": "Dispels ongoing frost or shadow curses from allied cohorts, granting rapid health.",
+      "visual_asset_path": "res://assets/crownmarks/lorelai_diadem.png"
+    },
+    {
+      "id": "lorelai_mantle",
+      "name": "Silk Mantle of the Stars",
+      "slot": "armor",
+      "hero_affinity": "lorelai",
+      "rarity": "legendary",
+      "base_stats": {
+        "marksmen_health_percentage": 13.0,
+        "skill_hazard_reduction": 7.5
+      },
+      "growth_per_level": {
+        "marksmen_health_percentage": 0.8,
+        "skill_hazard_reduction": 0.45
+      },
+      "description": "Reduces incoming skill hazard area damage factors by protecting backline ranges.",
+      "visual_asset_path": "res://assets/crownmarks/lorelai_mantle.png"
+    },
+    {
+      "id": "lorelai_scroll",
+      "name": "Celestial Tome Scroll",
+      "slot": "banner",
+      "hero_affinity": "lorelai",
+      "rarity": "legendary",
+      "base_stats": {
+        "magic_research_speed": 12.0,
+        "hero_xp_gain_multiplier": 1.15
+      },
+      "growth_per_level": {
+        "magic_research_speed": 0.75,
+        "hero_xp_gain_multiplier": 0.02
+      },
+      "description": "Elevates global magical research speed and awards extra hero training experience.",
+      "visual_asset_path": "res://assets/crownmarks/lorelai_scroll.png"
+    },
+    {
+      "id": "lorelai_pendant",
+      "name": "Silver Crescent Pendant",
+      "slot": "accessory",
+      "hero_affinity": "lorelai",
+      "rarity": "legendary",
+      "base_stats": {
+        "global_march_speed": 10.0,
+        "hero_trait_amplification": 5.0
+      },
+      "growth_per_level": {
+        "global_march_speed": 0.65,
+        "hero_trait_amplification": 0.35
+      },
+      "description": "Increases global march velocity and amplifies the power of active hero traits.",
+      "visual_asset_path": "res://assets/crownmarks/lorelai_pendant.png"
+    },
+    {
+      "id": "shadow_daggers",
+      "name": "Twin Shadow Daggers",
+      "slot": "weapon",
+      "hero_affinity": "shadow",
+      "rarity": "legendary",
+      "base_stats": {
+        "cavalry_attack_percentage": 15.0,
+        "armor_piercing_percentage": 6.5
+      },
+      "growth_per_level": {
+        "cavalry_attack_percentage": 1.0,
+        "armor_piercing_percentage": 0.3
+      },
+      "description": "Strikes ignore portion of the target legion's armor rating, dealing pure critical hits.",
+      "visual_asset_path": "res://assets/crownmarks/shadow_daggers.png"
+    },
+    {
+      "id": "shadow_cowl",
+      "name": "Assassin's Silk Cowl",
+      "slot": "crown",
+      "hero_affinity": "shadow",
+      "rarity": "legendary",
+      "base_stats": {
+        "cavalry_defense_percentage": 9.0,
+        "surprise_flank_bonus": 10.0
+      },
+      "growth_per_level": {
+        "cavalry_defense_percentage": 0.55,
+        "surprise_flank_bonus": 0.6
+      },
+      "description": "Prevents the legion from being targeted by scout radars, amplifying surprise flank damage.",
+      "visual_asset_path": "res://assets/crownmarks/shadow_cowl.png"
+    },
+    {
+      "id": "shadow_cloak",
+      "name": "Cloak of Whispers",
+      "slot": "armor",
+      "hero_affinity": "shadow",
+      "rarity": "legendary",
+      "base_stats": {
+        "cavalry_health_percentage": 11.5,
+        "magic_evasion_chance": 5.0
+      },
+      "growth_per_level": {
+        "cavalry_health_percentage": 0.75,
+        "magic_evasion_chance": 0.25
+      },
+      "description": "When hit by enemy magical fire, grants a chance to dissolve into mist and avoid damage.",
+      "visual_asset_path": "res://assets/crownmarks/shadow_cloak.png"
+    },
+    {
+      "id": "shadow_flag",
+      "name": "Silent Syndicate Flag",
+      "slot": "banner",
+      "hero_affinity": "shadow",
+      "rarity": "legendary",
+      "base_stats": {
+        "cavalry_canyon_damage_percentage": 12.0,
+        "retreat_safety_rate": 15.0
+      },
+      "growth_per_level": {
+        "cavalry_canyon_damage_percentage": 0.8,
+        "retreat_safety_rate": 0.9
+      },
+      "description": "Grants cavalry squads a high damage bonus during surprise canyon encounters.",
+      "visual_asset_path": "res://assets/crownmarks/shadow_flag.png"
+    },
+    {
+      "id": "shadow_emblem",
+      "name": "Night Emblem Amulet",
+      "slot": "accessory",
+      "hero_affinity": "shadow",
+      "rarity": "legendary",
+      "base_stats": {
+        "cavalry_march_speed": 12.0,
+        "initial_charge_shock": 8.0
+      },
+      "growth_per_level": {
+        "cavalry_march_speed": 0.85,
+        "initial_charge_shock": 0.5
+      },
+      "description": "Grants high cavalry march velocity and increases initial charging shock impact.",
+      "visual_asset_path": "res://assets/crownmarks/shadow_emblem.png"
+    },
+    {
+      "id": "remi_crucible",
+      "name": "Alchemist's Crucible",
+      "slot": "weapon",
+      "hero_affinity": "remi",
+      "rarity": "epic",
+      "base_stats": {
+        "siege_attack_percentage": 10.0,
+        "elemental_debuff_chance": 5.0
+      },
+      "growth_per_level": {
+        "siege_attack_percentage": 0.7,
+        "elemental_debuff_chance": 0.3
+      },
+      "description": "Fires combustible alchemical charges, burning opposing structure walls.",
+      "visual_asset_path": "res://assets/crownmarks/remi_crucible.png"
+    },
+    {
+      "id": "remi_watch",
+      "name": "Chrono Watch",
+      "slot": "crown",
+      "hero_affinity": "remi",
+      "rarity": "epic",
+      "base_stats": {
+        "cooldown_reduction_percentage": 5.0,
+        "repair_speed_percentage": 10.0
+      },
+      "growth_per_level": {
+        "cooldown_reduction_percentage": 0.3,
+        "repair_speed_percentage": 0.8
+      },
+      "description": "Rewinds time metrics locally to speed up machine repairs and skill cooldowns.",
+      "visual_asset_path": "res://assets/crownmarks/remi_watch.png"
+    },
+    {
+      "id": "remi_goggles",
+      "name": "Tinkerer's Goggles",
+      "slot": "armor",
+      "hero_affinity": "remi",
+      "rarity": "epic",
+      "base_stats": {
+        "siege_defense_percentage": 8.5,
+        "hazard_detection_radius": 12.0
+      },
+      "growth_per_level": {
+        "siege_defense_percentage": 0.55,
+        "hazard_detection_radius": 0.8
+      },
+      "description": "Exposes hidden landmines and outlines enemy trajectory arcs on the tactical layout.",
+      "visual_asset_path": "res://assets/crownmarks/remi_goggles.png"
+    },
+    {
+      "id": "remi_catalyst",
+      "name": "Steamcharged Catalyst",
+      "slot": "banner",
+      "hero_affinity": "remi",
+      "rarity": "epic",
+      "base_stats": {
+        "barracks_capacity_percentage": 15.0,
+        "machinery_speed_multiplier": 1.12
+      },
+      "growth_per_level": {
+        "barracks_capacity_percentage": 0.9,
+        "machinery_speed_multiplier": 0.015
+      },
+      "description": "Pressurizes the steam output inside citadel assembly lines, boosting production speeds.",
+      "visual_asset_path": "res://assets/crownmarks/remi_catalyst.png"
+    },
+    {
+      "id": "remi_loop",
+      "name": "Copper Cogwork Loop",
+      "slot": "accessory",
+      "hero_affinity": "remi",
+      "rarity": "epic",
+      "base_stats": {
+        "gold_minting_production_percentage": 10.0,
+        "structure_construction_speed": 6.0
+      },
+      "growth_per_level": {
+        "gold_minting_production_percentage": 0.7,
+        "structure_construction_speed": 0.4
+      },
+      "description": "A copper clockwork accessory that drives gears of economic automation.",
+      "visual_asset_path": "res://assets/crownmarks/remi_loop.png"
+    },
+    {
+      "id": "allanna_bow",
+      "name": "Voidbringer Bow",
+      "slot": "weapon",
+      "hero_affinity": "allanna",
+      "rarity": "legendary",
+      "base_stats": {
+        "abyssal_arrow_damage": 25.0,
+        "marksmen_attack_percentage": 13.0
+      },
+      "growth_per_level": {
+        "abyssal_arrow_damage": 1.8,
+        "marksmen_attack_percentage": 0.85
+      },
+      "description": "A corrupted composite bow which drains enemy lifeforce, dealing dark shadow strikes.",
+      "visual_asset_path": "res://assets/crownmarks/allanna_bow.png"
+    },
+    {
+      "id": "allanna_quiver",
+      "name": "Cursed Quiver",
+      "slot": "crown",
+      "hero_affinity": "allanna",
+      "rarity": "legendary",
+      "base_stats": {
+        "void_charge_multiplier": 1.15,
+        "skill_rage_speed": 8.0
+      },
+      "growth_per_level": {
+        "void_charge_multiplier": 0.02,
+        "skill_rage_speed": 0.5
+      },
+      "description": "Endlessly regenerates obsidian arrows soaked in venom that slow down targets.",
+      "visual_asset_path": "res://assets/crownmarks/allanna_quiver.png"
+    },
+    {
+      "id": "allanna_cloak",
+      "name": "Soul Reaper's Cloak",
+      "slot": "armor",
+      "hero_affinity": "allanna",
+      "rarity": "legendary",
+      "base_stats": {
+        "marksmen_defense_percentage": 11.0,
+        "lifesteal_percentage": 4.0
+      },
+      "growth_per_level": {
+        "marksmen_defense_percentage": 0.7,
+        "lifesteal_percentage": 0.25
+      },
+      "description": "Weaves dark souls together, recovering health proportional to total damage dealt.",
+      "visual_asset_path": "res://assets/crownmarks/allanna_cloak.png"
+    },
+    {
+      "id": "allanna_pendant",
+      "name": "Abyss Shard Pendant",
+      "slot": "accessory",
+      "hero_affinity": "allanna",
+      "rarity": "legendary",
+      "base_stats": {
+        "magic_resistance": 15.0,
+        "critical_hit_multiplier": 1.25
+      },
+      "growth_per_level": {
+        "magic_resistance": 0.9,
+        "critical_hit_multiplier": 0.03
+      },
+      "description": "A floating dark shard necklace that safeguards marksmen squads from spellcasters.",
+      "visual_asset_path": "res://assets/crownmarks/allanna_pendant.png"
+    },
+    {
+      "id": "allanna_ring",
+      "name": "Shadowbound Ring",
+      "slot": "banner",
+      "hero_affinity": "allanna",
+      "rarity": "legendary",
+      "base_stats": {
+        "abyssal_summon_capacity": 30.0,
+        "march_speed_percentage": 10.0
+      },
+      "growth_per_level": {
+        "abyssal_summon_capacity": 2.0,
+        "march_speed_percentage": 0.6
+      },
+      "description": "Binds Allanna's spirit to void portals, calling forth auxiliary phantom archers.",
+      "visual_asset_path": "res://assets/crownmarks/allanna_ring.png"
+    }
+  ]
+}

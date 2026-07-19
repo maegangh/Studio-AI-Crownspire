@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://cx6rca18c8u8u"]
+
+[ext_resource type="Script" path="res://scripts/vfx/CastleAmbientEffects.gd" id="1_gdscript"]
+[ext_resource type="Material" uid="uid://c6r8ca18c8u7p" path="res://docs/godot/resources/castle_glow_material.tres" id="2_material"]
+[ext_resource type="Material" uid="uid://d7g8ca18c8u7q" path="res://docs/godot/resources/castle_ambient_material.tres" id="3_material"]
+[ext_resource type="Material" uid="uid://e8h8ca18c8u7r" path="res://docs/godot/resources/castle_window_material.tres" id="4_material"]
+[ext_resource type="Material" uid="uid://f9h8ca18c8u7s" path="res://docs/godot/resources/castle_shimmer_material.tres" id="5_material"]
+[ext_resource type="Material" uid="uid://a1r8ca18c8u7t" path="res://docs/godot/resources/castle_burst_material.tres" id="6_material"]
+
+[sub_resource type="Animation" id="Animation_ground_pulse"]
+resource_name = "pulse"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.0),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2.2, 1.4), Vector2(2.5, 1.6), Vector2(2.2, 1.4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3.0),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.65, 0.9, 0.65]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_local"]
+_data = {
+"pulse": SubResource("Animation_ground_pulse")
+}
+
+[node name="CastleAmbientEffects" type="Node2D"]
+script = ExtResource("1_gdscript")
+theme = 0
+intensity = 1.0
+effect_scale = 1.0
+mobile_quality = 1
+is_equipped = false
+
+[node name="GroundAura" type="Sprite2D" parent="."]
+self_modulate = Color(0.8, 0.5, 0, 0.35)
+position = Vector2(0, 20)
+scale = Vector2(2.2, 1.4)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GroundAura"]
+libraries = {
+"": SubResource("AnimationLibrary_local")
+}
+
+[node name="BaseGlowParticles" type="GPUParticles2D" parent="."]
+amount = 15
+process_material = ExtResource("2_material")
+lifetime = 1.4
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="AmbientParticles" type="GPUParticles2D" parent="."]
+amount = 18
+process_material = ExtResource("3_material")
+lifetime = 2.2
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="WindowGlowParticles" type="GPUParticles2D" parent="."]
+amount = 10
+process_material = ExtResource("4_material")
+lifetime = 1.5
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="ShimmerParticles" type="GPUParticles2D" parent="."]
+amount = 12
+process_material = ExtResource("5_material")
+lifetime = 1.6
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="EquipBurstParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 25
+process_material = ExtResource("6_material")
+lifetime = 1.0
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-150, -150, 300, 300)

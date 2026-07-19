@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy13g0l5n9425j"]
+
+[ext_resource type="Script" path="res://scripts/settings/AccountSettingsPanel.gd" id="1_account"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id_bg"]
+bg_color = Color(0.0901961, 0.113725, 0.160784, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.831373, 0.686275, 0.215686, 0.4)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="AccountSettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_account")
+
+[node name="IdPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_id_bg")
+
+[node name="Margin" type="MarginContainer" parent="IdPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="PlayerIdLabel" type="Label" parent="IdPanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "PLAYER ID: CS-984251"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ServicesLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 12
+text = "Linked Platforms & Services"
+
+[node name="GplayBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+text = "➕ Link Google Play"
+
+[node name="AppleBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+text = "➕ Link Apple Center"
+
+[node name="EmailBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+text = "➕ Link Citadel Mail"
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LogoutBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92549, 0.352941, 0.352941, 1)
+text = "🚪 Exit Citadel Profile"

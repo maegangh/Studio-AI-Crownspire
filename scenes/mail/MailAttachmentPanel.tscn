@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm9panel"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailAttachmentPanel.gd" id="1_panel"]
+
+[sub_name="LabelSettings_hdr" type="LabelSettings"]
+font_size = 12
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+
+[sub_name="LabelSettings_status" type="LabelSettings"]
+font_size = 11
+font_color = Color(0.6, 0.65, 0.7, 1.0)
+
+[node name="MailAttachmentPanel" type="VBoxContainer"]
+offset_right = 400.0
+offset_bottom = 120.0
+theme_override_constants/separation = 8
+script = ExtResource("1_panel")
+
+[node name="HeaderLabel" type="Label" parent="."]
+layout_mode = 2
+text = "📦 ATTACHED CITADEL CARE PACKAGES"
+label_settings = SubResource("LabelSettings_hdr")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="StatusLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "These materials are waiting to be claimed by your legions."
+label_settings = SubResource("LabelSettings_status")
+autowrap_mode = 3

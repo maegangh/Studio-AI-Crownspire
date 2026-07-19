@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ItemTooltip.gd" id="1_too"]
+[ext_resource type="PackedScene" path="res://scenes/ItemRarityFrame.tscn" id="2_too"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipbg"]
+bg_color = Color(0.05, 0.07, 0.1, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ItemTooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(280, 120)
+offset_right = 280.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tipbg")
+script = ExtResource("1_too")
+
+[node name="ItemRarityFrame" parent="." instance=ExtResource("2_too")]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NameLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Ironwood Timber"
+autowrap_mode = 3
+
+[node name="CategoryLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "Speedups"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="DescLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 0.9)
+theme_override_font_sizes/font_size = 12
+text = "Reduces construction time by 15 minutes."
+autowrap_mode = 3

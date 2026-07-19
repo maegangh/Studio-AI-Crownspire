@@ -1,0 +1,37 @@
+config_version=5
+
+[application]
+
+config/name="Crownspire Sovereign Core"
+config/description="Crownspire dynamic portrait mobile MMO strategy game store, monetization, and Crystal Vault systems."
+run/main_scene="res://Scenes/World/KingdomMap.tscn"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+CrystalVaultManager="*res://crystal_vault/CrystalVaultManager.gd"
+CVSaveManager="*res://crystal_vault/CVSaveManager.gd"
+CVDataManager="*res://crystal_vault/CVDataManager.gd"
+CVAssetLoader="*res://crystal_vault/CVAssetLoader.gd"
+CVArenaManager="*res://crystal_vault/CVArenaManager.gd"
+UIManager="*res://autoload/ui_manager.gd"
+MailManager="*res://autoload/MailManager.gd"
+QuestManager="*res://autoload/QuestManager.gd"
+SettingsManager="*res://autoload/SettingsManager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/window_width_override=360
+window/size/window_height_override=640
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation="sensor_portrait"
+
+[rendering]
+
+renderer/rendering_method="forward_plus"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.0509804, 0.0666667, 0.101961, 1)

@@ -1,0 +1,216 @@
+[
+  {
+    "id": "citadel",
+    "name": "Citadel of Emerald Spires",
+    "description": "The administrative heart of your empire. Upgrading the Citadel unlocks new buildings and increases maximum kingdom level caps.",
+    "level": 18,
+    "max_level": 30,
+    "base_power": 12500,
+    "power_per_level": 4500,
+    "type": "infrastructure",
+    "resources_required": {
+      "food": 120000,
+      "wood": 150000,
+      "stone": 95000,
+      "iron": 45000
+    },
+    "upgrade_time_seconds": 3600,
+    "current_bonus": "Max Troop Tier: IV",
+    "next_bonus": "Max Troop Tier: V"
+  },
+  {
+    "id": "farm",
+    "name": "Imperial Wheatlands",
+    "description": "Supplies agricultural provisions for your citizen populations and standing legions.",
+    "level": 15,
+    "max_level": 30,
+    "base_power": 1800,
+    "power_per_level": 450,
+    "type": "resource",
+    "produces": "food",
+    "production_rate_per_hour": 15000,
+    "max_capacity": 45000,
+    "accumulated_resources": 28500,
+    "resources_required": {
+      "food": 25000,
+      "wood": 35000,
+      "stone": 12000,
+      "iron": 4000
+    },
+    "upgrade_time_seconds": 600,
+    "current_bonus": "15.0K Food / Hour",
+    "next_bonus": "18.5K Food / Hour"
+  },
+  {
+    "id": "lumber_mill",
+    "name": "Sovereign Timber Mill",
+    "description": "Harvests and cures sturdy wood required for city structural upgrades and defensive siege work.",
+    "level": 14,
+    "max_level": 30,
+    "base_power": 1600,
+    "power_per_level": 400,
+    "type": "resource",
+    "produces": "wood",
+    "production_rate_per_hour": 12000,
+    "max_capacity": 36000,
+    "accumulated_resources": 19400,
+    "resources_required": {
+      "food": 35000,
+      "wood": 20000,
+      "stone": 15000,
+      "iron": 3500
+    },
+    "upgrade_time_seconds": 480,
+    "current_bonus": "12.0K Wood / Hour",
+    "next_bonus": "14.8K Wood / Hour"
+  },
+  {
+    "id": "quarry",
+    "name": "Obsidian Granite Quarry",
+    "description": "Extracts robust granite for thick defensive curtain walls and fortress redoubts.",
+    "level": 12,
+    "max_level": 30,
+    "base_power": 1400,
+    "power_per_level": 350,
+    "type": "resource",
+    "produces": "stone",
+    "production_rate_per_hour": 8000,
+    "max_capacity": 24000,
+    "accumulated_resources": 15600,
+    "resources_required": {
+      "food": 20000,
+      "wood": 30000,
+      "stone": 10000,
+      "iron": 5000
+    },
+    "upgrade_time_seconds": 540,
+    "current_bonus": "8.0K Stone / Hour",
+    "next_bonus": "10.2K Stone / Hour"
+  },
+  {
+    "id": "iron_mine",
+    "name": "Auric Iron Depths",
+    "description": "Burrows deep into iron ore veins to craft heavy legionary plate armor and reinforced weaponry.",
+    "level": 10,
+    "max_level": 30,
+    "base_power": 1200,
+    "power_per_level": 300,
+    "type": "resource",
+    "produces": "iron",
+    "production_rate_per_hour": 4000,
+    "max_capacity": 12000,
+    "accumulated_resources": 6200,
+    "resources_required": {
+      "food": 18000,
+      "wood": 22000,
+      "stone": 18000,
+      "iron": 6000
+    },
+    "upgrade_time_seconds": 660,
+    "current_bonus": "4.0K Iron / Hour",
+    "next_bonus": "5.3K Iron / Hour"
+  },
+  {
+    "id": "barracks",
+    "name": "Royal Legion Barracks",
+    "description": "Assembles and trains formidable legionary forces, bowmen, and heavy cataphracts.",
+    "level": 16,
+    "max_level": 30,
+    "base_power": 5500,
+    "power_per_level": 1500,
+    "type": "military",
+    "resources_required": {
+      "food": 45000,
+      "wood": 40000,
+      "stone": 25000,
+      "iron": 15000
+    },
+    "upgrade_time_seconds": 1200,
+    "current_bonus": "Max Train Limit: 200 Troops",
+    "next_bonus": "Max Train Limit: 250 Troops",
+    "troop_types": [
+      {
+        "id": "legionary",
+        "name": "Emerald Legionary",
+        "description": "Heavy shield-bearing line-infantry trained for iron wall battle formations.",
+        "cost_food": 80,
+        "cost_wood": 20,
+        "train_time_seconds": 5,
+        "power_rating": 4
+      },
+      {
+        "id": "bowman",
+        "name": "Wind-Runner Bowman",
+        "description": "Agile marksmen capable of striking targets from castle turrets with composite longbows.",
+        "cost_food": 50,
+        "cost_wood": 50,
+        "train_time_seconds": 6,
+        "power_rating": 3
+      },
+      {
+        "id": "cataphract",
+        "name": "Gilded Cataphract",
+        "description": "Heavy cavalrymen clad in segmented plate armor capable of devastating charges.",
+        "cost_food": 150,
+        "cost_wood": 80,
+        "cost_iron": 50,
+        "train_time_seconds": 12,
+        "power_rating": 10
+      }
+    ]
+  },
+  {
+    "id": "academy",
+    "name": "Imperial Scholar Academy",
+    "description": "Houses royal chronomancers and tacticians who unlock administrative speedups and battle strategy matrices.",
+    "level": 15,
+    "max_level": 30,
+    "base_power": 5000,
+    "power_per_level": 1200,
+    "type": "military",
+    "resources_required": {
+      "food": 30000,
+      "wood": 30000,
+      "stone": 45000,
+      "iron": 12000
+    },
+    "upgrade_time_seconds": 1500,
+    "current_bonus": "Research Speed bonus: +15%",
+    "next_bonus": "Research Speed bonus: +18%",
+    "technologies": [
+      {
+        "id": "taxation",
+        "name": "Sovereign Taxation",
+        "description": "Optimizes tax receipts to increase hourly Gold generation.",
+        "level": 4,
+        "max_level": 10,
+        "cost_food": 15000,
+        "cost_gold": 5000,
+        "research_time_seconds": 8,
+        "bonus_description": "+10% Gold Revenue"
+      },
+      {
+        "id": "logistics",
+        "name": "Legion Logistics",
+        "description": "Streamlines army supply lines to increase gathering march speeds.",
+        "level": 3,
+        "max_level": 10,
+        "cost_wood": 20000,
+        "cost_gold": 8000,
+        "research_time_seconds": 10,
+        "bonus_description": "+15% Gathering Speed"
+      },
+      {
+        "id": "phalanx",
+        "name": "Phalanx Maneuvers",
+        "description": "Improves training disciplines to boost infantry defense metrics.",
+        "level": 5,
+        "max_level": 10,
+        "cost_food": 30000,
+        "cost_iron": 10000,
+        "research_time_seconds": 15,
+        "bonus_description": "+12% Infantry Defense"
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "id": "alliance_1",
+  "name": "Dawn Alliance",
+  "tag": "DAWN",
+  "leader": "Lord Aurelius",
+  "leader_power": 1254300,
+  "description": "The defenders of the Crystallite Spire. Together we forge the eternal dawn!",
+  "power": 15420000,
+  "level": 3,
+  "member_count": 48,
+  "max_members": 100,
+  "banner_color": "#0c2b45",
+  "flag_symbol": "☀️",
+  "flag_color": "#dca620",
+  "crystallite_cores": 1420,
+  "fortress_level": 3,
+  "towers_placed": 12,
+  "max_towers": 20
+}

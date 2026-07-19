@@ -1,0 +1,372 @@
+export interface MonsterLore {
+  id: string;
+  name: string;
+  rarity: 'Common' | 'Elite' | 'World Boss';
+  description: string;
+  habitat: string;
+  weakness: string;
+  lore: string;
+  rewards: string[];
+  threatRating: string; // e.g. "★★☆☆☆", "★★★★☆"
+  dangerLevel: string;  // e.g. "Low", "Medium", "High", "Extreme", "Cataclysmic"
+  strategy: string;
+  emoji: string;
+}
+
+export const MONSTER_LORE_DATABASE: Record<string, MonsterLore> = {
+  // COMMON ARCHETYPES
+  goblin_pillager: {
+    id: "goblin_pillager",
+    name: "Goblin Pillager",
+    rarity: "Common",
+    description: "A sneaky highway robber clutching crude serrated bone daggers, patrolling the fringes in search of food caravans.",
+    habitat: "Whispering Canopy woodlands, outer fields, and low-hill valleys.",
+    weakness: "Infantry legions. Standard frontline shieldguards and spear-walls easily deflect their erratic darting strikes.",
+    lore: "Goblins have scattered across Crownspire's low plains since the Second Eclipse. Armed with salvaged leather scraps and rusted iron spikes, these creatures form minor raiding bands to ambush supply lines, stealing grains and draft animals to feed their underground caverns.",
+    rewards: ["Granary Food Stocks", "Spruce Wood Bundles", "Copper Ore Shavings", "Minor Speedups"],
+    threatRating: "★☆☆☆☆",
+    dangerLevel: "Low",
+    strategy: "Establish overlapping spear formations and hold defensive posts. Goblins lose coordinate courage once their first skirmish line fails.",
+    emoji: "👹"
+  },
+  feral_hog: {
+    id: "feral_hog",
+    name: "Feral Hog",
+    rarity: "Common",
+    description: "A massive tusked boar possessing dense, calloused skin plates and a highly aggression-prone attitude.",
+    habitat: "Southern fertile pasture terrains, wild border forests, and warm plains.",
+    weakness: "Marksmen. Their lack of armor on the neck and back makes them highly vulnerable to focused volley fire before reaching melee lines.",
+    lore: "These boars were originally simple woodland foraging pigs. However, centuries of drinking from underground mineral springs corrupted by sulfuric lava runoff mutated them into immense, armored beasts capable of crushing wooden palisades.",
+    rewards: ["Prime Bone & Meat", "Seasoned Hide Plates", "Iron Ore Dust", "Basic Speedups"],
+    threatRating: "★☆☆☆☆",
+    dangerLevel: "Low",
+    strategy: "Deploy archers on high watchtowers. Initiate flaming volleys to panic the beast, causing it to break its charge and expose its vulnerable flanks.",
+    emoji: "🐗"
+  },
+  grave_creeper: {
+    id: "grave_creeper",
+    name: "Grave Creeper",
+    rarity: "Common",
+    description: "A multi-legged bony arachnid with skeletal plates shielding its hollow chest and venomous claw-tips.",
+    habitat: "Subterranean catacombs, ruined stone sepulchers, and misty cemetery walls.",
+    weakness: "Cavalry. Rapid trampling charges crush their bone armor plates before they can retreat into high corners.",
+    lore: "Weaved from toxic cemetery soils, ancient bones, and shadow magic by wandering wight necromancers. These arachnids serve as sentries in the dark, spinning sticky gray webs to trap scout patrols and slowly draining their life core.",
+    rewards: ["Calcified Bone Fragments", "Web Threads", "Necrotic Residue", "Common Ore Shavings"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Burn active webs using oil flasks and lead cavalry chargers in wide flanking sweeps to shatter their fragile abdomen plates.",
+    emoji: "🕷️"
+  },
+  frost_lupine: {
+    id: "frost_lupine",
+    name: "Frostbite Lupine",
+    rarity: "Common",
+    description: "A large winter wolf with a coat of frozen blue needles and glacial fangs that can freeze blood on contact.",
+    habitat: "Everfrost Ridge narrow mountain passes, snowy pine glades, and glacier valleys.",
+    weakness: "Infantry. Thick iron plate shields block their icy fangs, while defensive counter-strikes exploit their light frames.",
+    lore: "Frostbite Lupines hunt in tight pack formations with razor-sharp tactical intelligence. Their vocal howls carry low-frequency magic that disorients prey, and they are capable of freezing small water streams to secure quick paths for their pack.",
+    rewards: ["Dense Winter Fur", "Glacial Claws", "Frost Crystals", "Apothecary Herbs"],
+    threatRating: "★☆☆☆☆",
+    dangerLevel: "Low",
+    strategy: "Form tight circles with shields locked. Ignite campfires to limit their hunting perimeter and strike when they hesitate to cross the heat boundary.",
+    emoji: "🐺"
+  },
+  cinder_spitter: {
+    id: "cinder_spitter",
+    name: "Cinder Spitter",
+    rarity: "Common",
+    description: "A small hot-tempered reptilian elemental that digests coal ores to eject projectile globs of liquid fire.",
+    habitat: "Ashfire Crater rims, dry volcanic fissures, and hot black springs.",
+    weakness: "Marksmen. Archers can thin out their numbers safely from afar without entering their thermal spitting arc.",
+    lore: "These lizards inhabit the high-temperature fissures of southern volcano ranges. Their digestive system acts as a natural furnace, liquefying raw sulfur and mineral stones into volatile thermal acids which they spit to melt attacker armor plates.",
+    rewards: ["Volcanic Ash Powder", "Sulfur Crust Blocks", "Raw Iron Shavings", "Basic Gemstone Pieces"],
+    threatRating: "★☆☆☆☆",
+    dangerLevel: "Low",
+    strategy: "Equip marksmen with longbows of wet bowstrings. Use frost spells to instantly crystalize their hot throats, neutralising their spit capabilities.",
+    emoji: "🦎"
+  },
+  mossy_harpy: {
+    id: "mossy_harpy",
+    name: "Mossy Harpy",
+    rarity: "Common",
+    description: "A cruel feathered avian hybrid with moss-lined iron wings and razor-sharp copper talons.",
+    habitat: "Skyward Plateau peaks, wind-swept ravines, and higher tree layers.",
+    weakness: "Cavalry. Swift light horse columns can quickly chase their wing shadows on flat terrain, striking when they fly low.",
+    lore: "Harpies have dominated the high cliff edges of Crownspire since antiquity. They wrap their nests in toxic mountain moss and feathers to protect their young from cold wind, and frequently steal metal weapons from base armories.",
+    rewards: ["Harpy Feathers", "Aether Tendril Grass", "Medicinal Moss", "Scrap Copper Iron"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Employ acoustic war-horns to disrupt their flight coordination. Use weighted nets to drag them to flat dirt roads where shock units can dispatch them.",
+    emoji: "🦅"
+  },
+  ironwood_golem: {
+    id: "ironwood_golem",
+    name: "Ironwood Golem",
+    rarity: "Common",
+    description: "An animated construct of ancient petrified wood trunks bound by runic mud and heavy granite ligaments.",
+    habitat: "Heartwoods of the Whispering Canopy, deep forest sanctuaries, and overgrown stone ruins.",
+    weakness: "Infantry. Sapper axes and heavy steel-headed halberds shatter their dense wood grain much faster than arrows.",
+    lore: "Initially forged by elven geomancers during the Golden Age to serve as guardians of the mother trees. Over time, as the demonic portals corrupted the soil, their runic crystalline hearts absorbed toxic energy, turning them into aggressive forces.",
+    rewards: ["Petrified Wood Logs", "Runic Pebble Fragments", "Polished Quartz", "Structural Stones"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Target the pulsating red runic core located in the center of their chest using heavy polearms to interrupt their stone-stamping shockwaves.",
+    emoji: "🪵"
+  },
+  sand_dweller: {
+    id: "sand_dweller",
+    name: "Sand Dweller",
+    rarity: "Common",
+    description: "A heavy-carapaced desert scorpion that burrows deep in shifting dunes to ambush surface scout columns.",
+    habitat: "Gilded Grasslands desert borders, arid dry silt plains, and sandstone canyons.",
+    weakness: "Marksmen. Focused projectile fire can chip away at their heavy armor plates from positions of safety.",
+    lore: "Sensing vibration frequencies through dry sand using specialized hairs on their legs, Sand Dwellers can wait submerged for weeks. When an army column passes, they burst out of the silt to drag entire horse units under the hot ground.",
+    rewards: ["Chitin Armor Scales", "Concentrated Venom Glands", "Golden Silica Crystals", "Basic Ores"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Use heavy war wagons of broad wheels to avoid silt traps. Shoot toxic joints using armor-piercing arrows to immobilize their tail stingers.",
+    emoji: "🦂"
+  },
+  crypt_wight: {
+    id: "crypt_wight",
+    name: "Crypt Wight",
+    rarity: "Common",
+    description: "An ancient reanimated soldier of the lost eras, bound in decayed leather and rusted plate iron.",
+    habitat: "Abyssal Crypts, ruined stone border castles, and ancient trenches.",
+    weakness: "Cavalry. Heavy horse charges scatter their brittle bone structures before they can form solid vanguard lines.",
+    lore: "These are the restless remains of elite soldiers who fell during the Great War of the Spire centuries ago. Raised by the necrotic spell grids of Malakar, they march in absolute silence, seeking to snuff out any light keys of the base.",
+    rewards: ["Decayed Iron Plate scraps", "Ancient Silver Coins", "Necrotic Soul Dust", "Valor Badges"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Engage with holy light spells to dissolve their binding magic, then follow up with cavalry charges to grind their bones to dust.",
+    emoji: "💀"
+  },
+  bog_mire_ooze: {
+    id: "bog_mire_ooze",
+    name: "Bog Mire Ooze",
+    rarity: "Common",
+    description: "A pulsating giant mass of green acidic slime that digests organic materials and armor plating on impact.",
+    habitat: "Silent Fenns decaying swamp estuaries, toxic bays, and moist dark caves.",
+    weakness: "Infantry. Foot troops armed with non-reactive ceramic shielding and heavy cleavers can slice their bodies with minimal losses.",
+    lore: "Born from centuries of wizardly waste disposal, biological decay, and stagnant magical marshes. The ooze flows across forest trails, absorbing animals, foliage, and rusted armor to fuel its expanding toxic mass.",
+    rewards: ["Corrosive Slime Flasks", "Guanine Glow Roots", "Softwood Timbers", "Common Metal Nuggets"],
+    threatRating: "★★☆☆☆",
+    dangerLevel: "Minor",
+    strategy: "Throw lime or dry sulfur salts to instantly dehydrate and solidify their liquid mass, making them simple to shatter with heavy hammers.",
+    emoji: "🦠"
+  },
+
+  // ELITE ENEMY MONSTERS
+  infernal_drake: {
+    id: "infernal_drake",
+    name: "Infernal Ash Drake (Elite)",
+    rarity: "Elite",
+    description: "A terrifying crimson dragon kin breathing sticky chemical magma pools that incinerate complete army cohorts.",
+    habitat: "Ashfire Sulfur Volcano Fissures and high crag fortresses.",
+    weakness: "Cavalry. Rapid-moving cavalry squads can quickly flank the drake's blind spots and avoid its frontal fire columns.",
+    lore: "Infernal Drakes represent the ancient descendants of volcanic primal gods. Their scales are forged from pure diamond-infused obsidian, allowing them to swim in lava seas. They regularly fly out to incinerate outer castle crops, roasting livestock for meals.",
+    rewards: ["Molten Drake Scales", "Magma Core Crystals", "Advanced Speedup Cards", "Rare Volcanic Ore", "Elite Crest Items"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Lure the drake into a narrow gorge where its wing mobility is limited, then flank its underbelly with heavy cavalry riders carrying cold-iron lances.",
+    emoji: "🐉"
+  },
+  crypt_lord: {
+    id: "crypt_lord",
+    name: "Crypt Sovereign Malakor (Elite)",
+    rarity: "Elite",
+    description: "An ancient spectral emperor king wielding a colossal dark sword that drains troop defense stats.",
+    habitat: "The inner throne chambers of the Lost Capital tombs and deep graveyard rifts.",
+    weakness: "Marksmen. Focused long-range light-infused arrows can pierce his ethereal form while keeping troops away from his defensive aura.",
+    lore: "Malakor governed the East Spire during the Golden Era before pathing into dark necromancy to secure eternal life. He betrayed his oath, converting his entire loyal garrison into immortal wights, creating a dark empire of bone and ash beneath the crypts.",
+    rewards: ["Spectral Iron Ingots", "Cursed Sovereign Crown Pieces", "Advanced Speedups", "Rare Soul Crystals", "Elite Crests"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Have defensive shields draw his sword sweeps while marksmen maintain concentrated fire on his glowing runic crown to dissolve his ethereal shield.",
+    emoji: "👑"
+  },
+  glacier_goliath: {
+    id: "glacier_goliath",
+    name: "Glacier Goliath (Elite)",
+    rarity: "Elite",
+    description: "A towering, blocky mountain construct consisting of compressed blue glacial ice and solid granite joints.",
+    habitat: "Deep frozen caverns of the Everfrost Ridge and highest northern mountain ridges.",
+    weakness: "Infantry. Vanguard heavy-shield warriors armed with heated mining picks and explosive powder barrels can shatter his thick legs.",
+    lore: "These golems were formed during the Great Frost of antiquity, when ancient glacial spirits fused with solid mountain ridges. Each step they take causes miniature avalanches, and they can summon massive blizzards to lock invaders in ice blocks.",
+    rewards: ["Glacial Quartz Crystals", "Titanium Metal Plates", "3h Speedup Reserves", "Rare Cryo Ores", "Elite Ascension Crests"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Avoid fighting him in snowy terrain. Lure him to warmer valleys, and use thermal blacksmith explosives to initiate localized thermal fractures across his legs.",
+    emoji: "🧌"
+  },
+  swamp_terror: {
+    id: "swamp_terror",
+    name: "Silt Hydra Gorgon (Elite)",
+    rarity: "Elite",
+    description: "A colossal, five-headed swamp hydra leaking dark green acidic mist and spitting corrosive digestive bile.",
+    habitat: "Silent Fenns deepest black waters and foggy mud zones.",
+    weakness: "Cavalry. Fast-travel light riders can outrun the coordinate lunges of its heads, slicing its fleshy necks.",
+    lore: "Believed to be a curse from ancient sea gods. The Hydra resides in the lowest toxic pits of the swamps, feeding on massive bog crocodiles. Its breath is an acidic fog that rots wooden shields and rusts defensive armaments within minutes.",
+    rewards: ["Corrosive Hydra Leather", "Acidic Bile Flasks", "8h Construction Speedups", "Rare Swamp Alchemical Ores", "Elite Crests"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Focus attacks on each head sequentially. Apply hot tar or fire-brand weapons to the severed neck stumps immediately to prevent regeneration of multiple heads.",
+    emoji: "🦕"
+  },
+  phoenix_guardian: {
+    id: "phoenix_guardian",
+    name: "Crested Phoenix Vanguard (Elite)",
+    rarity: "Elite",
+    description: "A brilliant, majestic burning phoenix that can resurrect after dying and apply massive attack buffs to surrounding minions.",
+    habitat: "Sun-blessed peaks of the Skyward Plateaus and celestial tower ruins.",
+    weakness: "Marksmen. Archers with long-range ballistics can shoot down the phoenix before its thermal shockwaves burn infantry lines.",
+    lore: "Born from the heat-flashes of ancient star collisions, this creature is a protector of celestial ruins. It represents eternal renewal; when destroyed, its ashes reorganize into a dense blazing orb that resurrects the bird in full fury.",
+    rewards: ["Golden Phoenix Feathers", "Aureum Sun-Gold Ingots", "Esoteric Pet Exp Seeds", "Rare Radiant Crystals", "Elite Crests"],
+    threatRating: "★★★★☆",
+    dangerLevel: "Extreme",
+    strategy: "Once shot down, deploy strike troops to immediately crush the solar ash egg using heavy steel hammers before the reincarnation cycle completes in 10 seconds.",
+    emoji: "🐦"
+  },
+  thunder_ram: {
+    id: "thunder_ram",
+    name: "Voltaic Thunderhorn (Elite)",
+    rarity: "Elite",
+    description: "A muscular, cobalt-plated ram that generates a high-voltage charge to execute devastating wall-shattering charges.",
+    habitat: "Thunderstorm peaks of the Skyward Plateau and central grassy steppes.",
+    weakness: "Infantry. Shock infantry deploying grounded copper towers can absorb his energy arcs and trap his massive horns.",
+    lore: "These rams feed exclusively on conductive galvanic ores located on plateau peaks. By storing electricity in their hollow horns, they generate immense electromagnetism, allowing them to accelerate to supersonic velocities during charging runs.",
+    rewards: ["Charged Galvanic Plates", "Voltaic Coil Wire", "24h Master Speedups", "Rare Conductive Ores", "Elite Crest Series"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Anchor grounded copper decoy pillars on the field. The ram will charge the conductive metal, trapping its heavy horns, allowing sappers to strike its underbelly.",
+    emoji: "🐏"
+  },
+  void_crawler: {
+    id: "void_crawler",
+    name: "Shadowrift Archfiend (Elite)",
+    rarity: "Elite",
+    description: "A skittering multi-limbed horrors of pure shadow substance, tearing space gaps to execute spatial teleports.",
+    habitat: "Rift portals, corrupted boundary lands, and abyssal pits.",
+    weakness: "Cavalry. Speed cavalry columns can out-maneuver its spatial blink portals, striking during its short visual recovery windows.",
+    lore: "These entities slip through minor cracks in the space barrier left behind by volcanic rift eruptions. They feed on pure light energy, and their presence causes localized visual corruption and structural decay across any nearby town base.",
+    rewards: ["Void Rift Fibers", "Eldritch Void Crystals", "Advanced Time Speedups", "Abyssal Kibble Packs", "Elite Crest Items"],
+    threatRating: "★★★★☆",
+    dangerLevel: "Extreme",
+    strategy: "Anchor light runes around the battle zone. When the archfiend teleports into a rune, it suffers a severe stun, exposing its vulnerable shadow joints.",
+    emoji: "👾"
+  },
+  dread_knight: {
+    id: "dread_knight",
+    name: "Dread Sentinel Thran (Elite)",
+    rarity: "Elite",
+    description: "A reanimated heavy armor sentinel guarding high mountain passes, wielding a black broadsword and resistant to arrow fire.",
+    habitat: "Abandoned frontier fortresses and high stone passways.",
+    weakness: "Marksmen. Precision ballistics can pierce his helm visor and armor joints from high flanking hills.",
+    lore: "Thran was once a legendary defensive commander of the Sovereign Crown. Captured during a shadow siege, his corpse was encased in thick, cursed steel bands and reanimated. He now guards the outer bastions, killing all who seek to cross.",
+    rewards: ["Cursed Dread Steel Blocks", "Ironwork Crest Materials", "High-tier Speedup Logs", "Rare Onyx Ingots", "Elite Crests"],
+    threatRating: "★★★☆☆",
+    dangerLevel: "High",
+    strategy: "Use heavy cavalry armor-breaking charges to compromise his shield posture, then have marksmen deliver precision shots into his glowing helmet visor.",
+    emoji: "🛡️"
+  },
+  magma_lord: {
+    id: "magma_lord",
+    name: "Core Fire Golem (Elite)",
+    rarity: "Elite",
+    description: "A lumbering massive silicate construct filled with active molten magma, launching burning volcanic boulders.",
+    habitat: "Deep subterranean chambers of the Volcano fissure rifts.",
+    weakness: "Infantry. Close-range sappers equipped with ice-infused water shields can withstand his heat and execute heavy pickaxe sweeps.",
+    lore: "Formed in the core of Crownspire's deepest magma rivers, these constructs serve as the vanguard of the volcanic rifts. They can raise their thermal temperature to liquefy steel weapons upon contact, making direct ranged combat vital.",
+    rewards: ["Molten Core Obsidian", "Magma Fusion Ingots", "3-Day Master Construction Speedups", "Elite Crests"],
+    threatRating: "★★★★☆",
+    dangerLevel: "Extreme",
+    strategy: "Douse the golem with cold-spring water barrels to instantly harden his liquid outer skin into fragile glass, then shatter it with heavy impact weapons.",
+    emoji: "🌋"
+  },
+  ancient_phoenix: {
+    id: "ancient_phoenix",
+    name: "Ancient Solbird Aurum (Elite)",
+    rarity: "Elite",
+    description: "A legendary avian of myth whose brilliant aureola can blindingly dazzle complete armies and ignite wood forts.",
+    habitat: "Outer sanctuary towers, sun altars, and skyward summits.",
+    weakness: "Marksmen. Heavy crossbow squads with polarized shadow lenses can target the bird safely from afar.",
+    lore: "Solbird Aurum is the physical embodiment of solar fires, having existed since the birth of the Spire. Its wingbeats generate searing shockwaves, and its melody can heal subordinate magical beasts while causing intense panic among human units.",
+    rewards: ["Aureum Solar Platinum", "Phoenix Inner Core Fibers", "Legendary Speedup Tokens", "True Phoenix Blood Flasks", "Elite Crests"],
+    threatRating: "★★★★☆",
+    dangerLevel: "Extreme",
+    strategy: "Fight during solar eclipse phases if possible, or deploy heavy shadow-mesh curtains to drastically dampen the intensity of its blinding solar flares.",
+    emoji: "🦅"
+  },
+
+  // END-GAME WORLD RAID BOSSES
+  gorgon_emperor: {
+    id: "gorgon_emperor",
+    name: "Gorgon Overlord Chronos (World Boss)",
+    rarity: "World Boss",
+    description: "The supreme commander of the deep void rift. Threatens to turn Crownspire structures to dry ash by manipulating time flows.",
+    habitat: "The Abyssal Rift Rift-Heart of the Crownspire center.",
+    weakness: "Infantry. Thick obsidian vanguard phalanxes can absorb his direct time-decay beams with specialized reflective shields.",
+    lore: "Overlord Chronos is a cosmic entity who exists outside the normal flow of time. He seeking to freeze the Spire's life core to convert the entire continent into a static dimension of gray dust. His presence slows weapon swinging speeds of nearby armies.",
+    rewards: ["Chronos Sandglass Artifact", "Overlord Plate Heavy Armor Design", "Mythic Ingot Block", "Cosmic Treats", "Godly Crests", "25+ Kaelen Shards"],
+    threatRating: "★★★★★",
+    dangerLevel: "Cataclysmic",
+    strategy: "A server-wide coordinated raid is mandatory. Divide forces into three rotating squads to absorb his time-slowing debuff, and strike when he channel-charges his world-fading beam.",
+    emoji: "👾"
+  },
+  wb_tiamat: {
+    id: "wb_tiamat",
+    name: "Tiamat, Void Mother (World Boss)",
+    rarity: "World Boss",
+    description: "An ancient multi-headed dragon of myth that wraps entire map zones in twilight starshields.",
+    habitat: "The high Void Rift Outer Space, floating on gravity anomalies.",
+    weakness: "Cavalry. Rapid-riding cavalry divisions can circle her vast wingspan, avoiding her direct multi-directional celestial breath.",
+    lore: "Tiamat is the cosmic mother of all dark drakes in the realm. She emerged from the great void tear during the first century. Each of her heads controls a different cosmic element: decay, gravity, silence, starfire, and frost.",
+    rewards: ["Void Mother Dragon Eye", "Void Core Fabric Rolls", "Epic Black Diamond Gem", "Abyssal Nectar Pots", "Godly Crests", "Kaelen Shards"],
+    threatRating: "★★★★★",
+    dangerLevel: "Cataclysmic",
+    strategy: "Synchronize strikes across all of her heads simultaneously. If one head is destroyed while others remain at high health, she will execute a massive self-healing roar.",
+    emoji: "🐉"
+  },
+  wb_typhon: {
+    id: "wb_typhon",
+    name: "Typhon, Storm Weaver (World Boss)",
+    rarity: "World Boss",
+    description: "An colossal elemental cloud titan whose thunderbolts bypass active garrison walls to target inner base granaries.",
+    habitat: "The central lightning eye of the Great Atmospheric Storm.",
+    weakness: "Marksmen. Heavy ballista and artillery divisions can anchor the target while firing high-conductive spear bolts.",
+    lore: "Born from the first weather cataclysm of Crownspire, Typhon is a formless colossus of absolute wind, lightning, and ash. He wields lightning storms as a whip, and can summon catastrophic wind walls that blow away standard vanguard ranks.",
+    rewards: ["Typhon Charged Core", "Weaver Storm Cloud Fabric", "Prismatic Metal Shard", "Thundercloud Kibble", "Godly Crest Blocks"],
+    threatRating: "★★★★★",
+    dangerLevel: "Cataclysmic",
+    strategy: "Deploy heavy grounding steel chains to bind his gaseous form to the earth, then coordinate ballista squads to discharge his electric core with copper spear volleys.",
+    emoji: "🌩️"
+  },
+  wb_fenrir: {
+    id: "wb_fenrir",
+    name: "Fenrir, the Moonslayer (World Boss)",
+    rarity: "World Boss",
+    description: "A gargantuan cosmic celestial wolf capable of swallowing star patterns to increase his physical size and melee reach.",
+    habitat: "Deep subterranean titanium fault-line fissures under the central hills.",
+    weakness: "Infantry. Heavy steel-wall legion cohorts can block his immense bites while sappers plant explosive charges inside his maw.",
+    lore: "In ancient times, the High Sovereign sealed Fenrir using thousands of tons of enchanted titanium chains beneath the Spire. As the rift portals shattered the seals, the giant wolf broke free, driven by a cosmic hunger to swallow the sky.",
+    rewards: ["God-Slayer Fangs", "Enchanted Fenrir Chain Links", "Titanium Core Block", "Sovereign Pet Biscuits", "Godly Crest Pieces"],
+    threatRating: "★★★★★",
+    dangerLevel: "Cataclysmic",
+    strategy: "Have heavy-shield commanders taunt his attacks to keep his head facing away from the squishy range lines, then plant demolition charges on his front paws during his howl animation.",
+    emoji: "🐺"
+  },
+  wb_leviathan: {
+    id: "wb_leviathan",
+    name: "Leviathan, Lord of Tides (World Boss)",
+    rarity: "World Boss",
+    description: "A terrifying colossal sea beast capable of creating devastating tsunamis that flood coastal base outposts.",
+    habitat: "Deep Abyssal Ocean trenches, rising to the Surface during high tides.",
+    weakness: "Cavalry. Sea skimmers and aquatic cavalry units are highly agile on water borders, avoiding his underwater tail slams.",
+    lore: "The Leviathan sleeps in the lowest dark zones of the maritime rifts. He represents the absolute power of the high seas. When he awakens, his movements cause great sea rifts, devouring merchant fleets and navy warships alike.",
+    rewards: ["Wavecaller Heart Essence", "Sovereign Pearl Crust Plates", "True Nether Crystalline Ingots", "Ocean Dew Flasks", "Godly Crest Designs"],
+    threatRating: "★★★★★",
+    dangerLevel: "Cataclysmic",
+    strategy: "Construct high sea embankments before the raid. Target his glowing gill vents using heavy ice bolt ballistas to freeze his breathing canals, forcing him to be beached.",
+    emoji: "🐳"
+  }
+};

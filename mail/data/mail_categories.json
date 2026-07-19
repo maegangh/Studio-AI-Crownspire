@@ -1,0 +1,26 @@
+[
+  {
+    "id": "all",
+    "name": "All Inbox",
+    "icon": "📨",
+    "description": "All messages in your Citadel inbox"
+  },
+  {
+    "id": "system",
+    "name": "System Mail",
+    "icon": "⚙️",
+    "description": "Official Citadel announcements and compensations"
+  },
+  {
+    "id": "battle",
+    "name": "Battle Reports",
+    "icon": "⚔️",
+    "description": "Skirmish outcomes and gathering sweeps"
+  },
+  {
+    "id": "alliance",
+    "name": "Alliance Mail",
+    "icon": "🛡️",
+    "description": "Rallies, leadership commands, and shared gifts"
+  }
+]

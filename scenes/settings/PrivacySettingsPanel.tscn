@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy14g0l5n9425k"]
+
+[ext_resource type="Script" path="res://scripts/settings/PrivacySettingsPanel.gd" id="1_privacy"]
+
+[node name="PrivacySettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_privacy")
+
+[node name="AnalyticsSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AnalyticsSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Enable Analytics Tracking"
+
+[node name="AnalyticsCheck" type="CheckButton" parent="AnalyticsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="PersonalSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PersonalSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Allow Personalization Offsets"
+
+[node name="PersonalizationCheck" type="CheckButton" parent="PersonalSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="PublicSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PublicSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Publish Ruler Profile to ranks"
+
+[node name="PublicProfileCheck" type="CheckButton" parent="PublicSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0

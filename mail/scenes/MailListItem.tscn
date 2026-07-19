@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://b9xt7r99maillistitem"]
+
+[ext_resource type="Script" path="res://mail/scripts/MailListItem.gd" id="1_maillistitem"]
+
+[node name="MailListItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 80)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_maillistitem")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="UnreadDot" type="ColorRect" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0, 0.82, 1, 1)
+
+[node name="TextLayout" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="SenderLabel" type="Label" parent="Margin/HBox/TextLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Citadel High Council"
+
+[node name="SubjectLabel" type="Label" parent="Margin/HBox/TextLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Welcome to your new Citadel, Commander!"
+
+[node name="RightSide" type="HBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="AttachmentIcon" type="Label" parent="Margin/HBox/RightSide"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🎁 Rewards"
+
+[node name="DateLabel" type="Label" parent="Margin/HBox/RightSide"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10/24/2026"
+
+[node name="SelectButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true

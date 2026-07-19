@@ -1,0 +1,442 @@
+[gd_scene load_steps=12 format=3 uid="uid://d8crspiremail"]
+
+[ext_resource type="Script" path="res://Mail.gd" id="1_mail"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HeaderPanel"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_TabActive"]
+bg_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_TabInactive"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_DetailBg"]
+bg_color = Color(0.0980392, 0.117647, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ReportBannerWin"]
+bg_color = Color(0.133333, 0.313725, 0.184314, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ReportBannerLoss"]
+bg_color = Color(0.392157, 0.117647, 0.117647, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_AttachmentBox"]
+bg_color = Color(0.141176, 0.176471, 0.227451, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.247059, 0.313725, 0.411765, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_AttachmentCard"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ToastBg"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.192157, 0.478431, 0.819608, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Mail" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mail")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/Header/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Kingdom Mailroom"
+
+[node name="Spacer" type="Control" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SearchEdit" type="LineEdit" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 36)
+layout_mode = 2
+placeholder_text = "Search mail..."
+alignment = 1
+clear_button_enabled = true
+
+[node name="CloseButton" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+text = "X"
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MainPanel" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HSplit" type="HBoxContainer" parent="Layout/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LeftListContainer" type="VBoxContainer" parent="Layout/MainPanel/HSplit"]
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ListScroll" type="ScrollContainer" parent="Layout/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MailList" type="VBoxContainer" parent="Layout/MainPanel/HSplit/LeftListContainer/ListScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ListFooter" type="HBoxContainer" parent="Layout/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DeleteReadButton" type="Button" parent="Layout/MainPanel/HSplit/LeftListContainer/ListFooter"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "🗑 Delete All Read"
+
+[node name="ClaimAllButton" type="Button" parent="Layout/MainPanel/HSplit/LeftListContainer/ListFooter"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+text = "🎁 Claim All Mail"
+
+[node name="RightDetailContainer" type="PanelContainer" parent="Layout/MainPanel/HSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_DetailBg")
+
+[node name="EmptyState" type="CenterContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/EmptyState"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="EmptyIcon" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/EmptyState/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.45, 0.5, 1)
+theme_override_font_sizes/font_size = 48
+text = "📬"
+horizontal_alignment = 1
+
+[node name="EmptyLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/EmptyState/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 16
+text = "Select a message from the list to view its contents."
+horizontal_alignment = 1
+
+[node name="MessageDetailView" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer"]
+visible = false
+layout_mode = 2
+
+[node name="DetailMargin" type="MarginContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MessageHeader" type="HBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox"]
+layout_mode = 2
+
+[node name="SenderBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/MessageHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="SubjectLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/MessageHeader/SenderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Message Subject Line"
+autowrap_mode = 3
+
+[node name="SenderAndDateLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/MessageHeader/SenderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "From: System Core | Timestamp: Just Now"
+
+[node name="SingleDeleteButton" type="Button" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/MessageHeader"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+text = "🗑"
+
+[node name="HSeparator" type="HSeparator" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox"]
+layout_mode = 2
+
+[node name="DetailScroll" type="ScrollContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContent" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="BodyTextLabel" type="RichTextLabel" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Body text placeholder. This contains complete info on reports or systems."
+fit_content = true
+
+[node name="BattleReportPanel" type="PanelContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent"]
+visible = false
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Banner" type="PanelContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ReportBannerWin")
+
+[node name="BannerLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/Banner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "VICTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox"]
+layout_mode = 2
+theme_override_constants/horizontal_separation = 20
+theme_override_constants/vertical_separation = 8
+columns = 2
+
+[node name="MyArmyLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.192157, 0.478431, 0.819608, 1)
+text = "My Forces:"
+
+[node name="EnemyArmyLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.2, 0.2, 1)
+text = "Enemy Defenses:"
+
+[node name="MyLosses" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Troops Lost: 125"
+
+[node name="EnemyLosses" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Troops Slain: 1,200"
+
+[node name="MyPower" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Power Loss: -350"
+
+[node name="EnemyPower" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/BattleReportPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Power Loss: -5,400"
+
+[node name="AllianceHelpPanel" type="PanelContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent"]
+visible = false
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/AllianceHelpPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HelpStatusLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/AllianceHelpPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.7, 0.9, 1)
+text = "Alliance Help Assistance Log"
+
+[node name="HelpDesc" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/DetailScroll/ScrollContent/AllianceHelpPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Your Alliance member Maegan has assisted your Lumber Mill Construction, reducing timers by 1m 30s."
+autowrap_mode = 2
+
+[node name="AttachmentContainer" type="PanelContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_AttachmentBox")
+
+[node name="Margin" type="MarginContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="AttachedLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "Attachments Available!"
+
+[node name="Grid" type="HBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ClaimButton" type="Button" parent="Layout/MainPanel/HSplit/RightDetailContainer/MessageDetailView/DetailMargin/VBox/AttachmentContainer/Margin/HBox"]
+custom_minimum_size = Vector2(110, 42)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.0823529, 0.101961, 0.133333, 1)
+theme_override_colors/font_hover_color = Color(0.0823529, 0.101961, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0823529, 0.101961, 0.133333, 1)
+theme_override_colors/font_focus_color = Color(0.0823529, 0.101961, 0.133333, 1)
+text = "Claim"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 44)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ToastBg")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Rewards Claimed Successfully!"
+horizontal_alignment = 1
+vertical_alignment = 1

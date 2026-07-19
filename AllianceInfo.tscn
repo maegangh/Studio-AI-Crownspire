@@ -1,0 +1,159 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8crspireinfo"]
+
+[ext_resource type="Script" path="res://AllianceInfo.gd" id="1_info"]
+
+[node name="AllianceInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_info")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="MainCard" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Layout/MainCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="VBoxContainer" parent="Layout/MainCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Layout/MainCard/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "The Crown's Vanguard"
+
+[node name="RankLabel" type="Label" parent="Layout/MainCard/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 12
+text = "🏆 Server Rank: #1"
+
+[node name="LevelBox" type="VBoxContainer" parent="Layout/MainCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="Layout/MainCard/Margin/VBox/LevelBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Alliance Tier: Level 1"
+
+[node name="Bar" type="ProgressBar" parent="Layout/MainCard/Margin/VBox/LevelBox"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+show_percentage = false
+
+[node name="XPLabel" type="Label" parent="Layout/MainCard/Margin/VBox/LevelBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 11
+text = "0 / 1000 XP to next Tier"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="Layout/MainCard/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="LeaderLabel" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 13
+text = "Paramount Lord:"
+
+[node name="LeaderValue" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Sovereign Maegan"
+
+[node name="PowerLabel" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 13
+text = "Combat Rating:"
+
+[node name="PowerValue" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "1.5M CR"
+
+[node name="MembersLabel" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 13
+text = "Alliance Members:"
+
+[node name="MembersValue" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "1 / 50"
+
+[node name="InfluenceLabel" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 13
+text = "Boundary Control:"
+
+[node name="InfluenceValue" type="Label" parent="Layout/MainCard/Margin/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "0% Grid Claim"
+
+[node name="AnnouncementBox" type="VBoxContainer" parent="Layout/MainCard/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Layout/MainCard/Margin/VBox/AnnouncementBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "Guild Announcement & Proclamation"
+
+[node name="AnnText" type="TextEdit" parent="Layout/MainCard/Margin/VBox/AnnouncementBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+text = "We stand as the vanguard of Crownspire. Assemble in column formations under coordinates! Banish all deserters."
+wrap_mode = 1
+
+[node name="SaveBtn" type="Button" parent="Layout/MainCard/Margin/VBox/AnnouncementBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 12
+text = "Post Declaration"
+
+[node name="Actions" type="HBoxContainer" parent="Layout/MainCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="SimXPBtn" type="Button" parent="Layout/MainCard/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+text = "Simulate Campaign (XP)"

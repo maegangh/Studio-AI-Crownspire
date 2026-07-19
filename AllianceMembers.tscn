@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8crspiremembers"]
+
+[ext_resource type="Script" path="res://AllianceMembers.gd" id="1_members"]
+
+[node name="AllianceMembers" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_members")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Layout"]
+layout_mode = 2
+
+[node name="CountLabel" type="Label" parent="Layout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "Garrison Capacity: 1 / 50 Lords"
+
+[node name="Spacer" type="Control" parent="Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionBox" type="HBoxContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SimAppBtn" type="Button" parent="Layout/Header/ActionBox"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+text = "Simulate Applicant"
+
+[node name="Split" type="HSplitContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 150
+
+[node name="MembersSection" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Layout/Split/MembersSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "Active Garrison Roster"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Split/MembersSection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Split/MembersSection/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="ApplicantsSection" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Layout/Split/ApplicantsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+text = "Pending Alliance Petitions"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Split/ApplicantsSection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Split/ApplicantsSection/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[connection signal="pressed" from="Layout/Header/ActionBox/SimAppBtn" to="." method="_on_sim_app_pressed"]

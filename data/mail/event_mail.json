@@ -1,0 +1,56 @@
+[
+	{
+		"id": "evt_clash_01",
+		"category_id": "event",
+		"sender": "Grand Tournament Herald",
+		"title": "Crownspire Clash: Top 10% Leaderboard Rewards!",
+		"body": "Hail, Lord Aurelius! The Grand Tournament of Crownspire has concluded. Thanks to your tactical brilliance and defensive tenacity, you secured a position in the Top 10% on the leaderboards. Claim your ancestral tournament rewards below!",
+		"timestamp": 1783220400,
+		"expires_in_days": 10,
+		"read": false,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "item_event_war_scroll",
+				"type": "war_scroll_buff",
+				"name": "Ancestral War Scroll Banner",
+				"quantity": 1,
+				"icon": "📜"
+			},
+			{
+				"id": "diamonds",
+				"type": "diamonds",
+				"name": "Royal Crystals",
+				"quantity": 1500,
+				"icon": "💎"
+			},
+			{
+				"id": "hero_tokens",
+				"type": "hero_tokens",
+				"name": "Legendary Hero Tokens",
+				"quantity": 5,
+				"icon": "🎟️"
+			}
+		]
+	},
+	{
+		"id": "evt_winter_02",
+		"category_id": "event",
+		"sender": "Citadel Arch-Historian",
+		"title": "Winter Solstice Event: Skin Unlocked",
+		"body": "Greetings, Commander. The Frostfire Citadel event has concluded. For your dedication in burning crystallite cores at the central hearth, you have unlocked the limited Winter Frost Shield skin.",
+		"timestamp": 1782996000,
+		"expires_in_days": 30,
+		"read": true,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "item_seasonal_winter_shield",
+				"type": "seasonal_skin",
+				"name": "Winter Frost Shield Skin",
+				"quantity": 1,
+				"icon": "❄️"
+			}
+		]
+	}
+]

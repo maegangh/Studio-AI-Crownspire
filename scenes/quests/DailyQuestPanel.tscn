@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://qudaily1"]
+
+[ext_resource type="Script" path="res://scripts/quests/DailyQuestPanel.gd" id="1_qdaily"]
+
+[sub_name="LabelSettings_daily_title" type="LabelSettings"]
+font_size = 14
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+
+[sub_name="LabelSettings_daily_timer" type="LabelSettings"]
+font_size = 11
+font_color = Color(0.5, 0.7, 0.9, 1.0)
+
+[node name="DailyQuestPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 680.0
+offset_bottom = 40.0
+script = ExtResource("1_qdaily")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="Header"]
+layout_mode = 2
+text = "☀️ CITADEL ACTIVE DUTIES"
+label_settings = SubResource("LabelSettings_daily_title")
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Header"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResetLabel" type="Label" parent="Header"]
+layout_mode = 2
+text = "⏱️ Resets in: 23h 59m"
+label_settings = SubResource("LabelSettings_daily_timer")
+horizontal_alignment = 2
+vertical_alignment = 1

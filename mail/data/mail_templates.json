@@ -1,0 +1,44 @@
+[
+  {
+    "id": "tpl_alliance_gift",
+    "category_id": "alliance",
+    "sender": "Alliance Treasurer",
+    "title": "Alliance Chest Distribution: Level {level} Gift",
+    "body": "Commander, your fellow alliance member {member_name} purchased a special store package! This triggered a shared Alliance Gift distribution for all members. Claim your shared materials below.\n\nStrength in Unity!",
+    "expires_in_days": 3,
+    "attachments": [
+      {
+        "id": "alliance_coins",
+        "type": "alliance_coins",
+        "name": "Alliance Coins",
+        "quantity": 1000,
+        "icon": "🛡️"
+      },
+      {
+        "id": "gold",
+        "type": "gold",
+        "name": "Gold",
+        "quantity": 2500,
+        "icon": "🪙"
+      }
+    ]
+  },
+  {
+    "id": "tpl_alliance_rally",
+    "category_id": "alliance",
+    "sender": "Lady Valeria (Marshal)",
+    "title": "Alliance Rally Declaration: Ruined Spire Raid",
+    "body": "All warriors, gather! Marshal Lady Valeria has declared a Rally on the Ruined Crystallite Spire at coordinates {coordinates}. Garrison departs in {time_remaining}.\n\nPrepare your siege legions and join the march!",
+    "expires_in_days": 1,
+    "attachments": []
+  },
+  {
+    "id": "tpl_scout_detected",
+    "category_id": "battle",
+    "sender": "Citadel Watchtower",
+    "title": "ALERT: Hostile Scout Detected!",
+    "body": "Lord Aurelius! Our perimeter watchtower detected a hostile scouting hawk flying over our granaries from Lord {attacker_name}'s Citadel located at {coordinates}. Our archers drove them off before they could gather secret intel.",
+    "expires_in_days": 7,
+    "attachments": []
+  }
+]

@@ -1,0 +1,1096 @@
+[gd_scene load_steps=10 format=3 uid="uid://crownsettingspanel999"]
+
+[ext_resource type="Script" path="res://Settings.gd" id="1_settings"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseNormal"]
+bg_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseHover"]
+bg_color = Color(0.745098, 0.117647, 0.176471, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CardBg"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.156863, 0.196078, 0.254902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_PanelBg"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_OverlayBg"]
+bg_color = Color(0.04, 0.05, 0.06, 0.92)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Toast"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.901961, 0.470588, 0.0784314, 0.8)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_settings")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 18
+text = "⚙️ IMPERIAL COURT SETTINGS"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_CloseNormal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_CloseHover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_CloseHover")
+text = " X "
+
+[node name="Content" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HSplit" type="HSplitContainer" parent="Layout/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+split_offset = 240
+
+[node name="LeftPanel" type="PanelContainer" parent="Layout/Content/HSplit"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_PanelBg")
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Content/HSplit/LeftPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Content/HSplit/LeftPanel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="RightPanel" type="PanelContainer" parent="Layout/Content/HSplit"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_PanelBg")
+
+[node name="GeneralScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/GeneralScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "GENERAL SETTINGS"
+
+[node name="CoordOverlay" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/CoordOverlay"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Show Map Coordinates Overlay"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/CoordOverlay"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="CamShake" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/CamShake"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Enable Camera Shake on Rally Impact"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/CamShake"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="AutoTranslate" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/AutoTranslate"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Auto-Translate Continental Chat"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/AutoTranslate"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="DetailedTooltips" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/DetailedTooltips"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Show Detailed Item & Buff Tooltips"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GeneralScroll/VBox/DetailedTooltips"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="GraphicsScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "GRAPHICS PREFERENCES"
+
+[node name="QualitySec" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Render Quality Preset"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LowBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "Low"
+
+[node name="MedBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "Medium"
+
+[node name="HighBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "High"
+
+[node name="UltraBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/QualitySec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "Ultra"
+
+[node name="FpsSec" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Frame Rate Limiter (FPS Cap)"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Fps30Btn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "30 FPS"
+
+[node name="Fps60Btn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "60 FPS"
+
+[node name="Fps120Btn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "120 FPS"
+
+[node name="FpsUncappedBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/FpsSec/HBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "Max / Uncapped"
+
+[node name="VsyncSec" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/VsyncSec"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Vertical Synchronization (VSync)"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/VsyncSec"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="AntiAliasSec" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/AntiAliasSec"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Anti-Aliasing Filter (MSAA)"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/AntiAliasSec"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="ShadowsSec" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/ShadowsSec"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Enable Dynamic Troop Shadows"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/GraphicsScroll/VBox/ShadowsSec"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="AudioScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "AUDIO CONTROLS"
+
+[node name="MasterVol" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MasterVol"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Master Volume"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MasterVol"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Slider" type="HSlider" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MasterVol/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+value = 80.0
+
+[node name="ValLabel" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MasterVol/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_size = 12
+text = "80%"
+horizontal_alignment = 2
+
+[node name="MusicVol" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MusicVol"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Music Tracks Volume"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MusicVol"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Slider" type="HSlider" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MusicVol/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+value = 70.0
+
+[node name="ValLabel" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MusicVol/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_size = 12
+text = "70%"
+horizontal_alignment = 2
+
+[node name="SfxVol" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/SfxVol"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Sound Effects (SFX) Volume"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/SfxVol"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Slider" type="HSlider" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/SfxVol/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+value = 90.0
+
+[node name="ValLabel" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/SfxVol/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_size = 12
+text = "90%"
+horizontal_alignment = 2
+
+[node name="VoiceVol" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/VoiceVol"]
+layout_mode = 2
+theme_override_font_size = 12
+text = "Hero Dialogue & Voice Overs"
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/VoiceVol"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Slider" type="HSlider" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/VoiceVol/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_mode = 0
+value = 85.0
+
+[node name="ValLabel" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/VoiceVol/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_size = 12
+text = "85%"
+horizontal_alignment = 2
+
+[node name="MuteAllSec" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MuteAllSec"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Mute All Sound Buses"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/AudioScroll/VBox/MuteAllSec"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="NotificationsScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "PUSH NOTIFICATIONS"
+
+[node name="AllianceMarches" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/AllianceMarches"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Alliance March Assembly Ticker"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/AllianceMarches"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="BuildingComplete" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/BuildingComplete"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "City Upgrades & Research Complete"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/BuildingComplete"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="MailReceived" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/MailReceived"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Royal Mail & Gifts Alert"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/MailReceived"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="ScoutWarning" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/ScoutWarning"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Hostile Coordinates Scout Warning"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/ScoutWarning"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Promotions" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/Promotions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Marketing Events & Royal Packages"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/NotificationsScroll/VBox/Promotions"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="LanguageScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/LanguageScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/LanguageScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "GAME LANGUAGE SELECTOR"
+
+[node name="LangList" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/LanguageScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AccountScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "ACCOUNT MANAGEMENT"
+
+[node name="InfoCard" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CardBg")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="IDRow" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/IDRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Lord ID Code:"
+
+[node name="Val" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/IDRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "CS-88391-M"
+
+[node name="NameRow" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/NameRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Kingdom Name:"
+
+[node name="Val" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/NameRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "Sovereign Maegan"
+
+[node name="EmailRow" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/EmailRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Registered Vault Email:"
+
+[node name="Val" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/EmailRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "maeganpringle93@gmail.com"
+
+[node name="ServerRow" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/ServerRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Active Sector Realm:"
+
+[node name="Val" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/InfoCard/Margin/VBox/ServerRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "Continent 124"
+
+[node name="BindStatusCard" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CardBg")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/BindStatusCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/BindStatusCard/Margin"]
+layout_mode = 2
+
+[node name="StatusLbl" type="Label" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/BindStatusCard/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 11
+text = "⚠️ Guest Account - Danger of Loss"
+
+[node name="BindBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox/BindStatusCard/Margin/HBox"]
+custom_minimum_size = Vector2(140, 28)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 11
+text = "Bind Vault Account"
+
+[node name="LogoutBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.6, 0.1, 1)
+theme_override_font_size = 12
+text = "Disconnect & Log Out"
+
+[node name="DeleteBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/AccountScroll/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.2, 0.2, 1)
+theme_override_font_size = 12
+text = "Request Account Destruction"
+
+[node name="PrivacyScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "PRIVACY & VISIBILITY CONTROLS"
+
+[node name="ShareStats" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/ShareStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Share Combat & Base Statistics on Local Boards"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/ShareStats"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="AllianceAnalytics" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/AllianceAnalytics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Allow Alliance Leaders to Monitor Troop Training"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/AllianceAnalytics"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="BlockWhispers" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/BlockWhispers"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Block Incoming Direct Whispers (Non-Alliance)"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/BlockWhispers"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="ShowOnline" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/ShowOnline"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_size = 12
+text = "Show Active Online Status to Friends & Members"
+
+[node name="CheckButton" type="CheckButton" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/ShowOnline"]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Spacer" type="Control" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="PolicySec" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ViewTermsBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/PolicySec"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "📜 View End User License Agreement (EULA) / Terms"
+
+[node name="ViewPolicyBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/PrivacyScroll/VBox/PolicySec"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "🛡️ View Imperial Privacy Policy"
+
+[node name="SupportScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "IMPERIAL CUSTOMER SUPPORT"
+
+[node name="TicketCreator" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CardBg")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SecTitle" type="Label" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "Submit Support Ticket / Query"
+
+[node name="CategoryHBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox/CategoryHBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_size = 11
+text = "Topic Category:"
+
+[node name="OptionButton" type="OptionButton" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox/CategoryHBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="MessageInput" type="TextEdit" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_font_size = 12
+placeholder_text = "Enter precise description regarding construction timestamps, sandbox payments or alliance coords disputes..."
+
+[node name="SubmitBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/TicketCreator/Margin/VBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "Send Ticket to Court Wardens"
+
+[node name="MyTicketsSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SectionTitle" type="Label" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/MyTicketsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_size = 12
+text = "My Support Inquiries"
+
+[node name="TicketsList" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/SupportScroll/VBox/MyTicketsSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TermsPopup" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="TermsPopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -220.0
+offset_right = 280.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_OverlayBg")
+
+[node name="Margin" type="MarginContainer" parent="TermsPopup/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="TermsPopup/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="TermsPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "📜 TERMS OF SERVICE"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="TermsPopup/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Text" type="RichTextLabel" parent="TermsPopup/Panel/Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.85, 0.88, 0.9, 1)
+theme_override_font_size = 11
+text = "Imperial Court legal archives are loading..."
+fit_content = true
+
+[node name="CloseBtn" type="Button" parent="TermsPopup/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "Close Archives"
+
+[node name="LogoutConfirmPopup" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="LogoutConfirmPopup"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -80.0
+offset_right = 180.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_OverlayBg")
+
+[node name="Margin" type="MarginContainer" parent="LogoutConfirmPopup/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="LogoutConfirmPopup/Panel/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Prompt" type="Label" parent="LogoutConfirmPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
+theme_override_font_size = 13
+text = "Are you sure you want to disconnect from Sector Continent 124?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="LogoutConfirmPopup/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="LogoutConfirmPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="YesBtn" type="Button" parent="LogoutConfirmPopup/Panel/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "Disconnect"
+
+[node name="NoBtn" type="Button" parent="LogoutConfirmPopup/Panel/Margin/VBox/Actions"]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_font_size = 12
+text = "Cancel"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Toast")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
+theme_override_font_size = 11
+text = "Notification message appears here..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

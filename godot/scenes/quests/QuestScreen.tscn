@@ -1,0 +1,234 @@
+[gd_scene load_steps=12 format=3 uid="uid://quscreen1"]
+
+[ext_resource type="Script" path="res://scripts/quests/QuestScreen.gd" id="1_qscreen"]
+[ext_resource type="PackedScene" uid="uid://qutabs1" path="res://scenes/quests/QuestCategoryTabs.tscn" id="2_qtabs"]
+[ext_resource type="PackedScene" uid="uid://qulist1" path="res://scenes/quests/QuestListPanel.tscn" id="3_qlist"]
+[ext_resource type="PackedScene" uid="uid://qudetail1" path="res://scenes/quests/QuestDetailPanel.tscn" id="4_qdetail"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scr_bg"]
+bg_color = Color(0.04, 0.05, 0.08, 1.0)
+
+[sub_name="LabelSettings_scr_title" type="LabelSettings"]
+font_size = 18
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.3)
+
+[sub_name="StyleBoxFlat" id="StyleBoxFlat_search"]
+bg_color = Color(0.08, 0.1, 0.15, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16, 0.2, 0.3, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="StyleBoxFlat" id="StyleBoxFlat_meter"]
+bg_color = Color(0.06, 0.08, 0.12, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.12, 0.15, 0.22, 1.0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_name="LabelSettings_meter_lbl" type="LabelSettings"]
+font_size = 11
+font_color = Color(0.5, 0.8, 1.0, 1.0)
+
+[sub_name="LabelSettings_meter_pts" type="LabelSettings"]
+font_size = 11
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+
+[sub_name="LabelSettings_empty" type="LabelSettings"]
+font_size = 14
+font_color = Color(0.4, 0.45, 0.55, 1.0)
+
+[node name="QuestScreen" type="PanelContainer"]
+custom_minimum_size = Vector2(720, 1280)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(360, 640)
+theme_override_styles/panel = SubResource("StyleBoxFlat_scr_bg")
+script = ExtResource("1_qscreen")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "📜 CROWNSPIRE BOUNTY BOARD"
+label_settings = SubResource("LabelSettings_scr_title")
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Margin/VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "✕"
+flat = true
+
+[node name="QuestCategoryTabs" parent="Margin/VBox" instance=ExtResource("2_qtabs")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SearchHBox" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SearchBar" type="LineEdit" parent="Margin/VBox/SearchHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_search")
+placeholder_text = " Search scrolls..."
+
+[node name="SortButton" type="Button" parent="Margin/VBox/SearchHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "⇅ Sort: Priority"
+
+[node name="FilterHBox" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FilterAll" type="Button" parent="Margin/VBox/FilterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "All"
+flat = true
+
+[node name="FilterComp" type="Button" parent="Margin/VBox/FilterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Completed"
+flat = true
+
+[node name="FilterPinned" type="Button" parent="Margin/VBox/FilterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Pinned"
+flat = true
+
+[node name="ActivityVBox" type="VBoxContainer" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Margin/VBox/ActivityVBox"]
+layout_mode = 2
+
+[node name="MeterTitleLabel" type="Label" parent="Margin/VBox/ActivityVBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "☀️ DAILY CHEST GOAL"
+label_settings = SubResource("LabelSettings_meter_lbl")
+
+[node name="VSeparator" type="VSeparator" parent="Margin/VBox/ActivityVBox/HBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MeterPointsLabel" type="Label" parent="Margin/VBox/ActivityVBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0 / 100 PTS"
+label_settings = SubResource("LabelSettings_meter_pts")
+
+[node name="MeterProgressBar" type="ProgressBar" parent="Margin/VBox/ActivityVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+show_percentage = false
+
+[node name="ChestsContainer" type="Control" parent="Margin/VBox/ActivityVBox/MeterProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListContainer" type="MarginContainer" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestListPanel" parent="Margin/VBox/ListContainer" instance=ExtResource("3_qlist")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="QuestEmptyState" type="Panel" parent="Margin/VBox/ListContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_meter")
+
+[node name="Label" type="Label" parent="Margin/VBox/ListContainer/QuestEmptyState"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No active scrolls in this quadrant."
+label_settings = SubResource("LabelSettings_empty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Footer" type="MarginContainer" parent="Margin/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ClaimAllButton" type="Button" parent="Margin/VBox/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 12
+text = "⚡ CLAIM ALL (0)"
+
+[node name="QuestDetailPanel" parent="." instance=ExtResource("4_qdetail")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2

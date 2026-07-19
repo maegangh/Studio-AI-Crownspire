@@ -1,0 +1,75 @@
+[
+  {
+    "id": "weekly_wildling_slayer",
+    "category_id": "weekly",
+    "name": "Bounty Hunter",
+    "description": "Exterminate Wildling warbands invading local provinces. Keep the trade roads secure.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 50,
+    "objectives": [
+      {
+        "id": "obj_wildlings_slain",
+        "description": "Defeat 15 Wildling Squads",
+        "type": "wildling_kill",
+        "current": 4,
+        "target": 15,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 300, "rarity": 3, "icon": "💎" },
+      { "name": "3-Hour Training Speedup", "type": "speedup_3h", "quantity": 2, "rarity": 2, "icon": "⚡" },
+      { "name": "Iron Ores", "type": "iron", "quantity": 10000, "rarity": 2, "icon": "⛓️" }
+    ]
+  },
+  {
+    "id": "weekly_alliance_donator",
+    "category_id": "weekly",
+    "name": "Alliance Pillar",
+    "description": "Contribute alchemical research funds to unlock collective guild boosts.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 40,
+    "objectives": [
+      {
+        "id": "obj_tech_donations",
+        "description": "Donate 20 times to Alliance Tech",
+        "type": "alliance_donation",
+        "current": 3,
+        "target": 20,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Alliance Honor Coins", "type": "alliance_honor", "quantity": 5000, "rarity": 3, "icon": "🛡️" },
+      { "name": "Crystallite Cores", "type": "crystallite_cores", "quantity": 500, "rarity": 3, "icon": "🌀" }
+    ]
+  },
+  {
+    "id": "weekly_vault_conqueror",
+    "category_id": "weekly",
+    "name": "Spire Vault Trials",
+    "description": "Achieve successful matching completions inside the Mahjong Crystal Vault.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 60,
+    "objectives": [
+      {
+        "id": "obj_vault_clears",
+        "description": "Clear 5 Crystal Vault trial matches",
+        "type": "crystal_vault_clear",
+        "current": 1,
+        "target": 5,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Vault Artifact Piece", "type": "vault_artifact", "quantity": 1, "rarity": 4, "icon": "📜" },
+      { "name": "Crystal Vault Coins", "type": "crystal_vault_coins", "quantity": 1000, "rarity": 3, "icon": "🪙" }
+    ]
+  }
+]

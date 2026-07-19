@@ -1,0 +1,122 @@
+[
+  {
+    "id": "dire_wolf_alpha",
+    "name": "Dire Wolf Alpha",
+    "level_range": "1-5",
+    "power_rating": 45000,
+    "recommended_troop_type": "Infantry",
+    "portrait": "🐺",
+    "weaknesses": ["Fire Damage", "Heavy Slashing", "Flanking Cavalry"],
+    "abilities": [
+      {
+        "name": "Howl of the Pack",
+        "description": "Calls forth spectral under-wolves to shield the alpha, absorbing up to 25% incoming damage."
+      },
+      {
+        "name": "Crippling Bite",
+        "description": "Applies a permanent 15% movement and armor debuff to the target legion."
+      }
+    ],
+    "rally_recommendations": "Ensure at least one defensive tank legion to hold the Alpha while Cavalry legions flank from the sides."
+  },
+  {
+    "id": "great_cave_bear",
+    "name": "Great Cave Bear",
+    "level_range": "6-10",
+    "power_rating": 120000,
+    "recommended_troop_type": "Ranged",
+    "portrait": "🐻",
+    "weaknesses": ["Armor Piercing", "Frost Curses", "Kiting Strategies"],
+    "abilities": [
+      {
+        "name": "Tectonic Slam",
+        "description": "Crushes the ground, dealing massive area-of-effect physical damage and stunning all legions within 10 meters for 3 seconds."
+      },
+      {
+        "name": "Thick Hide",
+        "description": "Passively reduces all standard physical attack damage by 30% when below half health."
+      }
+    ],
+    "rally_recommendations": "Use Ranged legions to safely pelt the Bear while avoiding its front tectonic shockwave zone."
+  },
+  {
+    "id": "crystal_spider_queen",
+    "name": "Crystal Spider Queen",
+    "level_range": "11-15",
+    "power_rating": 280000,
+    "recommended_troop_type": "Cavalry",
+    "portrait": "🕷️",
+    "weaknesses": ["Heavy Fire Area-of-Effect", "Shield Break", "Light Magic"],
+    "abilities": [
+      {
+        "name": "Web Spit",
+        "description": "Ensnaring web lines trap the fastest moving legion, disabling active skill usage for 5 seconds."
+      },
+      {
+        "name": "Crystal Venom",
+        "description": "Injects toxic shards that explode on expiry, transferring the poison to adjacent friendly legions."
+      }
+    ],
+    "rally_recommendations": "Cavalry speed is crucial to dodge poison spouts. Coordinate quick disengagements when targeted by the venom."
+  },
+  {
+    "id": "stone_troll_chieftain",
+    "name": "Stone Troll Chieftain",
+    "level_range": "16-20",
+    "power_rating": 650000,
+    "recommended_troop_type": "Infantry",
+    "portrait": "👹",
+    "weaknesses": ["Crushing Blows", "Acidic Flasks", "Siege Weaponry"],
+    "abilities": [
+      {
+        "name": "Ruinous Boulder",
+        "description": "Hurls a colossal stone boulder at the rally leader, split-sharing damage with all adjacent allies."
+      },
+      {
+        "name": "Chieftain's Fury",
+        "description": "Increases attack speed by 2% for every 1% health lost, building into a devastating frenzy."
+      }
+    ],
+    "rally_recommendations": "Form a tightly-grouped defensive block of Infantry to split-share the damage of the Ruinous Boulder."
+  },
+  {
+    "id": "ancient_griffin",
+    "name": "Ancient Griffin",
+    "level_range": "21-25",
+    "power_rating": 1500000,
+    "recommended_troop_type": "Ranged",
+    "portrait": "🦅",
+    "weaknesses": ["Anti-Air Ballistas", "Lightning Disruption", "Net Traps"],
+    "abilities": [
+      {
+        "name": "Tempest Sweep",
+        "description": "Summons micro-tornadoes that scatter legions across the arena, breaking rally channel formations."
+      },
+      {
+        "name": "Gilded Plume Burst",
+        "description": "Launches sharp razor-feathers, applying 35% armor reduction to the primary target."
+      }
+    ],
+    "rally_recommendations": "Deploy net traps and long-range ballista archers to force the Griffin out of flight phase."
+  },
+  {
+    "id": "ancient_crystal_dragon",
+    "name": "Ancient Crystal Dragon",
+    "level_range": "26-30",
+    "power_rating": 4500000,
+    "recommended_troop_type": "All Types Balanced",
+    "portrait": "🐉",
+    "weaknesses": ["Dragon-Slayer Runes", "Sovereign Siege Engines", "Coordinated Multi-Rally"],
+    "abilities": [
+      {
+        "name": "Prismatic Breath",
+        "description": "Breathes a continuous cone of cosmic crystal fire, transforming struck troops into static crystal columns."
+      },
+      {
+        "name": "Supernova Shell",
+        "description": "Channels a world-shattering crystal shield. Must be broken within 15 seconds, or the ensuing shockwave wipes all raiders."
+      }
+    ],
+    "rally_recommendations": "A maximum-size balanced alliance rally is required. Save ultimate skills to shatter the Supernova Shell instantly."
+  }
+]

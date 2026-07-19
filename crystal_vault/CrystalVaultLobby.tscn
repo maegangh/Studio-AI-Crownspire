@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6g3b7re2v1b"]
+
+[ext_resource type="Script" path="res://crystal_vault/CrystalVaultLobby.gd" id="1_lobby"]
+
+[node name="CrystalVaultLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lobby")
+
+[node name="ColorRect_Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.03, 0.98)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HeaderBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer/HeaderBar"]
+layout_mode = 2
+text = "  ✕ Exit Vault  "
+
+[node name="Control_Spacer" type="Control" parent="MarginContainer/VBoxContainer/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HeaderBar"]
+layout_mode = 2
+
+[node name="ResonanceLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderBar/HBoxContainer2"]
+layout_mode = 2
+text = "Astral Resonance: 1240"
+
+[node name="Control_Spacer2" type="Control" parent="MarginContainer/VBoxContainer/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HeaderBar"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ShardsLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderBar/HBoxContainer"]
+layout_mode = 2
+text = "💎 150"
+
+[node name="OrbsLabel" type="Label" parent="MarginContainer/VBoxContainer/HeaderBar/HBoxContainer"]
+layout_mode = 2
+text = "⭐ 12"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HeaderBar/ExitButton" to="." method="_on_exit_button_pressed"]

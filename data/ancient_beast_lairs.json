@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ancient_wolf_den",
+    "name": "Ancient Wolf Den",
+    "description": "A massive, shadowed cavern carved into the northern frost cliffs. Ice mist swirls around gold-accented pillars, and a faint blue crystal glow reveals the gnawed remains of legendary beasts.",
+    "environment": "Giant cave entrance with frost and stone archways, crumbling royal blue ruins, gold banner trims, and freezing wolf mist.",
+    "color_theme": {
+      "primary": "#3b82f6",
+      "accent": "#60a5fa",
+      "glow": "rgba(59, 130, 246, 0.45)"
+    },
+    "landmark_icon": "🐺"
+  },
+  {
+    "id": "great_bear_cavern",
+    "name": "Great Bear Cavern",
+    "description": "An immense underground dome filled with honey-colored volcanic crystals and royal marble arches. Geothermal steam rises from deep chasms, warming the gold-veined cavern walls.",
+    "environment": "Titanic earth cave framed by broken temple steps, rich gold-flecked quartz blocks, sapphire runestones, and thick heated steam.",
+    "color_theme": {
+      "primary": "#d97706",
+      "accent": "#fbbf24",
+      "glow": "rgba(217, 119, 6, 0.45)"
+    },
+    "landmark_icon": "🐻"
+  },
+  {
+    "id": "crystal_spider_nest",
+    "name": "Crystal Spider Nest",
+    "description": "A hauntingly beautiful cavern system draped in glowing spun silk. Shimmering sapphire stalactites pulse with a rhythmic, alien purple magic, reflecting off discarded runic armor plates.",
+    "environment": "Deep violet-hued tunnel entrance choked with cobwebs, luminescent blue mineral columns, and hovering magical spores.",
+    "color_theme": {
+      "primary": "#8b5cf6",
+      "accent": "#a78bfa",
+      "glow": "rgba(139, 92, 246, 0.45)"
+    },
+    "landmark_icon": "🕷️"
+  },
+  {
+    "id": "stone_troll_stronghold",
+    "name": "Stone Troll Stronghold",
+    "description": "A brutalist rock fortress built into the roots of the world. Crude iron fortifications mesh with classical gold-trimmed columns, creating a dark, defensible bastion.",
+    "environment": "Craggy, imposing mountain gorge leading to a heavy steel-reinforced gateway. Overgrown with glowing moss and guarded by sentinel totems.",
+    "color_theme": {
+      "primary": "#f43f5e",
+      "accent": "#fda4af",
+      "glow": "rgba(244, 63, 94, 0.45)"
+    },
+    "landmark_icon": "👹"
+  },
+  {
+    "id": "ancient_dragon_cavern",
+    "name": "Ancient Dragon Cavern",
+    "description": "The ultimate seat of fire and stone. Colossal marble pillars melted by historic breaths support a towering dome where lava rivers feed glowing crystal pools of pure magical essence.",
+    "environment": "A breathtaking, giant volcanic chasm decorated with gold relic statues, towering sapphire geodes, and drifting ash embers.",
+    "color_theme": {
+      "primary": "#ef4444",
+      "accent": "#f87171",
+      "glow": "rgba(239, 68, 68, 0.45)"
+    },
+    "landmark_icon": "🐉"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {"name": "Lord Aurelius", "power": 1254300, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 4, "is_online": true},
+  {"name": "Lady Seraphina", "power": 980400, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 3, "is_online": true},
+  {"name": "Valeria Swift", "power": 890500, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 3, "is_online": true},
+  {"name": "Garrick Ironfist", "power": 745200, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 2, "is_online": false},
+  {"name": "Eldrin Mage", "power": 412000, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 1, "is_online": true},
+  {"name": "Sir Roderick", "power": 382400, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 1, "is_online": false},
+  {"name": "Talia Bowmaster", "power": 310500, "alliance_id": "alliance_1", "alliance_tag": "DAWN", "vip_level": 1, "is_online": false},
+  {"name": "Emperor Vaelen", "power": 2450000, "alliance_id": "alliance_2", "alliance_tag": "CLGN", "vip_level": 8, "is_online": true},
+  {"name": "General Kael", "power": 1540000, "alliance_id": "alliance_2", "alliance_tag": "CLGN", "vip_level": 6, "is_online": false},
+  {"name": "Priestess Solis", "power": 1150000, "alliance_id": "alliance_3", "alliance_tag": "SOLR", "vip_level": 5, "is_online": true},
+  {"name": "Shadow Knight", "power": 1340000, "alliance_id": "", "alliance_tag": "", "vip_level": 4, "is_online": true},
+  {"name": "Aether Archmage", "power": 820000, "alliance_id": "", "alliance_tag": "", "vip_level": 3, "is_online": true},
+  {"name": "Crystallite Miner", "power": 250000, "alliance_id": "", "alliance_tag": "", "vip_level": 1, "is_online": true},
+  {"name": "Citadel Builder", "power": 190000, "alliance_id": "", "alliance_tag": "", "vip_level": 1, "is_online": false}
+]

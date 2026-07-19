@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy13muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/StoreItemCard.gd" id="1_c7b8f"]
+[ext_resource type="Texture2D" uid="uid://du27f7a7jpx7r" path="res://assets/ui/icons/hud_royal_crystal.png" id="2_d7b8f"]
+
+[node name="StoreItemCard" type="PanelContainer"]
+custom_minimum_size = Vector2(210, 280)
+offset_right = 210.0
+offset_bottom = 280.0
+size_flags_horizontal = 3
+script = ExtResource("1_c7b8f")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MainLayout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="BorderRect" type="PanelContainer" parent="Margin/MainLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="IconRect" type="TextureRect" parent="Margin/MainLayout/BorderRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LimitLabel" type="Label" parent="Margin/MainLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 1)
+theme_override_font_sizes/font_size = 11
+text = "LIMIT: 0/10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemName" type="Label" parent="Margin/MainLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Sovereign Aegis (24h)"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Margin/MainLayout"]
+layout_mode = 2
+
+[node name="PriceBox" type="HBoxContainer" parent="Margin/MainLayout"]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="CurrencyIcon" type="TextureRect" parent="Margin/MainLayout/PriceBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_d7b8f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceLabel" type="Label" parent="Margin/MainLayout/PriceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 13
+text = "1,000"
+
+[node name="BuyButton" type="Button" parent="Margin/MainLayout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "ACQUIRE"

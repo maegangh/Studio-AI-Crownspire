@@ -1,0 +1,133 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8bagdetailpanelmodulev1"]
+
+[ext_resource type="Script" path="res://bag/scripts/ItemDetailPanel.gd" id="1_detailpanel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_PopupBg"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.5)
+
+[node name="ItemDetailPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(360, 420)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -210.0
+offset_right = 180.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_PopupBg")
+script = ExtResource("1_detailpanel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="IconBorder" type="PanelContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DetailIconLabel" type="Label" parent="Margin/Layout/IconBorder"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "📦"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoBox" type="VBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PopupName" type="Label" parent="Margin/Layout/InfoBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Item Name Here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupRarity" type="Label" parent="Margin/Layout/InfoBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.192157, 0.478431, 0.819608, 1)
+theme_override_font_sizes/font_size = 12
+text = "RARITY: RARE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupQuantity" type="Label" parent="Margin/Layout/InfoBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.7, 0.75, 1)
+theme_override_font_sizes/font_size = 13
+text = "Quantity Owned: 15"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupDescription" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.83, 0.86, 1)
+theme_override_font_sizes/font_size = 12
+text = "This is a detailed description of the selected strategy item, explaining how it functions and which buildings/rewards it affects."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Actions" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="UseButton" type="Button" parent="Margin/Layout/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 38)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "USE"
+
+[node name="OpenChestButton" type="Button" parent="Margin/Layout/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 38)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "OPEN CHEST"
+
+[node name="SellButton" type="Button" parent="Margin/Layout/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 38)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "SELL"
+
+[node name="DetailCloseButton" type="Button" parent="Margin/Layout/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 38)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "CLOSE"

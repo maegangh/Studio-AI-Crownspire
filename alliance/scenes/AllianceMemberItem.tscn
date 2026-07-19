@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://a13xt899alliancememberitem"]
+
+[ext_resource type="Script" path="res://alliance/scripts/AllianceMemberItem.gd" id="1_alliancememberitem"]
+
+[node name="AllianceMemberItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 90)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_alliancememberitem")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TopHBox" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="MemberNameLabel" type="Label" parent="Margin/HBox/VBox/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Player Name"
+
+[node name="MemberPowerLabel" type="Label" parent="Margin/HBox/VBox/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PWR 1.25M"
+
+[node name="BottomHBox" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="MemberRankLabel" type="Label" parent="Margin/HBox/VBox/BottomHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OFFICER"
+
+[node name="StatusLabel" type="Label" parent="Margin/HBox/VBox/BottomHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "● ONLINE"
+
+[node name="HelpButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 36)
+layout_mode = 2
+size_flags_vertical = 4
+text = "🤝 HELP"

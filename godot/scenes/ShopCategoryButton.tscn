@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://cx6m6uxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/ShopCategoryButton.gd" id="1_f7b8f"]
+[ext_resource type="Texture2D" uid="uid://d8f8e8r8h8v8t" path="res://assets/ui/buttons/btn_tab_normal.png" id="2_r2k2k"]
+[ext_resource type="Texture2D" uid="uid://b8v8x8v8c8n8t" path="res://assets/ui/buttons/btn_tab_pressed.png" id="3_p3k3k"]
+[ext_resource type="Texture2D" uid="uid://r8y8t8u8i8o8p" path="res://assets/ui/effects/glow_blue_crystal.png" id="4_g4k4k"]
+[ext_resource type="Texture2D" uid="uid://n8v8c8x8z8q8w" path="res://assets/ui/icons/hud_badge_red.png" id="5_b5k5k"]
+
+[sub_resource type="Animation" id="Animation_click"]
+resource_name = "click_scale"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.92, 0.92), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hover"]
+resource_name = "hover_scale"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.04, 1.04)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_scb"]
+_data = {
+"click_scale": SubResource("Animation_click"),
+"hover_scale": SubResource("Animation_hover")
+}
+
+[node name="ShopCategoryButton" type="MarginContainer"]
+custom_minimum_size = Vector2(160, 64)
+offset_right = 160.0
+offset_bottom = 64.0
+pivot_offset = Vector2(80, 32)
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+script = ExtResource("1_f7b8f")
+
+[node name="BaseButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("2_r2k2k")
+texture_pressed = ExtResource("3_p3k3k")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Content" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="IconRect" type="TextureRect" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LabelName" type="Label" parent="Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 13
+text = "FEATURED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActiveGlowRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_g4k4k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BadgeRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_filter = 2
+texture = ExtResource("5_b5k5k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_scb")
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "main",
+    "name": "Main Story",
+    "icon": "👑",
+    "description": "Chronicles of the Crownspire campaign"
+  },
+  {
+    "id": "daily",
+    "name": "Daily Quests",
+    "icon": "☀️",
+    "description": "Daily citadel maintenance chores and duties"
+  },
+  {
+    "id": "weekly",
+    "name": "Weekly Quests",
+    "icon": "📅",
+    "description": "Longer-term citadel operations and training"
+  },
+  {
+    "id": "event",
+    "name": "Event Quests",
+    "icon": "🔥",
+    "description": "Time-limited faction wars and challenges"
+  }
+]

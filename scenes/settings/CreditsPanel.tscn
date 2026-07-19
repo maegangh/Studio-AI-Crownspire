@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy17g0l5n9425n"]
+
+[ext_resource type="Script" path="res://scripts/settings/CreditsPanel.gd" id="1_credits"]
+
+[node name="CreditsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+script = ExtResource("1_credits")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Citadel Architects"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="CreditsVBox" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1

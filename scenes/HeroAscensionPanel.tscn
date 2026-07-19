@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroAscensionPanel.gd" id="1_asc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_box"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shbg"]
+bg_color = Color(0.08, 0.1, 0.16, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shfill"]
+bg_color = Color(0.85, 0.65, 0.13, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.85, 0.65, 0.13, 0.3)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.85, 0.65, 0.13, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.85, 0.65, 0.13, 0.2)
+shadow_size = 5
+
+[node name="HeroAscensionPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_box")
+script = ExtResource("1_asc")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ShardBox" type="VBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ShardProgressLabel" type="Label" parent="Margin/VBox/ShardBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 11
+text = "SOVEREIGN SHARDS OBLIGED: 12 / 100"
+horizontal_alignment = 1
+
+[node name="ShardProgressBar" type="ProgressBar" parent="Margin/VBox/ShardBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_shbg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_shfill")
+show_percentage = false
+
+[node name="StarEvolutionLabel" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0)
+theme_override_font_sizes/font_size = 14
+text = "EVOLUTION: ★★★ ➔ ★★★★"
+horizontal_alignment = 1
+
+[node name="BenefitsPanel" type="PanelContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/VBox/BenefitsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="BenefitsDescLabel" type="Label" parent="Margin/VBox/BenefitsPanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "ASCENSION BOUNTIES:
+  • Increases maximum level cap: 60 ➔ 65
+  • Boosts global base power rating multiplier by +15%
+  • Unlocks advanced combat bonuses and abilities"
+autowrap_mode = 2
+
+[node name="AscendBtn" type="Button" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "ASCEND SOVEREIGN GENERAL"

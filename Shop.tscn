@@ -1,0 +1,718 @@
+[gd_scene load_steps=18 format=3 uid="uid://crownspireshop99"]
+
+[ext_resource type="Script" path="res://Shop.gd" id="1_shop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_TimerBar"]
+bg_color = Color(0.0784314, 0.0980392, 0.12549, 1)
+border_width_bottom = 1
+border_color = Color(0.141176, 0.176471, 0.227451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CurrencyPill"]
+bg_color = Color(0.054902, 0.0666667, 0.0862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.156863, 0.196078, 0.254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ModalBg"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.901961, 0.470588, 0.0784314, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SimCard"]
+bg_color = Color(0.141176, 0.180392, 0.231373, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.243137, 0.313725, 0.407843, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BillingOverlayBg"]
+bg_color = Color(0.054902, 0.0666667, 0.0862745, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SuccessBg"]
+bg_color = Color(0.0627451, 0.0941176, 0.0784314, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.180392, 0.537255, 0.298039, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarBg"]
+bg_color = Color(0.0392157, 0.0470588, 0.0627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarFill"]
+bg_color = Color(0.901961, 0.470588, 0.0784314, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Toast"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.901961, 0.470588, 0.0784314, 0.8)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseNormal"]
+bg_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseHover"]
+bg_color = Color(0.745098, 0.117647, 0.176471, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shop")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 18
+text = "👑 PRESTIGE ROYAL BAZAAR"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Currencies" type="HBoxContainer" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GoldBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/GoldBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/GoldBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/GoldBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 12
+text = "🪙 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiamondBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.74902, 1, 1)
+theme_override_font_size = 12
+text = "💎 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VIPBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/VIPBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/VIPBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/VIPBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.5, 0.9, 1)
+theme_override_font_size = 12
+text = "👑 VIP 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_CloseNormal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_CloseHover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_CloseHover")
+text = " X "
+
+[node name="TimerBar" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_TimerBar")
+
+[node name="Margin" type="MarginContainer" parent="Layout/TimerBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="Layout/TimerBar/Margin"]
+layout_mode = 2
+
+[node name="FeaturedTimer" type="Label" parent="Layout/TimerBar/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 11
+text = "⏳ Featured resets in: --:--:--"
+
+[node name="Spacer" type="Control" parent="Layout/TimerBar/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DailyTimer" type="Label" parent="Layout/TimerBar/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 11
+text = "⏳ Daily reset in: --:--:--"
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Content" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Content"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="Layout/Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="QtyPopup" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OverlayBg" type="ColorRect" parent="QtyPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.627451)
+
+[node name="Panel" type="PanelContainer" parent="QtyPopup"]
+custom_minimum_size = Vector2(360, 280)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ModalBg")
+
+[node name="Margin" type="MarginContainer" parent="QtyPopup/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="QtyPopup/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ItemHeader" type="HBoxContainer" parent="QtyPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="IconBorder" type="PanelContainer" parent="QtyPopup/Panel/Margin/VBox/ItemHeader"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="Emoji" type="Label" parent="QtyPopup/Panel/Margin/VBox/ItemHeader/IconBorder"]
+layout_mode = 2
+theme_override_font_size = 24
+text = "💎"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="QtyPopup/Panel/Margin/VBox/ItemHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 15
+text = "Royal Resource Bundle"
+autowrap_mode = 2
+
+[node name="Desc" type="Label" parent="QtyPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 11
+text = "A descriptive text summarizing what this premium transaction credits."
+autowrap_mode = 2
+
+[node name="QtySelector" type="VBoxContainer" parent="QtyPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Slider" type="HSlider" parent="QtyPopup/Panel/Margin/VBox/QtySelector"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+min_value = 1.0
+value = 1.0
+
+[node name="HBox" type="HBoxContainer" parent="QtyPopup/Panel/Margin/VBox/QtySelector"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MinusBtn" type="Button" parent="QtyPopup/Panel/Margin/VBox/QtySelector/HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = " - "
+
+[node name="ValueLabel" type="Label" parent="QtyPopup/Panel/Margin/VBox/QtySelector/HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 14
+text = "1"
+horizontal_alignment = 1
+
+[node name="PlusBtn" type="Button" parent="QtyPopup/Panel/Margin/VBox/QtySelector/HBox"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = " + "
+
+[node name="Spacer" type="Control" parent="QtyPopup/Panel/Margin/VBox/QtySelector/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaxBtn" type="Button" parent="QtyPopup/Panel/Margin/VBox/QtySelector/HBox"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "MAX"
+
+[node name="CostRow" type="HBoxContainer" parent="QtyPopup/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="TotalCost" type="Label" parent="QtyPopup/Panel/Margin/VBox/CostRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "Total Price: 💎 1,200"
+
+[node name="Actions" type="HBoxContainer" parent="QtyPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ConfirmBtn" type="Button" parent="QtyPopup/Panel/Margin/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Confirm Purchase"
+
+[node name="CancelBtn" type="Button" parent="QtyPopup/Panel/Margin/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Cancel"
+
+[node name="BillingPopup" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OverlayBg" type="ColorRect" parent="BillingPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.705882)
+
+[node name="Panel" type="PanelContainer" parent="BillingPopup"]
+custom_minimum_size = Vector2(400, 340)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ModalBg")
+
+[node name="Margin" type="MarginContainer" parent="BillingPopup/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="BillingPopup/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GatewayHeader" type="Label" parent="BillingPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 14
+text = "🔒 SOVEREIGN SECURE BILLING GATEWAY"
+horizontal_alignment = 1
+
+[node name="Receipt" type="HBoxContainer" parent="BillingPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="EmojiLabel" type="Label" parent="BillingPopup/Panel/Margin/VBox/Receipt"]
+layout_mode = 2
+theme_override_font_size = 28
+text = "👑"
+
+[node name="VBox" type="VBoxContainer" parent="BillingPopup/Panel/Margin/VBox/Receipt"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="Label" parent="BillingPopup/Panel/Margin/VBox/Receipt"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+text = "Emperor's Ascent Bundle Pack"
+
+[node name="ItemCost" type="Label" parent="BillingPopup/Panel/Margin/VBox/Receipt"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.8, 0.443137, 1)
+theme_override_font_size = 12
+text = "Invoice Amount: $4.99 USD"
+
+[node name="CreditCard" type="PanelContainer" parent="BillingPopup/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_SimCard")
+
+[node name="Margin" type="MarginContainer" parent="BillingPopup/Panel/Margin/VBox/CreditCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CardType" type="Label" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_size = 11
+text = "CROWNSPIRE IMPERIAL REWARD CARD"
+
+[node name="CardNumber" type="Label" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 16
+text = "••••  ••••  ••••  8842"
+horizontal_alignment = 1
+
+[node name="CardDetails" type="HBoxContainer" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox"]
+layout_mode = 2
+
+[node name="Holder" type="Label" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox/CardDetails"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.647059, 0.717647, 0.780392, 1)
+theme_override_font_size = 10
+text = "SOVEREIGN MAEGAN"
+
+[node name="Spacer" type="Control" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox/CardDetails"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Expiry" type="Label" parent="BillingPopup/Panel/Margin/VBox/CreditCard/Margin/VBox/CardDetails"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.647059, 0.717647, 0.780392, 1)
+theme_override_font_size = 10
+text = "EXP: 08/29"
+
+[node name="SandboxText" type="Label" parent="BillingPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.55, 0.65, 1)
+theme_override_font_size = 10
+text = "✓ Simulated billing sandbox context enabled. No real money is spent."
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="BillingPopup/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="AuthorizeBtn" type="Button" parent="BillingPopup/Panel/Margin/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Secure Payment"
+
+[node name="CancelBtn" type="Button" parent="BillingPopup/Panel/Margin/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Decline"
+
+[node name="ProcessingOverlay" type="PanelContainer" parent="BillingPopup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_BillingOverlayBg")
+
+[node name="Panel" type="PanelContainer" parent="BillingPopup/ProcessingOverlay"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_SimCard")
+
+[node name="VBox" type="VBoxContainer" parent="BillingPopup/ProcessingOverlay/Panel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Spacer" type="Control" parent="BillingPopup/ProcessingOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="BillingPopup/ProcessingOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+text = "Processing secure transaction..."
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="BillingPopup/ProcessingOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(200, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+
+[node name="SuccessOverlay" type="PanelContainer" parent="BillingPopup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_SuccessBg")
+
+[node name="Panel" type="PanelContainer" parent="BillingPopup/SuccessOverlay"]
+custom_minimum_size = Vector2(360, 260)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_SimCard")
+
+[node name="Margin" type="MarginContainer" parent="BillingPopup/SuccessOverlay/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="BillingPopup/SuccessOverlay/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="SuccessTitle" type="Label" parent="BillingPopup/SuccessOverlay/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.8, 0.443137, 1)
+theme_override_font_size = 14
+text = "🎉 SOVEREIGN SECURE CHARGE SUCCESSFUL!"
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="BillingPopup/SuccessOverlay/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 11
+text = "Tribute unlocked. Delighted delivery received by our vaults:"
+horizontal_alignment = 1
+
+[node name="RewardGrid" type="GridContainer" parent="BillingPopup/SuccessOverlay/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 10
+columns = 4
+
+[node name="ClaimBtn" type="Button" parent="BillingPopup/SuccessOverlay/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Receive Loot"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Toast")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+text = "Operation successful!"
+horizontal_alignment = 1
+vertical_alignment = 1

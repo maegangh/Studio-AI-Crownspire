@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://e11xt899navigationbutton"]
+
+[ext_resource type="Script" path="res://hud/scripts/NavigationButton.gd" id="1_navigationbutton"]
+[ext_resource type="PackedScene" uid="uid://e10xt899notificationbadge" path="res://hud/scenes/NotificationBadge.tscn" id="2_notificationbadge"]
+
+[node name="NavigationButton" type="Button"]
+custom_minimum_size = Vector2(85, 70)
+anchors_preset = 0
+script = ExtResource("1_navigationbutton")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="IconLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "⚔️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "MENU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BadgeContainer" parent="." instance=ExtResource("2_notificationbadge")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -28.0
+offset_top = 2.0
+offset_right = -4.0
+offset_bottom = 26.0
+grow_horizontal = 0

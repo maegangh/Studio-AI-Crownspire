@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm12reward"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailRewardPopup.gd" id="1_reward_popup"]
+
+[sub_name="StyleBoxFlat_modal" type="StyleBoxFlat"]
+bg_color = Color(0, 0, 0, 0.75)
+
+[sub_name="StyleBoxFlat_container" type="StyleBoxFlat"]
+bg_color = Color(0.06, 0.08, 0.12, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.65, 0.15, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 16
+
+[sub_name="StyleBoxFlat_btn_collect" type="StyleBoxFlat"]
+bg_color = Color(0.85, 0.65, 0.15, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="LabelSettings_reward_title" type="LabelSettings"]
+font_size = 22
+font_color = Color(1.0, 0.85, 0.3, 1.0)
+
+[sub_name="LabelSettings_reward_desc" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.6, 0.65, 0.7, 1.0)
+
+[node name="MailRewardPopup" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+script = ExtResource("1_reward_popup")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PopupContainer" type="PanelContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(540, 320)
+layout_mode = 2
+pivot_offset = Vector2(270, 160)
+theme_override_styles/panel = SubResource("StyleBoxFlat_container")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PopupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PopupContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PopupTitle" type="Label" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🎉 MATERIALS SECURED"
+label_settings = SubResource("LabelSettings_reward_title")
+horizontal_alignment = 1
+
+[node name="PopupDescription" type="Label" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "The following dispatches have been successfully claimed and transferred directly to your Citadel storehouses."
+label_settings = SubResource("LabelSettings_reward_desc")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Center" type="CenterContainer" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemsGrid" type="GridContainer" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer/ScrollContainer/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="CollectButton" type="Button" parent="CenterContainer/PopupContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_collect")
+theme_override_font_sizes/font_size = 14
+text = "Transfer to Citadel"

@@ -1,0 +1,91 @@
+[gd_scene load_steps=2 format=3 uid="uid://b13xt899herolistitem"]
+
+[ext_resource type="Script" path="res://heroes/scripts/HeroListItem.gd" id="1_herolistitem"]
+
+[node name="HeroListItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 95)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_herolistitem")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FavoriteButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+text = "🖤"
+
+[node name="PortraitLabel" type="Label" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+text = "🎖️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextLayout" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TopHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+
+[node name="HeroNameLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hero Name"
+
+[node name="PowerLabel" type="Label" parent="Margin/HBox/TextLayout/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PWR 15200"
+
+[node name="BottomHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+
+[node name="HeroTitleLabel" type="Label" parent="Margin/HBox/TextLayout/BottomHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hero Title"
+
+[node name="LevelLabel" type="Label" parent="Margin/HBox/TextLayout/BottomHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "LVL 45"
+
+[node name="DetailsHBox" type="HBoxContainer" parent="Margin/HBox/TextLayout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ClassLabel" type="Label" parent="Margin/HBox/TextLayout/DetailsHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DEFENDER"
+
+[node name="StarsLabel" type="Label" parent="Margin/HBox/TextLayout/DetailsHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "★★★★★"
+
+[node name="SelectButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true

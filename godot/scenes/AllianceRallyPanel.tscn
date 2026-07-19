@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsu24y3u24y14"]
+
+[ext_resource type="Script" path="res://scripts/AllianceRallyPanel.gd" id="1_rally"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.0431373, 0.0980392, 0.14902, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.701961, 0.180392, 0.180392, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="AllianceRallyPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rally")
+
+[node name="Popup" type="Panel" parent="."]
+custom_minimum_size = Vector2(460, 420)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -210.0
+offset_right = 230.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Title" type="Label" parent="Popup"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "⚔️ CONVENE WAR RALLY"
+horizontal_alignment = 1
+
+[node name="LblTarget" type="Label" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 80.0
+offset_right = 430.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 15
+text = "Rally Target (City or Beast)"
+
+[node name="TargetInput" type="LineEdit" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 115.0
+offset_right = 430.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 15
+placeholder_text = "E.g., Savage Crystallite Titan"
+
+[node name="LblTimer" type="Label" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 190.0
+offset_right = 430.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 15
+text = "Preparation Phase Timer"
+
+[node name="TimerOptions" type="OptionButton" parent="Popup"]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 225.0
+offset_right = 430.0
+offset_bottom = 275.0
+theme_override_font_sizes/font_size = 15
+
+[node name="Actions" type="HBoxContainer" parent="Popup"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -100.0
+offset_right = -30.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BtnClose" type="Button" parent="Popup/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Close"
+
+[node name="BtnCreate" type="Button" parent="Popup/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "🔥 Consecrate Rally"

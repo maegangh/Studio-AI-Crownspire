@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroPowerDisplay.gd" id="1_pw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0431373, 0.0588235, 0.0901961, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85098, 0.647059, 0.12549, 0.25)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="HeroPowerDisplay" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 36)
+offset_right = 320.0
+offset_bottom = 36.0
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_pw")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 6
+
+[node name="PowerLabel" type="Label" parent="Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.647059, 0.12549, 1)
+theme_override_font_sizes/font_size = 12
+text = "⚡ LEGION POWER: 15200"
+horizontal_alignment = 1
+vertical_alignment = 1

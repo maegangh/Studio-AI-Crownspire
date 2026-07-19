@@ -1,0 +1,222 @@
+[gd_scene load_steps=14 format=3 uid="uid://cy19g0l5n9425p"]
+
+[ext_resource type="Script" path="res://scripts/settings/SettingsScreen.gd" id="1_screen"]
+[ext_resource type="PackedScene" uid="uid://cy8g0l5n9425e" path="res://scenes/settings/AudioSettingsPanel.tscn" id="2_audio"]
+[ext_resource type="PackedScene" uid="uid://cy9g0l5n9425f" path="res://scenes/settings/GraphicsSettingsPanel.tscn" id="3_graphics"]
+[ext_resource type="PackedScene" uid="uid://cy10g0l5n9425g" path="res://scenes/settings/GameplaySettingsPanel.tscn" id="4_gameplay"]
+[ext_resource type="PackedScene" uid="uid://cy11g0l5n9425h" path="res://scenes/settings/NotificationSettingsPanel.tscn" id="5_notif"]
+[ext_resource type="PackedScene" uid="uid://cy12g0l5n9425i" path="res://scenes/settings/LanguageSettingsPanel.tscn" id="6_lang"]
+[ext_resource type="PackedScene" uid="uid://cy13g0l5n9425j" path="res://scenes/settings/AccountSettingsPanel.tscn" id="7_acc"]
+[ext_resource type="PackedScene" uid="uid://cy14g0l5n9425k" path="res://scenes/settings/PrivacySettingsPanel.tscn" id="8_priv"]
+[ext_resource type="PackedScene" uid="uid://cy15g0l5n9425l" path="res://scenes/settings/SupportPanel.tscn" id="9_support"]
+[ext_resource type="PackedScene" uid="uid://cy16g0l5n9425m" path="res://scenes/settings/RedeemCodePanel.tscn" id="10_redeem"]
+[ext_resource type="PackedScene" uid="uid://cy17g0l5n9425n" path="res://scenes/settings/CreditsPanel.tscn" id="11_credits"]
+[ext_resource type="PackedScene" uid="uid://cy18g0l5n9425o" path="res://scenes/settings/AboutPanel.tscn" id="12_about"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_overlay"]
+bg_color = Color(0.0431373, 0.0588235, 0.0901961, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831373, 0.686275, 0.215686, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="SettingsScreen" type="PanelContainer"]
+custom_minimum_size = Vector2(560, 800)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -400.0
+offset_right = 280.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")
+script = ExtResource("1_screen")
+audio_panel_scene = ExtResource("2_audio")
+graphics_panel_scene = ExtResource("3_graphics")
+gameplay_panel_scene = ExtResource("4_gameplay")
+notification_panel_scene = ExtResource("5_notif")
+language_panel_scene = ExtResource("6_lang")
+account_panel_scene = ExtResource("7_acc")
+privacy_panel_scene = ExtResource("8_priv")
+support_panel_scene = ExtResource("9_support")
+redeem_panel_scene = ExtResource("10_redeem")
+credits_panel_scene = ExtResource("11_credits")
+about_panel_scene = ExtResource("12_about")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderBar" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Margin/VBox/HeaderBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+text = "◀"
+
+[node name="TitleLabel" type="Label" parent="Margin/VBox/HeaderBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "⚙️ SOVEREIGN SETTINGS"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Margin/VBox/HeaderBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+text = "X"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ContentContainer" type="Control" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainListScroll" type="ScrollContainer" parent="Margin/VBox/ContentContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ButtonVBox" type="VBoxContainer" parent="Margin/VBox/ContentContainer/MainListScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="AudioBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🔊 Bard Symphony (Audio Settings)"
+alignment = 0
+
+[node name="GraphicsBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🖼️ Visual Tapestry (Graphics Options)"
+alignment = 0
+
+[node name="GameplayBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "⚔️ Realm Rules (Gameplay Config)"
+alignment = 0
+
+[node name="NotificationsBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🔔 Citadel Ravens (Notifications)"
+alignment = 0
+
+[node name="LanguageBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🌐 Imperial Dialect (Language)"
+alignment = 0
+
+[node name="AccountBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "👤 Lordly Seals (Account Linking)"
+alignment = 0
+
+[node name="PrivacyBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🔒 Vault Seals (Privacy Settings)"
+alignment = 0
+
+[node name="SupportBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "💬 Grand Scribes (Support & Help)"
+alignment = 0
+
+[node name="RedeemBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "🎟️ Alchemical Tributes (Redeem Code)"
+alignment = 0
+
+[node name="CreditsBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "📜 Scroll of Honors (Credits)"
+alignment = 0
+
+[node name="AboutBtn" type="Button" parent="Margin/VBox/ContentContainer/MainListScroll/ButtonVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 14
+text = "ℹ️ Citadel Signatures (About Game)"
+alignment = 0
+
+[node name="SubPanelContainer" type="PanelContainer" parent="Margin/VBox/ContentContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_overlay")

@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy22muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/TopResourceBar.gd" id="1_e7b8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0901961, 0.113725, 0.160784, 0.85)
+border_width_bottom = 2
+border_color = Color(0.141176, 0.180392, 0.247059, 1)
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 4
+
+[node name="TopResourceBar" type="PanelContainer"]
+custom_minimum_size = Vector2(720, 50)
+offset_right = 720.0
+offset_bottom = 50.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+script = ExtResource("1_e7b8f")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="FoodBadge" type="HBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="Label" parent="Margin/HBox/FoodBadge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "🌾"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FoodLabel" type="Label" parent="Margin/HBox/FoodBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+pivot_offset = Vector2(25, 10)
+theme_override_colors/font_color = Color(0.960784, 0.870588, 0.701961, 1)
+theme_override_font_sizes/font_size = 12
+text = "500K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator1" type="VSeparator" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="WoodBadge" type="HBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="Label" parent="Margin/HBox/WoodBadge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "🪵"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WoodLabel" type="Label" parent="Margin/HBox/WoodBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+pivot_offset = Vector2(25, 10)
+theme_override_colors/font_color = Color(0.827451, 0.686275, 0.52549, 1)
+theme_override_font_sizes/font_size = 12
+text = "450K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="StoneBadge" type="HBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="Label" parent="Margin/HBox/StoneBadge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "🪨"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StoneLabel" type="Label" parent="Margin/HBox/StoneBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+pivot_offset = Vector2(25, 10)
+theme_override_colors/font_color = Color(0.701961, 0.72549, 0.784314, 1)
+theme_override_font_sizes/font_size = 12
+text = "250K"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator3" type="VSeparator" parent="Margin/HBox"]
+layout_mode = 2
+
+[node name="IronBadge" type="HBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Icon" type="Label" parent="Margin/HBox/IronBadge"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "⚔️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IronLabel" type="Label" parent="Margin/HBox/IronBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+pivot_offset = Vector2(25, 10)
+theme_override_colors/font_color = Color(0.607843, 0.760784, 0.839216, 1)
+theme_override_font_sizes/font_size = 12
+text = "120K"
+horizontal_alignment = 1
+vertical_alignment = 1

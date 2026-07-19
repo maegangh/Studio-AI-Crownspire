@@ -1,0 +1,148 @@
+[gd_scene load_steps=5 format=3 uid="uid://qudetail1"]
+
+[ext_resource type="Script" path="res://scripts/quests/QuestDetailPanel.gd" id="1_qdetail"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_detail_bg"]
+bg_color = Color(0.05, 0.06, 0.09, 1.0)
+border_width_left = 1
+border_color = Color(0.15, 0.2, 0.3, 1.0)
+
+[sub_name="LabelSettings_det_title" type="LabelSettings"]
+font_size = 18
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+
+[sub_name="LabelSettings_det_desc" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.7, 0.75, 0.8, 1.0)
+
+[sub_name="LabelSettings_sect_title" type="LabelSettings"]
+font_size = 13
+font_color = Color(0.5, 0.8, 1.0, 1.0)
+
+[node name="QuestDetailPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_detail_bg")
+script = ExtResource("1_qdetail")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Panel" parent="VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "◀"
+flat = true
+
+[node name="DetTitleLabel" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -14.0
+offset_right = 200.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quest Details"
+label_settings = SubResource("LabelSettings_det_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 1
+
+[node name="Margin" type="MarginContainer" parent="VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="VBox/Scroll/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DetDescLabel" type="Label" parent="VBox/Scroll/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Detailed backstory narrative describing the goals of this royal quest."
+label_settings = SubResource("LabelSettings_det_desc")
+autowrap_mode = 3
+
+[node name="ObjectivesSection" type="VBoxContainer" parent="VBox/Scroll/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Scroll/Margin/VBox/ObjectivesSection"]
+layout_mode = 2
+text = "QUEST OBJECTIVES"
+label_settings = SubResource("LabelSettings_sect_title")
+
+[node name="ObjectivesContainer" type="VBoxContainer" parent="VBox/Scroll/Margin/VBox/ObjectivesSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="RewardsSection" type="VBoxContainer" parent="VBox/Scroll/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/Scroll/Margin/VBox/RewardsSection"]
+layout_mode = 2
+text = "EARNED REWARDS"
+label_settings = SubResource("LabelSettings_sect_title")
+
+[node name="RewardsContainer" type="GridContainer" parent="VBox/Scroll/Margin/VBox/RewardsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 4
+
+[node name="Footer" type="Panel" parent="VBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="DetailActionButton" type="Button" parent="VBox/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 44)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -22.0
+offset_right = 150.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CLAIM REWARDS"

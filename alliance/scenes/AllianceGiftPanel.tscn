@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://a14xt899alliancegiftpanel"]
+
+[ext_resource type="Script" path="res://alliance/scripts/AllianceGiftPanel.gd" id="1_alliancegiftpanel"]
+
+[node name="AllianceGiftPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 95)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_alliancegiftpanel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="VBox" type="VBoxContainer" parent="Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="TopHBox" type="HBoxContainer" parent="Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="GiftTitleLabel" type="Label" parent="Margin/HBox/VBox/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Treasure Loot"
+
+[node name="ExpiresLabel" type="Label" parent="Margin/HBox/VBox/TopHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Expires in 1 day"
+
+[node name="GiftDescLabel" type="Label" parent="Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "A shared gift received from a guild victory."
+
+[node name="GiftRewardsLabel" type="Label" parent="Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "REWARDS: Gold x1000"
+
+[node name="ClaimGiftButton" type="Button" parent="Margin/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 36)
+layout_mode = 2
+size_flags_vertical = 4
+text = "CLAIM"

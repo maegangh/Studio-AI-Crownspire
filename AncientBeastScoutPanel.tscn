@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg22y37t2o3b2"]
+
+[ext_resource type="Script" path="res://AncientBeastScout.gd" id="1_ab_scout"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scout"]
+bg_color = Color(0.96, 0.96, 0.96, 1.0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.85, 0.72, 0.44, 1.0)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0.12, 0.22, 0.51, 0.25)
+shadow_size = 15
+
+[node name="AncientBeastScoutPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -280.0
+offset_right = 240.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ab_scout")
+
+[node name="WhiteMarbleFrame" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_scout")
+
+[node name="TitleBar" type="Control" parent="WhiteMarbleFrame"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+height = 50.0
+grow_horizontal = 2
+
+[node name="TitleLabel" type="Label" parent="WhiteMarbleFrame/TitleBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -12.0
+offset_right = 150.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SCOUT_REPORT"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="WhiteMarbleFrame/TitleBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "✕"
+
+[node name="MainPanel" type="VBoxContainer" parent="WhiteMarbleFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 58.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="BeastNameLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/Header"]
+layout_mode = 2
+text = "Intel: Dire Wolf Alpha"
+
+[node name="WeaknessSection" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/WeaknessSection"]
+layout_mode = 2
+text = "BEAST_WEAKNESSES"
+
+[node name="Container" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/WeaknessSection"]
+layout_mode = 2
+
+[node name="AbilitySection" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/AbilitySection"]
+layout_mode = 2
+text = "SPECIAL_ABILITIES"
+
+[node name="Container" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel/AbilitySection"]
+layout_mode = 2
+
+[node name="StrategySection" type="VBoxContainer" parent="WhiteMarbleFrame/MainPanel"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WhiteMarbleFrame/MainPanel/StrategySection"]
+layout_mode = 2
+text = "RALLY_STRATEGY"
+
+[node name="TroopLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/StrategySection"]
+layout_mode = 2
+text = "Recommended Troops: Infantry"
+
+[node name="AdviceLabel" type="Label" parent="WhiteMarbleFrame/MainPanel/StrategySection"]
+layout_mode = 2
+text = "Ensure defensive tank line to hold alpha."
+autowrap_mode = 2

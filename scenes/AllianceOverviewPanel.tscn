@@ -1,0 +1,236 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3u24y3u24y2"]
+
+[ext_resource type="Script" path="res://scripts/AllianceOverviewPanel.gd" id="1_overview"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.0431373, 0.0980392, 0.14902, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.180392, 0.490196, 0.690196, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="AllianceOverviewPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_overview")
+
+[node name="Card" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="Banner" type="Panel" parent="Card"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="Card/Banner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.141176, 0.211765, 0.9)
+
+[node name="Icon" type="Label" parent="Card/Banner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "☀️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Info" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 160.0
+offset_bottom = 260.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Name" type="Label" parent="Card/Info"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Dawn Alliance"
+horizontal_alignment = 1
+
+[node name="Tag" type="Label" parent="Card/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.231373, 0.690196, 0.952941, 1)
+theme_override_font_sizes/font_size = 18
+text = "[DAWN]"
+horizontal_alignment = 1
+
+[node name="Leader" type="Label" parent="Card/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 16
+text = "Leader: Lord Aurelius"
+horizontal_alignment = 1
+
+[node name="Description" type="Panel" parent="Card"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -140.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Card/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = -20.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85098, 0.898039, 0.941176, 1)
+theme_override_font_sizes/font_size = 15
+text = "The defenders of the Crystallite Spire. Together we forge the eternal dawn!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Stats" type="Control" parent="Card"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Card/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="PowerLbl" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.482353, 0.596078, 0.705882, 1)
+theme_override_font_sizes/font_size = 15
+text = "⚡ ALLIANCE POWER"
+
+[node name="PowerVal" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "15.42M"
+horizontal_alignment = 2
+
+[node name="MembersLbl" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.482353, 0.596078, 0.705882, 1)
+theme_override_font_sizes/font_size = 15
+text = "👥 MEMBERS"
+
+[node name="MembersVal" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "48 / 100"
+horizontal_alignment = 2
+
+[node name="CoresLbl" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.482353, 0.596078, 0.705882, 1)
+theme_override_font_sizes/font_size = 15
+text = "💎 CRYSTALLITE CORES"
+
+[node name="CoresVal" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "1,420 Cores"
+horizontal_alignment = 2
+
+[node name="FortressLbl" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.482353, 0.596078, 0.705882, 1)
+theme_override_font_sizes/font_size = 15
+text = "🏰 FORTRESS"
+
+[node name="FortressVal" type="Label" parent="Card/Stats/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Lvl 3"
+horizontal_alignment = 2
+
+[node name="Actions" type="VBoxContainer" parent="Card"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -240.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BtnHelp" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "🤝 Give Help (3)"
+
+[node name="BtnChat" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "💬 Alliance Chat"
+
+[node name="BtnMembers" type="Button" parent="Card/Actions"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "👥 Roster"

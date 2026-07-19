@@ -1,0 +1,72 @@
+[
+  {
+    "id": "valerius_s1",
+    "hero_id": "valerius",
+    "name": "Solar Shield Bash",
+    "level": 2,
+    "max_level": 5,
+    "description": "Slam enemies with concentrated divine sunlight, dealing 150% damage and stunning target legions for 3 seconds.",
+    "is_passive": false,
+    "emoji": "🛡️"
+  },
+  {
+    "id": "valerius_s2",
+    "hero_id": "valerius",
+    "name": "Aegis of the Dawn",
+    "level": 1,
+    "max_level": 5,
+    "description": "Deploys a radiant dome of energy that absorbs up to 50,000 damage for all vanguard and auxiliary allied forces.",
+    "is_passive": false,
+    "emoji": "☀️"
+  },
+  {
+    "id": "aria_s1",
+    "hero_id": "aria",
+    "name": "Hurricane Bow Volley",
+    "level": 3,
+    "max_level": 5,
+    "description": "Fires a rapid gale barrage of 10 wind-charged arrows, each dealing 45% attack power over a wide arc.",
+    "is_passive": false,
+    "emoji": "🌪️"
+  },
+  {
+    "id": "aria_s2",
+    "hero_id": "aria",
+    "name": "Gale-Force Alacrity",
+    "level": 1,
+    "max_level": 5,
+    "description": "Increases overall marching speed and movement of all deployed map expedition forces by 15%.",
+    "is_passive": true,
+    "emoji": "🍃"
+  },
+  {
+    "id": "kaelen_s1",
+    "hero_id": "kaelen",
+    "name": "Temporal Singularity",
+    "level": 1,
+    "max_level": 5,
+    "description": "Creates a localized time vortex, slowing enemy action and recovery speeds by 40% inside its visual boundary.",
+    "is_passive": false,
+    "emoji": "🌀"
+  },
+  {
+    "id": "kaelen_s2",
+    "hero_id": "kaelen",
+    "name": "Echoes of Eternity",
+    "level": 1,
+    "max_level": 5,
+    "description": "Instantly triggers a 1-hour construction and academy research speedup. Cooldown: 12 hours.",
+    "is_passive": true,
+    "emoji": "⏳"
+  },
+  {
+    "id": "garrick_s1",
+    "hero_id": "garrick",
+    "name": "Earthbreaker Shatter",
+    "level": 1,
+    "max_level": 5,
+    "description": "Slams the volcanic hammer, fracturing the ground to deal 180% armor-piercing damage to the nearest defender squads.",
+    "is_passive": false,
+    "emoji": "🌋"
+  }
+]

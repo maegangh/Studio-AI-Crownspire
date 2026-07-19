@@ -1,0 +1,97 @@
+[gd_scene load_steps=2 format=3 uid="uid://c10xt899storepopupmaster"]
+
+[ext_resource type="Script" path="res://store/scripts/StorePopup.gd" id="1_storepopupgd"]
+
+[node name="StorePopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_storepopupgd")
+
+[node name="BackingColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.09, 0.13, 0.95)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="StoreTitleLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "IMPERIAL TREASURY"
+
+[node name="CurrencyTracker" type="HBoxContainer" parent="Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 16
+
+[node name="GoldBox" type="HBoxContainer" parent="Margin/Layout/Header/CurrencyTracker"]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="Margin/Layout/Header/CurrencyTracker/GoldBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "125,000"
+
+[node name="CrystalBox" type="HBoxContainer" parent="Margin/Layout/Header/CurrencyTracker"]
+layout_mode = 2
+
+[node name="CrystalsLabel" type="Label" parent="Margin/Layout/Header/CurrencyTracker/CrystalBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "150"
+
+[node name="StoreCloseButton" type="Button" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " CLOSE "
+
+[node name="TabBar" type="ScrollContainer" parent="Margin/Layout"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabsContainer" type="HBoxContainer" parent="Margin/Layout/TabBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="GridScroll" type="ScrollContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ItemGrid" type="GridContainer" parent="Margin/Layout/GridScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/horizontal_separation = 16
+theme_override_constants/vertical_separation = 16
+columns = 3

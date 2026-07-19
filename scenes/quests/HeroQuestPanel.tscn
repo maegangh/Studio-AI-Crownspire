@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://quhero1"]
+
+[ext_resource type="Script" path="res://scripts/quests/HeroQuestPanel.gd" id="1_qhero"]
+
+[sub_name="LabelSettings_hero_lbl" type="LabelSettings"]
+font_size = 14
+font_color = Color(1.0, 0.7, 0.3, 1.0)
+
+[node name="HeroQuestPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 680.0
+offset_bottom = 40.0
+script = ExtResource("1_qhero")
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeroLabel" type="Label" parent="Header"]
+layout_mode = 2
+text = "🦁 Legendary Hero Chronicles"
+label_settings = SubResource("LabelSettings_hero_lbl")
+vertical_alignment = 1

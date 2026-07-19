@@ -1,0 +1,146 @@
+[
+  {
+    "type": "campaign",
+    "id": "evt_launch_dawn",
+    "name": "Age of Dawn: Kingdom Launch",
+    "description": "Celebrate the birth of Crownspire! Complete active quest logs to earn Dawn Marks and unlock royal milestone vault rewards.",
+    "is_active": true,
+    "duration_seconds": 604800,
+    "current_points": 0,
+    "milestones": [
+      {
+        "points_required": 20,
+        "claimed": false,
+        "rewards": [
+          { "name": "100K Food Provisions", "quantity": 5, "rarity": 1, "icon": "res://assets/ui/icons/res_food.png" },
+          { "name": "Aurora Crystals", "quantity": 500, "rarity": 2, "icon": "res://assets/ui/icons/hud_aurora_crystal.png" }
+        ]
+      },
+      {
+        "points_required": 50,
+        "claimed": false,
+        "rewards": [
+          { "name": "100K Timber Supply", "quantity": 5, "rarity": 1, "icon": "res://assets/ui/icons/res_wood.png" },
+          { "name": "1-Hour Universal Speedup", "quantity": 5, "rarity": 1, "icon": "res://assets/ui/icons/spd_univ.png" }
+        ]
+      },
+      {
+        "points_required": 100,
+        "claimed": false,
+        "rewards": [
+          { "name": "50K Granite Blocks", "quantity": 10, "rarity": 2, "icon": "res://assets/ui/icons/res_stone.png" },
+          { "name": "Ancient Skill Codex", "quantity": 3, "rarity": 2, "icon": "res://assets/ui/icons/hero_skill_book.png" }
+        ]
+      },
+      {
+        "points_required": 150,
+        "claimed": false,
+        "rewards": [
+          { "name": "Aurelion Hero Shard", "quantity": 5, "rarity": 3, "icon": "res://assets/ui/icons/hero_shard_gold.png" },
+          { "name": "Royal Crystals", "quantity": 1000, "rarity": 3, "icon": "res://assets/ui/icons/hud_royal_crystal.png" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "campaign",
+    "id": "evt_chrono_shift",
+    "name": "Chrono Shift Progression",
+    "description": "The temporal magic circles are open. Speed up queues to receive extra Chrono Marks, boosting kingdom construction speeds.",
+    "is_active": true,
+    "duration_seconds": 172800,
+    "current_points": 0,
+    "milestones": [
+      {
+        "points_required": 30,
+        "claimed": false,
+        "rewards": [
+          { "name": "1-Hour Universal Speedup", "quantity": 10, "rarity": 1, "icon": "res://assets/ui/icons/spd_univ.png" }
+        ]
+      },
+      {
+        "points_required": 80,
+        "claimed": false,
+        "rewards": [
+          { "name": "8-Hour Building Speedup", "quantity": 5, "rarity": 2, "icon": "res://assets/ui/icons/spd_build.png" },
+          { "name": "8-Hour Research Speedup", "quantity": 5, "rarity": 2, "icon": "res://assets/ui/icons/spd_research.png" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "quest",
+    "id": "quest_daily_login",
+    "name": "Imperial Greeting",
+    "description": "Report to the Keep. Log into Crownspire to secure daily administrative seals.",
+    "quest_points": 10,
+    "current_progress": 1,
+    "target_progress": 1,
+    "is_completed": true,
+    "is_claimed": false,
+    "action_label": "CLAIM",
+    "rewards": [
+      { "name": "Aurora Crystals", "type": "aurora_crystal", "quantity": 100, "rarity": 2, "icon": "res://assets/ui/icons/hud_aurora_crystal.png" }
+    ]
+  },
+  {
+    "type": "quest",
+    "id": "quest_train_troops",
+    "name": "Raise the Host",
+    "description": "Train elite legion recruits within your military quarters to expand garrison size.",
+    "quest_points": 20,
+    "current_progress": 80,
+    "target_progress": 200,
+    "is_completed": false,
+    "is_claimed": false,
+    "action_label": "TRAIN",
+    "rewards": [
+      { "name": "100K Food Provisions", "type": "food", "quantity": 3, "rarity": 1, "icon": "res://assets/ui/icons/res_food.png" }
+    ]
+  },
+  {
+    "type": "quest",
+    "id": "quest_gather_wood",
+    "name": "Lumber Jacking",
+    "description": "Send gathering marches to forest nodes outside the safety boundary.",
+    "quest_points": 15,
+    "current_progress": 35000,
+    "target_progress": 100000,
+    "is_completed": false,
+    "is_claimed": false,
+    "action_label": "GATHER",
+    "rewards": [
+      { "name": "100K Timber Supply", "type": "wood", "quantity": 3, "rarity": 1, "icon": "res://assets/ui/icons/res_wood.png" }
+    ]
+  },
+  {
+    "type": "quest",
+    "id": "quest_pve_victory",
+    "name": "Purge the Wildlings",
+    "description": "Slay Wildling scouts roaming in local coordinate quadrants on the World Map.",
+    "quest_points": 20,
+    "current_progress": 1,
+    "target_progress": 3,
+    "is_completed": false,
+    "is_claimed": false,
+    "action_label": "ATTACK",
+    "rewards": [
+      { "name": "Ancient Skill Codex", "type": "skill_codex", "quantity": 1, "rarity": 2, "icon": "res://assets/ui/icons/hero_skill_book.png" }
+    ]
+  },
+  {
+    "type": "quest",
+    "id": "quest_vault_match",
+    "name": "Crystal Vault Trial",
+    "description": "Match energy tiles in the Mahjong Crystal Vault to harness alchemical elements.",
+    "quest_points": 25,
+    "current_progress": 0,
+    "target_progress": 2,
+    "is_completed": false,
+    "is_claimed": false,
+    "action_label": "MATCH",
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 5000, "rarity": 1, "icon": "res://assets/ui/icons/hud_gold.png" }
+    ]
+  }
+]

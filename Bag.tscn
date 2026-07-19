@@ -1,0 +1,377 @@
+[gd_scene load_steps=15 format=3 uid="uid://b8crspirebag4"]
+
+[ext_resource type="Script" path="res://Bag.gd" id="1_bag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HeaderPanel"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_TabActive"]
+bg_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_TabInactive"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CardBg"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_PopupBg"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityCommon"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.607843, 0.670588, 0.737255, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityUncommon"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.247059, 0.705882, 0.352941, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityRare"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityEpic"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.584314, 0.176471, 0.843137, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityLegendary"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.901961, 0.470588, 0.0784314, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RarityMythic"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.901961, 0.0784314, 0.117647, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ToastBg"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.192157, 0.478431, 0.819608, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Bag" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bag")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/Header/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "City Inventory"
+
+[node name="Spacer" type="Control" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SearchEdit" type="LineEdit" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 36)
+layout_mode = 2
+placeholder_text = "Search items..."
+alignment = 1
+clear_button_enabled = true
+
+[node name="SortSelect" type="OptionButton" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(140, 36)
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+text = "X"
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ContentMargin" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Layout/ContentMargin"]
+layout_mode = 2
+
+[node name="ItemGrid" type="GridContainer" parent="Layout/ContentMargin/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/horizontal_separation = 12
+theme_override_constants/vertical_separation = 12
+columns = 5
+
+[node name="DetailsModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Overlay" type="ColorRect" parent="DetailsModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="PopupPanel" type="PanelContainer" parent="DetailsModal"]
+custom_minimum_size = Vector2(400, 280)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -140.0
+offset_right = 200.0
+offset_top = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_PopupBg")
+
+[node name="MarginContainer" type="MarginContainer" parent="DetailsModal/PopupPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DetailsModal/PopupPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PopupHeader" type="HBoxContainer" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="IconBorder" type="PanelContainer" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupHeader"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+
+[node name="IconTexture" type="TextureRect" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupHeader/IconBorder"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PopupNameBox" type="VBoxContainer" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PopupName" type="Label" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupHeader/PopupNameBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Item Name"
+autowrap_mode = 2
+
+[node name="PopupRarity" type="Label" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupHeader/PopupNameBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "Rarity: Legendary"
+
+[node name="HSeparator" type="HSeparator" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PopupDescription" type="Label" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_font_sizes/font_size = 14
+text = "This is a detailed description of the selected item in the inventory."
+autowrap_mode = 2
+
+[node name="PopupQuantity" type="Label" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.192157, 0.478431, 0.819608, 1)
+theme_override_font_sizes/font_size = 13
+text = "Quantity Owned: 0"
+
+[node name="HSeparator2" type="HSeparator" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PopupActions" type="HBoxContainer" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="UseButton" type="Button" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupActions"]
+custom_minimum_size = Vector2(90, 34)
+layout_mode = 2
+text = "Use"
+
+[node name="SellButton" type="Button" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupActions"]
+custom_minimum_size = Vector2(90, 34)
+layout_mode = 2
+text = "Sell"
+
+[node name="PopupCloseButton" type="Button" parent="DetailsModal/PopupPanel/MarginContainer/VBoxContainer/PopupActions"]
+custom_minimum_size = Vector2(90, 34)
+layout_mode = 2
+text = "Close"
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(280, 44)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -80.0
+offset_right = 140.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ToastBg")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Notification Message"
+horizontal_alignment = 1
+vertical_alignment = 1

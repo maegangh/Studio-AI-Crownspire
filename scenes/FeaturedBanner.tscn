@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy15muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/FeaturedBanner.gd" id="1_d7b8f"]
+
+[sub_resource type="Animation" id="Animation_slide"]
+resource_name = "slide_transition"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Margin/Layout/TextContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Margin/Layout/TextContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 52), Vector2(100, 52), Vector2(0, 52)]
+}
+
+[sub_resource type="Animation" id="Animation_reset"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Margin/Layout/TextContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sl"]
+_data = {
+"RESET": SubResource("Animation_reset"),
+"slide_transition": SubResource("Animation_slide")
+}
+
+[node name="FeaturedBanner" type="PanelContainer"]
+custom_minimum_size = Vector2(660, 280)
+offset_right = 660.0
+offset_bottom = 280.0
+size_flags_horizontal = 3
+script = ExtResource("1_d7b8f")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="BadgeFrame" type="PanelContainer" parent="Margin/Layout/Header"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/Layout/Header/BadgeFrame"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 2
+
+[node name="BadgeLabel" type="Label" parent="Margin/Layout/Header/BadgeFrame/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.266667, 0.266667, 1)
+theme_override_font_sizes/font_size = 11
+text = "LIMITED EDITION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextContainer" type="VBoxContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="BannerTitle" type="Label" parent="Margin/Layout/TextContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "WRATH OF THE DRAGON SLAYER"
+
+[node name="BannerDesc" type="Label" parent="Margin/Layout/TextContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 13
+text = "Summon the legendary Champion 'Ignis' and master lava magic arrays."
+autowrap_mode = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+alignment = 1
+
+[node name="DotContainer" type="HBoxContainer" parent="Margin/Layout/BottomRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+alignment = 0
+
+[node name="CTAButton" type="Button" parent="Margin/Layout/BottomRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+text = "VIEW OFFER"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sl")
+}

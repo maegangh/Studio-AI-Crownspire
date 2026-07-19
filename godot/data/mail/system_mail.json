@@ -1,0 +1,103 @@
+[
+	{
+		"id": "sys_welcome_01",
+		"category_id": "system",
+		"sender": "Citadel High Council",
+		"title": "Welcome, Commander, to Crownspire!",
+		"body": "Welcome to your new Citadel! As Lord of the Crownspire, you are charged with defending the realm against the invading Wildling hordes and securing the Crystallite Spire. Use these starter resources to lay the foundations of your empire.\n\nMay light guide your blade!",
+		"timestamp": 1783234800,
+		"expires_in_days": 30,
+		"read": false,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "gold",
+				"type": "gold",
+				"name": "Gold",
+				"quantity": 10000,
+				"icon": "🪙"
+			},
+			{
+				"id": "wood",
+				"type": "wood",
+				"name": "Wood Materials",
+				"quantity": 5000,
+				"icon": "🪵"
+			},
+			{
+				"id": "item_speedup_1h",
+				"type": "speedup_1h",
+				"name": "1h Building Speedup",
+				"quantity": 3,
+				"icon": "⚡"
+			}
+		]
+	},
+	{
+		"id": "sys_maint_02",
+		"category_id": "system",
+		"sender": "Citadel Operations",
+		"title": "Server Maintenance Compensation",
+		"body": "Greetings, Commander. The Citadel underwent a scheduled database synchronization and upgrade to Version 1.4.2. We apologize for any temporary inconvenience this downtime caused your legions. Please accept this compensation package.",
+		"timestamp": 1783227600,
+		"expires_in_days": 7,
+		"read": false,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "diamonds",
+				"type": "diamonds",
+				"name": "Royal Crystals",
+				"quantity": 500,
+				"icon": "💎"
+			},
+			{
+				"id": "item_shield_8h",
+				"type": "shield_8h",
+				"name": "8-Hour Peace Shield",
+				"quantity": 1,
+				"icon": "🛡️"
+			}
+		]
+	},
+	{
+		"id": "sys_support_03",
+		"category_id": "system",
+		"sender": "High Priest Elidor (Support)",
+		"title": "RE: Missing Gathering Materials",
+		"body": "Commander, I have reviewed your petition regarding the uncounted Iron Ore from your gathering march on Jul 2nd.\nOur scribes confirmed a momentary latency spike in the local server cluster during your troops' return. The materials have been restored to your supply log. We appreciate your patience.",
+		"timestamp": 1783213200,
+		"expires_in_days": 14,
+		"read": true,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "iron",
+				"type": "iron",
+				"name": "Iron Ore",
+				"quantity": 12500,
+				"icon": "⛓️"
+			}
+		]
+	},
+	{
+		"id": "sys_vip_04",
+		"category_id": "system",
+		"sender": "Citadel treasury",
+		"title": "VIP Club Status Update",
+		"body": "Congratulations, Lord Aurelius! Your continuous support has elevated your Citadel to VIP level 5. This grants you a permanent passive production boost of +10% on food and +5% troop training speeds.\nClaim your weekly VIP prestige tokens below.",
+		"timestamp": 1783148400,
+		"expires_in_days": 3,
+		"read": false,
+		"claimed": false,
+		"attachments": [
+			{
+				"id": "vip_points",
+				"type": "vip_points",
+				"name": "Prestige VIP Points",
+				"quantity": 300,
+				"icon": "⭐"
+			}
+		]
+	}
+]

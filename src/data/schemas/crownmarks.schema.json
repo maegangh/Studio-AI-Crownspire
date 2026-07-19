@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrownspireCrownmarksSchema",
+  "description": "Validation schema for the core catalog of all Crownmarks in Crownspire, designed for Godot 4 parsing.",
+  "type": "object",
+  "required": ["crownmarks"],
+  "properties": {
+    "crownmarks": {
+      "type": "array",
+      "description": "The list of all standard in-game crownmarks.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slot",
+          "hero_affinity",
+          "rarity",
+          "base_stats",
+          "growth_per_level",
+          "description",
+          "visual_asset_path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Unique identifier for the crownmark (e.g. maegan_scepter)."
+          },
+          "name": {
+            "type": "string",
+            "description": "In-game display name."
+          },
+          "slot": {
+            "type": "string",
+            "enum": ["weapon", "crown", "armor", "banner", "accessory"],
+            "description": "Equipment slot restriction for this crownmark."
+          },
+          "hero_affinity": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Commander affinity (matches the hero's ID)."
+          },
+          "rarity": {
+            "type": "string",
+            "enum": ["legendary", "epic", "rare"],
+            "description": "The loot/scaling tier rarity."
+          },
+          "base_stats": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            },
+            "description": "Key-value map of stat values provided at level 1."
+          },
+          "growth_per_level": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            },
+            "description": "Key-value map of stat modifiers added on each level increment."
+          },
+          "description": {
+            "type": "string",
+            "description": "Lore or flavor summary of the item."
+          },
+          "visual_asset_path": {
+            "type": "string",
+            "pattern": "^res://.*$",
+            "description": "Godot 4 absolute path to the texture file."
+          }
+        }
+      }
+    }
+  }
+}

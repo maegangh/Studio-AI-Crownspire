@@ -1,0 +1,62 @@
+[
+  {
+    "id": "lair_wolf_1",
+    "name": "Northern Wolf Den",
+    "type": "ancient_wolf_den",
+    "beast_id": "dire_wolf_alpha",
+    "level": 3,
+    "x": 840,
+    "y": 320,
+    "details": "A cold, frost-bound lair. Tapping reveals the Dire Wolf Alpha lurking within. Recommended Level: 1-5."
+  },
+  {
+    "id": "lair_spider_1",
+    "name": "Weeping Crystal Gorge",
+    "type": "crystal_spider_nest",
+    "beast_id": "crystal_spider_queen",
+    "level": 12,
+    "x": 420,
+    "y": 680,
+    "details": "A sapphire-encrusted cavern system draped in glowing spider silk. Recommended Level: 11-15."
+  },
+  {
+    "id": "lair_bear_1",
+    "name": "High Crag Cavern",
+    "type": "great_bear_cavern",
+    "beast_id": "great_cave_bear",
+    "level": 8,
+    "x": 1380,
+    "y": 480,
+    "details": "A geothermal cavern filled with hot sulfur pools and steam pillars. Recommended Level: 6-10."
+  },
+  {
+    "id": "lair_troll_1",
+    "name": "Ironroots Stronghold",
+    "type": "stone_troll_stronghold",
+    "beast_id": "stone_troll_chieftain",
+    "level": 18,
+    "x": 1620,
+    "y": 920,
+    "details": "An imposing brute-force stone tunnel reinforced by heavy scrap iron gates. Recommended Level: 16-20."
+  },
+  {
+    "id": "lair_dragon_1",
+    "name": "Sovereign Dragon Vault",
+    "type": "ancient_dragon_cavern",
+    "beast_id": "ancient_crystal_dragon",
+    "level": 30,
+    "x": 980,
+    "y": 880,
+    "details": "The ultimate seat of Fire and Crystal. The legendary Level 30 Crystal Dragon rests here. Recommended Level: 26-30."
+  },
+  {
+    "id": "lair_wolf_2",
+    "name": "Ashen Fangs Den",
+    "type": "ancient_wolf_den",
+    "beast_id": "dire_wolf_alpha",
+    "level": 5,
+    "x": 1150,
+    "y": 150,
+    "details": "A sulfurous den inside volcanic stone folds. Tapping reveals a level 5 Dire Wolf Alpha."
+  }
+]

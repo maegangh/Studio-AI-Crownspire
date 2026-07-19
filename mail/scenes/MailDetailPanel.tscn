@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=3 uid="uid://c10xt899maildetailpanel"]
+
+[ext_resource type="Script" path="res://mail/scripts/MailDetailPanel.gd" id="1_maildetailpanel"]
+
+[node name="MailDetailPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_maildetailpanel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="SenderLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SENDER: HIGH COUNCIL"
+
+[node name="CloseButton" type="Button" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " BACK "
+
+[node name="TitleLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Official Citadel Announcement"
+autowrap_mode = 2
+
+[node name="ExpiryLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Expires in: 14 days"
+
+[node name="HSeparator" type="HSeparator" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="TextBody" type="Label" parent="Margin/Layout/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Welcome to Crownspire, Commander! Defend the spire and gather materials."
+autowrap_mode = 2
+
+[node name="AttachmentPanel" type="PanelContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/Layout/AttachmentPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Layout/AttachmentPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AttachTitle" type="Label" parent="Margin/Layout/AttachmentPanel/Margin/VBox"]
+layout_mode = 2
+text = "ATTACHED ITEMS"
+
+[node name="AttachmentContainer" type="HBoxContainer" parent="Margin/Layout/AttachmentPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ActionButtons" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="DeleteButton" type="Button" parent="Margin/Layout/ActionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "DELETE"
+
+[node name="ClaimButton" type="Button" parent="Margin/Layout/ActionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CLAIM REWARDS"

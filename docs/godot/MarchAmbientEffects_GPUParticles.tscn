@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1m8x7yq6c6u8"]
+
+[ext_resource type="Script" path="res://scripts/vfx/MarchAmbientEffects.gd" id="1_gdscript"]
+[ext_resource type="Material" uid="uid://c6r8nyu8c8u7p" path="res://docs/godot/resources/glow_process_material.tres" id="2_material"]
+[ext_resource type="Material" uid="uid://d7g8nyu8c8u7q" path="res://docs/godot/resources/trail_process_material.tres" id="3_material"]
+[ext_resource type="Material" uid="uid://e8h8nyu8c8u7r" path="res://docs/godot/resources/footstep_process_material.tres" id="4_material"]
+[ext_resource type="Material" uid="uid://f9h8nyu8c8u7s" path="res://docs/godot/resources/theme_process_material.tres" id="5_material"]
+
+[sub_resource type="Animation" id="Animation_aura_pulse"]
+resource_name = "pulse"
+length = 2.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.8, 1.8), Vector2(2.1, 1.9), Vector2(1.8, 1.8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.6, 0.85, 0.6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_local"]
+_data = {
+"pulse": SubResource("Animation_aura_pulse")
+}
+
+[node name="MarchAmbientEffects" type="Node2D"]
+script = ExtResource("1_gdscript")
+theme = 0
+intensity = 1.0
+effect_scale = 1.0
+is_moving = false
+mobile_quality = 1
+
+[node name="AuraPulse" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.35, 0, 0.25)
+scale = Vector2(1.8, 1.8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AuraPulse"]
+libraries = {
+"": SubResource("AnimationLibrary_local")
+}
+
+[node name="GlowParticles" type="GPUParticles2D" parent="."]
+amount = 15
+process_material = ExtResource("2_material")
+lifetime = 1.2
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="TrailParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 18
+process_material = ExtResource("3_material")
+lifetime = 0.9
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="FootstepParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 10)
+emitting = false
+amount = 8
+process_material = ExtResource("4_material")
+lifetime = 0.5
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="ThemeParticles" type="GPUParticles2D" parent="."]
+amount = 10
+process_material = ExtResource("5_material")
+lifetime = 2.0
+fixed_fps = 30
+interpolate = true
+fract_delta = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-100, -100, 200, 200)

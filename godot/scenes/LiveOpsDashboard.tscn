@@ -1,0 +1,263 @@
+[gd_scene load_steps=9 format=3 uid="uid://cy21muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/LiveOpsDashboard.gd" id="1_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://b1h5cuxyba23y" path="res://scenes/CurrencyBar.tscn" id="2_e7b8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0509804, 0.0666667, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+bg_color = Color(0.0901961, 0.113725, 0.160784, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 4
+
+[sub_resource type="Animation" id="Animation_enter"]
+resource_name = "enter_swipe"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(720, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_exit"]
+resource_name = "exit_swipe"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(720, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_reset"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_st"]
+_data = {
+"RESET": SubResource("Animation_reset"),
+"enter_swipe": SubResource("Animation_enter"),
+"exit_swipe": SubResource("Animation_exit")
+}
+
+[node name="LiveOpsDashboard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e7b8f")
+
+[node name="BackgroundDim" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="MarginContainer" parent="Layout"]
+custom_minimum_size = Vector2(720, 80)
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CloseButton" type="Button" parent="Layout/Header/HBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 18
+text = "<"
+
+[node name="DashboardTitle" type="Label" parent="Layout/Header/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "DAILY PROMOTION DEEDS"
+vertical_alignment = 1
+
+[node name="CrystalsBar" parent="Layout/Header/HBox" instance=ExtResource("2_e7b8f")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HonorBar" parent="Layout/Header/HBox" instance=ExtResource("2_e7b8f")]
+unique_name_in_owner = true
+layout_mode = 2
+currency_type = "alliance_honor"
+
+[node name="TabContainer" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="TabRow" type="HBoxContainer" parent="Layout/TabContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="QuestsTabBtn" type="Button" parent="Layout/TabContainer/TabRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+text = "DAILY DEEDS"
+
+[node name="CampaignsTabBtn" type="Button" parent="Layout/TabContainer/TabRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+text = "ACTIVE EVENTS"
+
+[node name="DailyProgressHUD" type="PanelContainer" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="Margin" type="MarginContainer" parent="Layout/DailyProgressHUD"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/DailyProgressHUD/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DailyPtsLabel" type="Label" parent="Layout/DailyProgressHUD/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "DAILY QUEST POINTS: 45"
+vertical_alignment = 1
+
+[node name="DailyProgressBar" type="ProgressBar" parent="Layout/DailyProgressHUD/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="DailyChestsContainer" type="HBoxContainer" parent="Layout/DailyProgressHUD/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ContentScroll" type="ScrollContainer" parent="Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="Margin" type="MarginContainer" parent="Layout/ContentScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ListContainer" type="VBoxContainer" parent="Layout/ContentScroll/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_st")
+}

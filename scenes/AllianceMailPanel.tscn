@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://df24y3u24y11"]
+
+[ext_resource type="Script" path="res://scripts/AllianceMailPanel.gd" id="1_mail"]
+
+[node name="AllianceMailPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mail")
+
+[node name="BroadcastForm" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 270.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderLbl" type="Label" parent="BroadcastForm"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "✍️ ISSUE ALLIANCE BROADCAST"
+
+[node name="TitleInput" type="LineEdit" parent="BroadcastForm"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Enter circular title..."
+
+[node name="BodyInput" type="TextEdit" parent="BroadcastForm"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Draft imperial order to be transmitted to all alliance members..."
+wrap_mode = 1
+
+[node name="BtnSend" type="Button" parent="BroadcastForm"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "✉️ Send Alchemical Circular"
+
+[node name="HistoryHeader" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 290.0
+offset_right = -20.0
+offset_bottom = 320.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 18
+text = "📜 ALLIANCE CIRCULARS"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 330.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrownmarkUpgradeCostsSchema",
+  "description": "Validation schema for leveling-up costs, basic and special materials requirements, and progression milestones.",
+  "type": "object",
+  "required": ["scaling_constants", "materials", "levels"],
+  "properties": {
+    "scaling_constants": {
+      "type": "object",
+      "required": [
+        "legendary_multiplier",
+        "epic_multiplier",
+        "rare_multiplier",
+        "gold_base_cost",
+        "dust_base_cost"
+      ],
+      "properties": {
+        "legendary_multiplier": { "type": "number", "minimum": 1.0 },
+        "epic_multiplier": { "type": "number", "minimum": 1.0 },
+        "rare_multiplier": { "type": "number", "minimum": 1.0 },
+        "gold_base_cost": { "type": "integer", "minimum": 0 },
+        "dust_base_cost": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "materials": {
+      "type": "array",
+      "description": "Information lookup list of physical materials required for upgrading.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "rarity", "source"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rarity": {
+            "type": "string",
+            "enum": ["common", "rare", "legendary"]
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "description": "Indexed list of upgrade steps with explicit resource costs and gatekeepers.",
+      "items": {
+        "type": "object",
+        "required": [
+          "level",
+          "gold_cost",
+          "dust_cost",
+          "special_materials",
+          "star_cap_required"
+        ],
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "The target level value."
+          },
+          "gold_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Raw gold cost required for the level step."
+          },
+          "dust_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Raw starlight dust cost required for the level step."
+          },
+          "special_materials": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Special materials and quantities required (e.g. star_iron_shards: 5)."
+          },
+          "star_cap_required": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "The minimum awakening star rating required to cross this level boundary."
+          }
+        }
+      }
+    }
+  }
+}

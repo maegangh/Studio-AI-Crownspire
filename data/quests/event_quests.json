@@ -1,0 +1,51 @@
+[
+  {
+    "id": "event_winter_shield_1",
+    "category_id": "event",
+    "name": "Winter Shield Guard",
+    "description": "Engage in winter training. Recruit infantry forces to earn winter festival points.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 30,
+    "objectives": [
+      {
+        "id": "obj_winter_troops",
+        "description": "Train 500 Infantry Units",
+        "type": "troop_train",
+        "target_id": "infantry",
+        "current": 120,
+        "target": 500,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Seasonal Winter Shield Skin", "type": "seasonal_skin", "quantity": 1, "rarity": 4, "icon": "❄️" },
+      { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 200, "rarity": 3, "icon": "💎" }
+    ]
+  },
+  {
+    "id": "event_sovereign_clash",
+    "category_id": "event",
+    "name": "Sovereign Ambitions",
+    "description": "Engage in territory expansion. Build and complete 2 Alliance Fortress or Tower constructs.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 50,
+    "objectives": [
+      {
+        "id": "obj_alliance_buildings_built",
+        "description": "Donate resources to 2 Alliance Projects",
+        "type": "alliance_project_donation",
+        "current": 0,
+        "target": 2,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "War Scroll Buff", "type": "war_scroll_buff", "quantity": 1, "rarity": 3, "icon": "📜" },
+      { "name": "Gold", "type": "gold", "quantity": 50000, "rarity": 1, "icon": "🪙" }
+    ]
+  }
+]

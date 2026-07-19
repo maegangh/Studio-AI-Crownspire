@@ -1,0 +1,323 @@
+[
+  {
+    "id": "res_gold_100k",
+    "name": "Royal Gold Purse (100k)",
+    "description": "A heavy velvet purse of gold coins stamped with the Crownspire coat of arms. Instantly adds 100,000 Gold.",
+    "category_id": "resources",
+    "rarity": 1,
+    "icon_emoji": "🪙",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "gold",
+      "amount": 100000
+    }
+  },
+  {
+    "id": "res_gold_1m",
+    "name": "Sovereign Gold Chest (1M)",
+    "description": "An imperial gold chest containing 1,000,000 pure gold coins. Instantly adds 1,000,000 Gold.",
+    "category_id": "resources",
+    "rarity": 4,
+    "icon_emoji": "💰",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "gold",
+      "amount": 1000000
+    }
+  },
+  {
+    "id": "res_food_500k",
+    "name": "Citadel Grain Supply (500k)",
+    "description": "Enchanted bags of preservation-spell grains. Adds 500,000 Food to sustain your city.",
+    "category_id": "resources",
+    "rarity": 2,
+    "icon_emoji": "🌾",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "food",
+      "amount": 500000
+    }
+  },
+  {
+    "id": "res_wood_500k",
+    "name": "Ironwood Timber Bundle (500k)",
+    "description": "A shipment of high-density ironwood, vital for fortifying city gates and defenses. Adds 500,000 Wood.",
+    "category_id": "resources",
+    "rarity": 2,
+    "icon_emoji": "🪵",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "wood",
+      "amount": 500000
+    }
+  },
+  {
+    "id": "res_stone_250k",
+    "name": "Quarried Granite Block (250k)",
+    "description": "Heavy quarried granite block, ready for construction. Adds 250,000 Stone.",
+    "category_id": "resources",
+    "rarity": 2,
+    "icon_emoji": "🪨",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "stone",
+      "amount": 250000
+    }
+  },
+  {
+    "id": "res_iron_100k",
+    "name": "Refined Alchemical Ore (100k)",
+    "description": "High-purity refined alchemical iron ore, perfect for forging. Adds 100,000 Iron.",
+    "category_id": "resources",
+    "rarity": 3,
+    "icon_emoji": "🔩",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_resource",
+      "resource": "iron",
+      "amount": 100000
+    }
+  },
+  {
+    "id": "consumable_elixir_minor",
+    "name": "Minor Health Elixir",
+    "description": "A faint red alchemical brew that heals basic combat wounds. Restores 1,000 Hero HP.",
+    "category_id": "consumables",
+    "rarity": 1,
+    "icon_emoji": "🧪",
+    "can_use": true,
+    "use_effect": {
+      "type": "restore_hp",
+      "amount": 1000
+    }
+  },
+  {
+    "id": "consumable_stamina_potion",
+    "name": "Astral Stamina Potion",
+    "description": "A starry blue fluid that reinvigorates generals. Instantly restores 100 Campaign Stamina.",
+    "category_id": "consumables",
+    "rarity": 3,
+    "icon_emoji": "🧪",
+    "can_use": true,
+    "use_effect": {
+      "type": "restore_stamina",
+      "amount": 100
+    }
+  },
+  {
+    "id": "speedup_15m",
+    "name": "Temporal Sand (15m)",
+    "description": "A small hourglass containing enchanted sands. Reduces any active construction or research queue by 15 minutes.",
+    "category_id": "speedups",
+    "rarity": 1,
+    "icon_emoji": "⏳",
+    "can_use": true,
+    "use_effect": {
+      "type": "speedup",
+      "minutes": 15
+    }
+  },
+  {
+    "id": "speedup_1h",
+    "name": "Chronos Quartz (1h)",
+    "description": "A crystalline quartz humming with time magic. Reduces any active queue by 1 hour.",
+    "category_id": "speedups",
+    "rarity": 2,
+    "icon_emoji": "⏱️",
+    "can_use": true,
+    "use_effect": {
+      "type": "speedup",
+      "minutes": 60
+    }
+  },
+  {
+    "id": "speedup_8h",
+    "name": "Temporal Singularity (8h)",
+    "description": "An intense, dark vortex of localized time. Speeds up work queues by 8 hours.",
+    "category_id": "speedups",
+    "rarity": 4,
+    "icon_emoji": "🌀",
+    "can_use": true,
+    "use_effect": {
+      "type": "speedup",
+      "minutes": 480
+    }
+  },
+  {
+    "id": "boost_atk_10",
+    "name": "Sovereign Battle Banner (+10% ATK)",
+    "description": "A banner soaked in martial glory. Boosts your legion's combat ATK stats by +10% for 12 hours.",
+    "category_id": "boosts",
+    "rarity": 3,
+    "icon_emoji": "🚩",
+    "can_use": true,
+    "use_effect": {
+      "type": "apply_buff",
+      "buff_id": "legion_atk_10",
+      "duration_hours": 12
+    }
+  },
+  {
+    "id": "shield_8h",
+    "name": "Aegis Dome Shield (8h)",
+    "description": "Projects a shimmering magic field over your city, shielding it from enemy attacks and recon for 8 hours.",
+    "category_id": "shields",
+    "rarity": 2,
+    "icon_emoji": "🛡️",
+    "can_use": true,
+    "use_effect": {
+      "type": "apply_shield",
+      "duration_hours": 8
+    }
+  },
+  {
+    "id": "shield_24h",
+    "name": "Sovereign Ward (24h)",
+    "description": "A golden ward that immunizes your city from all attacks, scouts, and sieges for 24 hours.",
+    "category_id": "shields",
+    "rarity": 4,
+    "icon_emoji": "🔰",
+    "can_use": true,
+    "use_effect": {
+      "type": "apply_shield",
+      "duration_hours": 24
+    }
+  },
+  {
+    "id": "chest_common",
+    "name": "Quarry Wooden Chest",
+    "description": "A simple wooden chest discarded by local wildlings. Open to reveal standard construction items and raw gold.",
+    "category_id": "chests",
+    "rarity": 1,
+    "icon_emoji": "📦",
+    "can_use": true,
+    "use_effect": {
+      "type": "open_chest",
+      "loot_table": [
+        {"item_id": "res_gold_100k", "min": 1, "max": 2, "chance": 0.8},
+        {"item_id": "speedup_15m", "min": 1, "max": 3, "chance": 0.5}
+      ]
+    }
+  },
+  {
+    "id": "chest_epic_sovereign",
+    "name": "Gilded Sovereign Treasure",
+    "description": "An ornate, heavy gold-banded imperial chest with dragon seals. Open to receive legendary materials, hero shards, and immense gold.",
+    "category_id": "chests",
+    "rarity": 4,
+    "icon_emoji": "🎁",
+    "can_use": true,
+    "use_effect": {
+      "type": "open_chest",
+      "loot_table": [
+        {"item_id": "res_gold_1m", "min": 1, "max": 1, "chance": 1.0},
+        {"item_id": "shard_valerius", "min": 5, "max": 15, "chance": 0.8},
+        {"item_id": "asc_star_sigil", "min": 1, "max": 3, "chance": 0.6}
+      ]
+    }
+  },
+  {
+    "id": "shard_valerius",
+    "name": "Valerius Sovereign Shard",
+    "description": "An absolute essence shard of Valerius, the Dragon Sentinel. Used to evolve his star rank and unlock devastating powers.",
+    "category_id": "hero_shards",
+    "rarity": 4,
+    "icon_emoji": "👤",
+    "can_use": false
+  },
+  {
+    "id": "shard_aria",
+    "name": "Aria Obsidian Shard",
+    "description": "An obsidian soul crystal containing the assassin Aria's shadow essence. Used for her Ascension.",
+    "category_id": "hero_shards",
+    "rarity": 3,
+    "icon_emoji": "👤",
+    "can_use": false
+  },
+  {
+    "id": "hero_xp_elixir_1k",
+    "name": "Tactician Tome of Wisdom",
+    "description": "An ancient alchemical codex filled with tactical history. Use to grant 1,000 XP to any General.",
+    "category_id": "hero_xp",
+    "rarity": 2,
+    "icon_emoji": "🧪",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_hero_xp",
+      "amount": 1000
+    }
+  },
+  {
+    "id": "hero_xp_elixir_5k",
+    "name": "Grand Archon Elixir (5k XP)",
+    "description": "A highly concentrated glowing alchemical formula. Use to grant 5,000 XP directly to a selected General.",
+    "category_id": "hero_xp",
+    "rarity": 4,
+    "icon_emoji": "🧪",
+    "can_use": true,
+    "use_effect": {
+      "type": "grant_hero_xp",
+      "amount": 5000
+    }
+  },
+  {
+    "id": "gear_sword_epic",
+    "name": "Sunfire Dragon-Glass Blade",
+    "description": "A massive broadsword forged with obsidian dragon-glass and tempered in caldera lava. Level: 40, Type: Weapon.",
+    "category_id": "equipment",
+    "rarity": 4,
+    "icon_emoji": "⚔️",
+    "can_use": false
+  },
+  {
+    "id": "asc_star_sigil",
+    "name": "Celestial Star Sigil",
+    "description": "An astral sigil required for advancing any Sovereign General beyond the 4-Star threshold.",
+    "category_id": "ascension_materials",
+    "rarity": 4,
+    "icon_emoji": "🌟",
+    "can_use": false
+  },
+  {
+    "id": "teleport_random",
+    "name": "Unstable Warp Stone",
+    "description": "A crackling alchemical rune stone. Instantly teleports your citadel to a completely random coordinate on the World Map.",
+    "category_id": "teleport_items",
+    "rarity": 2,
+    "icon_emoji": "🌀",
+    "can_use": true,
+    "use_effect": {
+      "type": "teleport_random"
+    }
+  },
+  {
+    "id": "teleport_fixed",
+    "name": "Precision Gateway Core",
+    "description": "A massive mechanical waypoint key. Teleports your city to any precise, unoccupied coordinate on the World Map.",
+    "category_id": "teleport_items",
+    "rarity": 4,
+    "icon_emoji": "📍",
+    "can_use": true,
+    "use_effect": {
+      "type": "teleport_precise"
+    }
+  },
+  {
+    "id": "cosmetic_castle_aurora",
+    "name": "Aurora Castle Citadel Skin",
+    "description": "Transforms your standard medieval citadel into a dazzling crystalline fortress of northern light magic. (Permanent Skin)",
+    "category_id": "cosmetics",
+    "rarity": 5,
+    "icon_emoji": "🏰",
+    "can_use": true,
+    "use_effect": {
+      "type": "unlock_skin",
+      "skin_id": "castle_aurora"
+    }
+  }
+]

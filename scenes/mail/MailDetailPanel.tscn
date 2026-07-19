@@ -1,0 +1,335 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm10detail"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailDetailPanel.gd" id="1_detail"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailAttachmentPanel.tscn" id="2_attach"]
+
+[sub_name="StyleBoxFlat_bg" type="StyleBoxFlat"]
+bg_color = Color(0.06, 0.08, 0.12, 1.0)
+
+[sub_name="StyleBoxFlat_battle_bg" type="StyleBoxFlat"]
+bg_color = Color(0.08, 0.1, 0.15, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.22, 0.32, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="StyleBoxFlat_win" type="StyleBoxFlat"]
+bg_color = Color(0.15, 0.35, 0.2, 0.4)
+border_width_left = 3
+border_color = Color(0.4, 0.9, 0.5, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_name="StyleBoxFlat_lose" type="StyleBoxFlat"]
+bg_color = Color(0.35, 0.15, 0.15, 0.4)
+border_width_left = 3
+border_color = Color(0.9, 0.3, 0.3, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_name="StyleBoxFlat_claim" type="StyleBoxFlat"]
+bg_color = Color(0.75, 0.55, 0.1, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="StyleBoxFlat_del" type="StyleBoxFlat"]
+bg_color = Color(0.25, 0.12, 0.15, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.2, 0.25, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="LabelSettings_dtl_title" type="LabelSettings"]
+font_size = 18
+font_color = Color(1, 1, 1, 1)
+
+[sub_name="LabelSettings_dtl_snd" type="LabelSettings"]
+font_size = 13
+font_color = Color(1.0, 0.92, 0.8, 1.0)
+
+[sub_name="LabelSettings_dtl_sub" type="LabelSettings"]
+font_size = 11
+font_color = Color(0.5, 0.55, 0.6, 1.0)
+
+[sub_name="LabelSettings_outcome" type="LabelSettings"]
+font_size = 20
+font_color = Color(0.4, 1.0, 0.5, 1.0)
+
+[sub_name="LabelSettings_stat_lbl" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.6, 0.65, 0.7, 1.0)
+
+[sub_name="LabelSettings_stat_val" type="LabelSettings"]
+font_size = 12
+font_color = Color(0.9, 0.9, 0.95, 1.0)
+
+[node name="MailDetailPanel" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_detail")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderPanel" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DetailBackButton" type="Button" parent="VBoxContainer/HeaderPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "↩"
+flat = true
+
+[node name="TitleBox" type="VBoxContainer" parent="VBoxContainer/HeaderPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="DetailTitle" type="Label" parent="VBoxContainer/HeaderPanel/HBoxContainer/TitleBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Victory: Wildling Camp Outpost!"
+label_settings = SubResource("LabelSettings_dtl_title")
+text_overrun_behavior = 3
+
+[node name="DetailSender" type="Label" parent="VBoxContainer/HeaderPanel/HBoxContainer/TitleBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "From: Aurelius' Vanguard"
+label_settings = SubResource("LabelSettings_dtl_snd")
+
+[node name="MetaBox" type="HBoxContainer" parent="VBoxContainer/HeaderPanel/HBoxContainer/TitleBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DetailDate" type="Label" parent="VBoxContainer/HeaderPanel/HBoxContainer/TitleBox/MetaBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2 hours ago"
+label_settings = SubResource("LabelSettings_dtl_sub")
+
+[node name="DetailExpiry" type="Label" parent="VBoxContainer/HeaderPanel/HBoxContainer/TitleBox/MetaBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Expires in 15d"
+label_settings = SubResource("LabelSettings_dtl_sub")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="ContentVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="DetailBodyText" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/ContentVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/default_color = Color(0.85, 0.85, 0.9, 1.0)
+theme_override_font_sizes/normal_font_size = 14
+text = "Greetings, Commander..."
+fit_content = true
+scroll_active = false
+
+[node name="BattleReportPanel" type="PanelContainer" parent="VBoxContainer/ScrollContainer/ContentVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_battle_bg")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OutcomeHeader" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="WinDecor" type="Panel" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/OutcomeHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 28)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_win")
+
+[node name="CombatOutcomeLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/OutcomeHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "VICTORY"
+label_settings = SubResource("LabelSettings_outcome")
+horizontal_alignment = 1
+
+[node name="LoseDecor" type="Panel" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/OutcomeHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(8, 28)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lose")
+
+[node name="Grid" type="GridContainer" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="WinnerLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Winner"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsWinnerVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lord Aurelius"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="LoserLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Loser"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsLoserVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kargath"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="CoordsLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Coordinates"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsCoordsVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(X: 342, Y: 198)"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="MyPowerLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "My Power"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsMyPowerVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "450K"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="EnemyPowerLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Enemy Power"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsEnemyPowerVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "320K"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="MyLossesLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "My Troop Losses"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsMyLossesVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "124"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="EnemyLossesLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Enemy Troops Slain"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsEnemyLossesVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1,420"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+
+[node name="PlunderLabel" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+layout_mode = 2
+text = "Resources Plundered"
+label_settings = SubResource("LabelSettings_stat_lbl")
+
+[node name="StatsPlunderVal" type="Label" parent="VBoxContainer/ScrollContainer/ContentVBox/BattleReportPanel/MarginContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+8K Food, +6K Wood"
+label_settings = SubResource("LabelSettings_stat_val")
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="MailAttachmentPanel" parent="VBoxContainer/ScrollContainer/ContentVBox" instance=ExtResource("2_attach")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ActionPanel" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DetailDeleteButton" type="Button" parent="VBoxContainer/ActionPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.4, 0.4, 1.0)
+theme_override_styles/normal = SubResource("StyleBoxFlat_del")
+theme_override_font_sizes/font_size = 14
+text = "Delete Message"
+
+[node name="DetailClaimButton" type="Button" parent="VBoxContainer/ActionPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+theme_override_styles/normal = SubResource("StyleBoxFlat_claim")
+theme_override_font_sizes/font_size = 14
+text = "Claim Rewards"

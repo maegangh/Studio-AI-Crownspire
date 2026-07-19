@@ -1,0 +1,72 @@
+[
+  {
+    "id": "main_story_chapter1_1",
+    "category_id": "main",
+    "name": "A Kingdom Reborn",
+    "description": "Welcome to Crownspire, Commander. First, secure our perimeter and upgrade your keep to command greater military legions.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": true,
+    "quest_points": 50,
+    "objectives": [
+      {
+        "id": "obj_keep_upgrade",
+        "description": "Upgrade Citadel Keep to Level 5",
+        "type": "building_upgrade",
+        "target_id": "keep",
+        "current": 4,
+        "target": 5,
+        "completed": false
+      },
+      {
+        "id": "obj_barracks_build",
+        "description": "Construct Military Barracks",
+        "type": "building_upgrade",
+        "target_id": "barracks",
+        "current": 0,
+        "target": 1,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 500, "rarity": 3, "icon": "💎" },
+      { "name": "Gold Coins", "type": "gold", "quantity": 25000, "rarity": 1, "icon": "🪙" },
+      { "name": "Lord XP", "type": "lord_xp", "quantity": 1000, "rarity": 2, "icon": "👑" }
+    ]
+  },
+  {
+    "id": "main_story_chapter1_2",
+    "category_id": "main",
+    "name": "Royal Academics",
+    "description": "Unlock alchemical studies and research fundamental resource extraction techniques inside the Academy.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 75,
+    "objectives": [
+      {
+        "id": "obj_academy_build",
+        "description": "Upgrade Alchemical Academy to Level 3",
+        "type": "building_upgrade",
+        "target_id": "academy",
+        "current": 1,
+        "target": 3,
+        "completed": false
+      },
+      {
+        "id": "obj_research_plow",
+        "description": "Research Heavy Steel Plow Level 2",
+        "type": "research_tech",
+        "target_id": "tech_plow",
+        "current": 0,
+        "target": 2,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Aurelion Shard", "type": "hero_shard", "hero_id": "aurelion", "quantity": 10, "rarity": 4, "icon": "🌟" },
+      { "name": "Alliance Honor", "type": "alliance_honor", "quantity": 1000, "rarity": 2, "icon": "🛡️" },
+      { "name": "1-Hour Research Speedup", "type": "speedup_1h", "quantity": 3, "rarity": 2, "icon": "⚡" }
+    ]
+  }
+]

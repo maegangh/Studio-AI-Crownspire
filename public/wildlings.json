@@ -1,0 +1,1142 @@
+[
+  {
+    "id": "mon_norm_01",
+    "name": "Wildling Wolf (Lvl 1)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 1,
+    "troopWeakness": "infantry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 300,
+    "defense": 230,
+    "health": 1700,
+    "speed": 100,
+    "power": 12000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 5000,
+        "wood": 4000,
+        "stone": 3000,
+        "iron": 1500,
+        "gold": 0,
+        "valor": 15
+      },
+      "heroExperience": 100,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "mon_norm_02",
+    "name": "Wildling Wolf (Lvl 2)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 2,
+    "troopWeakness": "marksmen",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 500,
+    "defense": 380,
+    "health": 2900,
+    "speed": 100,
+    "power": 20000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 10000,
+        "wood": 8000,
+        "stone": 6000,
+        "iron": 3000,
+        "gold": 0,
+        "valor": 20
+      },
+      "heroExperience": 200,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "mon_norm_03",
+    "name": "Wildling Wolf (Lvl 3)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 3,
+    "troopWeakness": "cavalry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 700,
+    "defense": 530,
+    "health": 4100,
+    "speed": 100,
+    "power": 28000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 15000,
+        "wood": 12000,
+        "stone": 9000,
+        "iron": 4500,
+        "gold": 0,
+        "valor": 25
+      },
+      "heroExperience": 300,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "mon_norm_04",
+    "name": "Wildling Wolf (Lvl 4)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 4,
+    "troopWeakness": "infantry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 900,
+    "defense": 680,
+    "health": 5300,
+    "speed": 100,
+    "power": 36000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 20000,
+        "wood": 16000,
+        "stone": 12000,
+        "iron": 6000,
+        "gold": 0,
+        "valor": 30
+      },
+      "heroExperience": 400,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "mon_norm_05",
+    "name": "Wildling Wolf (Lvl 5)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 5,
+    "troopWeakness": "marksmen",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 1100,
+    "defense": 830,
+    "health": 6500,
+    "speed": 100,
+    "power": 44000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 25000,
+        "wood": 20000,
+        "stone": 15000,
+        "iron": 7500,
+        "gold": 0,
+        "valor": 35
+      },
+      "heroExperience": 500,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "mon_norm_06",
+    "name": "Wildling Bear (Lvl 6)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 6,
+    "troopWeakness": "cavalry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1300,
+    "defense": 980,
+    "health": 7700,
+    "speed": 100,
+    "power": 52000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 30000,
+        "wood": 24000,
+        "stone": 18000,
+        "iron": 9000,
+        "gold": 0,
+        "valor": 40
+      },
+      "heroExperience": 600,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "mon_norm_07",
+    "name": "Wildling Bear (Lvl 7)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 7,
+    "troopWeakness": "infantry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1500,
+    "defense": 1130,
+    "health": 8900,
+    "speed": 100,
+    "power": 60000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 35000,
+        "wood": 28000,
+        "stone": 21000,
+        "iron": 10500,
+        "gold": 0,
+        "valor": 45
+      },
+      "heroExperience": 700,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "mon_norm_08",
+    "name": "Wildling Bear (Lvl 8)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 8,
+    "troopWeakness": "marksmen",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1700,
+    "defense": 1280,
+    "health": 10100,
+    "speed": 100,
+    "power": 68000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 40000,
+        "wood": 32000,
+        "stone": 24000,
+        "iron": 12000,
+        "gold": 0,
+        "valor": 50
+      },
+      "heroExperience": 800,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "mon_norm_09",
+    "name": "Wildling Bear (Lvl 9)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 9,
+    "troopWeakness": "cavalry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1900,
+    "defense": 1430,
+    "health": 11300,
+    "speed": 100,
+    "power": 76000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 45000,
+        "wood": 36000,
+        "stone": 27000,
+        "iron": 13500,
+        "gold": 0,
+        "valor": 55
+      },
+      "heroExperience": 900,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "mon_norm_10",
+    "name": "Wildling Bear (Lvl 10)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 10,
+    "troopWeakness": "infantry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 2100,
+    "defense": 1580,
+    "health": 12500,
+    "speed": 100,
+    "power": 84000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 50000,
+        "wood": 40000,
+        "stone": 30000,
+        "iron": 15000,
+        "gold": 0,
+        "valor": 60
+      },
+      "heroExperience": 1000,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "mon_norm_11",
+    "name": "Wildling Spider (Lvl 11)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 11,
+    "troopWeakness": "infantry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2300,
+    "defense": 1730,
+    "health": 13700,
+    "speed": 100,
+    "power": 92000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 55000,
+        "wood": 44000,
+        "stone": 33000,
+        "iron": 16500,
+        "gold": 0,
+        "valor": 65
+      },
+      "heroExperience": 1100,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "mon_norm_12",
+    "name": "Wildling Spider (Lvl 12)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 12,
+    "troopWeakness": "marksmen",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2500,
+    "defense": 1880,
+    "health": 14900,
+    "speed": 100,
+    "power": 100000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 60000,
+        "wood": 48000,
+        "stone": 36000,
+        "iron": 18000,
+        "gold": 0,
+        "valor": 70
+      },
+      "heroExperience": 1200,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "mon_norm_13",
+    "name": "Wildling Spider (Lvl 13)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 13,
+    "troopWeakness": "cavalry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2700,
+    "defense": 2030,
+    "health": 16100,
+    "speed": 100,
+    "power": 108000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 65000,
+        "wood": 52000,
+        "stone": 39000,
+        "iron": 19500,
+        "gold": 0,
+        "valor": 75
+      },
+      "heroExperience": 1300,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "mon_norm_14",
+    "name": "Wildling Spider (Lvl 14)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 14,
+    "troopWeakness": "infantry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2900,
+    "defense": 2180,
+    "health": 17300,
+    "speed": 100,
+    "power": 116000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 70000,
+        "wood": 56000,
+        "stone": 42000,
+        "iron": 21000,
+        "gold": 0,
+        "valor": 80
+      },
+      "heroExperience": 1400,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "mon_norm_15",
+    "name": "Wildling Spider (Lvl 15)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 15,
+    "troopWeakness": "marksmen",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 3100,
+    "defense": 2330,
+    "health": 18500,
+    "speed": 100,
+    "power": 124000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 75000,
+        "wood": 60000,
+        "stone": 45000,
+        "iron": 22500,
+        "gold": 0,
+        "valor": 85
+      },
+      "heroExperience": 1500,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "mon_norm_16",
+    "name": "Wildling Boar (Lvl 16)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 16,
+    "troopWeakness": "cavalry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 3300,
+    "defense": 2480,
+    "health": 19700,
+    "speed": 100,
+    "power": 132000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 80000,
+        "wood": 64000,
+        "stone": 48000,
+        "iron": 24000,
+        "gold": 0,
+        "valor": 90
+      },
+      "heroExperience": 1600,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "mon_norm_17",
+    "name": "Wildling Boar (Lvl 17)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 17,
+    "troopWeakness": "infantry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 3500,
+    "defense": 2630,
+    "health": 20900,
+    "speed": 100,
+    "power": 140000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 85000,
+        "wood": 68000,
+        "stone": 51000,
+        "iron": 25500,
+        "gold": 0,
+        "valor": 95
+      },
+      "heroExperience": 1700,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "mon_norm_18",
+    "name": "Wildling Boar (Lvl 18)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 18,
+    "troopWeakness": "marksmen",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 3700,
+    "defense": 2780,
+    "health": 22100,
+    "speed": 100,
+    "power": 148000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 90000,
+        "wood": 72000,
+        "stone": 54000,
+        "iron": 27000,
+        "gold": 0,
+        "valor": 100
+      },
+      "heroExperience": 1800,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "mon_norm_19",
+    "name": "Wildling Boar (Lvl 19)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 19,
+    "troopWeakness": "cavalry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 3900,
+    "defense": 2930,
+    "health": 23300,
+    "speed": 100,
+    "power": 156000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 95000,
+        "wood": 76000,
+        "stone": 57000,
+        "iron": 28500,
+        "gold": 0,
+        "valor": 105
+      },
+      "heroExperience": 1900,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "mon_norm_20",
+    "name": "Wildling Boar (Lvl 20)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 20,
+    "troopWeakness": "infantry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 4100,
+    "defense": 3080,
+    "health": 24500,
+    "speed": 100,
+    "power": 164000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 100000,
+        "wood": 80000,
+        "stone": 60000,
+        "iron": 30000,
+        "gold": 0,
+        "valor": 110
+      },
+      "heroExperience": 2000,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "mon_norm_21",
+    "name": "Wildling Troll (Lvl 21)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 21,
+    "troopWeakness": "infantry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 4300,
+    "defense": 3230,
+    "health": 25700,
+    "speed": 100,
+    "power": 172000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 105000,
+        "wood": 84000,
+        "stone": 63000,
+        "iron": 31500,
+        "gold": 0,
+        "valor": 115
+      },
+      "heroExperience": 2100,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "mon_norm_22",
+    "name": "Wildling Troll (Lvl 22)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 22,
+    "troopWeakness": "marksmen",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 4500,
+    "defense": 3380,
+    "health": 26900,
+    "speed": 100,
+    "power": 180000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 110000,
+        "wood": 88000,
+        "stone": 66000,
+        "iron": 33000,
+        "gold": 0,
+        "valor": 120
+      },
+      "heroExperience": 2200,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "mon_norm_23",
+    "name": "Wildling Troll (Lvl 23)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 23,
+    "troopWeakness": "cavalry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 4700,
+    "defense": 3530,
+    "health": 28100,
+    "speed": 100,
+    "power": 188000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 115000,
+        "wood": 92000,
+        "stone": 69000,
+        "iron": 34500,
+        "gold": 0,
+        "valor": 125
+      },
+      "heroExperience": 2300,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "mon_norm_24",
+    "name": "Wildling Troll (Lvl 24)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 24,
+    "troopWeakness": "infantry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 4900,
+    "defense": 3680,
+    "health": 29300,
+    "speed": 100,
+    "power": 196000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 120000,
+        "wood": 96000,
+        "stone": 72000,
+        "iron": 36000,
+        "gold": 0,
+        "valor": 130
+      },
+      "heroExperience": 2400,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "mon_norm_25",
+    "name": "Wildling Troll (Lvl 25)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 25,
+    "troopWeakness": "marksmen",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 5100,
+    "defense": 3830,
+    "health": 30500,
+    "speed": 100,
+    "power": 204000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 125000,
+        "wood": 100000,
+        "stone": 75000,
+        "iron": 37500,
+        "gold": 0,
+        "valor": 135
+      },
+      "heroExperience": 2500,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "mon_norm_26",
+    "name": "Wildling Dragon (Lvl 26)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 26,
+    "troopWeakness": "cavalry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 5300,
+    "defense": 3980,
+    "health": 31700,
+    "speed": 100,
+    "power": 212000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 130000,
+        "wood": 104000,
+        "stone": 78000,
+        "iron": 39000,
+        "gold": 0,
+        "valor": 140
+      },
+      "heroExperience": 2600,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "mon_norm_27",
+    "name": "Wildling Dragon (Lvl 27)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 27,
+    "troopWeakness": "infantry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 5500,
+    "defense": 4130,
+    "health": 32900,
+    "speed": 100,
+    "power": 220000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 135000,
+        "wood": 108000,
+        "stone": 81000,
+        "iron": 40500,
+        "gold": 0,
+        "valor": 145
+      },
+      "heroExperience": 2700,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "mon_norm_28",
+    "name": "Wildling Dragon (Lvl 28)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 28,
+    "troopWeakness": "marksmen",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 5700,
+    "defense": 4280,
+    "health": 34100,
+    "speed": 100,
+    "power": 228000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 140000,
+        "wood": 112000,
+        "stone": 84000,
+        "iron": 42000,
+        "gold": 0,
+        "valor": 150
+      },
+      "heroExperience": 2800,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "mon_norm_29",
+    "name": "Wildling Dragon (Lvl 29)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 29,
+    "troopWeakness": "cavalry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 5900,
+    "defense": 4430,
+    "health": 35300,
+    "speed": 100,
+    "power": 236000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 145000,
+        "wood": 116000,
+        "stone": 87000,
+        "iron": 43500,
+        "gold": 0,
+        "valor": 155
+      },
+      "heroExperience": 2900,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "mon_norm_30",
+    "name": "Wildling Dragon (Lvl 30)",
+    "monsterType": "Wildling",
+    "rarity": "Common",
+    "level": 30,
+    "troopWeakness": "infantry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 6100,
+    "defense": 4580,
+    "health": 36500,
+    "speed": 100,
+    "power": 244000,
+    "marchRequirement": 1,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "resources": {
+        "food": 150000,
+        "wood": 120000,
+        "stone": 90000,
+        "iron": 45000,
+        "gold": 0,
+        "valor": 160
+      },
+      "heroExperience": 3000,
+      "heroShards": null,
+      "speedups": [
+        "Minor Speedup"
+      ],
+      "equipmentMaterials": [
+        "Common Ore"
+      ],
+      "petMaterials": []
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "gold",
+    "name": "Gold",
+    "description": "Standard coin currency of Crownspire, used for academy research, city upkeep, and recruitment.",
+    "icon_emoji": "🪙"
+  },
+  {
+    "id": "food",
+    "name": "Food",
+    "description": "Farming yields required for feeding citizens and sustaining the legion armies.",
+    "icon_emoji": "🌾"
+  },
+  {
+    "id": "wood",
+    "name": "Wood",
+    "description": "Timber harvested from ironwood forests, critical for building and siege engines.",
+    "icon_emoji": "🪵"
+  },
+  {
+    "id": "stone",
+    "name": "Stone",
+    "description": "Heavy granite block carved from quarries, essential for fortifying walls and castles.",
+    "icon_emoji": "🪨"
+  },
+  {
+    "id": "iron",
+    "name": "Iron",
+    "description": "High-grade alchemical iron ore, vital for forging weapons and gear upgrades.",
+    "icon_emoji": "🔩"
+  },
+  {
+    "id": "royal_crystal",
+    "name": "Royal Crystal",
+    "description": "Highly condensed magical blue crystals, the premium currency of Crownspire.",
+    "icon_emoji": "💎"
+  },
+  {
+    "id": "aurora_crystal",
+    "name": "Aurora Crystal",
+    "description": "Rare violet crystals mined from aura wells, used for special summoning and blessings.",
+    "icon_emoji": "🔮"
+  },
+  {
+    "id": "alliance_honor",
+    "name": "Alliance Honor",
+    "description": "Tokens earned through collaborative raids and helping allies, redeemable in the Alliance Shop.",
+    "icon_emoji": "🛡️"
+  }
+]

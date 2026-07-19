@@ -1,0 +1,66 @@
+[
+  {
+    "id": "beast_essence",
+    "name": "Beast Essence",
+    "icon": "🧪",
+    "quality": "Epic",
+    "description": "Luminescent core fluid extracted from Ancient Beasts. Vital for upgrading beast-forged equipment and unlocking alliance battle buffs.",
+    "category": "materials"
+  },
+  {
+    "id": "crownmarks",
+    "name": "Crownmarks",
+    "icon": "🪙",
+    "quality": "Legendary",
+    "description": "Sovereign royal currency used in the High Council. Trade these for premium progression artifacts and legendary hero fragments.",
+    "category": "currency"
+  },
+  {
+    "id": "rare_crafting_materials",
+    "name": "Astral Steel Core",
+    "icon": "🔩",
+    "quality": "Legendary",
+    "description": "A dense, stellar metal nugget salvaged from deep lair fissures. Required to forge Sovereign-tier weaponry and armor.",
+    "category": "materials"
+  },
+  {
+    "id": "diamonds",
+    "name": "Sovereign Diamonds",
+    "icon": "💎",
+    "quality": "Legendary",
+    "description": "Pure crystalline diamond shards infused with Crownspire magical energy. The primary premium currency of the realm.",
+    "category": "currency"
+  },
+  {
+    "id": "gold_supply",
+    "name": "Royal Gold Chest",
+    "icon": "📦",
+    "quality": "Rare",
+    "description": "A heavy ironbound strongbox brimming with royal gold. Instantly adds 50,000 Gold to your warehouse reserves.",
+    "category": "resource"
+  },
+  {
+    "id": "hero_xp_high",
+    "name": "Sovereign Tome of Secrets",
+    "icon": "📖",
+    "quality": "Epic",
+    "description": "An ancient leather-bound record of military campaigns. Grants 25,000 Hero Experience when read.",
+    "category": "xp"
+  },
+  {
+    "id": "speedup_8h",
+    "name": "8-Hour Master Speedup",
+    "icon": "⏳",
+    "quality": "Epic",
+    "description": "An hourglass blessed by the temporal mages. Substracts 8 hours from any ongoing building upgrade, troop training, or research queue.",
+    "category": "speedup"
+  },
+  {
+    "id": "beast_totem_currency",
+    "name": "Feral Mark",
+    "icon": "🎟️",
+    "quality": "Rare",
+    "description": "Seasonal event token obtained from defeating map landmarks. Exchange these in the Royal Outpost shop for special cosmetic frames.",
+    "category": "event"
+  }
+]

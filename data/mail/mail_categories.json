@@ -1,0 +1,32 @@
+[
+	{
+		"id": "all",
+		"name": "All Inbox",
+		"icon": "📨",
+		"description": "All messages in your Citadel inbox"
+	},
+	{
+		"id": "system",
+		"name": "System Mail",
+		"icon": "⚙️",
+		"description": "Official Citadel announcements, maintenance compensation, and support replies"
+	},
+	{
+		"id": "battle",
+		"name": "Battle Reports",
+		"icon": "⚔️",
+		"description": "Wildling skirmishes, PvP clashes, resource gathering sweeps, and scout operations"
+	},
+	{
+		"id": "alliance",
+		"name": "Alliance Mail",
+		"icon": "🛡️",
+		"description": "Rally declarations, leadership announcements, and alliance event distributions"
+	},
+	{
+		"id": "event",
+		"name": "Event Mail",
+		"icon": "🏆",
+		"description": "Live event reward distributions, seasonal updates, and leaderboards"
+	}
+]

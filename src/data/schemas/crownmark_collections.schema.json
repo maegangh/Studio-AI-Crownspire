@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CrownmarkCollectionsSchema",
+  "description": "Validation schema for the account-wide collections within the Citadel Codex gallery.",
+  "type": "object",
+  "required": ["collections"],
+  "properties": {
+    "collections": {
+      "type": "array",
+      "description": "Historical collection groupings yielding global passive account rewards.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "required_crownmarks",
+          "permanent_account_bonuses",
+          "lore_citation",
+          "citadel_prestige_awarded"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Unique catalog grouping identifier."
+          },
+          "name": {
+            "type": "string",
+            "description": "DisplayName of the collection exhibit."
+          },
+          "required_crownmarks": {
+            "type": "array",
+            "description": "List of precise Crownmark IDs that must be gathered.",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            }
+          },
+          "permanent_account_bonuses": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            },
+            "description": "Dictionary of permanent account statistics added when complete."
+          },
+          "lore_citation": {
+            "type": "string",
+            "description": "Atmospheric lore backstory describing the collection's historic significance."
+          },
+          "citadel_prestige_awarded": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Prestige point contribution added to the Citadel level up."
+          }
+        }
+      }
+    }
+  }
+}

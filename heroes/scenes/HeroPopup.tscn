@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://c11xt899heropopupmaster"]
+
+[ext_resource type="Script" path="res://heroes/scripts/HeroPopup.gd" id="1_heropopupgd"]
+[ext_resource type="PackedScene" uid="uid://c10xt899herodetailpanel" path="res://heroes/scenes/HeroDetailPanel.tscn" id="2_herodetailpanelscene"]
+
+[node name="HeroPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_heropopupgd")
+
+[node name="BackingColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.08, 0.12, 0.96)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="HeroPopupTitleLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "SOVEREIGN HALL OF HEROES"
+
+[node name="HeroPopupCloseButton" type="Button" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " CLOSE "
+
+[node name="FiltersHBox" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SearchLabel" type="Label" parent="Margin/Layout/FiltersHBox"]
+layout_mode = 2
+text = "SEARCH:"
+
+[node name="HeroSearchLineEdit" type="LineEdit" parent="Margin/Layout/FiltersHBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search by hero name or title..."
+clear_button_enabled = true
+
+[node name="TabBar" type="ScrollContainer" parent="Margin/Layout"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HeroTabsContainer" type="HBoxContainer" parent="Margin/Layout/TabBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="HSeparator" type="HSeparator" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="HeroArea" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="ListLayout" type="VBoxContainer" parent="Margin/Layout/HeroArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ListScroll" type="ScrollContainer" parent="Margin/Layout/HeroArea/ListLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="HeroListContainer" type="VBoxContainer" parent="Margin/Layout/HeroArea/ListLayout/ListScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HeroEmptyStateLabel" type="Label" parent="Margin/Layout/HeroArea/ListLayout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "No heroes match filter criteria."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeroDetailPanel" parent="Margin/Layout/HeroArea" instance=ExtResource("2_herodetailpanelscene")]
+unique_name_in_owner = true
+layout_mode = 2

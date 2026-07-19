@@ -1,0 +1,121 @@
+[
+  {
+    "category": "Development",
+    "technologies": [
+      {
+        "id": "tech_dev_1",
+        "name": "Alchemical Assembly",
+        "icon": "⏳",
+        "description": "Reduces building construction time for all alliance members.",
+        "level": 4,
+        "max_level": 10,
+        "current_donation": 45000,
+        "max_donation": 100000,
+        "bonus_per_level": "1.5% Speedup",
+        "current_bonus": "6% Speedup",
+        "req_resource_type": "wood"
+      },
+      {
+        "id": "tech_dev_2",
+        "name": "Dawn Scholars",
+        "icon": "🧪",
+        "description": "Increases research speed for all alliance members, including Scientist Core interactions.",
+        "level": 2,
+        "max_level": 10,
+        "current_donation": 82000,
+        "max_donation": 150000,
+        "bonus_per_level": "1.0% Speedup",
+        "current_bonus": "2.0% Speedup",
+        "req_resource_type": "gold"
+      },
+      {
+        "id": "tech_dev_3",
+        "name": "Crystallite Extraction",
+        "icon": "💎",
+        "description": "Speeds up alliance gathering rate at global Crystallite Spire nodes.",
+        "level": 1,
+        "max_level": 5,
+        "current_donation": 12000,
+        "max_donation": 50000,
+        "bonus_per_level": "2.0% Gathering Speed",
+        "current_bonus": "2.0% Gathering Speed",
+        "req_resource_type": "stone"
+      }
+    ]
+  },
+  {
+    "category": "Combat",
+    "technologies": [
+      {
+        "id": "tech_com_1",
+        "name": "Ironwood Fortifications",
+        "icon": "🛡️",
+        "description": "Increases defensive parameters of members' cities and alliance towers.",
+        "level": 3,
+        "max_level": 10,
+        "current_donation": 5000,
+        "max_donation": 120000,
+        "bonus_per_level": "2.0% Defense",
+        "current_bonus": "6.0% Defense",
+        "req_resource_type": "iron"
+      },
+      {
+        "id": "tech_com_2",
+        "name": "Crystallite Weaponry",
+        "icon": "⚔️",
+        "description": "Enhances troop attack attributes by infusing crystallite micro-charges.",
+        "level": 5,
+        "max_level": 10,
+        "current_donation": 0,
+        "max_donation": 200000,
+        "bonus_per_level": "2.0% Attack",
+        "current_bonus": "10.0% Attack",
+        "req_resource_type": "food"
+      },
+      {
+        "id": "tech_com_3",
+        "name": "Amber Phalanxes",
+        "icon": "🦁",
+        "description": "Increases maximum rally troop size capacity by 50,000 per level.",
+        "level": 1,
+        "max_level": 5,
+        "current_donation": 95000,
+        "max_donation": 300000,
+        "bonus_per_level": "50,000 Cap",
+        "current_bonus": "50,000 Cap",
+        "req_resource_type": "royal_crystal"
+      }
+    ]
+  },
+  {
+    "category": "Mystic (Beast)",
+    "technologies": [
+      {
+        "id": "tech_mys_1",
+        "name": "Feral Binding",
+        "icon": "🦁",
+        "description": "Prepares future capability for capturing and managing ancient Alliance Beasts.",
+        "level": 1,
+        "max_level": 5,
+        "current_donation": 15000,
+        "max_donation": 100000,
+        "bonus_per_level": "Unlocked Beast level tier +1",
+        "current_bonus": "Tier 1 Beats Unlocked",
+        "req_resource_type": "aurora_crystal"
+      },
+      {
+        "id": "tech_mys_2",
+        "name": "Dawn Core Resonator",
+        "icon": "🔮",
+        "description": "Improves Dawn Scientist interactions. Restores crystallite core energy efficiently.",
+        "level": 0,
+        "max_level": 5,
+        "current_donation": 0,
+        "max_donation": 80000,
+        "bonus_per_level": "+5% Scientist rewards multiplier",
+        "current_bonus": "Locked",
+        "req_resource_type": "royal_crystal"
+      }
+    ]
+  }
+]

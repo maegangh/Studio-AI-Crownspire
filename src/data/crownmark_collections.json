@@ -1,0 +1,82 @@
+{
+  "$schema": "./schemas/crownmark_collections.schema.json",
+  "title": "CrownmarkCollections",
+  "description": "Account-wide permanent collection buffs unlocked via historical crownmark sets inside the Citadel Codex museum.",
+  "collections": [
+    {
+      "id": "crownspire_ancestry",
+      "name": "Founders of the Vanguard",
+      "required_crownmarks": [
+        "maegan_scepter",
+        "maegan_crown",
+        "maegan_crest"
+      ],
+      "permanent_account_bonuses": {
+        "army_defense_percentage": 2.5,
+        "infantry_training_speed_percentage": 5.0
+      },
+      "lore_citation": "Volume I: The original armor pieces of Maegan Violet's direct bloodline, who stood at the spire's crown during the first Eclipse.",
+      "citadel_prestige_awarded": 1500
+    },
+    {
+      "id": "lunar_sanctum_secrets",
+      "name": "Lunar Archon Vestiges",
+      "required_crownmarks": [
+        "lorelai_bow",
+        "lorelai_diadem",
+        "lorelai_mantle"
+      ],
+      "permanent_account_bonuses": {
+        "marksmen_attack_percentage": 3.0,
+        "healing_herb_gather_speed": 8.0
+      },
+      "lore_citation": "Volume IV: Regalia of the high priestesses who maintained the silver crescent gates long before the dark corruption settled.",
+      "citadel_prestige_awarded": 1800
+    },
+    {
+      "id": "syndicate_whispers",
+      "name": "Phantom Syndicate Armaments",
+      "required_crownmarks": [
+        "shadow_daggers",
+        "shadow_cowl",
+        "shadow_cloak"
+      ],
+      "permanent_account_bonuses": {
+        "cavalry_attack_percentage": 3.0,
+        "ambush_bonus_percentage": 4.5
+      },
+      "lore_citation": "Volume VII: Stealth garments recovered from the deep ravines, belonging to the original seven Grandmasters of the Obsidian Syndicate.",
+      "citadel_prestige_awarded": 1800
+    },
+    {
+      "id": "steam_mechanization",
+      "name": "Iron & Alchemical Machinery",
+      "required_crownmarks": [
+        "remi_crucible",
+        "remi_watch",
+        "remi_goggles"
+      ],
+      "permanent_account_bonuses": {
+        "siege_capacity_multiplier": 1.05,
+        "research_speed_percentage": 3.0
+      },
+      "lore_citation": "Volume XI: Early blueprint prototypes of the brass, steel, and alchemical apparatuses that mechanized Crownspire's gold mines.",
+      "citadel_prestige_awarded": 1200
+    },
+    {
+      "id": "abyssal_shroud",
+      "name": "Vow of the Voidwalkers",
+      "required_crownmarks": [
+        "allanna_bow",
+        "allanna_quiver",
+        "allanna_cloak"
+      ],
+      "permanent_account_bonuses": {
+        "army_attack_percentage": 2.0,
+        "soul_shard_drop_rate": 10.0
+      },
+      "lore_citation": "Volume XV: Crownmarks touched by the dark rift void. Corrupted, yet highly essential for countering demonic incursions.",
+      "citadel_prestige_awarded": 2000
+    }
+  ]
+}

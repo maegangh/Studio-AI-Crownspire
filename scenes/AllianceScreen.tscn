@@ -1,0 +1,424 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq77y4y3u24y1"]
+
+[ext_resource type="Script" path="res://scripts/AllianceScreen.gd" id="1_screen"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0235294, 0.054902, 0.0862745, 1)
+
+[node name="AllianceScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_screen")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Header" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HeaderBG" type="ColorRect" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0980392, 0.14902, 0.95)
+
+[node name="TitleLabel" type="Label" parent="Header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 28
+text = "⚜️ ALLIANCE FORTRESS"
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -30.0
+offset_right = -10.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "✕"
+
+[node name="MainContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyContainer" type="Control" parent="MainContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LobbyContent" type="VBoxContainer" parent="MainContainer/LobbyContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 100.0
+offset_right = -40.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="BannerIcon" type="Label" parent="MainContainer/LobbyContainer/LobbyContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "☀️🛡️✨"
+horizontal_alignment = 1
+
+[node name="LobbyTitle" type="Label" parent="MainContainer/LobbyContainer/LobbyContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Unite Under One Banner"
+horizontal_alignment = 1
+
+[node name="LobbyDesc" type="Label" parent="MainContainer/LobbyContainer/LobbyContent"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.686275, 0.768627, 0.85098, 1)
+theme_override_font_sizes/font_size = 18
+text = "Join an established Alliance to access Crystallite technology, construct towers, request help on timers, gather collective Amber Gifts, and organize massive offensive rallies."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="MainContainer/LobbyContainer/LobbyContent"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="JoinLobbyButton" type="Button" parent="MainContainer/LobbyContainer/LobbyContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "🤝 Search & Join Alliance"
+
+[node name="CreateLobbyButton" type="Button" parent="MainContainer/LobbyContainer/LobbyContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "⚒️ Create New Alliance"
+
+[node name="LobbySearchBar" type="Control" parent="MainContainer/LobbyContainer/LobbyContent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HubContainer" type="Control" parent="MainContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContent" type="Control" parent="MainContainer/HubContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceOverviewPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceMemberList" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceTerritoryPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceTechnologyPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceHelpPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceGiftPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceChatPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceWarPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceEventsPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceRankingPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceSettingsPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AllianceMailPanel" type="Control" parent="MainContainer/HubContainer/TabContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NavigationArea" type="Panel" parent="MainContainer/HubContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NavBG" type="ColorRect" parent="MainContainer/HubContainer/NavigationArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0980392, 0.14902, 0.98)
+
+[node name="ScrollNav" type="ScrollContainer" parent="MainContainer/HubContainer/NavigationArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 0
+
+[node name="NavButtons" type="HBoxContainer" parent="MainContainer/HubContainer/NavigationArea/ScrollNav"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="BtnOverview" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "👑
+Overview"
+
+[node name="BtnMembers" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "👥
+Roster"
+
+[node name="BtnTech" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🧪
+Alch Tech"
+
+[node name="BtnTerritory" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🗺️
+Territory"
+
+[node name="BtnHelp" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🤝
+Mutual Aid"
+
+[node name="BtnGifts" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🎁
+Gifts"
+
+[node name="BtnChat" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "💬
+Alliance Chat"
+
+[node name="BtnWar" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "⚔️
+Rallies / Wars"
+
+[node name="BtnEvents" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "🏆
+Events"
+
+[node name="BtnMail" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "✉️
+Broadcast"
+
+[node name="BtnRankings" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "📊
+Leaderboards"
+
+[node name="BtnSettings" type="Button" parent="MainContainer/HubContainer/NavigationArea/ScrollNav/NavButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "⚙️
+Settings"
+
+[node name="ModalOverlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="PopupAnchor" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

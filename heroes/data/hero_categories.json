@@ -1,0 +1,26 @@
+[
+  {
+    "id": "defender",
+    "name": "Defender",
+    "icon": "🛡️",
+    "description": "Sturdy guardians sworn to protect the citadel walls."
+  },
+  {
+    "id": "marksman",
+    "name": "Marksman",
+    "icon": "🏹",
+    "description": "Ranged sharpshooters dealing damage from afar."
+  },
+  {
+    "id": "chronomancer",
+    "name": "Chronomancer",
+    "icon": "⏳",
+    "description": "Time manipulators who speed up allies and slow down enemies."
+  },
+  {
+    "id": "warrior",
+    "name": "Warrior",
+    "icon": "⚔️",
+    "description": "Vanguard frontline melee fighters."
+  }
+]

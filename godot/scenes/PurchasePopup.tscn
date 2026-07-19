@@ -1,0 +1,229 @@
+[gd_scene load_steps=8 format=3 uid="uid://cy9m8uxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/PurchasePopup.gd" id="1_a7b8f"]
+[ext_resource type="Texture2D" uid="uid://du27f7a7jpx7r" path="res://assets/ui/icons/hud_royal_crystal.png" id="2_c7b8f"]
+[ext_resource type="Texture2D" uid="uid://d8f8e8r8h8v8t" path="res://assets/ui/buttons/btn_close_normal.png" id="3_d7b8f"]
+
+[sub_resource type="Animation" id="Animation_open"]
+resource_name = "open_bounce"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackgroundDim:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.65)]
+}
+
+[sub_resource type="Animation" id="Animation_close"]
+resource_name = "close_fade"
+length = 0.18
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BackgroundDim:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.65), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_shake"]
+resource_name = "error_shake"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(60, 265), Vector2(40, 265), Vector2(80, 265), Vector2(40, 265), Vector2(80, 265), Vector2(50, 265), Vector2(60, 265)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pop"]
+_data = {
+"close_fade": SubResource("Animation_close"),
+"error_shake": SubResource("Animation_shake"),
+"open_bounce": SubResource("Animation_open")
+}
+
+[node name="PurchasePopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a7b8f")
+
+[node name="BackgroundDim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="PopupContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(600, 750)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -375.0
+offset_right = 300.0
+offset_bottom = 375.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(300, 375)
+
+[node name="Margin" type="MarginContainer" parent="PopupContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="MainLayout" type="VBoxContainer" parent="PopupContainer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="PopupContainer/Margin/MainLayout"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="PopupContainer/Margin/MainLayout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "ACQUIRE TREASURE"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="TextureButton" parent="PopupContainer/Margin/MainLayout/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture_normal = ExtResource("3_d7b8f")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="PopupContainer/Margin/MainLayout"]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="PopupContainer/Margin/MainLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RarityBacking" type="PanelContainer" parent="PopupContainer/Margin/MainLayout/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ItemIcon" type="TextureRect" parent="PopupContainer/Margin/MainLayout/Content/RarityBacking"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Desc_Label" type="Label" parent="PopupContainer/Margin/MainLayout/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 14
+text = "Envelops your citadel in an impenetrable alchemical forcefield for 24 hours, preventing all enemy march interactions."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ErrorLabel" type="Label" parent="PopupContainer/Margin/MainLayout/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.266667, 0.266667, 1)
+theme_override_font_sizes/font_size = 13
+text = "INSUFFICIENT CRYSTALS"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="PopupContainer/Margin/MainLayout"]
+layout_mode = 2
+
+[node name="Footer" type="VBoxContainer" parent="PopupContainer/Margin/MainLayout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PriceBox" type="HBoxContainer" parent="PopupContainer/Margin/MainLayout/Footer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CurrencyIcon" type="TextureRect" parent="PopupContainer/Margin/MainLayout/Footer/PriceBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = ExtResource("2_c7b8f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CostLabel" type="Label" parent="PopupContainer/Margin/MainLayout/Footer/PriceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "1,000"
+
+[node name="BuyButton" type="Button" parent="PopupContainer/Margin/MainLayout/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "CONFIRM TRANSACTION"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pop")
+}

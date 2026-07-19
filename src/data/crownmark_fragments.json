@@ -1,0 +1,61 @@
+{
+  "$schema": "./schemas/crownmark_fragments.schema.json",
+  "title": "CrownmarkFragmentsAndAwakening",
+  "description": "Rules for crownmark fragment conversions, dismantling rewards, and star awakening costs.",
+  "awakening_star_costs": [
+    {
+      "target_star": 1,
+      "fragments_required": 10,
+      "gold_cost": 1000,
+      "success_probability": 1.0,
+      "unlocked_level_cap": 20
+    },
+    {
+      "target_star": 2,
+      "fragments_required": 25,
+      "gold_cost": 5000,
+      "success_probability": 1.0,
+      "unlocked_level_cap": 40
+    },
+    {
+      "target_star": 3,
+      "fragments_required": 50,
+      "gold_cost": 20000,
+      "success_probability": 1.0,
+      "unlocked_level_cap": 60
+    },
+    {
+      "target_star": 4,
+      "fragments_required": 100,
+      "gold_cost": 80000,
+      "success_probability": 1.0,
+      "unlocked_level_cap": 80
+    },
+    {
+      "target_star": 5,
+      "fragments_required": 250,
+      "gold_cost": 250000,
+      "success_probability": 1.0,
+      "unlocked_level_cap": 100
+    }
+  ],
+  "dismantle_returns": {
+    "legendary": {
+      "crownmark_dust": 1500,
+      "omni_shards_returned": 1
+    },
+    "epic": {
+      "crownmark_dust": 400,
+      "omni_shards_returned": 0
+    },
+    "rare": {
+      "crownmark_dust": 100,
+      "omni_shards_returned": 0
+    }
+  },
+  "omni_fragment_exchange": {
+    "rate_omni_to_legendary": 3.0,
+    "rate_omni_to_epic": 1.0,
+    "can_exchange_unlocked_only": true
+  }
+}

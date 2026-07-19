@@ -1,0 +1,6 @@
+{
+  "name": "Crownspire Store Production Bible",
+  "description": "An interactive MMO strategy simulator featuring safe castle spawning, wildling march campaigns, and a fully data-driven 28-region Alliance Territory Builder with dynamic borders, structures, and fog of war scouting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

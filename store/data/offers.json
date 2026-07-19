@@ -1,0 +1,26 @@
+[
+  {
+    "id": "offer_daily_deals",
+    "name": "Daily Discount Pack",
+    "cost_amount": 0.99,
+    "cost_currency": "USD",
+    "time_remaining_sec": 43200,
+    "items": [
+      { "item_id": "crystals", "quantity": 100, "name": "Crystals", "rarity": "rare" },
+      { "item_id": "speedup_5m", "quantity": 5, "name": "5m Speedup", "rarity": "common" }
+    ],
+    "discount_percent": 80
+  },
+  {
+    "id": "offer_weekly_gems",
+    "name": "Weekly Gem Mine",
+    "cost_amount": 9.99,
+    "cost_currency": "USD",
+    "time_remaining_sec": 259200,
+    "items": [
+      { "item_id": "crystals", "quantity": 1500, "name": "Crystals", "rarity": "rare" },
+      { "item_id": "gold", "quantity": 250000, "name": "Gold", "rarity": "common" }
+    ],
+    "discount_percent": 60
+  }
+]

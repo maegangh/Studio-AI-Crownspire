@@ -1,0 +1,32 @@
+[
+  {
+    "id": "all",
+    "name": "ALL",
+    "icon": "📦"
+  },
+  {
+    "id": "resources",
+    "name": "RESOURCES",
+    "icon": "🌾"
+  },
+  {
+    "id": "speedups",
+    "name": "SPEEDUPS",
+    "icon": "⚡"
+  },
+  {
+    "id": "hero",
+    "name": "HERO",
+    "icon": "🧙"
+  },
+  {
+    "id": "equipment",
+    "name": "EQUIP",
+    "icon": "🛡️"
+  },
+  {
+    "id": "materials",
+    "name": "MATERIALS",
+    "icon": "🧪"
+  }
+]

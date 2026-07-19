@@ -1,0 +1,42 @@
+[
+  {
+    "id": "gift_1",
+    "title": "Elite Beast Hunt Loot",
+    "description": "Claim rewards from defeating the Shadow Behemoth Level 4!",
+    "rarity": 3,
+    "claimed": false,
+    "expires_in_secs": 86400,
+    "rewards": [
+      {
+        "icon": "🪙",
+        "name": "Gold",
+        "quantity": 10000
+      },
+      {
+        "icon": "⏳",
+        "name": "Speedup (15m)",
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": "gift_2",
+    "title": "Leader's Amber Bundle Gift",
+    "description": "Lord Aurelius purchased the Royal Amber Bundle!",
+    "rarity": 4,
+    "claimed": false,
+    "expires_in_secs": 120400,
+    "rewards": [
+      {
+        "icon": "💎",
+        "name": "Aurora Crystal",
+        "quantity": 150
+      },
+      {
+        "icon": "🧪",
+        "name": "Hero XP Potion (Large)",
+        "quantity": 3
+      }
+    ]
+  }
+]

@@ -1,0 +1,248 @@
+[gd_scene load_steps=10 format=3 uid="uid://dm13screen"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailScreen.gd" id="1_screen"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailCategoryTabs.tscn" id="2_tabs"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailSearchBar.tscn" id="3_search"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailFilterMenu.tscn" id="4_filter"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailListPanel.tscn" id="5_list"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailEmptyState.tscn" id="6_empty"]
+[ext_resource type="PackedScene" path="res://scenes/mail/MailDetailPanel.tscn" id="7_detail"]
+
+[sub_name="StyleBoxFlat_screen_bg" type="StyleBoxFlat"]
+bg_color = Color(0.04, 0.05, 0.08, 1.0)
+
+[sub_name="StyleBoxFlat_btn_bulk_del" type="StyleBoxFlat"]
+bg_color = Color(0.18, 0.1, 0.12, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.15, 0.2, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="StyleBoxFlat_btn_bulk_claim" type="StyleBoxFlat"]
+bg_color = Color(0.12, 0.25, 0.18, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.45, 0.3, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_name="LabelSettings_scr_title" type="LabelSettings"]
+font_size = 20
+font_color = Color(1.0, 0.85, 0.55, 1.0)
+
+[sub_name="LabelSettings_scr_stats" type="LabelSettings"]
+font_size = 11
+font_color = Color(0.5, 0.55, 0.6, 1.0)
+
+[sub_name="Animation_RESET" type="Animation"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_name="Animation_open_bounce" type="Animation"]
+resource_name = "open_bounce"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1.02, 1.02), Vector2(1, 1)]
+}
+
+[sub_name="Animation_close_fade" type="Animation"]
+resource_name = "close_fade"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_name="AnimationLibrary_mail" type="AnimationLibrary"]
+_data = {
+"RESET": SubResource("Animation_RESET"),
+"close_fade": SubResource("Animation_close_fade"),
+"open_bounce": SubResource("Animation_open_bounce")
+}
+
+[node name="MailScreen" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_screen_bg")
+script = ExtResource("1_screen")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+pivot_offset = Vector2(360, 640)
+theme_override_constants/separation = 12
+
+[node name="HeaderPanel" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer/HeaderPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "🏰 CITADEL MAIL CHAMBER"
+label_settings = SubResource("LabelSettings_scr_title")
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "✕"
+flat = true
+
+[node name="SearchAndCategoryContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="VBox" type="VBoxContainer" parent="VBoxContainer/SearchAndCategoryContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MailCategoryTabs" parent="VBoxContainer/SearchAndCategoryContainer/VBox" instance=ExtResource("2_tabs")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MailSearchBar" parent="VBoxContainer/SearchAndCategoryContainer/VBox" instance=ExtResource("3_search")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MailFilterMenu" parent="VBoxContainer/SearchAndCategoryContainer/VBox" instance=ExtResource("4_filter")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InboxContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="Panel" type="Panel" parent="VBoxContainer/InboxContainer"]
+layout_mode = 2
+
+[node name="MailListPanel" parent="VBoxContainer/InboxContainer" instance=ExtResource("5_list")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MailEmptyState" parent="VBoxContainer/InboxContainer" instance=ExtResource("6_empty")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="FooterPanel" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FooterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DeleteReadButton" type="Button" parent="VBoxContainer/FooterPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.4, 0.45, 1.0)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_bulk_del")
+theme_override_font_sizes/font_size = 12
+text = "🗑 Delete All Read"
+
+[node name="StatsUnreadLabel" type="Label" parent="VBoxContainer/FooterPanel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Citadel Inbox: 3 Unread"
+label_settings = SubResource("LabelSettings_scr_stats")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClaimAllButton" type="Button" parent="VBoxContainer/FooterPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.6, 1.0)
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_bulk_claim")
+theme_override_font_sizes/font_size = 12
+text = "🎁 Claim All"
+
+[node name="MailDetailPanel" parent="." instance=ExtResource("7_detail")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mail")
+}

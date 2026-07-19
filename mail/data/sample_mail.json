@@ -1,0 +1,89 @@
+[
+  {
+    "id": "mail_01",
+    "category_id": "system",
+    "sender": "Citadel High Council",
+    "title": "Welcome, Commander, to Crownspire!",
+    "body": "Welcome to your new Citadel! As Lord of the Crownspire, you are charged with defending the realm against the invading Wildling hordes and securing the Crystallite Spire. Use these starter resources to lay the foundations of your empire.\n\nMay light guide your blade!",
+    "timestamp": 1783234800,
+    "expires_in_days": 30,
+    "read": false,
+    "claimed": false,
+    "attachments": [
+      {
+        "id": "gold",
+        "type": "gold",
+        "name": "Gold",
+        "quantity": 10000,
+        "icon": "🪙"
+      },
+      {
+        "id": "crystals",
+        "type": "crystals",
+        "name": "Crystals",
+        "quantity": 250,
+        "icon": "💎"
+      }
+    ]
+  },
+  {
+    "id": "mail_02",
+    "category_id": "system",
+    "sender": "Citadel Operations",
+    "title": "Server Maintenance Compensation",
+    "body": "Greetings, Commander. The Citadel underwent a scheduled database synchronization and upgrade to Version 1.4.2. We apologize for any temporary inconvenience this downtime caused your legions. Please accept this compensation package.",
+    "timestamp": 1783227600,
+    "expires_in_days": 7,
+    "read": true,
+    "claimed": true,
+    "attachments": [
+      {
+        "id": "wood",
+        "type": "wood",
+        "name": "Wood Materials",
+        "quantity": 5000,
+        "icon": "🪵"
+      }
+    ]
+  },
+  {
+    "id": "mail_03",
+    "category_id": "battle",
+    "sender": "Watchtower Commander",
+    "title": "Victory: Skirmish at Wildling Outpost #3",
+    "body": "We have successfully cleared the Wildling encampment on our eastern border! Our vanguard forces fought with extreme courage. The enemy fled back into the frozen wastes, leaving behind substantial war spoils.",
+    "timestamp": 1783220400,
+    "expires_in_days": 15,
+    "read": false,
+    "claimed": false,
+    "attachments": [
+      {
+        "id": "gold",
+        "type": "gold",
+        "name": "Gold",
+        "quantity": 5000,
+        "icon": "🪙"
+      }
+    ]
+  },
+  {
+    "id": "mail_04",
+    "category_id": "alliance",
+    "sender": "Lady Valeria (Marshal)",
+    "title": "Alliance Chest Distribution: Level 3 Chest",
+    "body": "Commander, your fellow alliance member Sir Balin purchased a special store package! This triggered a shared Alliance Gift distribution for all members. Claim your shared materials below.\n\nStrength in Unity!",
+    "timestamp": 1783213200,
+    "expires_in_days": 3,
+    "read": false,
+    "claimed": false,
+    "attachments": [
+      {
+        "id": "alliance_coins",
+        "type": "alliance_coins",
+        "name": "Alliance Coins",
+        "quantity": 500,
+        "icon": "🛡️"
+      }
+    ]
+  }
+]

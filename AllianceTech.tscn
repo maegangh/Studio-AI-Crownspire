@@ -1,0 +1,184 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8crspiretech"]
+
+[ext_resource type="Script" path="res://AllianceTech.gd" id="1_tech"]
+
+[node name="AllianceTech" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tech")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HonorPointsLabel" type="Label" parent="Layout/Header/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 14
+text = "Personal Honor: 🏅 0"
+
+[node name="TreasuryLabel" type="Label" parent="Layout/Header/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 14
+text = "Guild Treasury: 🪙 0"
+
+[node name="Split" type="HSplitContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 120
+
+[node name="LeftSection" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Split/LeftSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Available Technologies"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Split/LeftSection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/Split/LeftSection/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="RightSection" type="VBoxContainer" parent="Layout/Split"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+
+[node name="DetailPanel" type="PanelContainer" parent="Layout/Split/RightSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Layout/Split/RightSection/DetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Split/RightSection/DetailPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="VBoxContainer" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Technology Name"
+
+[node name="LevelLabel" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 11
+text = "Rank Level: 1 / 5"
+
+[node name="DescLabel" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "Improves gathering wheels and pack mule training across world tiles."
+autowrap_mode = 2
+
+[node name="ProgressBox" type="VBoxContainer" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Bar" type="ProgressBar" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/ProgressBox"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/ProgressBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 11
+text = "0 / 1000 Points to Level Up"
+horizontal_alignment = 1
+
+[node name="BuffsBox" type="VBoxContainer" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/BuffsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 12
+text = "Tech Bonuses Summary"
+
+[node name="Label" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/BuffsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Current Active Buffs:
+None"
+
+[node name="DonateBox" type="VBoxContainer" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 13
+text = "Donation Center (Click to Contribute)"
+
+[node name="Grid" type="GridContainer" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="DonateWood" type="Button" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Donate Wood
+(100k)"
+
+[node name="DonateFood" type="Button" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Donate Food
+(100k)"
+
+[node name="DonateStone" type="Button" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Donate Stone
+(50k)"
+
+[node name="DonateIron" type="Button" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Donate Iron
+(25k)"
+
+[node name="DonateGems" type="Button" parent="Layout/Split/RightSection/DetailPanel/Margin/VBox/DonateBox/Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Donate Gems
+(1000)"

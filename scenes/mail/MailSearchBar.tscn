@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm3search"]
+
+[ext_resource type="Script" path="res://scripts/mail/MailSearchBar.gd" id="1_search"]
+
+[sub_name="StyleBoxFlat_search" type="StyleBoxFlat"]
+bg_color = Color(0.08, 0.1, 0.15, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.25, 0.35, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="MailSearchBar" type="Control"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_search")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_search")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_placeholder_color = Color(0.4, 0.45, 0.5, 1.0)
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1.0)
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Search mail by title, body, or sender..."
+flat = true
+select_all_on_focus = true
+
+[node name="ClearButton" type="Button" parent="."]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = -4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1.0)
+theme_override_font_sizes/font_size = 14
+text = "✕"
+flat = true
+
+[node name="DebounceTimer" type="Timer" parent="."]
+one_shot = true

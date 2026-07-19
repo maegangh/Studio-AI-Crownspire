@@ -1,0 +1,48 @@
+{
+  "modes": {
+    "puzzle_expedition": {
+      "id": "puzzle_expedition",
+      "name": "Puzzle Expedition",
+      "tagline": "Elemental match-3 board battles",
+      "description": "Journey across the runic grid lines, breaking obstacle tiles and collecting rare elemental crystals.",
+      "required_keep_level": 1,
+      "base_shard_reward": 15,
+      "energy_cost": 5,
+      "difficulty_levels": 100,
+      "asset_package_path": "res://assets/puzzle_expedition_pack.pck"
+    },
+    "extreme_challenge": {
+      "id": "extreme_challenge",
+      "name": "Extreme Challenge",
+      "tagline": "Infinite runic boss scaling",
+      "description": "Deploy specialized team lines to defeat escalating boss tiers within tight mechanical turn timers.",
+      "required_keep_level": 5,
+      "base_shard_reward": 35,
+      "energy_cost": 10,
+      "difficulty_levels": 40,
+      "asset_package_path": "res://assets/extreme_challenge_pack.pck"
+    },
+    "beast_trials": {
+      "id": "beast_trials",
+      "name": "Beast Trials",
+      "tagline": "Confront primal spirits",
+      "description": "Face the sacred guardians of Crownspire to capture rare pet shards and feed catalysts.",
+      "required_keep_level": 10,
+      "base_shard_reward": 25,
+      "energy_cost": 8,
+      "difficulty_levels": 20,
+      "asset_package_path": "res://assets/beast_trials_pack.pck"
+    },
+    "competitive_arena": {
+      "id": "competitive_arena",
+      "name": "Competitive Arena",
+      "tagline": "PvP tactical puzzle brackets",
+      "description": "Compete against other sovereign lords in tactical turn-based grid duals to ascend division leaderboards.",
+      "required_keep_level": 15,
+      "base_shard_reward": 50,
+      "energy_cost": 6,
+      "difficulty_levels": 5,
+      "asset_package_path": "res://assets/arena_pack.pck"
+    }
+  }
+}

@@ -1,0 +1,284 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy33muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/CityView.gd" id="1_city"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drawer"]
+bg_color = Color(0.0627451, 0.0901961, 0.141176, 0.95)
+border_width_top = 3
+border_color = Color(1, 0.843137, 0, 0.4)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_up"]
+bg_color = Color(0.854902, 0.647059, 0.12549, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_recruit"]
+bg_color = Color(0.133333, 0.545098, 0.133333, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CityView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_city")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MapScroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="Margin" type="MarginContainer" parent="VBox/MapScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="BuildingGrid" type="GridContainer" parent="VBox/MapScroll/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="DetailDrawer" type="PanelContainer" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 480)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_drawer")
+
+[node name="Margin" type="MarginContainer" parent="VBox/DetailDrawer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="EmptySelectionHint" type="Label" parent="VBox/DetailDrawer/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.545098, 0.658824, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "SELECT ANY EMERALD FORTRESS STRUCTURE ABOVE TO INITIATE ROYAL UPGRADES, ARMED LEGION RECRUITMENT, OR CHRONOMANCY RESEARCH"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="DrawerContent" type="VBoxContainer" parent="VBox/DetailDrawer/Margin"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent"]
+layout_mode = 2
+
+[node name="TitleBox" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DrawerBuildingName" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/Header/TitleBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "ROYAL LEGION BARRACKS"
+
+[node name="DrawerBuildingLevel" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/Header/TitleBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.819608, 0.847059, 0.901961, 0.6)
+theme_override_font_sizes/font_size = 11
+text = "LEVEL 16 STRUCTURE"
+
+[node name="DrawerBuildingPower" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 1)
+theme_override_font_sizes/font_size = 12
+text = "+29.5K Power"
+vertical_alignment = 1
+
+[node name="DrawerBuildingDesc" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "Assembles and trains formidable legionary forces, bowmen, and heavy cataphracts to secure the kingdom borders."
+autowrap_mode = 2
+
+[node name="BonusesBox" type="HBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DrawerCurrentBonus" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/BonusesBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.313726, 0.784314, 0.470588, 1)
+theme_override_font_sizes/font_size = 11
+text = "Current: Max Train Limit: 200"
+
+[node name="DrawerNextBonus" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/BonusesBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "Next: Max Train Limit: 250"
+
+[node name="Separator" type="ColorRect" parent="VBox/DetailDrawer/Margin/DrawerContent"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(1, 1, 1, 0.1)
+
+[node name="SectionsScroll" type="ScrollContainer" parent="VBox/DetailDrawer/Margin/DrawerContent"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="SectionsVBox" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="UpgradeSection" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "CONSTRUCTION UPGRADE CRITERIA:"
+
+[node name="CostFood" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "• Food: 450.0K / 50.0K"
+
+[node name="CostWood" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "• Wood: 320.0K / 40.0K"
+
+[node name="CostStone" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "• Stone: 150.0K / 25.0K"
+
+[node name="CostIron" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "• Iron: 80.0K / 15.0K"
+
+[node name="UpgradeActionButton" type="Button" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/UpgradeSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_up")
+text = "UPGRADE TO LEVEL 17"
+
+[node name="BarracksSection" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "MILITARY RECRUITMENT CENTRE:"
+
+[node name="TroopTypeSelector" type="OptionButton" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="TroopSpecsDesc" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 0.8)
+theme_override_font_sizes/font_size = 10
+text = "Wind-Runner Bowman are agile marksmen capable of striking targets."
+autowrap_mode = 2
+
+[node name="TrainCountLabel" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "RECRUIT BATCH QUANTITY: 50"
+
+[node name="TrainCountSlider" type="HSlider" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 200.0
+value = 50.0
+
+[node name="TroopCostSummary" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "Required assets:\n  Food: 4.0K  Wood: 4.0K\n  Total army power: +150 rating points"
+
+[node name="TrainActionButton" type="Button" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/BarracksSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_recruit")
+text = "TRAIN DELEGATION"
+
+[node name="AcademySection" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/AcademySection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "TACTICAL SCHOLAR RESEARCH:"
+
+[node name="TechListContainer" type="VBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerContent/SectionsScroll/SectionsVBox/AcademySection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10

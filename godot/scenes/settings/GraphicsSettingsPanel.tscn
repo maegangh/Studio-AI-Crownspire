@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy9g0l5n9425f"]
+
+[ext_resource type="Script" path="res://scripts/settings/GraphicsSettingsPanel.gd" id="1_graphics"]
+
+[node name="GraphicsSettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_graphics")
+
+[node name="ProfileSection" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="ProfileSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Visual Quality Profile"
+
+[node name="ProfileOptions" type="OptionButton" parent="ProfileSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 0
+
+[node name="FpsSection" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="FpsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Target Frame Rate"
+
+[node name="Buttons" type="HBoxContainer" parent="FpsSection"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Fps30Btn" type="Button" parent="FpsSection/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "30 FPS"
+
+[node name="Fps60Btn" type="Button" parent="FpsSection/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+text = "60 FPS"
+
+[node name="BatterySection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BatterySection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Battery Saver (Max 30 FPS)"
+
+[node name="BatteryCheck" type="CheckButton" parent="BatterySection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="ShadowSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShadowSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Crystallite Shadows"
+
+[node name="ShadowsCheck" type="CheckButton" parent="ShadowSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="BloomSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BloomSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Ethereal Glow (Bloom)"
+
+[node name="BloomCheck" type="CheckButton" parent="BloomSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "bld_fortress",
+    "name": "Alliance Fortress",
+    "icon": "🏰",
+    "description": "The primary bastion of the alliance. Determines the core territory boundary, max member cap modifiers, and enables alchemical Scientist interactions.",
+    "level": 3,
+    "max_level": 5,
+    "current_cores_stored": 1420,
+    "upgrade_cores_cost": 3000,
+    "bonus_per_level": "+2 Max Member Cap, +10% Territory Protection",
+    "current_bonus": "+6 Max Member Cap, +30% Territory Protection",
+    "status": "Operational"
+  },
+  {
+    "id": "bld_tower",
+    "name": "Alliance Tower",
+    "icon": "🗼",
+    "description": "Territorial nodes that expand the boundaries of the alliance. Claims resources within its radius and fortifies the march lanes.",
+    "level": 1,
+    "max_level": 3,
+    "current_cores_stored": 250,
+    "upgrade_cores_cost": 500,
+    "bonus_per_level": "+5% March Speed inside territory, +200 Resource Harvest Cap",
+    "current_bonus": "Operational",
+    "status": "Operational"
+  }
+]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy18g0l5n9425o"]
+
+[ext_resource type="Script" path="res://scripts/settings/AboutPanel.gd" id="1_about"]
+
+[node name="AboutPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_about")
+
+[node name="LogoLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 28
+text = "👑
+CROWNSPIRE"
+horizontal_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 1)
+theme_override_font_sizes/font_size = 12
+text = "v1.4.24-Stable (Build #2026)"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CheckUpdateBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Check for Patches"
+
+[node name="TermsBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Terms of Service"
+
+[node name="PolicyBtn" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Privacy Treaty"

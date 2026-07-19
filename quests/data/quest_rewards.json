@@ -1,0 +1,31 @@
+[
+  {
+    "type": "daily_activity",
+    "milestones": [
+      {
+        "points_required": 20,
+        "claimed": false,
+        "rewards": [
+          { "name": "Gold", "type": "gold", "quantity": 5000, "icon": "🪙" },
+          { "name": "Food Provisions", "type": "food", "quantity": 10000, "icon": "🥩" }
+        ]
+      },
+      {
+        "points_required": 50,
+        "claimed": false,
+        "rewards": [
+          { "name": "Crystals", "type": "crystals", "quantity": 100, "icon": "💎" },
+          { "name": "15m Speedup", "type": "speedup_15m", "quantity": 4, "icon": "⚡" }
+        ]
+      },
+      {
+        "points_required": 100,
+        "claimed": false,
+        "rewards": [
+          { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 150, "icon": "💎" },
+          { "name": "Crystallite Cores", "type": "crystallite_cores", "quantity": 200, "icon": "🌀" }
+        ]
+      }
+    ]
+  }
+]

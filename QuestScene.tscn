@@ -1,0 +1,386 @@
+[gd_scene load_steps=12 format=3 uid="uid://d8crspirequest"]
+
+[ext_resource type="Script" path="res://QuestScene.gd" id="1_quest"]
+[ext_resource type="PackedScene" uid="uid://c8crspirerewardpop" path="res://QuestRewardPopup.tscn" id="2_reward_pop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HeaderPanel"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_QuestCard"]
+bg_color = Color(0.0980392, 0.117647, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.172549, 0.219608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_QuestCardReady"]
+bg_color = Color(0.121569, 0.160784, 0.211765, 1)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.75, 0.15, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BtnClaim"]
+bg_color = Color(0.95, 0.75, 0.15, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarBg"]
+bg_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarFill"]
+bg_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_InfoPanel"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ToastBg"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.192157, 0.478431, 0.819608, 0.8)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="QuestScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_quest")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/Header/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Kingdom Quests"
+
+[node name="Spacer" type="Control" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionSimBox" type="HBoxContainer" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ProgressSimLabel" type="Label" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "Simulate action:"
+
+[node name="SimBuildBtn" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+custom_minimum_size = Vector2(54, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 11
+text = "Build 🔨"
+
+[node name="SimTrainBtn" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+custom_minimum_size = Vector2(54, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 11
+text = "Train ⚔️"
+
+[node name="SimResearchBtn" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+custom_minimum_size = Vector2(62, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 11
+text = "Research 🔬"
+
+[node name="SimWildlingBtn" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+custom_minimum_size = Vector2(62, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 11
+text = "Wildlings 👹"
+
+[node name="ResetBtn" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer/ActionSimBox"]
+custom_minimum_size = Vector2(54, 30)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 11
+text = "Reset 🔄"
+
+[node name="CloseButton" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+text = "X"
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MainPanel" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HSplit" type="HBoxContainer" parent="Layout/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LeftListContainer" type="VBoxContainer" parent="Layout/MainPanel/HSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HeaderBar" type="HBoxContainer" parent="Layout/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+
+[node name="QuestCategoryLabel" type="Label" parent="Layout/MainPanel/HSplit/LeftListContainer/HeaderBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Main Quests"
+
+[node name="Spacer" type="Control" parent="Layout/MainPanel/HSplit/LeftListContainer/HeaderBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ClaimAllVisibleBtn" type="Button" parent="Layout/MainPanel/HSplit/LeftListContainer/HeaderBar"]
+custom_minimum_size = Vector2(130, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 12
+text = "🎁 Claim All Ready"
+
+[node name="ListScroll" type="ScrollContainer" parent="Layout/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="QuestList" type="VBoxContainer" parent="Layout/MainPanel/HSplit/LeftListContainer/ListScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="RightDetailContainer" type="PanelContainer" parent="Layout/MainPanel/HSplit"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_InfoPanel")
+
+[node name="Margin" type="MarginContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LogHeaderLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Sovereign Progress Log"
+
+[node name="OverviewContainer" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="CompletedLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/OverviewContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 13
+text = "Completed Quests: 0"
+
+[node name="TotalClaimedLabel" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/OverviewContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 13
+text = "Rewards Handed Out: 0"
+
+[node name="CategoryHeader" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.192157, 0.478431, 0.819608, 1)
+theme_override_font_sizes/font_size = 14
+text = "Sovereign Stat Milestones"
+
+[node name="MilestonesContainer" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="KeepLevelMilestone" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/KeepLevelMilestone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Keep Level: 11"
+
+[node name="Progress" type="ProgressBar" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/KeepLevelMilestone"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+value = 75.0
+show_percentage = false
+
+[node name="TrainedTroopsMilestone" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/TrainedTroopsMilestone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Trained Vanguard: 450"
+
+[node name="Progress" type="ProgressBar" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/TrainedTroopsMilestone"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+value = 45.0
+show_percentage = false
+
+[node name="ResearchMilestone" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/ResearchMilestone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Academy Research: Level 3"
+
+[node name="Progress" type="ProgressBar" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/ResearchMilestone"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+value = 30.0
+show_percentage = false
+
+[node name="SlayWildlingsMilestone" type="VBoxContainer" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/SlayWildlingsMilestone"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Wildlings Banished: 8"
+
+[node name="Progress" type="ProgressBar" parent="Layout/MainPanel/HSplit/RightDetailContainer/Margin/VBox/MilestonesContainer/SlayWildlingsMilestone"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+value = 80.0
+show_percentage = false
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 44)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ToastBg")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Claimed All Quest Rewards!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestRewardPopup" parent="." instance=ExtResource("2_reward_pop")]
+layout_mode = 1

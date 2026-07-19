@@ -1,0 +1,119 @@
+{
+  "$schema": "./schemas/crownmark_upgrade_costs.schema.json",
+  "title": "CrownmarkUpgradeCosts",
+  "description": "Database containing level-up costs, materials, and star boundary caps for the crownmark progression engine.",
+  "scaling_constants": {
+    "legendary_multiplier": 1.25,
+    "epic_multiplier": 1.15,
+    "rare_multiplier": 1.08,
+    "gold_base_cost": 250,
+    "dust_base_cost": 15
+  },
+  "materials": [
+    {
+      "id": "crownmark_dust",
+      "name": "Starlight Crownmark Dust",
+      "rarity": "common",
+      "source": "Dismantling duplicate crownmarks or campaign stages"
+    },
+    {
+      "id": "star_iron_shards",
+      "name": "Star Iron Shards",
+      "rarity": "rare",
+      "source": "Garrison dungeons or alliance events"
+    },
+    {
+      "id": "void_essence",
+      "name": "Eldritch Void Essence",
+      "rarity": "legendary",
+      "source": "Primarch raids or sovereign star forge"
+    }
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "gold_cost": 0,
+      "dust_cost": 0,
+      "special_materials": {},
+      "star_cap_required": 0
+    },
+    {
+      "level": 10,
+      "gold_cost": 2500,
+      "dust_cost": 150,
+      "special_materials": {
+        "star_iron_shards": 5
+      },
+      "star_cap_required": 0
+    },
+    {
+      "level": 20,
+      "gold_cost": 6250,
+      "dust_cost": 375,
+      "special_materials": {
+        "star_iron_shards": 15
+      },
+      "star_cap_required": 0
+    },
+    {
+      "level": 30,
+      "gold_cost": 15600,
+      "dust_cost": 930,
+      "special_materials": {
+        "star_iron_shards": 30,
+        "void_essence": 2
+      },
+      "star_cap_required": 1
+    },
+    {
+      "level": 40,
+      "gold_cost": 39000,
+      "dust_cost": 2300,
+      "special_materials": {
+        "star_iron_shards": 60,
+        "void_essence": 5
+      },
+      "star_cap_required": 1
+    },
+    {
+      "level": 50,
+      "gold_cost": 97500,
+      "dust_cost": 5800,
+      "special_materials": {
+        "star_iron_shards": 120,
+        "void_essence": 12
+      },
+      "star_cap_required": 2
+    },
+    {
+      "level": 60,
+      "gold_cost": 240000,
+      "dust_cost": 14500,
+      "special_materials": {
+        "star_iron_shards": 250,
+        "void_essence": 25
+      },
+      "star_cap_required": 2
+    },
+    {
+      "level": 80,
+      "gold_cost": 600000,
+      "dust_cost": 36000,
+      "special_materials": {
+        "star_iron_shards": 500,
+        "void_essence": 60
+      },
+      "star_cap_required": 3
+    },
+    {
+      "level": 100,
+      "gold_cost": 1500000,
+      "dust_cost": 90000,
+      "special_materials": {
+        "star_iron_shards": 1200,
+        "void_essence": 150
+      },
+      "star_cap_required": 5
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+[gd_scene load_steps=10 format=3 uid="uid://cy32muxyba24y"]
+
+[ext_resource type="Script" path="res://scripts/GameHUD.gd" id="1_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://b1h5cuxyba25y" path="res://scenes/PlayerProfile.tscn" id="2_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://cy22muxyba24y" path="res://scenes/TopResourceBar.tscn" id="3_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://cy28muxyba24y" path="res://scenes/QuestTracker.tscn" id="4_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://cy29muxyba24y" path="res://scenes/FloatingButtons.tscn" id="5_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://cy30muxyba24y" path="res://scenes/BottomNavigation.tscn" id="6_e7b8f"]
+[ext_resource type="PackedScene" uid="uid://cy31muxyba24y" path="res://scenes/NotificationManager.tscn" id="7_e7b8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0509804, 0.0666667, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_viewport"]
+bg_color = Color(0.0823529, 0.105882, 0.14902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.141176, 0.180392, 0.247059, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="GameHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_e7b8f")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ViewIcon" type="Label" parent="BackgroundPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -140.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.04)
+theme_override_font_sizes/font_size = 180
+text = "🏰"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ViewportContainer" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 150.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopSection" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(720, 150)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="ProfileRow" type="MarginContainer" parent="TopSection"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+
+[node name="HBox" type="HBoxContainer" parent="TopSection/ProfileRow"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayerProfile" parent="TopSection/ProfileRow/HBox" instance=ExtResource("2_e7b8f")]
+layout_mode = 2
+
+[node name="RightPlaceholder" type="VBoxContainer" parent="TopSection/ProfileRow/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TopCurrencyBar" type="Label" parent="TopSection/ProfileRow/HBox/RightPlaceholder"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+theme_override_font_sizes/font_size = 11
+text = "Crownspire Sovereign HUD"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ClockLabel" type="Label" parent="TopSection/ProfileRow/HBox/RightPlaceholder"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0627451, 0.72549, 0.505882, 0.9)
+theme_override_font_sizes/font_size = 10
+text = "Server State: Online (UTC)"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TopResourceBar" parent="TopSection" instance=ExtResource("3_e7b8f")]
+layout_mode = 2
+
+[node name="NotificationManager" parent="." instance=ExtResource("7_e7b8f")]
+layout_mode = 1
+
+[node name="FloatingButtons" parent="." instance=ExtResource("5_e7b8f")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = 140.0
+offset_right = -12.0
+offset_bottom = 320.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="QuestTracker" parent="." instance=ExtResource("4_e7b8f")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = 160.0
+offset_right = 262.0
+offset_bottom = 236.0
+grow_vertical = 2
+
+[node name="BottomNavigation" parent="." instance=ExtResource("6_e7b8f")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0

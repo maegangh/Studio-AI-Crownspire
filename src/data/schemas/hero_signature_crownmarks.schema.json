@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HeroSignatureCrownmarksSchema",
+  "description": "Validation schema mapping heroes directly to their high-affinity historical signature crownmarks.",
+  "type": "object",
+  "required": ["hero_signature_mappings"],
+  "properties": {
+    "hero_signature_mappings": {
+      "type": "array",
+      "description": "Affinity metadata mappings for individual commander synergies.",
+      "items": {
+        "type": "object",
+        "required": [
+          "hero_id",
+          "display_name",
+          "class_title",
+          "signature_crownmark_ids",
+          "unlocked_milestone",
+          "affinity_lore_unlocked"
+        ],
+        "properties": {
+          "hero_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Unique index key matching the core database (e.g. maegan)."
+          },
+          "display_name": {
+            "type": "string",
+            "description": "Commander's full name."
+          },
+          "class_title": {
+            "type": "string",
+            "description": "Thematic battle class title."
+          },
+          "signature_crownmark_ids": {
+            "type": "array",
+            "description": "Array of item IDs that qualify as signature pieces.",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9_]+$"
+            }
+          },
+          "unlocked_milestone": {
+            "type": "string",
+            "description": "In-game achievement required to begin tracking affinity milestones."
+          },
+          "affinity_lore_unlocked": {
+            "type": "object",
+            "description": "Key-value dictionary mapping milestone levels (e.g., level_1, level_3, level_5) to unlocked story narratives.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

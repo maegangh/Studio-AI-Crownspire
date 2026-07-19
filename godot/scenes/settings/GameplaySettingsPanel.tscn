@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy10g0l5n9425g"]
+
+[ext_resource type="Script" path="res://scripts/settings/GameplaySettingsPanel.gd" id="1_gameplay"]
+
+[node name="GameplaySettingsPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+script = ExtResource("1_gameplay")
+
+[node name="ShakeSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShakeSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Citadel Shake (Camera Shakes)"
+
+[node name="ShakeCheck" type="CheckButton" parent="ShakeSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="FlashSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FlashSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Abyssal Flash (Screen Flashes)"
+
+[node name="FlashCheck" type="CheckButton" parent="FlashSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="CoordsSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CoordsSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Ruler Coordinates overlay"
+
+[node name="CoordsCheck" type="CheckButton" parent="CoordsSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+
+[node name="TranslateSection" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TranslateSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "Auto-Translate Alliance Scrolls"
+
+[node name="TranslateCheck" type="CheckButton" parent="TranslateSection"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0

@@ -1,0 +1,162 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8bagpopupmodulev1"]
+
+[ext_resource type="Script" path="res://bag/scripts/BagPopup.gd" id="1_bagpopup"]
+[ext_resource type="PackedScene" path="res://bag/scenes/ItemDetailPanel.tscn" id="2_detailpanel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Overlay"]
+bg_color = Color(0, 0, 0, 0.45098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_PopupBg"]
+bg_color = Color(0.0627451, 0.0784314, 0.101961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 0.6)
+
+[node name="BagPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bagpopup")
+
+[node name="BgOverlay" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Overlay")
+
+[node name="PopupCenter" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(820, 520)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -410.0
+offset_top = -260.0
+offset_right = 410.0
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_PopupBg")
+
+[node name="Margin" type="MarginContainer" parent="PopupCenter"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Layout" type="VBoxContainer" parent="PopupCenter/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="PopupCenter/Margin/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PopupCenter/Margin/Layout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "🎒 IMPERIAL INVENTORY & BAG"
+
+[node name="Spacer" type="Control" parent="PopupCenter/Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="PopupCenter/Margin/Layout/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 14
+text = "X"
+
+[node name="UtilityRow" type="HBoxContainer" parent="PopupCenter/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SearchEdit" type="LineEdit" parent="PopupCenter/Margin/Layout/UtilityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 36)
+layout_mode = 2
+placeholder_text = "🔍 Search items..."
+caret_blink = true
+
+[node name="Spacer" type="Control" parent="PopupCenter/Margin/Layout/UtilityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SortSelect" type="OptionButton" parent="PopupCenter/Margin/Layout/UtilityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="TabScroll" type="ScrollContainer" parent="PopupCenter/Margin/Layout"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabContainer" type="HBoxContainer" parent="PopupCenter/Margin/Layout/TabScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GridScroll" type="ScrollContainer" parent="PopupCenter/Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="PopupCenter/Margin/Layout/GridScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 7
+
+[node name="DetailPanel" parent="." instance=ExtResource("2_detailpanel")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="ToastPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(340, 42)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -68.0
+offset_right = 170.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ToastLabel" type="Label" parent="ToastPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.98, 0.92, 1)
+theme_override_font_sizes/font_size = 11
+text = "Operation successful!"
+horizontal_alignment = 1
+vertical_alignment = 1

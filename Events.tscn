@@ -1,0 +1,534 @@
+[gd_scene load_steps=15 format=3 uid="uid://crowneventscenter777"]
+
+[ext_resource type="Script" path="res://Events.gd" id="1_events"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CurrencyPill"]
+bg_color = Color(0.054902, 0.0666667, 0.0862745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.156863, 0.196078, 0.254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseNormal"]
+bg_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_CloseHover"]
+bg_color = Color(0.745098, 0.117647, 0.176471, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_EmptyPrompt"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.176471, 0.227451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarBg"]
+bg_color = Color(0.0392157, 0.0470588, 0.0627451, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarFill"]
+bg_color = Color(0.901961, 0.470588, 0.0784314, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Badge"]
+bg_color = Color(0.152941, 0.682353, 0.376471, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_SimCard"]
+bg_color = Color(0.141176, 0.180392, 0.231373, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.243137, 0.313725, 0.407843, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BPProgressBarBg"]
+bg_color = Color(0.0470588, 0.0588235, 0.0784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BPProgressBarFill"]
+bg_color = Color(0.701961, 0.301961, 0.901961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Toast"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.901961, 0.470588, 0.0784314, 0.8)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[node name="Events" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_events")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 18
+text = "🏰 ROYAL REALM EVENT CENTER"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Currencies" type="HBoxContainer" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GoldBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/GoldBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/GoldBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/GoldBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 12
+text = "🪙 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DiamondBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/DiamondBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.74902, 1, 1)
+theme_override_font_size = 12
+text = "💎 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VIPBox" type="PanelContainer" parent="Layout/Header/Margin/HBox/Currencies"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_CurrencyPill")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header/Margin/HBox/Currencies/VIPBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin/HBox/Currencies/VIPBox/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Value" type="Label" parent="Layout/Header/Margin/HBox/Currencies/VIPBox/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.5, 0.9, 1)
+theme_override_font_size = 12
+text = "👑 VIP 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_CloseNormal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_CloseHover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_CloseHover")
+text = " X "
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Content" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HSplit" type="HSplitContainer" parent="Layout/Content"]
+layout_mode = 2
+theme_override_constants/separation = 16
+split_offset = 320
+
+[node name="LeftPanel" type="PanelContainer" parent="Layout/Content/HSplit"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_EmptyPrompt")
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/Content/HSplit/LeftPanel"]
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="Layout/Content/HSplit/LeftPanel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RightPanel" type="PanelContainer" parent="Layout/Content/HSplit"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_EmptyPrompt")
+
+[node name="EmptyPrompt" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_EmptyPrompt")
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/EmptyPrompt"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 13
+text = "Select an event from the campaign list to view milestones, claim tiered rewards, and contribute to progress goals."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="EventDetailsScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TypeBadge" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Badge")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/TypeBadge"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header/TypeBadge/Margin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 10
+text = "SERVER"
+vertical_alignment = 1
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 15
+text = "Crownspire Sovereign Inauguration Event"
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 11
+text = "⏳ Countdown: --:--:--"
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 11
+text = "A majestic server campaign requires lords to coordinate their fortifications."
+autowrap_mode = 2
+
+[node name="ProgressSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ProgressSection"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ProgressSection/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_size = 11
+text = "Event Target Progress: 0 / 12000"
+
+[node name="Bar" type="ProgressBar" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ProgressSection"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+show_percentage = false
+
+[node name="MilestonesSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/MilestonesSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 12
+text = "🎁 MILESTONE TIER LOOT REWARDS"
+
+[node name="Grid" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/MilestonesSection"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ActionsSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ActionsSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.74902, 1, 1)
+theme_override_font_size = 12
+text = "⚡ COMPLETE DEDICATED CHALLENGE TASKS"
+
+[node name="QuestList" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/ActionsSection"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LeaderboardSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/LeaderboardSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.5, 0.9, 1)
+theme_override_font_size = 12
+text = "🏆 SOVEREIGN RANKING LEADERBOARD"
+
+[node name="LeaderboardList" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/EventDetailsScroll/Content/LeaderboardSection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BPDetailsScroll" type="ScrollContainer" parent="Layout/Content/HSplit/RightPanel"]
+visible = false
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="PanelContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_SimCard")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 14
+
+[node name="VBox" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94902, 0.768627, 0.0588235, 1)
+theme_override_font_size = 16
+text = "👑 VANGUARD VALOR ELITE BATTLE PASS"
+
+[node name="Desc" type="Label" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.584314, 0.647059, 0.717647, 1)
+theme_override_font_size = 11
+text = "Unlock Elite tiers using Diamonds to harvest massive gold reserves, premium speeds, and the exclusive Volcanic Citadels Castle Skin."
+autowrap_mode = 2
+
+[node name="ProgressBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LevelLbl" type="Label" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox/ProgressBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+text = "Level 2"
+
+[node name="Bar" type="ProgressBar" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox/ProgressBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_BPProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_BPProgressBarFill")
+show_percentage = false
+
+[node name="XpLbl" type="Label" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox/ProgressBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.701961, 0.301961, 0.901961, 1)
+theme_override_font_size = 11
+text = "XP: 200 / 1000"
+horizontal_alignment = 2
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="UnlockPremiumBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox/HBox"]
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "🔒 Unlock Elite Pass (💎 1,500)"
+
+[node name="GainXpBtn" type="Button" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/Header/Margin/VBox/HBox"]
+custom_minimum_size = Vector2(200, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "⚡ Gain Challenge XP (+500 XP)"
+
+[node name="TiersSection" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/TiersSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.701961, 0.301961, 0.901961, 1)
+theme_override_font_size = 12
+text = "🏅 BATTLE PASS LADDER PATHWAY"
+
+[node name="TiersList" type="VBoxContainer" parent="Layout/Content/HSplit/RightPanel/BPDetailsScroll/Content/TiersSection"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Toast")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_size = 12
+text = "Operation successful!"
+horizontal_alignment = 1
+vertical_alignment = 1

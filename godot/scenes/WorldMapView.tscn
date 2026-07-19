@@ -1,0 +1,285 @@
+[gd_scene load_steps=6 format=3 uid="uid://cx64muxyba21y"]
+
+[ext_resource type="Script" path="res://scripts/WorldMapView.gd" id="1_world"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_search"]
+bg_color = Color(0.0627451, 0.0901961, 0.141176, 0.95)
+border_width_bottom = 2
+border_color = Color(1, 0.843137, 0, 0.3)
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drawer"]
+bg_color = Color(0.0627451, 0.0901961, 0.141176, 0.95)
+border_width_top = 3
+border_color = Color(1, 0.843137, 0, 0.4)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sidebar"]
+bg_color = Color(0.0431373, 0.0627451, 0.101961, 0.85)
+border_width_left = 2
+border_color = Color(1, 0.843137, 0, 0.2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold"]
+bg_color = Color(0.854902, 0.647059, 0.12549, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.25)
+shadow_size = 4
+
+[node name="WorldMapView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_world")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TopSearchPanel" type="PanelContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_search")
+
+[node name="Margin" type="MarginContainer" parent="VBox/TopSearchPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBox/TopSearchPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Row1" type="HBoxContainer" parent="VBox/TopSearchPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SearchInput" type="LineEdit" parent="VBox/TopSearchPanel/Margin/VBox/Row1"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+placeholder_text = "ENTER COORDINATES (E.G. 250,220) OR NODE NAME..."
+alignment = 1
+
+[node name="SearchBtn" type="Button" parent="VBox/TopSearchPanel/Margin/VBox/Row1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "SNAP AXIS"
+
+[node name="Row2" type="HBoxContainer" parent="VBox/TopSearchPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NodeFilter" type="OptionButton" parent="VBox/TopSearchPanel/Margin/VBox/Row2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+
+[node name="ScanHorizonBtn" type="Button" parent="VBox/TopSearchPanel/Margin/VBox/Row2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "📡 SCAN HORIZON"
+
+[node name="StatusRow" type="HBoxContainer" parent="VBox/TopSearchPanel/Margin/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScanSuccessLabel" type="Label" parent="VBox/TopSearchPanel/Margin/VBox/StatusRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.8, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "TACTICAL CHRONOS SCAN RADAR ACTIVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxBody" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="MapScroll" type="ScrollContainer" parent="VBox/HBoxBody"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 1
+vertical_scroll_mode = 1
+
+[node name="MapContent" type="Control" parent="VBox/HBoxBody/MapScroll"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1000, 1100)
+layout_mode = 2
+
+[node name="Background" type="ColorRect" parent="VBox/HBoxBody/MapScroll/MapContent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0431373, 0.0705882, 0.054902, 1)
+
+[node name="GridLines" type="Control" parent="VBox/HBoxBody/MapScroll/MapContent"]
+modulate = Color(1, 1, 1, 0.04)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarchLineDraw" type="Control" parent="VBox/HBoxBody/MapScroll/MapContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CustomNodesContainer" type="Control" parent="VBox/HBoxBody/MapScroll/MapContent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SidebarQueues" type="PanelContainer" parent="VBox/HBoxBody"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sidebar")
+
+[node name="Margin" type="MarginContainer" parent="VBox/HBoxBody/SidebarQueues"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="VBox/HBoxBody/SidebarQueues/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBox/HBoxBody/SidebarQueues/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "🛡️ ACTIVE CAMPAIGN GARRISONS"
+
+[node name="Separator" type="ColorRect" parent="VBox/HBoxBody/SidebarQueues/Margin/VBox"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(1, 1, 1, 0.1)
+
+[node name="Scroll" type="ScrollContainer" parent="VBox/HBoxBody/SidebarQueues/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 1
+
+[node name="ActiveMarchesVBox" type="VBoxContainer" parent="VBox/HBoxBody/SidebarQueues/Margin/VBox/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DetailDrawer" type="PanelContainer" parent="VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_drawer")
+
+[node name="Margin" type="MarginContainer" parent="VBox/DetailDrawer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 12
+
+[node name="SelectionHint" type="Label" parent="VBox/DetailDrawer/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.545098, 0.658824, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "SELECT ANY TACTICAL COORDINATE OUTPOST ON THE WILDERNESS MAP TO INSPECT SPECS AND DEPLOY LEGIONARY EXPEDITION FORCES"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="DrawerDetails" type="VBoxContainer" parent="VBox/DetailDrawer/Margin"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBox" type="HBoxContainer" parent="VBox/DetailDrawer/Margin/DrawerDetails"]
+layout_mode = 2
+
+[node name="NodeTitle" type="Label" parent="VBox/DetailDrawer/Margin/DrawerDetails/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "WIND-RUNNER SCOUTING CAMP"
+
+[node name="NodeCoords" type="Label" parent="VBox/DetailDrawer/Margin/DrawerDetails/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.784314, 0.470588, 1)
+theme_override_font_sizes/font_size = 11
+text = "COORD: X=250 | Y=220"
+
+[node name="NodeDesc" type="Label" parent="VBox/DetailDrawer/Margin/DrawerDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.772549, 0.819608, 0.901961, 0.8)
+theme_override_font_sizes/font_size = 11
+text = "A wildling raiding patrol gathering forces to storm kingdoms."
+autowrap_mode = 2
+
+[node name="NodeYield" type="Label" parent="VBox/DetailDrawer/Margin/DrawerDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.647059, 0.12549, 1)
+theme_override_font_sizes/font_size = 11
+text = "ESTIMATED MINING YIELDS:\n  • Gold Coins x 4000\n  • Timber Supply x 5000"
+autowrap_mode = 2
+
+[node name="DispatchButton" type="Button" parent="VBox/DetailDrawer/Margin/DrawerDetails"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "DEPLOY FORCES ON OUTPOST EXPEDITION"

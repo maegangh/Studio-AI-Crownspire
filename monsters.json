@@ -1,0 +1,1022 @@
+[
+  {
+    "id": "monster_common_l1_s1_frost_lupine",
+    "name": "Wildling Wolf (Lvl 1)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 1,
+    "troopWeakness": "infantry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 50,
+    "defense": 40,
+    "health": 400,
+    "speed": 102,
+    "power": 780,
+    "marchRequirement": 1150,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 960,
+      "wood": 720,
+      "stone": 440,
+      "iron": 220,
+      "valor": 16,
+      "heroXP": 80,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "monster_common_l2_s1_mossy_harpy",
+    "name": "Wildling Wolf (Lvl 2)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 2,
+    "troopWeakness": "cavalry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 112,
+    "defense": 90,
+    "health": 896,
+    "speed": 104,
+    "power": 1750,
+    "marchRequirement": 1300,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 1920,
+      "wood": 1440,
+      "stone": 880,
+      "iron": 440,
+      "valor": 16,
+      "heroXP": 160,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "monster_common_l3_s1_sand_dweller",
+    "name": "Wildling Wolf (Lvl 3)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 3,
+    "troopWeakness": "marksmen",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 188,
+    "defense": 151,
+    "health": 1505,
+    "speed": 106,
+    "power": 2938,
+    "marchRequirement": 1450,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 2880,
+      "wood": 2160,
+      "stone": 1320,
+      "iron": 660,
+      "valor": 17,
+      "heroXP": 240,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "monster_common_l4_s1_bog_mire_ooze",
+    "name": "Wildling Wolf (Lvl 4)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 4,
+    "troopWeakness": "infantry",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 281,
+    "defense": 225,
+    "health": 2248,
+    "speed": 108,
+    "power": 4385,
+    "marchRequirement": 1600,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 3840,
+      "wood": 2880,
+      "stone": 1760,
+      "iron": 880,
+      "valor": 17,
+      "heroXP": 320,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "monster_common_l5_s1_feral_hog",
+    "name": "Wildling Wolf (Lvl 5)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 5,
+    "troopWeakness": "marksmen",
+    "description": "A swift and pack-hunting wildling wolf, patrolling the outer borders of the realm.",
+    "attack": 393,
+    "defense": 315,
+    "health": 3147,
+    "speed": 110,
+    "power": 6136,
+    "marchRequirement": 1750,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 4800,
+      "wood": 3600,
+      "stone": 2200,
+      "iron": 1100,
+      "valor": 18,
+      "heroXP": 400,
+      "shardDrops": [
+        {
+          "heroId": "rowan_timberfall",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_wolf",
+    "assetKey": "wildling_wolf"
+  },
+  {
+    "id": "monster_common_l6_s1_frost_lupine",
+    "name": "Wildling Bear (Lvl 6)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 6,
+    "troopWeakness": "infantry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 529,
+    "defense": 423,
+    "health": 4230,
+    "speed": 112,
+    "power": 8251,
+    "marchRequirement": 1900,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 5760,
+      "wood": 4320,
+      "stone": 2640,
+      "iron": 1320,
+      "valor": 18,
+      "heroXP": 480,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "monster_common_l7_s1_mossy_harpy",
+    "name": "Wildling Bear (Lvl 7)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 7,
+    "troopWeakness": "cavalry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 691,
+    "defense": 553,
+    "health": 5527,
+    "speed": 114,
+    "power": 10781,
+    "marchRequirement": 2050,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 6720,
+      "wood": 5040,
+      "stone": 3080,
+      "iron": 1540,
+      "valor": 19,
+      "heroXP": 560,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "monster_common_l8_s1_sand_dweller",
+    "name": "Wildling Bear (Lvl 8)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 8,
+    "troopWeakness": "marksmen",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 884,
+    "defense": 707,
+    "health": 7074,
+    "speed": 116,
+    "power": 13789,
+    "marchRequirement": 2200,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 7680,
+      "wood": 5760,
+      "stone": 3520,
+      "iron": 1760,
+      "valor": 19,
+      "heroXP": 640,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "monster_common_l9_s1_bog_mire_ooze",
+    "name": "Wildling Bear (Lvl 9)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 9,
+    "troopWeakness": "infantry",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1114,
+    "defense": 891,
+    "health": 8913,
+    "speed": 118,
+    "power": 17377,
+    "marchRequirement": 2350,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 8640,
+      "wood": 6480,
+      "stone": 3960,
+      "iron": 1980,
+      "valor": 20,
+      "heroXP": 720,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "monster_common_l10_s1_feral_hog",
+    "name": "Wildling Bear (Lvl 10)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 10,
+    "troopWeakness": "marksmen",
+    "description": "A massive, armored wildling bear capable of shattering enemy shields with raw physical power.",
+    "attack": 1387,
+    "defense": 1109,
+    "health": 11092,
+    "speed": 120,
+    "power": 21632,
+    "marchRequirement": 2500,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 9600,
+      "wood": 7200,
+      "stone": 4400,
+      "iron": 2200,
+      "valor": 20,
+      "heroXP": 800,
+      "shardDrops": [
+        {
+          "heroId": "mira_greenleaf",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_bear",
+    "assetKey": "wildling_bear"
+  },
+  {
+    "id": "monster_common_l11_s1_frost_lupine",
+    "name": "Wildling Spider (Lvl 11)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 11,
+    "troopWeakness": "infantry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 1708,
+    "defense": 1367,
+    "health": 13666,
+    "speed": 122,
+    "power": 26650,
+    "marchRequirement": 2650,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 10560,
+      "wood": 7920,
+      "stone": 4840,
+      "iron": 2420,
+      "valor": 21,
+      "heroXP": 880,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "monster_common_l12_s1_mossy_harpy",
+    "name": "Wildling Spider (Lvl 12)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 12,
+    "troopWeakness": "cavalry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2087,
+    "defense": 1670,
+    "health": 16697,
+    "speed": 124,
+    "power": 32561,
+    "marchRequirement": 2800,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 11520,
+      "wood": 8640,
+      "stone": 5280,
+      "iron": 2640,
+      "valor": 21,
+      "heroXP": 960,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "monster_common_l13_s1_sand_dweller",
+    "name": "Wildling Spider (Lvl 13)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 13,
+    "troopWeakness": "marksmen",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 2532,
+    "defense": 2026,
+    "health": 20259,
+    "speed": 126,
+    "power": 39503,
+    "marchRequirement": 2950,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 12480,
+      "wood": 9360,
+      "stone": 5720,
+      "iron": 2860,
+      "valor": 22,
+      "heroXP": 1040,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "monster_common_l14_s1_bog_mire_ooze",
+    "name": "Wildling Spider (Lvl 14)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 14,
+    "troopWeakness": "infantry",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 3054,
+    "defense": 2444,
+    "health": 24436,
+    "speed": 128,
+    "power": 47649,
+    "marchRequirement": 3100,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 13440,
+      "wood": 10080,
+      "stone": 6160,
+      "iron": 3080,
+      "valor": 22,
+      "heroXP": 1120,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "monster_common_l15_s1_feral_hog",
+    "name": "Wildling Spider (Lvl 15)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 15,
+    "troopWeakness": "marksmen",
+    "description": "A venomous wildling spider that ambushes prey from the shadowed forest canopies.",
+    "attack": 3665,
+    "defense": 2932,
+    "health": 29323,
+    "speed": 130,
+    "power": 57174,
+    "marchRequirement": 3250,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 14400,
+      "wood": 10800,
+      "stone": 6600,
+      "iron": 3300,
+      "valor": 23,
+      "heroXP": 1200,
+      "shardDrops": [
+        {
+          "heroId": "rowan_timberfall",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_spider",
+    "assetKey": "wildling_spider"
+  },
+  {
+    "id": "monster_common_l16_s1_frost_lupine",
+    "name": "Wildling Boar (Lvl 16)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 16,
+    "troopWeakness": "infantry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 4379,
+    "defense": 3503,
+    "health": 35031,
+    "speed": 132,
+    "power": 68311,
+    "marchRequirement": 3400,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 15360,
+      "wood": 11520,
+      "stone": 7040,
+      "iron": 3520,
+      "valor": 23,
+      "heroXP": 1280,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "monster_common_l17_s1_mossy_harpy",
+    "name": "Wildling Boar (Lvl 17)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 17,
+    "troopWeakness": "cavalry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 5211,
+    "defense": 4169,
+    "health": 41687,
+    "speed": 134,
+    "power": 81293,
+    "marchRequirement": 3550,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 16320,
+      "wood": 12240,
+      "stone": 7480,
+      "iron": 3740,
+      "valor": 24,
+      "heroXP": 1360,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "monster_common_l18_s1_sand_dweller",
+    "name": "Wildling Boar (Lvl 18)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 18,
+    "troopWeakness": "marksmen",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 6179,
+    "defense": 4944,
+    "health": 49435,
+    "speed": 136,
+    "power": 96399,
+    "marchRequirement": 3700,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 17280,
+      "wood": 12960,
+      "stone": 7920,
+      "iron": 3960,
+      "valor": 24,
+      "heroXP": 1440,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "monster_common_l19_s1_bog_mire_ooze",
+    "name": "Wildling Boar (Lvl 19)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 19,
+    "troopWeakness": "infantry",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 7305,
+    "defense": 5844,
+    "health": 58444,
+    "speed": 138,
+    "power": 113959,
+    "marchRequirement": 3850,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 18240,
+      "wood": 13680,
+      "stone": 8360,
+      "iron": 4180,
+      "valor": 25,
+      "heroXP": 1520,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "monster_common_l20_s1_feral_hog",
+    "name": "Wildling Boar (Lvl 20)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 20,
+    "troopWeakness": "marksmen",
+    "description": "A fierce, tusked wildling boar that charges headfirst into any battle lines without fear.",
+    "attack": 8613,
+    "defense": 6890,
+    "health": 68902,
+    "speed": 140,
+    "power": 134359,
+    "marchRequirement": 4000,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 19200,
+      "wood": 14400,
+      "stone": 8800,
+      "iron": 4400,
+      "valor": 25,
+      "heroXP": 1600,
+      "shardDrops": [
+        {
+          "heroId": "mira_greenleaf",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Earthy Seed"
+      ]
+    },
+    "family": "wildling_boar",
+    "assetKey": "wildling_boar"
+  },
+  {
+    "id": "monster_common_l21_s1_frost_lupine",
+    "name": "Wildling Troll (Lvl 21)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 21,
+    "troopWeakness": "infantry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 10129,
+    "defense": 8103,
+    "health": 81029,
+    "speed": 142,
+    "power": 158010,
+    "marchRequirement": 4150,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 20160,
+      "wood": 15120,
+      "stone": 9240,
+      "iron": 4620,
+      "valor": 26,
+      "heroXP": 1680,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "monster_common_l22_s1_mossy_harpy",
+    "name": "Wildling Troll (Lvl 22)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 22,
+    "troopWeakness": "cavalry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 11884,
+    "defense": 9507,
+    "health": 95074,
+    "speed": 144,
+    "power": 185389,
+    "marchRequirement": 4300,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 21120,
+      "wood": 15840,
+      "stone": 9680,
+      "iron": 4840,
+      "valor": 26,
+      "heroXP": 1760,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "monster_common_l23_s1_sand_dweller",
+    "name": "Wildling Troll (Lvl 23)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 23,
+    "troopWeakness": "marksmen",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 13915,
+    "defense": 11132,
+    "health": 111323,
+    "speed": 146,
+    "power": 217074,
+    "marchRequirement": 4450,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 22080,
+      "wood": 16560,
+      "stone": 10120,
+      "iron": 5060,
+      "valor": 27,
+      "heroXP": 1840,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "monster_common_l24_s1_bog_mire_ooze",
+    "name": "Wildling Troll (Lvl 24)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 24,
+    "troopWeakness": "infantry",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 16263,
+    "defense": 13010,
+    "health": 130103,
+    "speed": 148,
+    "power": 253699,
+    "marchRequirement": 4600,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 23040,
+      "wood": 17280,
+      "stone": 10560,
+      "iron": 5280,
+      "valor": 27,
+      "heroXP": 1920,
+      "shardDrops": null,
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "monster_common_l25_s1_feral_hog",
+    "name": "Wildling Troll (Lvl 25)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 25,
+    "troopWeakness": "marksmen",
+    "description": "A colossal forest wildling troll wielding uprooted trees to crush opposing forces.",
+    "attack": 18973,
+    "defense": 15179,
+    "health": 151786,
+    "speed": 150,
+    "power": 295984,
+    "marchRequirement": 4750,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 24000,
+      "wood": 18000,
+      "stone": 11000,
+      "iron": 5500,
+      "valor": 28,
+      "heroXP": 2000,
+      "shardDrops": [
+        {
+          "heroId": "rowan_timberfall",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "5m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_troll",
+    "assetKey": "wildling_troll"
+  },
+  {
+    "id": "monster_common_l26_s1_frost_lupine",
+    "name": "Wildling Dragon (Lvl 26)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 26,
+    "troopWeakness": "infantry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 22100,
+    "defense": 17680,
+    "health": 176801,
+    "speed": 152,
+    "power": 344760,
+    "marchRequirement": 4900,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 24960,
+      "wood": 18720,
+      "stone": 11440,
+      "iron": 5720,
+      "valor": 28,
+      "heroXP": 2080,
+      "shardDrops": null,
+      "itemDrops": [
+        "15m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "monster_common_l27_s1_mossy_harpy",
+    "name": "Wildling Dragon (Lvl 27)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 27,
+    "troopWeakness": "cavalry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 25704,
+    "defense": 20563,
+    "health": 205633,
+    "speed": 154,
+    "power": 400981,
+    "marchRequirement": 5050,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 25920,
+      "wood": 19440,
+      "stone": 11880,
+      "iron": 5940,
+      "valor": 29,
+      "heroXP": 2160,
+      "shardDrops": null,
+      "itemDrops": [
+        "15m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "monster_common_l28_s1_sand_dweller",
+    "name": "Wildling Dragon (Lvl 28)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 28,
+    "troopWeakness": "marksmen",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 29855,
+    "defense": 23884,
+    "health": 238839,
+    "speed": 156,
+    "power": 465738,
+    "marchRequirement": 5200,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 26880,
+      "wood": 20160,
+      "stone": 12320,
+      "iron": 6160,
+      "valor": 29,
+      "heroXP": 2240,
+      "shardDrops": null,
+      "itemDrops": [
+        "15m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "monster_common_l29_s1_bog_mire_ooze",
+    "name": "Wildling Dragon (Lvl 29)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 29,
+    "troopWeakness": "infantry",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 34632,
+    "defense": 27705,
+    "health": 277053,
+    "speed": 158,
+    "power": 540254,
+    "marchRequirement": 5350,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 27840,
+      "wood": 20880,
+      "stone": 12760,
+      "iron": 6380,
+      "valor": 30,
+      "heroXP": 2320,
+      "shardDrops": null,
+      "itemDrops": [
+        "15m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  },
+  {
+    "id": "monster_common_l30_s1_feral_hog",
+    "name": "Wildling Dragon (Lvl 30)",
+    "monsterType": "Common",
+    "rarity": "Common",
+    "level": 30,
+    "troopWeakness": "marksmen",
+    "description": "An ancient mythical wildling dragon breathing pure elemental magic of total destruction.",
+    "attack": 40125,
+    "defense": 32100,
+    "health": 320999,
+    "speed": 160,
+    "power": 625950,
+    "marchRequirement": 5500,
+    "staminaCost": 10,
+    "respawnTimeSec": 300,
+    "rewards": {
+      "food": 28800,
+      "wood": 21600,
+      "stone": 13200,
+      "iron": 6600,
+      "valor": 30,
+      "heroXP": 2400,
+      "shardDrops": [
+        {
+          "heroId": "mira_greenleaf",
+          "count": 1
+        }
+      ],
+      "itemDrops": [
+        "15m speedup",
+        "Copper Wire",
+        "Beast Treats"
+      ]
+    },
+    "family": "wildling_dragon",
+    "assetKey": "wildling_dragon"
+  }
+]

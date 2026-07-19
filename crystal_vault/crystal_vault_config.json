@@ -1,0 +1,24 @@
+{
+  "general": {
+    "feature_name": "Crystal Vault Framework",
+    "version": "1.0.0-final",
+    "maximum_building_level": 40,
+    "passive_resonance_gain_multiplier": 1.25,
+    "recovery_rate_sec": 360,
+    "default_music_track": "ambient_stellar_loop.ogg"
+  },
+  "visuals": {
+    "color_theme": "cosmic_twilight",
+    "primary_ambient_light_color": "#4f228b",
+    "crystal_particle_count": 80,
+    "canvas_dimensions_2d": {
+      "width": 1024,
+      "height": 600
+    }
+  },
+  "rewards": {
+    "f2p_daily_shard_limit": 500,
+    "vip_bonus_multiplier": 1.15,
+    "resonance_upgrade_shard_cost_base": 100
+  }
+}

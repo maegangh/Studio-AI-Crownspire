@@ -1,0 +1,28 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://c6r8ca18c8u7p"]
+
+[sub_resource type="Curve" id="Curve_size_shimmer"]
+_data = [Vector2(0, 0.2), 0.0, 1.5, 0, 0, Vector2(0.5, 1.0), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.2, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_size"]
+curve = SubResource("Curve_size_shimmer")
+
+[sub_resource type="Gradient" id="Gradient_alpha_fade"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fade"]
+gradient = SubResource("Gradient_alpha_fade")
+
+[resource]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 45.0
+gravity = Vector3(0, -40, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.1
+scale_min = 0.8
+scale_max = 1.4
+scale_curve = SubResource("CurveTexture_size")
+color_ramp = SubResource("GradientTexture1D_fade")

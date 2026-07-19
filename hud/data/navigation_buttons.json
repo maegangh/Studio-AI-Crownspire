@@ -1,0 +1,44 @@
+[
+  {
+    "id": "heroes",
+    "name": "HEROES",
+    "icon": "🧙",
+    "scene_path": "res://heroes/scenes/HeroPopup.tscn"
+  },
+  {
+    "id": "bag",
+    "name": "BAG",
+    "icon": "🎒",
+    "scene_path": "res://Bag.tscn"
+  },
+  {
+    "id": "quests",
+    "name": "QUESTS",
+    "icon": "📜",
+    "scene_path": "res://quests/scenes/QuestPopup.tscn"
+  },
+  {
+    "id": "alliance",
+    "name": "ALLIANCE",
+    "icon": "🏰",
+    "scene_path": "res://alliance/scenes/AlliancePopup.tscn"
+  },
+  {
+    "id": "store",
+    "name": "STORE",
+    "icon": "💎",
+    "scene_path": "res://store/scenes/StorePopup.tscn"
+  },
+  {
+    "id": "mail",
+    "name": "MAIL",
+    "icon": "✉️",
+    "scene_path": "res://mail/scenes/MailPopup.tscn"
+  },
+  {
+    "id": "settings",
+    "name": "SETTINGS",
+    "icon": "⚙️",
+    "scene_path": "res://settings/scenes/SettingsPopup.tscn"
+  }
+]

@@ -1,0 +1,228 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/HeroDetailPanel.gd" id="1_det"]
+[ext_resource type="PackedScene" path="res://scenes/HeroPortraitFrame.tscn" id="2_port"]
+[ext_resource type="PackedScene" path="res://scenes/HeroPowerDisplay.tscn" id="3_pow"]
+[ext_resource type="PackedScene" path="res://scenes/HeroXPBar.tscn" id="4_xp"]
+[ext_resource type="PackedScene" path="res://scenes/HeroSkillPanel.tscn" id="5_sk"]
+[ext_resource type="PackedScene" path="res://scenes/HeroEquipmentPanel.tscn" id="6_eq"]
+[ext_resource type="PackedScene" path="res://scenes/HeroAscensionPanel.tscn" id="7_asc"]
+[ext_resource type="PackedScene" path="res://scenes/HeroBiographyPanel.tscn" id="8_bio"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0431373, 0.0588235, 0.0901961, 0.95)
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_primary"]
+bg_color = Color(0.06, 0.72, 0.5, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.06, 0.72, 0.5, 0.25)
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tab"]
+bg_color = Color(0.08, 0.12, 0.18, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HeroDetailPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(380, 0)
+offset_right = 380.0
+offset_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_det")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="IdentityBlock" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="HeroPortraitFrame" parent="Margin/VBox/IdentityBlock" instance=ExtResource("2_port")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameBox" type="VBoxContainer" parent="Margin/VBox/IdentityBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HeroNameLbl" type="Label" parent="Margin/VBox/IdentityBlock/NameBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "VALERIUS"
+
+[node name="HeroTitleLbl" type="Label" parent="Margin/VBox/IdentityBlock/NameBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.5)
+theme_override_font_sizes/font_size = 11
+text = "THE DRAGON SENTINEL"
+
+[node name="FavoriteBtn" type="Button" parent="Margin/VBox/IdentityBlock/NameBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 28)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 9
+text = "🖤 FAVORITE"
+
+[node name="HeroPowerDisplay" parent="Margin/VBox" instance=ExtResource("3_pow")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HeroXPBar" parent="Margin/VBox" instance=ExtResource("4_xp")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ActionBox" type="VBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ActionBtn" type="Button" parent="Margin/VBox/ActionBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
+text = "✨ FORTIFY LEVEL (USE XP)"
+
+[node name="ActionCostLabel" type="Label" parent="Margin/VBox/ActionBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.4)
+theme_override_font_sizes/font_size = 9
+text = "AVAILABLE POTIONS: 12 | LVL CAP: 60"
+horizontal_alignment = 1
+
+[node name="TabButtonsRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TabDetailsBtn" type="Button" parent="Margin/VBox/TabButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab")
+text = "STATS"
+
+[node name="TabSkillsBtn" type="Button" parent="Margin/VBox/TabButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab")
+text = "SKILLS"
+
+[node name="TabEquipBtn" type="Button" parent="Margin/VBox/TabButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab")
+text = "GEAR"
+
+[node name="TabAscendBtn" type="Button" parent="Margin/VBox/TabButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab")
+text = "ASCEND"
+
+[node name="TabBioBtn" type="Button" parent="Margin/VBox/TabButtonsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_tab")
+text = "BIO"
+
+[node name="TabContentArea" type="PanelContainer" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="DetailsTabBox" type="VBoxContainer" parent="Margin/VBox/TabContentArea"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0)
+theme_override_font_sizes/font_size = 11
+text = "PRIMARY ATTRIBUTES & MULTIPLIERS"
+
+[node name="Scroll" type="ScrollContainer" parent="Margin/VBox/TabContentArea/DetailsTabBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="StatLine1" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "⚡ LEGION INFANTRY ATK BOOST: +24%"
+
+[node name="StatLine2" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "🛡️ LEGION INFANTRY DEF BOOST: +18%"
+
+[node name="StatLine3" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "❤️ LEGION CAVALRY HP BOOST: +12%"
+
+[node name="StatLine4" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "🏹 ARCHERY EXPEDITION CAPACITY: +2500 Troops"
+
+[node name="StatLine5" type="Label" parent="Margin/VBox/TabContentArea/DetailsTabBox/Scroll/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "⏳ WILDLINGS MARCH VELOCITY: +15%"
+
+[node name="HeroSkillPanel" parent="Margin/VBox/TabContentArea" instance=ExtResource("5_sk")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HeroEquipmentPanel" parent="Margin/VBox/TabContentArea" instance=ExtResource("6_eq")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HeroAscensionPanel" parent="Margin/VBox/TabContentArea" instance=ExtResource("7_asc")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HeroBiographyPanel" parent="Margin/VBox/TabContentArea" instance=ExtResource("8_bio")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2

@@ -1,0 +1,49 @@
+{
+  "audio": {
+    "master_volume": 80.0,
+    "music_volume": 70.0,
+    "sfx_volume": 85.0,
+    "ui_sounds": true
+  },
+  "graphics": {
+    "profile": "High",
+    "frame_rate": 60,
+    "battery_saver": false,
+    "shadows_enabled": true,
+    "bloom_enabled": true
+  },
+  "gameplay": {
+    "camera_shake": true,
+    "screen_flashes": true,
+    "show_coordinates": true,
+    "auto_translate": true
+  },
+  "notifications": {
+    "push_enabled": true,
+    "energy_full": true,
+    "shield_expiry": true,
+    "alliance_rallies": true,
+    "mail_received": true
+  },
+  "language": {
+    "current": "en"
+  },
+  "privacy": {
+    "analytics": true,
+    "personalization": true,
+    "public_profile": true
+  },
+  "profile": {
+    "active_avatar": "🧙",
+    "active_frame": "Royal Filigree",
+    "active_title": "Sovereign of Dawn",
+    "active_castle_skin": "Default Citadel",
+    "active_march_skin": "Royal Cavalry",
+    "linked_accounts": ["Google Play Games"],
+    "unlocked_avatars": ["🧙", "🦁", "🧝", "🛡️", "👑", "🏹"],
+    "unlocked_frames": ["Default Wood", "Royal Filigree", "Crystallite Ring"],
+    "unlocked_titles": ["Initiate", "Sovereign of Dawn", "Guild Marshal"],
+    "unlocked_castle_skins": ["Default Citadel", "Crystallite Spire"],
+    "unlocked_march_skins": ["Royal Cavalry", "Sovereign Pegasi"]
+  }
+}

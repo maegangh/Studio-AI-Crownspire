@@ -1,0 +1,386 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6e8g3t1e5r2"]
+
+[ext_resource type="Script" path="res://SummonScene.gd" id="1_a2b3c"]
+
+[node name="SummonScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a2b3c")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="PortalSprite" type="Sprite2D" parent="Visuals"]
+position = Vector2(576, 324)
+
+[node name="PortalParticles" type="GPUParticles2D" parent="Visuals"]
+position = Vector2(576, 324)
+emitting = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Header" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+
+[node name="CloseButton" type="Button" parent="UI/Header"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 64.0
+grow_horizontal = 0
+text = "X"
+
+[node name="RatesButton" type="Button" parent="UI/Header"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 120.0
+offset_bottom = 56.0
+text = "Odds Rates"
+
+[node name="HistoryButton" type="Button" parent="UI/Header"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 16.0
+offset_right = 240.0
+offset_bottom = 56.0
+text = "History Log"
+
+[node name="TicketsPanel" type="PanelContainer" parent="UI/Header"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 16.0
+offset_right = 100.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="HBox" type="HBoxContainer" parent="UI/Header/TicketsPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Header/TicketsPanel/HBox"]
+layout_mode = 2
+text = "Summon Tickets: "
+
+[node name="TicketCount" type="Label" parent="UI/Header/TicketsPanel/HBox"]
+layout_mode = 2
+text = "0"
+
+[node name="Footer" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="UI/Footer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -70.0
+offset_right = 260.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="SummonSingleBtn" type="Button" parent="UI/Footer/HBox"]
+custom_minimum_size = Vector2(240, 50)
+layout_mode = 2
+text = "Single Summon (1 Ticket)"
+
+[node name="SummonTenBtn" type="Button" parent="UI/Footer/HBox"]
+custom_minimum_size = Vector2(240, 50)
+layout_mode = 2
+text = "Tenfold Summon (10 Tickets)"
+
+[node name="PityPanel" type="PanelContainer" parent="UI/Footer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 10.0
+offset_right = 300.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="VBox" type="VBoxContainer" parent="UI/Footer/PityPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="EpicPityLabel" type="Label" parent="UI/Footer/PityPanel/VBox"]
+layout_mode = 2
+text = "Guaranteed Epic Altar General in: 10 pulls"
+horizontal_alignment = 1
+
+[node name="LegendaryPityLabel" type="Label" parent="UI/Footer/PityPanel/VBox"]
+layout_mode = 2
+text = "Guaranteed Cosmic Mythic/Legendary in: 40 pulls"
+horizontal_alignment = 1
+
+[node name="Overlay" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SkipButton" type="Button" parent="UI/Overlay"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 90.0
+offset_right = -20.0
+offset_bottom = 130.0
+grow_horizontal = 0
+text = "Skip Animation"
+
+[node name="RevealCard" type="ColorRect" parent="UI/Overlay"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.9)
+
+[node name="VBox" type="VBoxContainer" parent="UI/Overlay/RevealCard"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="RarityBadge" type="PanelContainer" parent="UI/Overlay/RevealCard/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="UI/Overlay/RevealCard/VBox/RarityBadge"]
+layout_mode = 2
+text = "LEGENDARY"
+horizontal_alignment = 1
+
+[node name="Portrait" type="TextureRect" parent="UI/Overlay/RevealCard/VBox"]
+custom_minimum_size = Vector2(180, 240)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="UI/Overlay/RevealCard/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hero Name"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="UI/Overlay/RevealCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "War General"
+horizontal_alignment = 1
+
+[node name="ShardsInfo" type="Label" parent="UI/Overlay/RevealCard/VBox"]
+layout_mode = 2
+text = "+50 shards conversion"
+horizontal_alignment = 1
+
+[node name="ResultsScreen" type="ColorRect" parent="UI/Overlay"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.05, 0.95)
+
+[node name="Title" type="Label" parent="UI/Overlay/ResultsScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 40.0
+offset_right = 150.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "SUMMON RESULTS"
+horizontal_alignment = 1
+
+[node name="GridScroll" type="ScrollContainer" parent="UI/Overlay/ResultsScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -180.0
+offset_right = 400.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="UI/Overlay/ResultsScreen/GridScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/horizontal_separation = 20
+theme_override_constants/vertical_separation = 20
+columns = 5
+
+[node name="CloseBtn" type="Button" parent="UI/Overlay/ResultsScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -80.0
+offset_right = 120.0
+offset_bottom = -30.0
+grow_vertical = 0
+text = "Return to Keep"
+
+[node name="RatesDialog" type="PanelContainer" parent="UI/Overlay"]
+visible = false
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseRates" type="Button" parent="UI/Overlay/RatesDialog"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="VBox" type="VBoxContainer" parent="UI/Overlay/RatesDialog"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="UI/Overlay/RatesDialog/VBox"]
+layout_mode = 2
+text = "SOVEREIGN PULL ODDS"
+horizontal_alignment = 1
+
+[node name="List" type="VBoxContainer" parent="UI/Overlay/RatesDialog/VBox"]
+layout_mode = 2
+
+[node name="Mythic" type="Label" parent="UI/Overlay/RatesDialog/VBox/List"]
+layout_mode = 2
+text = "Mythic Commanders: 1.5%"
+
+[node name="Legendary" type="Label" parent="UI/Overlay/RatesDialog/VBox/List"]
+layout_mode = 2
+text = "Legendary Commanders: 4.5%"
+
+[node name="Epic" type="Label" parent="UI/Overlay/RatesDialog/VBox/List"]
+layout_mode = 2
+text = "Epic Commanders: 14.0%"
+
+[node name="Rare" type="Label" parent="UI/Overlay/RatesDialog/VBox/List"]
+layout_mode = 2
+text = "Rare Commanders: 35.0%"
+
+[node name="Common" type="Label" parent="UI/Overlay/RatesDialog/VBox/List"]
+layout_mode = 2
+text = "Common Commanders: 45.0%"
+
+[node name="HistoryDialog" type="PanelContainer" parent="UI/Overlay"]
+visible = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseHistory" type="Button" parent="UI/Overlay/HistoryDialog"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="Scroll" type="ScrollContainer" parent="UI/Overlay/HistoryDialog"]
+layout_mode = 2
+
+[node name="List" type="VBoxContainer" parent="UI/Overlay/HistoryDialog/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+text = "Notification"
+horizontal_alignment = 1
+vertical_alignment = 1

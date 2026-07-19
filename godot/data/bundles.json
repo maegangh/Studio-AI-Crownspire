@@ -1,0 +1,92 @@
+[
+  {
+    "id": "bundle_growth_fund",
+    "name": "Sovereign Growth Fund",
+    "tag_line": "Invest in the future of your Empire! Gain unmatched progress boosters.",
+    "cost_usd": 14.99,
+    "value_multiplier": "800% Value",
+    "badge_text": "BEST SELLER",
+    "background_art": "res://assets/ui/backgrounds/bundle_growth_fund_bg.png",
+    "rarity": 3,
+    "items": [
+      {
+        "name": "Royal Crystals",
+        "quantity": 3000,
+        "icon": "res://assets/ui/icons/hud_royal_crystal.png",
+        "rarity": 4
+      },
+      {
+        "name": "Arcane Speedup (24h)",
+        "quantity": 5,
+        "icon": "res://assets/ui/icons/item_speedup_24h.png",
+        "rarity": 3
+      },
+      {
+        "name": "Citadel Iron Reserve (10M)",
+        "quantity": 2,
+        "icon": "res://assets/ui/icons/item_iron_10m.png",
+        "rarity": 2
+      }
+    ],
+    "is_featured": true,
+    "active": true
+  },
+  {
+    "id": "bundle_dragon_slayer",
+    "name": "Wrath of the Dragon Slayer",
+    "tag_line": "Summon the mythical Champion 'Ignis' and command fire crystal magic.",
+    "cost_usd": 49.99,
+    "value_multiplier": "1200% Value",
+    "badge_text": "LIMITED EDITION",
+    "background_art": "res://assets/ui/backgrounds/bundle_dragon_slayer_bg.png",
+    "rarity": 4,
+    "items": [
+      {
+        "name": "Ignis Hero Unlock Key",
+        "quantity": 1,
+        "icon": "res://assets/ui/icons/gacha_key_summon.png",
+        "rarity": 4
+      },
+      {
+        "name": "Epic Fire Crystal shards",
+        "quantity": 100,
+        "icon": "res://assets/ui/icons/item_fire_shards.png",
+        "rarity": 3
+      },
+      {
+        "name": "Royal Crystals",
+        "quantity": 10000,
+        "icon": "res://assets/ui/icons/hud_royal_crystal.png",
+        "rarity": 4
+      }
+    ],
+    "is_featured": true,
+    "active": true
+  },
+  {
+    "id": "bundle_weekly_speedup",
+    "name": "Grand Alchemical Bounty",
+    "tag_line": "Keep construction and training queues active with top-tier speedups.",
+    "cost_usd": 9.99,
+    "value_multiplier": "500% Value",
+    "badge_text": "WEEKLY DEALS",
+    "background_art": "res://assets/ui/backgrounds/bundle_weekly_speed_bg.png",
+    "rarity": 2,
+    "items": [
+      {
+        "name": "Arcane Speedup (8h)",
+        "quantity": 12,
+        "icon": "res://assets/ui/icons/item_speedup_8h.png",
+        "rarity": 2
+      },
+      {
+        "name": "Construction Focus Buff",
+        "quantity": 1,
+        "icon": "res://assets/ui/icons/item_focus_buff.png",
+        "rarity": 3
+      }
+    ],
+    "is_featured": false,
+    "active": true
+  }
+]

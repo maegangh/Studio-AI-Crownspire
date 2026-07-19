@@ -1,0 +1,517 @@
+[gd_scene load_steps=8 format=3 uid="uid://crspire_rally_panel_uid"]
+
+[ext_resource type="Script" path="res://RallyPanel.gd" id="1_rally"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0509804, 0.0627451, 0.0823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HeaderPanel"]
+bg_color = Color(0.0823529, 0.101961, 0.133333, 1)
+border_width_bottom = 2
+border_color = Color(0.141176, 0.176471, 0.227451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RallyCard"]
+bg_color = Color(0.0784314, 0.0941176, 0.121569, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.121569, 0.152941, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_BtnLaunch"]
+bg_color = Color(0.854902, 0.647059, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarBg"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ProgressBarFill"]
+bg_color = Color(0.854902, 0.352941, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="RallyPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rally")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_HeaderPanel")
+
+[node name="Margin" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="HBox" type="HBoxContainer" parent="Layout/Header/Margin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.823529, 0.545098, 1)
+theme_override_font_sizes/font_size = 18
+text = "CO-OP ALLIANCE RALLY STATION"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnCreateNew" type="Button" parent="Layout/Header/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_BtnLaunch")
+text = "  + MOBILIZE NEW RALLY  "
+
+[node name="CloseButton" type="Button" parent="Layout/Header/Margin/HBox"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+text = "X"
+
+[node name="MainPanel" type="HSplitContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 420
+
+[node name="LeftSection" type="VBoxContainer" parent="Layout/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Margin" type="MarginContainer" parent="Layout/MainPanel/LeftSection"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+
+[node name="HBox" type="HBoxContainer" parent="Layout/MainPanel/LeftSection/Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/MainPanel/LeftSection/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.701961, 0.74902, 0.803922, 1)
+theme_override_font_sizes/font_size = 14
+text = "Active Coalition Rallies"
+
+[node name="CountBadge" type="Label" parent="Layout/MainPanel/LeftSection/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.803922, 0.443137, 1)
+text = "[0 Active]"
+
+[node name="RalliesScroll" type="ScrollContainer" parent="Layout/MainPanel/LeftSection"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="RallyList" type="VBoxContainer" parent="Layout/MainPanel/LeftSection/RalliesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="RightSection" type="VBoxContainer" parent="Layout/MainPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RallyDetailContainer" type="PanelContainer" parent="Layout/MainPanel/RightSection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NoRallySelected" type="CenterContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/NoRallySelected"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.482353, 0.521569, 0.588235, 1)
+text = "Select an active co-op rally to view march tracks, reinforcements, and ETA."
+
+[node name="RallyDetails" type="VBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="RallyHeader" type="HBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails"]
+layout_mode = 2
+
+[node name="TargetName" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/RallyHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92549, 0.32549, 0.231373, 1)
+theme_override_font_sizes/font_size = 16
+text = "WORLD BOSS: SCYLLA SEA BEAST"
+
+[node name="Spacer" type="Control" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/RallyHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnJoin" type="Button" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/RallyHeader"]
+layout_mode = 2
+text = "JOIN REINFORCEMENTS"
+
+[node name="MarchPreview" type="VBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBox" type="HBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/MarchPreview"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/MarchPreview/HBox"]
+layout_mode = 2
+text = "March Pathing Status: Assembling reinforcements..."
+
+[node name="Timer" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/MarchPreview/HBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.92549, 0.627451, 0.180392, 1)
+text = "04:52 remaining"
+
+[node name="ProgressBar" type="ProgressBar" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/MarchPreview"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ProgressBarBg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ProgressBarFill")
+value = 45.0
+show_percentage = false
+
+[node name="VanguardInfo" type="HBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails"]
+layout_mode = 2
+
+[node name="Creator" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/VanguardInfo"]
+layout_mode = 2
+text = "Rally Leader: Lord Paramount"
+
+[node name="PowerEstimate" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/VanguardInfo"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.180392, 0.803922, 0.443137, 1)
+text = "Est. Coalition Power: 4,850,000 CR"
+
+[node name="ParticipantsList" type="VBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/ParticipantsList"]
+layout_mode = 2
+text = "Participant Roster & Squad Deployments:"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/ParticipantsList"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="Layout/MainPanel/RightSection/RallyDetailContainer/RallyDetails/ParticipantsList/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Dialogs" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CreateRallyPopup" type="ColorRect" parent="Dialogs"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="Dialogs/CreateRallyPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Dialogs/CreateRallyPopup/Center"]
+custom_minimum_size = Vector2(480, 500)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Dialogs/CreateRallyPopup/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.823529, 0.545098, 1)
+theme_override_font_sizes/font_size = 16
+text = "COORDINATE ALLIANCE COALITION RALLY"
+
+[node name="TargetSelector" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/TargetSelector"]
+layout_mode = 2
+text = "Rally Target: "
+
+[node name="Option" type="OptionButton" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/TargetSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimerSelector" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/TimerSelector"]
+layout_mode = 2
+text = "Mobilization Time: "
+
+[node name="Option" type="OptionButton" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/TimerSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HeroSelect" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/HeroSelect"]
+layout_mode = 2
+text = "Select Commander Hero: "
+
+[node name="Option" type="OptionButton" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/HeroSelect"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Troops" type="VBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+text = "Assign Troops to March Deck:"
+
+[node name="Infantry" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Infantry:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+
+[node name="Marksmen" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Marksmen:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+
+[node name="Cavalry" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Cavalry:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "0"
+
+[node name="EstPower" type="Label" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.180392, 0.803922, 0.443137, 1)
+text = "March Power Estimate: 0 CR"
+
+[node name="Buttons" type="HBoxContainer" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="BtnCancel" type="Button" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="BtnLaunch" type="Button" parent="Dialogs/CreateRallyPopup/Center/Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LAUNCH"
+
+[node name="JoinRallyPopup" type="ColorRect" parent="Dialogs"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="Dialogs/JoinRallyPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Dialogs/JoinRallyPopup/Center"]
+custom_minimum_size = Vector2(440, 420)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Dialogs/JoinRallyPopup/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.823529, 0.545098, 1)
+theme_override_font_sizes/font_size = 16
+text = "DISPATCH REINFORCEMENTS"
+
+[node name="HeroSelect" type="HBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/HeroSelect"]
+layout_mode = 2
+text = "Select Leader Hero: "
+
+[node name="Option" type="OptionButton" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/HeroSelect"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Troops" type="VBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+text = "Deploy Troops to Reinforce:"
+
+[node name="Infantry" type="HBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Infantry:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Infantry"]
+custom_minimum_size = Vector2(50, 0)
+text = "0"
+
+[node name="Marksmen" type="HBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Marksmen:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Marksmen"]
+custom_minimum_size = Vector2(50, 0)
+text = "0"
+
+[node name="Cavalry" type="HBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Cavalry:"
+
+[node name="Slider" type="HSlider" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Troops/Cavalry"]
+custom_minimum_size = Vector2(50, 0)
+text = "0"
+
+[node name="Buttons" type="HBoxContainer" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="BtnCancel" type="Button" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="BtnJoin" type="Button" parent="Dialogs/JoinRallyPopup/Center/Panel/Margin/VBox/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SEND HELP"

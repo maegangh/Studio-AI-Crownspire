@@ -1,0 +1,268 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8crspiremaster"]
+
+[ext_resource type="Script" path="res://Alliance.gd" id="1_master"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_MainBg"]
+bg_color = Color(0.0666667, 0.0823529, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Header"]
+bg_color = Color(0.101961, 0.12549, 0.160784, 1)
+border_width_bottom = 2
+border_color = Color(0.176471, 0.219608, 0.286275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Sidebar"]
+bg_color = Color(0.0980392, 0.117647, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.172549, 0.219608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ChatBg"]
+bg_color = Color(0.0588235, 0.0705882, 0.0901961, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.117647, 0.141176, 0.180392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_RightPanel"]
+bg_color = Color(0.0823529, 0.101961, 0.129412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.141176, 0.172549, 0.219608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Toast"]
+bg_color = Color(0.117647, 0.141176, 0.180392, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.192157, 0.478431, 0.819608, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Alliance" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_master")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_MainBg")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="PanelContainer" parent="Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Header")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Layout/Header/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 15
+text = "👑 SOVEREIGN COALITION CHANCERY"
+
+[node name="Spacer" type="Control" parent="Layout/Header/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="Layout/Header/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = " X "
+
+[node name="TabScroll" type="ScrollContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="TabBox" type="HBoxContainer" parent="Layout/TabScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ContentMargin" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="MainPanel" type="PanelContainer" parent="Layout/ContentMargin"]
+layout_mode = 2
+
+[node name="HSplit" type="HSplitContainer" parent="Layout/ContentMargin/MainPanel"]
+layout_mode = 2
+split_offset = 240
+
+[node name="LeftListContainer" type="VBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="HeaderBar" type="PanelContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_Sidebar")
+
+[node name="Margin" type="MarginContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AllianceTitleLabel" type="Label" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "The Crown's Vanguard"
+
+[node name="AllianceLevelLabel" type="Label" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.15, 1)
+theme_override_font_sizes/font_size = 11
+text = "Alliance Tier: Level 1"
+
+[node name="AlliancePowerLabel" type="Label" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "Combat Rating: 1.5M CR"
+
+[node name="AllianceMemberCountLabel" type="Label" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/HeaderBar/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "Lords Capacity: 5 / 50"
+
+[node name="ChatBox" type="VBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19, 0.48, 0.82, 1)
+theme_override_font_sizes/font_size = 12
+text = "Sovereign Chat Link"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ChatBg")
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="HBox" type="HBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ChatEdit" type="LineEdit" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 11
+placeholder_text = "Post to alliance chat..."
+
+[node name="SendBtn" type="Button" parent="Layout/ContentMargin/MainPanel/HSplit/LeftListContainer/ChatBox/HBox"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Send"
+
+[node name="RightDetailContainer" type="PanelContainer" parent="Layout/ContentMargin/MainPanel/HSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_RightPanel")
+
+[node name="Margin" type="MarginContainer" parent="Layout/ContentMargin/MainPanel/HSplit/RightDetailContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Layout/ContentMargin/MainPanel/HSplit/RightDetailContainer/Margin"]
+layout_mode = 2
+
+[node name="CurrentTabContainer" type="PanelContainer" parent="Layout/ContentMargin/MainPanel/HSplit/RightDetailContainer/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ToastNotification" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(320, 45)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_offset_top = -65.0
+offset_right = 160.0
+offset_offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Toast")
+
+[node name="ToastLabel" type="Label" parent="ToastNotification"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Event notification logged."
+horizontal_alignment = 1
+vertical_alignment = 1
+wrap_mode = 1

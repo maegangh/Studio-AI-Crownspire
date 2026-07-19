@@ -1,0 +1,51 @@
+[
+  {
+    "id": "intel_scout_hawk",
+    "category_id": "intel",
+    "name": "Aerial Reconnaissance",
+    "description": "Dispatch a Scout Hawk to clear fog in unexplored coordinate quadrants and search for hidden gold ruins.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 25,
+    "objectives": [
+      {
+        "id": "obj_scout_ hawk_dispatches",
+        "description": "Send Scout Hawk 3 times",
+        "type": "scout_hawk",
+        "current": 1,
+        "target": 3,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 10000, "rarity": 1, "icon": "🪙" },
+      { "name": "8-Hour Shield of Peace", "type": "shield_8h", "quantity": 1, "rarity": 3, "icon": "🛡️" }
+    ]
+  },
+  {
+    "id": "intel_anomaly_investigation",
+    "category_id": "intel",
+    "name": "Crystallite Anomaly",
+    "description": "Investigate dynamic magical fields on the map. Find and harvest a high-yield Crystallite deposit.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 35,
+    "objectives": [
+      {
+        "id": "obj_anomaly_clears",
+        "description": "Gather 1000 Crystallite Cores",
+        "type": "gather_res",
+        "target_id": "crystallite",
+        "current": 0,
+        "target": 1000,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Crystallite Cores", "type": "crystallite_cores", "quantity": 300, "rarity": 3, "icon": "🌀" },
+      { "name": "Aurora Crystals", "type": "aurora_crystal", "quantity": 100, "rarity": 2, "icon": "💎" }
+    ]
+  }
+]

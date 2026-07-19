@@ -1,0 +1,218 @@
+[gd_scene load_steps=3 format=3 uid="uid://e12xt899gamehud"]
+
+[ext_resource type="Script" path="res://hud/scripts/GameHUD.gd" id="1_gamehud"]
+[ext_resource type="PackedScene" uid="uid://e11xt899navigationbutton" path="res://hud/scenes/NavigationButton.tscn" id="2_navigationbutton"]
+
+[node name="GameHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_gamehud")
+nav_btn_scene = ExtResource("2_navigationbutton")
+
+[node name="TopHUDDeck" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Margin" type="MarginContainer" parent="TopHUDDeck"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="HBox" type="HBoxContainer" parent="TopHUDDeck/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayerProfile" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ProfileButton" type="Button" parent="TopHUDDeck/Margin/HBox/PlayerProfile"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "👑"
+
+[node name="ProfileInfo" type="VBoxContainer" parent="TopHUDDeck/Margin/HBox/PlayerProfile"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayerNameLabel" type="Label" parent="TopHUDDeck/Margin/HBox/PlayerProfile/ProfileInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lord Aurelius"
+
+[node name="Meta" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/PlayerProfile/ProfileInfo"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="VipValueLabel" type="Label" parent="TopHUDDeck/Margin/HBox/PlayerProfile/ProfileInfo/Meta"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "VIP 4"
+
+[node name="PowerValueLabel" type="Label" parent="TopHUDDeck/Margin/HBox/PlayerProfile/ProfileInfo/Meta"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "PWR 1.25M"
+
+[node name="ResourceGrid" type="GridContainer" parent="TopHUDDeck/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/horizontal_separation = 12
+theme_override_constants/vertical_separation = 4
+columns = 4
+
+[node name="FoodBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/FoodBox"]
+layout_mode = 2
+text = "🌾"
+
+[node name="FoodLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/FoodBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "500K"
+
+[node name="WoodBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/WoodBox"]
+layout_mode = 2
+text = "🪵"
+
+[node name="WoodLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/WoodBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "450K"
+
+[node name="StoneBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/StoneBox"]
+layout_mode = 2
+text = "🪨"
+
+[node name="StoneLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/StoneBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "250K"
+
+[node name="IronBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/IronBox"]
+layout_mode = 2
+text = "⛓️"
+
+[node name="IronLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/IronBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "120K"
+
+[node name="GoldBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/GoldBox"]
+layout_mode = 2
+text = "🪙"
+
+[node name="GoldLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/GoldBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100K"
+
+[node name="RoyalCrystalsBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/RoyalCrystalsBox"]
+layout_mode = 2
+text = "💎"
+
+[node name="RoyalCrystalsLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/RoyalCrystalsBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5.0K"
+
+[node name="AuroraCrystalsBox" type="HBoxContainer" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Icon" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/AuroraCrystalsBox"]
+layout_mode = 2
+text = "✨"
+
+[node name="AuroraCrystalsLabel" type="Label" parent="TopHUDDeck/Margin/HBox/ResourceGrid/AuroraCrystalsBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2.5K"
+
+[node name="EmptyFiller" type="Control" parent="TopHUDDeck/Margin/HBox/ResourceGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MapToggleContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -160.0
+offset_right = -16.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MapToggleButton" type="Button" parent="MapToggleContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 50)
+layout_mode = 2
+text = "⚔️ WORLD MAP"
+
+[node name="BottomHUDDeck" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="BottomHUDDeck"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="NavigationContainer" type="HBoxContainer" parent="BottomHUDDeck/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1

@@ -1,0 +1,49 @@
+[
+  {
+    "id": "wayfinder_route_1",
+    "category_id": "wayfinder",
+    "name": "The Royal Highway",
+    "description": "Establish a secure route by cleaning road checkpoints. Free up transport links to local outposts.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 30,
+    "objectives": [
+      {
+        "id": "obj_highway_points",
+        "description": "Explore 3 Road Checkpoints on the World Map",
+        "type": "world_explore",
+        "current": 1,
+        "target": 3,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Gold", "type": "gold", "quantity": 12000, "rarity": 1, "icon": "🪙" },
+      { "name": "3-Hour Universal Speedup", "type": "speedup_3h", "quantity": 1, "rarity": 2, "icon": "⚡" }
+    ]
+  },
+  {
+    "id": "wayfinder_teleport_alliance",
+    "category_id": "wayfinder",
+    "name": "Cohesive Migration",
+    "description": "Relocate your main keep into the physical alliance boundary coordinates on the World Map.",
+    "is_completed": false,
+    "is_claimed": false,
+    "is_pinned": false,
+    "quest_points": 45,
+    "objectives": [
+      {
+        "id": "obj_alliance_relocate",
+        "description": "Use an Alliance Teleport item on World Map",
+        "type": "use_item_teleport",
+        "current": 0,
+        "target": 1,
+        "completed": false
+      }
+    ],
+    "rewards": [
+      { "name": "Royal Crystals", "type": "royal_crystal", "quantity": 300, "rarity": 3, "icon": "💎" }
+    ]
+  }
+]

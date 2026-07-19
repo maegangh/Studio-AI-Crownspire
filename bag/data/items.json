@@ -1,0 +1,160 @@
+[
+  {
+    "id": "resource_food_100k",
+    "name": "100,000 Food Packet",
+    "description": "A dense food packet containing dry rations. Use to immediately add 100,000 Food to your city storehouse.",
+    "category": "resources",
+    "rarity": "rare",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "resource_wood_100k",
+    "name": "100,000 Wood Bundles",
+    "description": "High-quality lumber prepared for construction. Use to immediately add 100,000 Wood to your city storehouse.",
+    "category": "resources",
+    "rarity": "rare",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "resource_stone_50k",
+    "name": "50,000 Stone Blocks",
+    "description": "Carved heavy granite blocks for structural fortifications. Use to immediately add 50,000 Stone to your city storehouse.",
+    "category": "resources",
+    "rarity": "epic",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "resource_iron_25k",
+    "name": "25,000 Deep Iron Ore",
+    "description": "Smelted metal plates ready for smithing weapons. Use to immediately add 25,000 Iron to your city storehouse.",
+    "category": "resources",
+    "rarity": "epic",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "resource_diamond_1000",
+    "name": "1,000 Royal Diamonds",
+    "description": "Precious sparkling diamonds reserved for royal upgrades. Use to immediately receive 1,000 Royal Crystals / Diamonds.",
+    "category": "resources",
+    "rarity": "legendary",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "speedup_research_1h",
+    "name": "1h Academy Speedup",
+    "description": "Accelerates active Academy research times by 1 Hour. Can only be applied when an active research task is running.",
+    "category": "speedups",
+    "rarity": "rare",
+    "usable": true,
+    "sellable": true,
+    "value": 150,
+    "chest_items": []
+  },
+  {
+    "id": "speedup_construction_1h",
+    "name": "1h Builder's Guild Blueprint",
+    "description": "Coordinates builder shifts, speeding up active construction upgrades by 1 Hour.",
+    "category": "speedups",
+    "rarity": "rare",
+    "usable": true,
+    "sellable": true,
+    "value": 150,
+    "chest_items": []
+  },
+  {
+    "id": "speedup_universal_5m",
+    "name": "5m Chrono Hourglass",
+    "description": "A micro hourglass that speeds up any active construction, research, or troop training task by 5 Minutes.",
+    "category": "speedups",
+    "rarity": "common",
+    "usable": true,
+    "sellable": true,
+    "value": 20,
+    "chest_items": []
+  },
+  {
+    "id": "hero_xp_potion_large",
+    "name": "Large XP Elixir",
+    "description": "Brewed from Stardust Herbs, this glowing potion instantly grants +5,000 experience points to the selected Hero.",
+    "category": "hero",
+    "rarity": "epic",
+    "usable": true,
+    "sellable": true,
+    "value": 500,
+    "chest_items": []
+  },
+  {
+    "id": "statue_hero_shard",
+    "name": "Sovereign Oath Shard",
+    "description": "A fragment of an ancient commander's statue. Collect 50 shards to summon the Legendary Lord Aurelius.",
+    "category": "hero",
+    "rarity": "legendary",
+    "usable": false,
+    "sellable": false,
+    "value": 0,
+    "chest_items": []
+  },
+  {
+    "id": "eq_weapon_recruit_s_training",
+    "name": "Recruit's Broadsword",
+    "description": "A standardized steel blade given to newly appointed lieutenants. Grants +2.5% Infantry Attack.",
+    "category": "equipment",
+    "rarity": "uncommon",
+    "usable": false,
+    "sellable": true,
+    "value": 600,
+    "chest_items": []
+  },
+  {
+    "id": "eq_helmet_recruit_s_training",
+    "name": "Recruit's Iron Visor",
+    "description": "A heavy metal helmet that covers the face. Grants +2.0% Marching Defense.",
+    "category": "equipment",
+    "rarity": "uncommon",
+    "usable": false,
+    "sellable": true,
+    "value": 500,
+    "chest_items": []
+  },
+  {
+    "id": "crafting_stardust_gem",
+    "name": "Stardust Crystal Shard",
+    "description": "A brilliant gem extracted from meteor remnants. Highly coveted by the Blacksmith for forging level 20+ Epic gear.",
+    "category": "materials",
+    "rarity": "epic",
+    "usable": false,
+    "sellable": true,
+    "value": 300,
+    "chest_items": []
+  },
+  {
+    "id": "chest_golden_crown",
+    "name": "Golden Imperial Chest",
+    "description": "An ornate royal chest containing high-rarity commander artifacts. Open to see what riches lie inside!",
+    "category": "hero",
+    "rarity": "mythic",
+    "usable": true,
+    "sellable": false,
+    "value": 0,
+    "chest_items": [
+      { "item_id": "resource_diamond_1000", "qty": 1 },
+      { "item_id": "hero_xp_potion_large", "qty": 3 },
+      { "item_id": "statue_hero_shard", "qty": 5 }
+    ]
+  }
+]
