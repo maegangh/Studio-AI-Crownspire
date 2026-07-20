@@ -202,14 +202,24 @@ func _load_database() -> void:
 		# Manual direct fallback loading
 		if FileAccess.file_exists("res://research.json"):
 			var file = FileAccess.open("res://research.json", FileAccess.READ)
-			var content = file.get_as_text()
-			var parsed = JSON.parse_string(content)
-			if parsed is Array:
-				database = parsed
+			if file:
+				var content = file.get_as_text()
+				var json = JSON.new()
+				var error = json.parse(content)
+				if error == OK:
+					var parsed = json.data
+					if parsed is Array:
+						database = parsed
+						loaded = true
+				else:
+					print("[Crownspire AcademyResearch] JSON Parse Error: ", json.get_error_message(), " at line ", json.get_error_line())
 				
-	if database.size() == 0:
+	if database.size() > 0:
+		print("[Crownspire AcademyResearch] Loaded %d research nodes." % database.size())
+	else:
 		push_error("[Crownspire AcademyResearch] Failed to load research.json. Injecting basic database.")
 		database = _get_hardcoded_database()
+		print("[Crownspire AcademyResearch] Loaded %d research nodes." % database.size())
 
 func _load_persistent_state() -> void:
 	var academy = _get_academy_building_ref()
@@ -272,7 +282,6 @@ func get_resource(res_type: String) -> int:
 	var ui = _get_ui_manager()
 	if ui:
 		if res_type == "valor":
-			# Bind valor to royal_crystals or a dynamic property
 			if "valor" in ui:
 				return int(ui.get("valor"))
 			else:
@@ -378,10 +387,10 @@ func _rebuild_tech_tree() -> void:
 	for child in nodes_container.get_children():
 		child.queue_free()
 		
-	# Get category nodes
+	# Get category nodes case-insensitively
 	var category_nodes = []
 	for node in database:
-		if node.get("category", "") == active_category:
+		if node.get("category", "").to_lower() == active_category.to_lower():
 			category_nodes.append(node)
 			
 	# Layout calculation
@@ -429,13 +438,26 @@ func _rebuild_tech_tree() -> void:
 		nodes_container.add_child(node_inst)
 		
 		node_inst.position = pos
-		node_inst.setup(node, level, status, affordable)
+		
+		# Remap category for rendering case-sensitive fallback emojis in ResearchNode
+		var node_copy = node.duplicate()
+		var orig_cat = node_copy.get("category", "")
+		var title_cat = orig_cat
+		match orig_cat.to_lower():
+			"economy": title_cat = "Economy"
+			"military": title_cat = "Military"
+			"development", "dev": title_cat = "Development"
+			"alliance": title_cat = "Alliance"
+			"hero": title_cat = "Hero"
+		node_copy["category"] = title_cat
+		
+		node_inst.setup(node_copy, level, status, affordable)
 		node_inst.selected.connect(_on_node_selected)
 		
 		# Load node texture if it exists
 		var icon_rect = node_inst.get_node_or_null("%IconRect")
 		if icon_rect:
-			_apply_category_icon(icon_rect, active_category)
+			_apply_category_icon(icon_rect, title_cat)
 			
 		# Update highlight state if selected
 		if n_id == selected_node_id:
@@ -456,15 +478,13 @@ func _rebuild_tech_tree() -> void:
 
 func _is_node_in_current_category(n_id: String) -> bool:
 	var n = _find_node_in_db(n_id)
-	return n.get("category", "") == active_category
+	return n.get("category", "").to_lower() == active_category.to_lower()
 
 func _apply_category_icon(texture_rect: TextureRect, cat: String) -> void:
-	# Check for specific game icons or apply colorful marble glyph placeholders
 	var path = "res://assets/ui/icons/tech_%s.png" % cat.to_lower()
 	if ResourceLoader.exists(path):
 		texture_rect.texture = load(path)
 	else:
-		# Colorful fallback placeholders using a solid modulate
 		texture_rect.texture = PlaceholderTexture2D.new()
 		match cat:
 			"Economy": texture_rect.self_modulate = Color(0.1, 0.8, 0.4)
@@ -480,7 +500,7 @@ func _draw_connections() -> void:
 		
 	var category_nodes = []
 	for node in database:
-		if node.get("category", "") == active_category:
+		if node.get("category", "").to_lower() == active_category.to_lower():
 			category_nodes.append(node)
 			
 	var node_positions = calculate_tree_layout(category_nodes)
@@ -492,28 +512,34 @@ func _draw_connections() -> void:
 		if pos == Vector2.ZERO:
 			continue
 			
-		# Check requirements for Level 1 to draw direct connections
-		var reqs_for_lvl_1 = node.get("requirements", [])
-		if reqs_for_lvl_1.size() == 0:
-			continue
-			
-		var lvl_1_reqs = reqs_for_lvl_1[0] # requirements to unlock Level 1
-		for req in lvl_1_reqs:
-			var req_id = req["id"]
+		# Check requirements to draw direct connections
+		var prereq_map = {} # req_id -> max_required_level
+		var requirements_list = node.get("requirements", [])
+		for reqs_at_lvl in requirements_list:
+			if reqs_at_lvl is Array:
+				for req in reqs_at_lvl:
+					if req is Dictionary:
+						var req_id = req.get("id", "")
+						var req_lvl = int(req.get("level", 1))
+						if req_id != "" and req_id != n_id:
+							prereq_map[req_id] = max(prereq_map.get(req_id, 0), req_lvl)
+							
+		for req_id in prereq_map.keys():
+			var req_lvl = prereq_map[req_id]
 			var req_pos = node_positions.get(req_id, Vector2.ZERO)
 			if req_pos == Vector2.ZERO:
 				continue
 				
-			# Draw Bezier from parent's right to current node's left
-			var p0 = req_pos + Vector2(210.0, 35.0) # Parent Node Right End
-			var p3 = pos + Vector2(0.0, 35.0)       # Current Node Left End
+			# Draw Bezier from parent's right to current node's left (250x90 dimensions)
+			var p0 = req_pos + Vector2(250.0, 45.0) # Parent Node Right End
+			var p3 = pos + Vector2(0.0, 45.0)       # Current Node Left End
 			
 			var cp1 = p0 + Vector2(100.0, 0.0)
 			var cp2 = p3 - Vector2(100.0, 0.0)
 			
 			# Check connection status
 			var req_level = get_research_levels().get(req_id, 0)
-			var meets_req = req_level >= int(req.get("level", 1))
+			var meets_req = req_level >= req_lvl
 			
 			var is_unlocked = check_node_unlocked(node)["unlocked"]
 			var active_conn = meets_req and is_unlocked
@@ -547,54 +573,54 @@ func _draw_bezier_curve(p0: Vector2, p1: Vector2, p2: Vector2, p3: Vector2, colo
 		points.append(p)
 		
 	if dashed:
-		# Draw dash patterns manually
 		for j in range(0, points.size() - 1, 2):
 			connection_layer.draw_line(points[j], points[j+1], color, width)
 	else:
 		connection_layer.draw_polyline(points, color, width, true)
 
-# Algorithmic auto layout
+func _calculate_node_depth(node_id: String, depth_map: Dictionary, category_ids: Dictionary) -> int:
+	if depth_map.has(node_id):
+		return depth_map[node_id]
+		
+	var node = _find_node_in_db(node_id)
+	if node.is_empty():
+		depth_map[node_id] = 0
+		return 0
+		
+	var prereqs = []
+	var requirements_list = node.get("requirements", [])
+	for reqs_at_lvl in requirements_list:
+		if reqs_at_lvl is Array:
+			for req in reqs_at_lvl:
+				if req is Dictionary:
+					var r_id = req.get("id", "")
+					if r_id != "" and r_id != node_id and category_ids.has(r_id):
+						if not r_id in prereqs:
+							prereqs.append(r_id)
+				
+	if prereqs.size() == 0:
+		depth_map[node_id] = 0
+		return 0
+		
+	var max_depth = 0
+	for p_id in prereqs:
+		var d = _calculate_node_depth(p_id, depth_map, category_ids)
+		if d > max_depth:
+			max_depth = d
+	depth_map[node_id] = max_depth + 1
+	return max_depth + 1
+
+# Algorithmic auto layout using prerequisites
 func calculate_tree_layout(category_nodes: Array) -> Dictionary:
 	var depth_map = {}
 	var category_ids = {}
 	for n in category_nodes:
 		category_ids[n["id"]] = true
 		
-	var get_depth: Callable
-	get_depth = func(node_id: String) -> int:
-		if depth_map.has(node_id):
-			return depth_map[node_id]
-			
-		var node = _find_node_in_db(node_id)
-		if node.is_empty():
-			depth_map[node_id] = 0
-			return 0
-			
-		var prereqs = []
-		var reqs_for_lvl_1 = node.get("requirements", [])
-		if reqs_for_lvl_1.size() > 0:
-			var lvl_1_reqs = reqs_for_lvl_1[0]
-			for req in lvl_1_reqs:
-				var r_id = req["id"]
-				if category_ids.has(r_id):
-					prereqs.append(r_id)
-					
-		if prereqs.size() == 0:
-			depth_map[node_id] = 0
-			return 0
-			
-		var max_depth = 0
-		for p_id in prereqs:
-			var d = get_depth.call(p_id)
-			if d > max_depth:
-				max_depth = d
-		depth_map[node_id] = max_depth + 1
-		return max_depth + 1
-
 	for n in category_nodes:
-		get_depth.call(n["id"])
+		_calculate_node_depth(n["id"], depth_map, category_ids)
 		
-	# Organize into vertical columns
+	# Organize into vertical columns (depth -> nodes)
 	var columns = {}
 	for n in category_nodes:
 		var d = depth_map.get(n["id"], 0)
@@ -602,35 +628,122 @@ func calculate_tree_layout(category_nodes: Array) -> Dictionary:
 			columns[d] = []
 		columns[d].append(n["id"])
 		
-	# Coordinates positioning
-	var positions = {}
-	var col_spacing = 280.0
-	var row_spacing = 110.0
-	
+	# Assign non-overlapping Row Indices to align kids nicely
+	var row_assignments = {} # node_id -> row_index (int)
 	var col_keys = columns.keys()
 	col_keys.sort()
 	
+	var col_occupied_rows = {} # col -> Dictionary of row_index -> bool
+	for col in col_keys:
+		col_occupied_rows[col] = {}
+		
 	for col in col_keys:
 		var ids = columns[col]
-		var total = ids.size()
-		for row_idx in range(total):
-			var x = 40.0 + col * col_spacing
-			var total_height = maxf(480.0, total * row_spacing)
-			var y = (row_idx + 0.5) * (total_height / total) - 35.0
-			positions[ids[row_idx]] = Vector2(x, y)
+		for node_id in ids:
+			var node = _find_node_in_db(node_id)
+			
+			var parent_row = -1
+			var prereq_ids = []
+			var requirements_list = node.get("requirements", [])
+			for reqs_at_lvl in requirements_list:
+				if reqs_at_lvl is Array:
+					for req in reqs_at_lvl:
+						if req is Dictionary:
+							var r_id = req.get("id", "")
+							if r_id != "" and r_id != node_id:
+								if not r_id in prereq_ids:
+									prereq_ids.append(r_id)
+			for r_id in prereq_ids:
+				if row_assignments.has(r_id):
+					parent_row = row_assignments[r_id]
+					break
+						
+			var assigned_row = 0
+			if parent_row != -1:
+				if not col_occupied_rows[col].has(parent_row):
+					assigned_row = parent_row
+				else:
+					var offset = 1
+					while true:
+						if not col_occupied_rows[col].has(parent_row + offset):
+							assigned_row = parent_row + offset
+							break
+						if not col_occupied_rows[col].has(parent_row - offset):
+							assigned_row = parent_row - offset
+							break
+						offset += 1
+			else:
+				var r = 0
+				while col_occupied_rows[col].has(r):
+					r += 1
+				assigned_row = r
+				
+			row_assignments[node_id] = assigned_row
+			col_occupied_rows[col][assigned_row] = true
+			
+	# Convert row indices to coordinates
+	var positions = {}
+	var col_spacing = 340.0
+	var row_spacing = 140.0
+	
+	if row_assignments.size() > 0:
+		var min_row = 999999
+		var max_row = -999999
+		for node_id in row_assignments:
+			var row = row_assignments[node_id]
+			if row < min_row: min_row = row
+			if row > max_row: max_row = row
+			
+		# Bounding size calculations
+		var tree_w = col_keys.size() * col_spacing
+		var tree_h = (max_row - min_row + 1) * row_spacing
+		
+		# Retrieve scroll view size safely for dynamic centering
+		var view_w = 800.0
+		var view_h = 500.0
+		if scroll_container:
+			view_w = scroll_container.size.x if scroll_container.size.x > 100.0 else 800.0
+			view_h = scroll_container.size.y if scroll_container.size.y > 100.0 else 500.0
+			
+		var offset_x = 40.0
+		var offset_y = 40.0
+		
+		if view_w > tree_w:
+			offset_x = (view_w - tree_w) / 2.0
+		if view_h > tree_h:
+			offset_y = (view_h - tree_h) / 2.0 - min_row * row_spacing
+		else:
+			offset_y = 40.0 - min_row * row_spacing
+			
+		for node_id in row_assignments:
+			var col = depth_map[node_id]
+			var row = row_assignments[node_id]
+			positions[node_id] = Vector2(offset_x + col * col_spacing, offset_y + row * row_spacing)
 			
 	return positions
 
 func _resize_scroll_canvas(positions: Dictionary) -> void:
-	var max_x = 800.0
-	var max_y = 500.0
+	var view_w = 800.0
+	var view_h = 500.0
+	if scroll_container:
+		view_w = scroll_container.size.x if scroll_container.size.x > 100.0 else 800.0
+		view_h = scroll_container.size.y if scroll_container.size.y > 100.0 else 500.0
+		
+	var max_x = view_w
+	var max_y = view_h
+	
 	for p_id in positions:
 		var pos = positions[p_id]
-		if pos.x > max_x: max_x = pos.x
-		if pos.y > max_y: max_y = pos.y
+		if pos.x + 250.0 > max_x: max_x = pos.x + 250.0
+		if pos.y + 90.0 > max_y: max_y = pos.y + 90.0
 		
-	canvas_dimensions = Vector2(max_x + 280.0, max_y + 110.0)
+	canvas_dimensions = Vector2(max_x + 80.0, max_y + 80.0)
 	_update_zoom_scale()
+	
+	# Scroll view container viewport auto-centering if content overflows
+	if scroll_container:
+		scroll_container.call_deferred("set_h_scroll", int(max(0.0, (canvas_dimensions.x * zoom_level - view_w) / 2.0)))
+		scroll_container.call_deferred("set_v_scroll", int(max(0.0, (canvas_dimensions.y * zoom_level - view_h) / 2.0)))
 
 func change_zoom(amount: float) -> void:
 	zoom_level = clampf(zoom_level + amount, 0.6, 1.5)
@@ -647,7 +760,6 @@ func _update_zoom_scale() -> void:
 
 # Triggered when selecting a node runestone
 func _on_node_selected(node_id: String) -> void:
-	# Clear old highlight
 	if selected_node_id != "" and selected_node_id != node_id:
 		for child in nodes_container.get_children():
 			if child.get("research_id") == selected_node_id:
@@ -655,16 +767,13 @@ func _on_node_selected(node_id: String) -> void:
 				
 	selected_node_id = node_id
 	
-	# Set new highlight visual
 	for child in nodes_container.get_children():
 		if child.get("research_id") == selected_node_id:
 			child.set_selected(true)
 			
-	# Update Connection layer highlight lines
 	if connection_layer:
 		connection_layer.queue_redraw()
 		
-	# Populate Inspect card info
 	_populate_inspect_card(node_id)
 
 func _populate_inspect_card(node_id: String) -> void:
@@ -688,20 +797,33 @@ func _populate_inspect_card(node_id: String) -> void:
 		card_description.text = '"' + node.get("description", "Ancient tech breakthrough.") + '"'
 		
 	# Current and next bonus levels
-	var effects = node.get("effects", [])
 	if active_bonus_lbl:
-		if level > 0 and level <= effects.size():
-			active_bonus_lbl.text = "Active: " + str(effects[level - 1])
+		if level > 0:
+			var lvl_data = _get_level_data(node, level)
+			if not lvl_data.is_empty():
+				var active_effects = lvl_data.get("effects", [])
+				if active_effects.size() > 0:
+					active_bonus_lbl.text = "Active:\n" + "\n".join(active_effects)
+				else:
+					active_bonus_lbl.text = "Active: No effects."
+			else:
+				active_bonus_lbl.text = "Active: No active bonuses yet."
 		else:
 			active_bonus_lbl.text = "Active: No active bonuses yet."
 			
 	if next_bonus_lbl:
 		if is_max:
 			next_bonus_lbl.text = "Max level achieved."
-		elif level < effects.size():
-			next_bonus_lbl.text = "Next: " + str(effects[level])
 		else:
-			next_bonus_lbl.text = "Next: Unlock next tier bonuses."
+			var next_lvl_data = _get_level_data(node, level + 1)
+			if not next_lvl_data.is_empty():
+				var next_effects = next_lvl_data.get("effects", [])
+				if next_effects.size() > 0:
+					next_bonus_lbl.text = "Next:\n" + "\n".join(next_effects)
+				else:
+					next_bonus_lbl.text = "Next: Unlock next level."
+			else:
+				next_bonus_lbl.text = "Next: Unlock next tier bonuses."
 			
 	# Update requirements list
 	_populate_requirements_ui(node, level)
@@ -730,9 +852,15 @@ func _populate_requirements_ui(node: Dictionary, current_lvl: int) -> void:
 		reqs_box.add_child(lbl)
 		return
 		
-	# Requirements for next level
 	var requirements_list = node.get("requirements", [])
-	if requirements_list.size() < next_lvl:
+	var idx = next_lvl - 1
+	var prereqs = []
+	if idx >= 0 and idx < requirements_list.size():
+		var reqs_at_lvl = requirements_list[idx]
+		if reqs_at_lvl is Array:
+			prereqs = reqs_at_lvl
+			
+	if prereqs.size() == 0:
 		var lbl = Label.new()
 		lbl.text = "✔ No prerequisites required."
 		lbl.add_theme_color_override("font_color", Color(0.1, 0.8, 0.4))
@@ -740,24 +868,20 @@ func _populate_requirements_ui(node: Dictionary, current_lvl: int) -> void:
 		reqs_box.add_child(lbl)
 		return
 		
-	var lvl_reqs = requirements_list[next_lvl - 1]
-	if lvl_reqs.size() == 0:
-		var lbl = Label.new()
-		lbl.text = "✔ No prerequisites required."
-		lbl.add_theme_color_override("font_color", Color(0.1, 0.8, 0.4))
-		lbl.add_theme_font_size_override("font_size", 10)
-		reqs_box.add_child(lbl)
-		return
-		
-	for req in lvl_reqs:
-		var req_id = req["id"]
-		var req_lvl = int(req["level"])
+	var any_added = false
+	for req in prereqs:
+		if not req is Dictionary: continue
+		var req_id = req.get("id", "")
+		var req_lvl = int(req.get("level", 1))
 		
 		# Self reference checks
-		if req_id == node.get("id"):
+		if req_id == "" or req_id == node.get("id"):
 			continue
 			
 		var req_def = _find_node_in_db(req_id)
+		if req_def.is_empty():
+			continue
+			
 		var req_name = req_def.get("name", req_id)
 		var active_lvl = get_research_levels().get(req_id, 0)
 		var met = active_lvl >= req_lvl
@@ -768,6 +892,14 @@ func _populate_requirements_ui(node: Dictionary, current_lvl: int) -> void:
 			lbl.add_theme_color_override("font_color", Color(0.1, 0.8, 0.4))
 		else:
 			lbl.add_theme_color_override("font_color", Color(0.9, 0.2, 0.2))
+		lbl.add_theme_font_size_override("font_size", 10)
+		reqs_box.add_child(lbl)
+		any_added = true
+		
+	if not any_added:
+		var lbl = Label.new()
+		lbl.text = "✔ No external prerequisites required."
+		lbl.add_theme_color_override("font_color", Color(0.1, 0.8, 0.4))
 		lbl.add_theme_font_size_override("font_size", 10)
 		reqs_box.add_child(lbl)
 
@@ -884,7 +1016,6 @@ func _on_start_research_pressed() -> void:
 	add_resource("iron", -cost_data["iron"])
 	add_resource("valor", -cost_data["valor"])
 	
-	# Speed reduction modifier from local construction speed or similar
 	var duration = cost_data["duration"]
 	
 	var job = {
@@ -1041,6 +1172,18 @@ func _update_queue_list_ui() -> void:
 		panel.add_child(margin)
 		queue_list.add_child(panel)
 
+func _get_level_data(node: Dictionary, lvl: int) -> Dictionary:
+	var lvl_data = {}
+	if lvl <= 0: return lvl_data
+	
+	var idx = lvl - 1
+	var effects = node.get("effects", [])
+	if idx < effects.size():
+		lvl_data["effects"] = [effects[idx]]
+	else:
+		lvl_data["effects"] = []
+	return lvl_data
+
 # Resource helper getters
 func get_node_level_costs(node: Dictionary, lvl: int) -> Dictionary:
 	var cost_data = {
@@ -1055,17 +1198,26 @@ func get_node_level_costs(node: Dictionary, lvl: int) -> Dictionary:
 	if lvl <= 0: return cost_data
 	
 	var idx = lvl - 1
-	var food_cost_list = node.get("foodCost", [])
-	var wood_cost_list = node.get("woodCost", [])
-	var stone_cost_list = node.get("stoneCost", [])
-	var iron_cost_list = node.get("ironCost", [])
-	var duration_list = node.get("researchTimeSec", [])
 	
-	if idx < food_cost_list.size(): cost_data["food"] = int(food_cost_list[idx])
-	if idx < wood_cost_list.size(): cost_data["wood"] = int(wood_cost_list[idx])
-	if idx < stone_cost_list.size(): cost_data["stone"] = int(stone_cost_list[idx])
-	if idx < iron_cost_list.size(): cost_data["iron"] = int(iron_cost_list[idx])
-	if idx < duration_list.size(): cost_data["duration"] = int(duration_list[idx])
+	var food_costs = node.get("foodCost", [])
+	if idx < food_costs.size():
+		cost_data["food"] = int(food_costs[idx])
+		
+	var wood_costs = node.get("woodCost", [])
+	if idx < wood_costs.size():
+		cost_data["wood"] = int(wood_costs[idx])
+		
+	var stone_costs = node.get("stoneCost", [])
+	if idx < stone_costs.size():
+		cost_data["stone"] = int(stone_costs[idx])
+		
+	var iron_costs = node.get("ironCost", [])
+	if idx < iron_costs.size():
+		cost_data["iron"] = int(iron_costs[idx])
+		
+	var times = node.get("researchTimeSec", [])
+	if idx < times.size():
+		cost_data["duration"] = int(times[idx])
 	
 	# Compute discount from academic research levels
 	var discount = get_resource_discount_modifier()
@@ -1073,9 +1225,6 @@ func get_node_level_costs(node: Dictionary, lvl: int) -> Dictionary:
 	cost_data["wood"] = int(cost_data["wood"] * discount)
 	cost_data["stone"] = int(cost_data["stone"] * discount)
 	cost_data["iron"] = int(cost_data["iron"] * discount)
-	
-	# Determine Arcane Valor (based on wood costs, caps at 10% wood)
-	cost_data["valor"] = int(cost_data["wood"] * 0.05)
 	
 	# Reduce research time duration based on speed modifiers
 	var speed_modifier = get_research_speed_modifier()
@@ -1086,7 +1235,6 @@ func get_node_level_costs(node: Dictionary, lvl: int) -> Dictionary:
 # Modifier calculate helpers
 func get_resource_discount_modifier() -> float:
 	var discount = 0.0
-	# Search dev_res_discount technology levels
 	var levels = get_research_levels()
 	var discount_lvl = levels.get("dev_res_discount", 0)
 	discount = discount_lvl * 0.03 # 3% per level
@@ -1107,26 +1255,30 @@ func check_node_unlocked(node: Dictionary) -> Dictionary:
 	if next_lvl > max_lvl:
 		return {"unlocked": false, "reason": "Ultimate level achieved."}
 		
-	# Check requirements at index next_lvl - 1
-	var reqs_list = node.get("requirements", [])
-	if reqs_list.size() < next_lvl:
-		return {"unlocked": true, "reason": ""}
-		
-	var lvl_reqs = reqs_list[next_lvl - 1]
-	for req in lvl_reqs:
-		var req_id = req["id"]
-		var req_lvl = int(req["level"])
-		
-		# Skip self prerequisite
-		if req_id == node["id"]:
-			continue
-			
-		var current_lvl = levels.get(req_id, 0)
-		if current_lvl < req_lvl:
-			var req_node = _find_node_in_db(req_id)
-			var req_name = req_node.get("name", req_id)
-			return {"unlocked": false, "reason": "Requires %s Level %d." % [req_name, req_lvl]}
-			
+	# Check prerequisites for the next level
+	var requirements_list = node.get("requirements", [])
+	var idx = next_lvl - 1
+	if idx >= 0 and idx < requirements_list.size():
+		var prereqs = requirements_list[idx]
+		if prereqs is Array:
+			for req in prereqs:
+				if req is Dictionary:
+					var req_id = req.get("id", "")
+					var req_lvl = int(req.get("level", 1))
+					
+					# Skip self prerequisite
+					if req_id == "" or req_id == node["id"]:
+						continue
+						
+					var req_node = _find_node_in_db(req_id)
+					if req_node.is_empty():
+						continue
+						
+					var current_lvl = levels.get(req_id, 0)
+					if current_lvl < req_lvl:
+						var req_name = req_node.get("name", req_id)
+						return {"unlocked": false, "reason": "Requires %s Level %d." % [req_name, req_lvl]}
+						
 	return {"unlocked": true, "reason": ""}
 
 func check_resources_affordable(cost_data: Dictionary) -> bool:
@@ -1157,7 +1309,6 @@ func _update_resources_display() -> void:
 	if iron_label: iron_label.text = format_num(get_resource("iron"))
 	if valor_label: valor_label.text = format_num(get_resource("valor"))
 	
-	# Sync academy building level badge
 	if academy_level_badge:
 		var academy = _get_academy_building_ref()
 		var lvl = int(academy.get("level", 15))
@@ -1197,25 +1348,42 @@ func _trigger_log_message(msg: String, is_warn: bool = false) -> void:
 
 func _on_close_pressed() -> void:
 	visible = false
-	# Safe removal if opened from popup stack
 	queue_free()
 
 func _get_hardcoded_database() -> Array:
 	return [
 		{
-			"id": "econ_food_prod",
-			"name": "Food Production",
-			"category": "Economy",
-			"maxLevel": 10,
-			"requirements": [
-				[],
-				[{"id": "econ_food_prod", "level": 1}]
-			],
-			"foodCost": [150, 300],
-			"woodCost": [100, 200],
-			"stoneCost": [0, 0],
-			"ironCost": [0, 0],
-			"researchTimeSec": [10, 30],
-			"effects": ["Food Production +5.0%", "Food Production +10.0%"]
+			"id": "econ_food_prod_1",
+			"name": "Citadel Irrigation I",
+			"category": "economy",
+			"description": "Ancient agrarian breakthroughs utilizing structured canal irrigation.",
+			"maxLevel": 2,
+			"prerequisites": [],
+			"levels": [
+				{
+					"level": 1,
+					"costs": {
+						"food": 150,
+						"wood": 100,
+						"stone": 0,
+						"iron": 0,
+						"valor": 0
+					},
+					"researchTimeSec": 10,
+					"effects": ["Food Production +5.0%"]
+				},
+				{
+					"level": 2,
+					"costs": {
+						"food": 300,
+						"wood": 200,
+						"stone": 0,
+						"iron": 0,
+						"valor": 0
+					},
+					"researchTimeSec": 30,
+					"effects": ["Food Production +10.0%"]
+				}
+			]
 		}
 	]

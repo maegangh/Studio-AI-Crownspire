@@ -22,6 +22,9 @@ var is_affordable: bool = false
 @onready var border_overlay: Panel = %BorderOverlay
 @onready var badge_rect: PanelContainer = %BadgeRect
 @onready var badge_label: Label = %BadgeLabel
+@onready var fallback_label: Label = %FallbackLabel
+
+var category: String = "Economy"
 
 func _ready() -> void:
 	if node_button:
@@ -40,6 +43,7 @@ func setup(data: Dictionary, state_level: int, state_status: String, affordable:
 	current_level = state_level
 	status = state_status
 	is_affordable = affordable
+	category = data.get("category", "Economy")
 	
 	_update_visuals()
 
@@ -57,8 +61,39 @@ func _update_visuals() -> void:
 	if level_label:
 		level_label.text = "Lvl %d/%d" % [current_level, max_level]
 
+	_apply_icon_or_fallback(category)
+
 	# Set status indicators and styles
 	_apply_style_status()
+
+func _apply_icon_or_fallback(cat: String) -> void:
+	if not is_inside_tree():
+		return
+		
+	if not icon_rect or not fallback_label:
+		return
+		
+	var path = "res://assets/ui/icons/tech_%s.png" % cat.to_lower()
+	if ResourceLoader.exists(path):
+		icon_rect.texture = load(path)
+		icon_rect.visible = true
+		fallback_label.visible = false
+	else:
+		icon_rect.visible = false
+		fallback_label.visible = true
+		match cat:
+			"Economy":
+				fallback_label.text = "🌾"
+			"Military":
+				fallback_label.text = "⚔️"
+			"Development", "Dev":
+				fallback_label.text = "🏗️"
+			"Alliance":
+				fallback_label.text = "🛡️"
+			"Hero":
+				fallback_label.text = "👑"
+			_:
+				fallback_label.text = "🔬"
 
 func _apply_style_status() -> void:
 	if not is_inside_tree():
@@ -114,7 +149,6 @@ func _apply_style_status() -> void:
 
 func _get_border_style(color: Color, dashed: bool = false) -> StyleBoxFlat:
 	var sb = StyleBoxFlat.new()
-	sb.bg_type = StyleBoxFlat.BG_BORDER_ONLY if dashed else StyleBoxFlat.BG_FLAT
 	sb.draw_center = false
 	sb.border_width_left = 2
 	sb.border_width_top = 2

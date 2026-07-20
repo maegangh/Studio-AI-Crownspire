@@ -212,5 +212,157 @@
         "bonus_description": "+12% Infantry Defense"
       }
     ]
+  },
+  {
+    "id": "watchtower",
+    "name": "Watch Tower",
+    "description": "Scans adjacent wilderness sectors to report incoming marches and scouting details.",
+    "level": 10,
+    "max_level": 30,
+    "base_power": 2500,
+    "power_per_level": 600,
+    "type": "infrastructure",
+    "resources_required": {
+      "food": 10000,
+      "wood": 15000,
+      "stone": 10000,
+      "iron": 2000
+    },
+    "upgrade_time_seconds": 300,
+    "current_bonus": "Scouting range: 15km",
+    "next_bonus": "Scouting range: 20km"
+  },
+  {
+    "id": "marksmen_camp",
+    "name": "Marksmen Camp",
+    "description": "Assembles and trains skilled Wind-Runner Bowmen for long-range defense.",
+    "level": 8,
+    "max_level": 30,
+    "base_power": 3000,
+    "power_per_level": 800,
+    "type": "military",
+    "resources_required": {
+      "food": 12000,
+      "wood": 20000,
+      "stone": 8000,
+      "iron": 4000
+    },
+    "upgrade_time_seconds": 450,
+    "current_bonus": "Bowman Training Speed: +8%",
+    "next_bonus": "Bowman Training Speed: +10%"
+  },
+  {
+    "id": "cavalry_stable",
+    "name": "Cavalry Stable",
+    "description": "Assembles and trains formidable Gilded Cataphract heavy cavalry.",
+    "level": 6,
+    "max_level": 30,
+    "base_power": 3500,
+    "power_per_level": 1000,
+    "type": "military",
+    "resources_required": {
+      "food": 20000,
+      "wood": 15000,
+      "stone": 10000,
+      "iron": 8000
+    },
+    "upgrade_time_seconds": 600,
+    "current_bonus": "Cavalry Training Speed: +6%",
+    "next_bonus": "Cavalry Training Speed: +8%"
+  },
+  {
+    "id": "rune_forge",
+    "name": "Rune Forge",
+    "description": "Etches mystical runes into weapons and armor to enhance combat efficiency.",
+    "level": 5,
+    "max_level": 30,
+    "base_power": 2000,
+    "power_per_level": 500,
+    "type": "military",
+    "resources_required": {
+      "food": 15000,
+      "wood": 15000,
+      "stone": 25000,
+      "iron": 10000
+    },
+    "upgrade_time_seconds": 500,
+    "current_bonus": "Rune Crafting speed: +5%",
+    "next_bonus": "Rune Crafting speed: +7%"
+  },
+  {
+    "id": "valor_shine",
+    "name": "Valor Shrine",
+    "description": "Communes with ancient spirits to boost legion morale and health metrics.",
+    "level": 4,
+    "max_level": 30,
+    "base_power": 2200,
+    "power_per_level": 550,
+    "type": "military",
+    "resources_required": {
+      "food": 25000,
+      "wood": 10000,
+      "stone": 15000,
+      "iron": 5000
+    },
+    "upgrade_time_seconds": 400,
+    "current_bonus": "Legion Health: +4%",
+    "next_bonus": "Legion Health: +6%"
+  },
+  {
+    "id": "wall",
+    "name": "City Wall",
+    "description": "Provides basic physical fortifications and gatehouse defenses against invaders.",
+    "level": 12,
+    "max_level": 30,
+    "base_power": 4000,
+    "power_per_level": 1200,
+    "type": "infrastructure",
+    "resources_required": {
+      "food": 5000,
+      "wood": 10000,
+      "stone": 35000,
+      "iron": 10000
+    },
+    "upgrade_time_seconds": 800,
+    "current_bonus": "Wall Durability: 120K HP",
+    "next_bonus": "Wall Durability: 150K HP"
+  },
+  {
+    "id": "arcane_tower",
+    "name": "Arcane Tower",
+    "description": "Channels ley-line energies to unleash spellfire upon enemy siege engines.",
+    "level": 3,
+    "max_level": 30,
+    "base_power": 1800,
+    "power_per_level": 450,
+    "type": "military",
+    "resources_required": {
+      "food": 10000,
+      "wood": 12000,
+      "stone": 20000,
+      "iron": 12000
+    },
+    "upgrade_time_seconds": 700,
+    "current_bonus": "Spellfire defense: +3%",
+    "next_bonus": "Spellfire defense: +5%"
+  },
+  {
+    "id": "tavern",
+    "name": "Royal Tavern",
+    "description": "Attracts mercenary generals, rumor mongers, and side-quest seekers.",
+    "level": 15,
+    "max_level": 30,
+    "base_power": 2800,
+    "power_per_level": 700,
+    "type": "infrastructure",
+    "resources_required": {
+      "food": 15000,
+      "wood": 18000,
+      "stone": 12000,
+      "iron": 3000
+    },
+    "upgrade_time_seconds": 450,
+    "current_bonus": "Mercenary hire speed: +15%",
+    "next_bonus": "Mercenary hire speed: +18%"
   }
 ]

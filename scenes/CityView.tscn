@@ -45,27 +45,48 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="MapScroll" type="ScrollContainer" parent="VBox"]
+[node name="MapViewport" type="Control" parent="VBox"]
+unique_name_in_owner = true
+clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
 
-[node name="Margin" type="MarginContainer" parent="VBox/MapScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="BuildingGrid" type="GridContainer" parent="VBox/MapScroll/Margin"]
+[node name="CityMap" type="Control" parent="VBox/MapViewport"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 12
-columns = 2
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 1200.0
+mouse_default_cursor_shape = 3
+
+[node name="MapBackground" type="ColorRect" parent="VBox/MapViewport/CityMap"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0627451, 0.0901961, 0.141176, 1)
+
+[node name="GridLines" type="Control" parent="VBox/MapViewport/CityMap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BuildingsContainer" type="Control" parent="VBox/MapViewport/CityMap"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="DetailDrawer" type="PanelContainer" parent="VBox"]
 unique_name_in_owner = true

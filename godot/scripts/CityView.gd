@@ -48,12 +48,22 @@ extends Control
 # Audio / Tween assets
 var selected_building_id: String = ""
 var current_troop_id: String = ""
+var action_bar: HBoxContainer = null
 
 func _ready() -> void:
 	# Hide drawer items initially
 	detail_drawer.visible = false
 	empty_hint.visible = true
 	drawer_content.visible = false
+	
+	upgrade_box.visible = false
+	barracks_box.visible = false
+	academy_box.visible = false
+	
+	action_bar = HBoxContainer.new()
+	action_bar.alignment = BoxContainer.ALIGNMENT_CENTER
+	action_bar.add_theme_constant_override("separation", 10)
+	drawer_content.add_child(action_bar)
 	
 	# Connect global signals
 	UIManager.currency_changed.connect(_on_resources_changed)
@@ -301,16 +311,14 @@ func select_building(b_id: String) -> void:
 		b_next_bonus.text = "Next: %s" % b_data.get("next_bonus", "Boosted stats")
 		
 		# Toggle Sections
-		barracks_box.visible = (b_id == "barracks")
-		academy_box.visible = (b_id == "academy")
+		barracks_box.visible = false
+		academy_box.visible = false
+		upgrade_box.visible = false
 		
-		if b_id == "barracks":
-			populate_barracks(b_data)
-		elif b_id == "academy":
+		if b_id == "academy":
 			populate_academy(b_data)
 			
-		# Populate Upgrade Cost elements
-		update_upgrade_cost_display(b_data)
+		update_action_bar(b_data)
 
 func update_upgrade_cost_display(b: Dictionary) -> void:
 	var lvl = b["level"]
@@ -610,3 +618,97 @@ func show_hud_warning(msg: String) -> void:
 	UIManager.reward_claimed.emit([
 		{"name": "COMMAND: %s" % msg, "quantity": 1, "rarity": 1, "icon": ""}
 	])
+
+func update_action_bar(b_data: Dictionary) -> void:
+	if not action_bar:
+		return
+		
+	# Clear old buttons
+	for child in action_bar.get_children():
+		child.queue_free()
+		
+	var b_id = b_data.get("id", "")
+	if b_id == "":
+		return
+		
+	# 1. INFO Button (Always available!)
+	var info_btn = Button.new()
+	info_btn.text = "ℹ️ INFO"
+	info_btn.add_theme_font_size_override("font_size", 12)
+	info_btn.custom_minimum_size = Vector2(90, 36)
+	_style_drawer_button(info_btn, Color(0.18, 0.24, 0.35, 1.0)) # Muted slate blue
+	info_btn.pressed.connect(func(): _on_info_action_pressed(b_id))
+	action_bar.add_child(info_btn)
+	
+	# 2. UPGRADE Button (Always available!)
+	var upgrade_btn = Button.new()
+	upgrade_btn.text = "⚡ UPGRADE"
+	upgrade_btn.add_theme_font_size_override("font_size", 12)
+	upgrade_btn.custom_minimum_size = Vector2(100, 36)
+	_style_drawer_button(upgrade_btn, Color(0.72, 0.55, 0.12, 1.0)) # Gold / Amber
+	upgrade_btn.pressed.connect(func(): _on_upgrade_action_pressed(b_id))
+	action_bar.add_child(upgrade_btn)
+	
+	# 3. TRAIN Button (Only for military structures: barracks, marksmen_camp, cavalry_stable)
+	if b_id in ["barracks", "marksmen_camp", "cavalry_stable"]:
+		var train_btn = Button.new()
+		train_btn.text = "⚔️ TRAIN"
+		train_btn.add_theme_font_size_override("font_size", 12)
+		train_btn.custom_minimum_size = Vector2(90, 36)
+		_style_drawer_button(train_btn, Color(0.12, 0.55, 0.12, 1.0)) # Emerald Green
+		var t_class = "infantry"
+		if b_id == "marksmen_camp": t_class = "marksmen"
+		elif b_id == "cavalry_stable": t_class = "cavalry"
+		var final_class = t_class
+		train_btn.pressed.connect(func(): _on_train_action_pressed(final_class))
+		action_bar.add_child(train_btn)
+		
+	# 4. RESEARCH Button (Only for academy)
+	if b_id == "academy":
+		var research_btn = Button.new()
+		research_btn.text = "🧪 RESEARCH"
+		research_btn.add_theme_font_size_override("font_size", 12)
+		research_btn.custom_minimum_size = Vector2(100, 36)
+		_style_drawer_button(research_btn, Color(0.15, 0.45, 0.75, 1.0)) # Sapphire Blue
+		research_btn.pressed.connect(func(): _on_research_action_pressed())
+		action_bar.add_child(research_btn)
+
+func _style_drawer_button(btn: Button, bg_color: Color) -> void:
+	var sb = StyleBoxFlat.new()
+	sb.bg_color = bg_color
+	sb.border_width_left = 1
+	sb.border_width_top = 1
+	sb.border_width_right = 1
+	sb.border_width_bottom = 2
+	sb.border_color = Color(1.0, 1.0, 1.0, 0.15)
+	sb.corner_radius_top_left = 6
+	sb.corner_radius_top_right = 6
+	sb.corner_radius_bottom_right = 6
+	sb.corner_radius_bottom_left = 6
+	btn.add_theme_stylebox_override("normal", sb)
+	btn.add_theme_stylebox_override("hover", sb)
+	btn.add_theme_stylebox_override("pressed", sb)
+
+func _on_info_action_pressed(b_id: String) -> void:
+	var info_scene = load("res://scenes/BuildingInfoWindow.tscn")
+	if info_scene:
+		var window = info_scene.instantiate()
+		window.set("building_id", b_id)
+		UIManager.call("open_popup", window)
+
+func _on_upgrade_action_pressed(b_id: String) -> void:
+	var upgrade_scene = load("res://scenes/BuildingUpgradeWindow.tscn")
+	if upgrade_scene:
+		var window = upgrade_scene.instantiate()
+		window.set("building_id", b_id)
+		UIManager.call("open_popup", window)
+
+func _on_train_action_pressed(t_class: String) -> void:
+	var train_scene = load("res://scenes/TroopTrainingWindow.tscn")
+	if train_scene:
+		var window = train_scene.instantiate()
+		window.set("troop_class", t_class)
+		UIManager.call("open_popup", window)
+
+func _on_research_action_pressed() -> void:
+	academy_box.visible = not academy_box.visible

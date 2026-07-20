@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <!-- Brighter White Marble Gradient (button face) -->
+    <linearGradient id="marbleGradHover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#FAFCFF" />
+      <stop offset="70%" stop-color="#E5EAF5" />
+      <stop offset="100%" stop-color="#C8CFE0" />
+    </linearGradient>
+
+    <!-- Super Polished Metallic Gold Gradient -->
+    <linearGradient id="goldGradHover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF0" />
+      <stop offset="20%" stop-color="#FFDD79" />
+      <stop offset="50%" stop-color="#E1B236" />
+      <stop offset="80%" stop-color="#FFDD79" />
+      <stop offset="100%" stop-color="#A57F18" />
+    </linearGradient>
+
+    <!-- Glowing Sapphire Center -->
+    <radialGradient id="sapphireGradHover" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0FDFA" />
+      <stop offset="20%" stop-color="#00F2FF" />
+      <stop offset="70%" stop-color="#0066FF" />
+      <stop offset="100%" stop-color="#021C75" />
+    </radialGradient>
+
+    <!-- Golden Highlight Glow Filter -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Drop Shadow -->
+    <filter id="btnShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <g filter="url(#btnShadow)">
+    <!-- 1. Gold Outer Glow ring -->
+    <circle cx="50" cy="50" r="47" fill="#E1B236" opacity="0.3" filter="url(#goldGlow)" />
+
+    <!-- 2. Rich Gold Border Frame -->
+    <circle cx="50" cy="50" r="46" fill="url(#goldGradHover)" />
+    <circle cx="50" cy="50" r="42" fill="#0C101B" />
+
+    <!-- 3. Marble Core Button Body -->
+    <circle cx="50" cy="50" r="39" fill="url(#marbleGradHover)" />
+    <!-- Diagonal shine overlay -->
+    <path d="M 18 18 Q 50 60 82 82" fill="none" stroke="#FFF" stroke-width="4" opacity="0.15" stroke-linecap="round" />
+
+    <!-- 4. Gold Inner Bezel -->
+    <circle cx="50" cy="50" r="14" fill="url(#goldGradHover)" />
+    <circle cx="50" cy="50" r="11" fill="#0C101B" />
+
+    <!-- 5. Sapphire Crystal with magical blue glow -->
+    <circle cx="50" cy="50" r="9" fill="url(#sapphireGradHover)" />
+    <polygon points="50,42 55,46 55,54 50,58 45,54 45,46" fill="#FFF" opacity="0.25" />
+    <circle cx="48" cy="48" r="2.5" fill="#FFF" />
+  </g>
+</svg>

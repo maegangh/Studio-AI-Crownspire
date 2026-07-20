@@ -165,6 +165,7 @@ var heroes: Array = []
 var hero_skills: Array = []
 var hero_equipment: Array = []
 var hero_xp_potions: int = 25
+var owned_troops: Dictionary = {} # Maps troop_id to quantity (integer)
 
 # --- POPUP STACK MANAGER ---
 var popup_stack: Array[Control] = []
@@ -329,7 +330,8 @@ func save_player_state() -> void:
 		"hero_skills": saved_skills,
 		"hero_equipment": saved_equipment,
 		"hero_xp_potions": hero_xp_potions,
-		"player_inventory": player_inventory
+		"player_inventory": player_inventory,
+		"owned_troops": owned_troops
 	}
 	var file := FileAccess.open("user://crownspire_player_state.save", FileAccess.WRITE)
 	if file:
@@ -361,6 +363,7 @@ func load_player_state() -> void:
 				if state.has("player_name"): player_name = state["player_name"]
 				if state.has("crystal_vault_coins"): crystal_vault_coins = state["crystal_vault_coins"]
 				if state.has("hero_tokens"): hero_tokens = state["hero_tokens"]
+				if state.has("owned_troops"): owned_troops = state["owned_troops"]
 				
 				# Restore quests progress
 				if state.has("quests_progress"):
@@ -969,6 +972,89 @@ func train_barracks_troops(troop_id: String, count: int) -> Dictionary:
 	
 	save_player_state()
 	return { "success": true, "message": "Recruited %d %s into your defensive legion!" % [count, found_troop["name"]] }
+
+func get_owned_troop_count(t_id: String) -> int:
+	if owned_troops.has(t_id):
+		return int(owned_troops[t_id])
+	return 0
+
+func train_authentic_troops(t_id: String, count: int, cost: Dictionary, power_rating: int, t_name: String) -> Dictionary:
+	var cost_food = int(cost.get("food", 0)) * count
+	var cost_wood = int(cost.get("wood", 0)) * count
+	var cost_stone = int(cost.get("stone", 0)) * count
+	var cost_iron = int(cost.get("iron", 0)) * count
+	
+	if food < cost_food: return { "success": false, "message": "Insufficient Food!" }
+	if wood < cost_wood: return { "success": false, "message": "Insufficient Wood!" }
+	if stone < cost_stone: return { "success": false, "message": "Insufficient Stone!" }
+	if iron < cost_iron: return { "success": false, "message": "Insufficient Iron!" }
+	
+	food -= cost_food
+	wood -= cost_wood
+	stone -= cost_stone
+	iron -= cost_iron
+	
+	if not owned_troops.has(t_id):
+		owned_troops[t_id] = 0
+	owned_troops[t_id] = int(owned_troops[t_id]) + count
+	
+	var power_bonus = power_rating * count
+	power += power_bonus
+	
+	troops_trained.emit(t_id, count)
+	add_quest_progress("quest_train_troops", count)
+	
+	var rewards_list: Array[Dictionary] = [{
+		"name": t_name,
+		"quantity": count,
+		"rarity": 2,
+		"icon": ""
+	}]
+	reward_claimed.emit(rewards_list)
+	save_player_state()
+	
+	return { "success": true, "message": "Successfully trained %d %s!" % [count, t_name] }
+
+func promote_authentic_troops(from_id: String, to_id: String, count: int, cost_diff: Dictionary, power_diff: int, to_name: String) -> Dictionary:
+	var current_owned = get_owned_troop_count(from_id)
+	if current_owned < count:
+		return { "success": false, "message": "Insufficient lower tier troops to promote!" }
+		
+	var cost_food = int(cost_diff.get("food", 0)) * count
+	var cost_wood = int(cost_diff.get("wood", 0)) * count
+	var cost_stone = int(cost_diff.get("stone", 0)) * count
+	var cost_iron = int(cost_diff.get("iron", 0)) * count
+	
+	if food < cost_food: return { "success": false, "message": "Insufficient Food!" }
+	if wood < cost_wood: return { "success": false, "message": "Insufficient Wood!" }
+	if stone < cost_stone: return { "success": false, "message": "Insufficient Stone!" }
+	if iron < cost_iron: return { "success": false, "message": "Insufficient Iron!" }
+	
+	food -= cost_food
+	wood -= cost_wood
+	stone -= cost_stone
+	iron -= cost_iron
+	
+	owned_troops[from_id] = int(owned_troops[from_id]) - count
+	if not owned_troops.has(to_id):
+		owned_troops[to_id] = 0
+	owned_troops[to_id] = int(owned_troops[to_id]) + count
+	
+	var power_bonus = power_diff * count
+	power += power_bonus
+	
+	troops_trained.emit(to_id, count)
+	
+	var rewards_list: Array[Dictionary] = [{
+		"name": to_name + " (Promotion)",
+		"quantity": count,
+		"rarity": 3,
+		"icon": ""
+	}]
+	reward_claimed.emit(rewards_list)
+	save_player_state()
+	
+	return { "success": true, "message": "Successfully promoted %d troops to %s!" % [count, to_name] }
 
 func research_technology(tech_id: String) -> Dictionary:
 	var academy_ref = get_building("academy")
