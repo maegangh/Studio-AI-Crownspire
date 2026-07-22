@@ -30,6 +30,22 @@ func _on_navigation_changed(view_name: String) -> void:
 		var hero_scene = preload("res://scenes/HeroScreen.tscn")
 		UIManager.open_popup(hero_scene)
 		return
+	elif view_name == "alliance":
+		var alliance_scene = preload("res://scenes/AllianceScreen.tscn")
+		UIManager.open_popup(alliance_scene)
+		return
+	elif view_name == "quests" or view_name == "quest":
+		var quest_scene = preload("res://scenes/quests/QuestScreen.tscn")
+		UIManager.open_popup(quest_scene)
+		return
+	elif view_name == "mail":
+		var mail_scene = preload("res://scenes/mail/MailScreen.tscn")
+		UIManager.open_popup(mail_scene)
+		return
+	elif view_name == "bag" or view_name == "inventory":
+		var bag_scene = preload("res://scenes/BagScreen.tscn")
+		UIManager.open_popup(bag_scene)
+		return
 
 	if active_view == view_name:
 		return

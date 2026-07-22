@@ -1,56 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
   <defs>
-    <!-- White Marble Gradient (button face) -->
-    <linearGradient id="marbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="30%" stop-color="#F2F4F8" />
-      <stop offset="70%" stop-color="#DCE1ED" />
-      <stop offset="100%" stop-color="#BCC3D4" />
+    <linearGradient id="btnBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a1d4a" />
+      <stop offset="100%" stop-color="#120c24" />
     </linearGradient>
-
-    <!-- Metallic Gold Gradient (outer frame) -->
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFF3D1" />
-      <stop offset="30%" stop-color="#EBC463" />
-      <stop offset="50%" stop-color="#C59B27" />
-      <stop offset="80%" stop-color="#EBC463" />
-      <stop offset="100%" stop-color="#806210" />
+    <linearGradient id="btnBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#63459c" />
+      <stop offset="100%" stop-color="#312251" />
     </linearGradient>
-
-    <!-- Sapphire Crystal Center -->
-    <radialGradient id="sapphireGrad" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
-      <stop offset="0%" stop-color="#E0F2FE" />
-      <stop offset="30%" stop-color="#38BDF8" />
-      <stop offset="70%" stop-color="#0284C7" />
-      <stop offset="100%" stop-color="#0369A1" />
-    </radialGradient>
-
-    <!-- Core Shadow -->
-    <filter id="btnShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.3" />
-    </filter>
   </defs>
-
-  <!-- Button Body with Outer Shadow -->
-  <g filter="url(#btnShadow)">
-    <!-- 1. Gold Frame Border -->
-    <circle cx="50" cy="50" r="46" fill="url(#goldGrad)" />
-    <!-- Gold Frame inner shadow cut -->
-    <circle cx="50" cy="50" r="42" fill="#0C101B" />
-
-    <!-- 2. White Marble Core Button Body -->
-    <circle cx="50" cy="50" r="39" fill="url(#marbleGrad)" />
-    <!-- Marble subtle texture vein -->
-    <path d="M 25 35 Q 40 45 60 30 T 75 60" fill="none" stroke="#A0AEC0" stroke-width="1" opacity="0.15" />
-
-    <!-- 3. Inner Gold Inset Bezel -->
-    <circle cx="50" cy="50" r="14" fill="url(#goldGrad)" />
-    <circle cx="50" cy="50" r="11" fill="#0C101B" />
-
-    <!-- 4. Sapphire Crystal Center Accent -->
-    <circle cx="50" cy="50" r="9" fill="url(#sapphireGrad)" />
-    <polygon points="50,42 55,46 55,54 50,58 45,54 45,46" fill="#FFF" opacity="0.15" />
-    <!-- Highlight dot -->
-    <circle cx="48" cy="48" r="1.5" fill="#FFF" opacity="0.8" />
-  </g>
+  <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="url(#btnBg)" stroke="url(#btnBorder)" stroke-width="3" />
+  <polygon points="50,12 82,31 82,69 50,88 18,69 18,31" fill="none" stroke="#4c3983" stroke-width="1" opacity="0.6" />
 </svg>

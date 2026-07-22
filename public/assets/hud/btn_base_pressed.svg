@@ -1,61 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
   <defs>
-    <!-- Darker/Pressed White Marble Gradient (button face recessed) -->
-    <linearGradient id="marbleGradPressed" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E2E8F0" />
-      <stop offset="50%" stop-color="#CBD5E1" />
-      <stop offset="100%" stop-color="#94A3B8" />
+    <linearGradient id="btnBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5b21b6" />
+      <stop offset="100%" stop-color="#2e0854" />
     </linearGradient>
-
-    <!-- Deep Metallic Gold Gradient -->
-    <linearGradient id="goldGradPressed" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D97706" />
-      <stop offset="50%" stop-color="#B45309" />
-      <stop offset="100%" stop-color="#78350F" />
+    <linearGradient id="btnBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#8b5cf6" />
     </linearGradient>
-
-    <!-- Intense Sapphire Crystal Glow -->
-    <radialGradient id="sapphireGradPressed" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="20%" stop-color="#22D3EE" />
-      <stop offset="60%" stop-color="#06B6D4" />
-      <stop offset="100%" stop-color="#0891B2" />
-    </radialGradient>
-
-    <!-- Blue Energy Aura Glow -->
-    <filter id="energyGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="6" result="blur" />
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
-
-    <!-- Tight Pressed Shadow -->
-    <filter id="pressedShadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#000" flood-opacity="0.5" />
-    </filter>
   </defs>
-
-  <!-- Button is scaled down to 93% and centered at (50, 50) for tactile physical feedback -->
-  <g transform="translate(50, 50) scale(0.93) translate(-50, -50)" filter="url(#pressedShadow)">
-    
-    <!-- 1. Intense Blue Energy Aura Glow backing -->
-    <circle cx="50" cy="50" r="46" fill="#06B6D4" opacity="0.45" filter="url(#energyGlow)" />
-
-    <!-- 2. Rich Deep Gold Border Frame -->
-    <circle cx="50" cy="50" r="46" fill="url(#goldGradPressed)" />
-    <circle cx="50" cy="50" r="42" fill="#0C101B" />
-
-    <!-- 3. Marble Core Button Body (Recessed) -->
-    <circle cx="50" cy="50" r="39" fill="url(#marbleGradPressed)" />
-    <!-- Press inner shadow overlay -->
-    <circle cx="50" cy="50" r="39" fill="none" stroke="#000" stroke-width="3" opacity="0.25" />
-
-    <!-- 4. Gold Inner Bezel -->
-    <circle cx="50" cy="50" r="14" fill="url(#goldGradPressed)" />
-    <circle cx="50" cy="50" r="11" fill="#0C101B" />
-
-    <!-- 5. Sapphire Crystal Jewel -->
-    <circle cx="50" cy="50" r="9" fill="url(#sapphireGradPressed)" />
-    <polygon points="50,42 55,46 55,54 50,58 45,54 45,46" fill="#FFF" opacity="0.3" />
-    <circle cx="48" cy="48" r="2" fill="#FFF" />
-  </g>
+  <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" fill="url(#btnBg)" stroke="url(#btnBorder)" stroke-width="4" filter="url(#glow)" />
+  <polygon points="50,12 82,31 82,69 50,88 18,69 18,31" fill="none" stroke="#d8b4fe" stroke-width="2" opacity="0.9" />
 </svg>

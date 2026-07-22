@@ -22,6 +22,9 @@ func _ready() -> void:
 	city_btn.pressed.connect(func(): _on_view_pressed("city"))
 	world_btn.pressed.connect(func(): _on_view_pressed("world"))
 	heroes_btn.pressed.connect(func(): navigation_selected.emit("heroes"))
+	alliance_btn.pressed.connect(func(): navigation_selected.emit("alliance"))
+	event_btn.pressed.connect(func(): navigation_selected.emit("quests"))
+	mail_btn.pressed.connect(func(): navigation_selected.emit("mail"))
 	
 	_update_active_visuals()
 

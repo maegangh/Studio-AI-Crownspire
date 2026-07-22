@@ -79,12 +79,46 @@ func _build_alliance_row(alliance: Dictionary) -> void:
 	info_lbl.add_theme_font_size_override("font_size", 12)
 	v_layout.add_child(info_lbl)
 	
-	# Join Button
+	# Extra criteria requirements label
+	var min_p = int(alliance.get("min_power", 10000))
+	var lang_str = alliance.get("language", "English")
+	var is_pub = alliance.get("is_public", true)
+	
+	var req_lbl = Label.new()
+	req_lbl.text = "⚡ Req Power: %s | 🌐 %s | %s" % [
+		str(min_p),
+		lang_str,
+		"🔓 Auto-Join" if is_pub else "🔒 App Required"
+	]
+	req_lbl.add_theme_color_override("font_color", Color("#8fa2b5"))
+	req_lbl.add_theme_font_size_override("font_size", 11)
+	v_layout.add_child(req_lbl)
+	
+	# Check if player has already applied
+	var already_applied = false
+	var applicants = alliance.get("applicants", []) as Array
+	for app in applicants:
+		if app.get("name", "") == UIManager.player_name:
+			already_applied = true
+			break
+	
+	# Join/Apply Button
 	var btn = Button.new()
-	btn.text = "🛡️ Join"
-	btn.custom_minimum_size = Vector2(80, 40)
+	btn.custom_minimum_size = Vector2(100, 40)
 	btn.size_flags_vertical = SIZE_SHRINK_CENTER
-	btn.pressed.connect(func(): _join_selected(alliance))
+	
+	if already_applied:
+		btn.text = "⏳ Applied"
+		btn.disabled = true
+	else:
+		if is_pub:
+			btn.text = "🛡️ Join"
+			btn.add_theme_color_override("font_color", Color("#5cd65c"))
+		else:
+			btn.text = "📋 Apply"
+			btn.add_theme_color_override("font_color", Color("#ffd700"))
+		btn.pressed.connect(func(): _join_selected(alliance))
+		
 	h_layout.add_child(btn)
 	
 	list_container.add_child(row)
@@ -93,3 +127,5 @@ func _join_selected(alliance: Dictionary) -> void:
 	var success = UIManager.join_alliance(alliance["id"])
 	if success:
 		_on_close_pressed()
+	else:
+		refresh_panel(search_input.text.strip_edges().to_lower())

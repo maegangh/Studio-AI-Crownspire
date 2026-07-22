@@ -23,19 +23,26 @@ func setup_card(data: Dictionary, viewer_rank: int) -> void:
 	
 	# Determine Rank Label & Color
 	var rank = int(data.get("rank", 1))
-	match rank:
-		4:
-			rank_label.text = "👑 Leader"
-			rank_label.modulate = Color("#ffd700")
-		3:
-			rank_label.text = "🛡️ Officer"
-			rank_label.modulate = Color("#3bf7ad")
-		2:
-			rank_label.text = "⚔️ Senior"
-			rank_label.modulate = Color("#a3c2e0")
-		_:
-			rank_label.text = "👤 Member"
-			rank_label.modulate = Color("#c4d1db")
+	if UIManager.permission_manager:
+		rank_label.text = UIManager.permission_manager.get_rank_icon_and_name(rank)
+		rank_label.modulate = UIManager.permission_manager.get_rank_color(rank)
+	else:
+		match rank:
+			5:
+				rank_label.text = "👑 Leader"
+				rank_label.modulate = Color("#ffd700")
+			4:
+				rank_label.text = "🛡️ Officer"
+				rank_label.modulate = Color("#3bf7ad")
+			3:
+				rank_label.text = "⭐ Veteran"
+				rank_label.modulate = Color("#3a9bf2")
+			2:
+				rank_label.text = "⚔️ Member"
+				rank_label.modulate = Color("#a3c2e0")
+			_:
+				rank_label.text = "👤 Recruit"
+				rank_label.modulate = Color("#c4d1db")
 			
 	# Formatting power
 	var power_int = int(data.get("power", 0))
@@ -59,15 +66,21 @@ func setup_card(data: Dictionary, viewer_rank: int) -> void:
 		status_label.modulate = Color("#a0a0a0")
 		
 	# Setup administrative controls:
-	# Viewer must be higher rank than target, and viewer must be Officer (3) or Leader (4)
-	var can_manage = (viewer_rank > rank) and (viewer_rank >= 3) and (member_name != UIManager.player_name)
+	# Viewer must be higher rank than target, and viewer must have permission to manage members
+	var can_promote = UIManager.permission_manager.has_permission(viewer_rank, "promote") and (viewer_rank > rank)
+	var can_demote = UIManager.permission_manager.has_permission(viewer_rank, "demote") and (viewer_rank > rank)
+	var can_kick = UIManager.permission_manager.has_permission(viewer_rank, "kick_members") and (viewer_rank > rank)
+	
+	var can_manage = (can_promote or can_demote or can_kick) and (member_name != UIManager.player_name)
 	management_box.visible = can_manage
 	
 	if can_manage:
-		# Promote button is enabled if target rank is less than Officer (3)
-		btn_promote.visible = (rank < 3)
-		# Demote button is enabled if target rank is greater than standard Member (1)
-		btn_demote.visible = (rank > 1)
+		# Promote button is enabled if target rank is less than Officer (4)
+		btn_promote.visible = can_promote and (rank < 4)
+		# Demote button is enabled if target rank is greater than standard Recruit (1)
+		btn_demote.visible = can_demote and (rank > 1)
+		# Kick button is enabled if viewer can kick
+		btn_kick.visible = can_kick
 		
 		# Hook connections (use disconnect first to avoid duplicates in recycled panels)
 		if btn_promote.pressed.is_connected(_on_promote): btn_promote.pressed.disconnect(_on_promote)

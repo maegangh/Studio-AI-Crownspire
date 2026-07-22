@@ -343,6 +343,18 @@ func _add_resource_row(display_name: String, resource_id: String, req_amount: in
 
 # Refresh buttons based on updated economics
 func refresh_requirements_and_buttons() -> void:
+	var ui = _get_ui_manager()
+	if ui and ui.get("upgrading_building_id") == building_id:
+		var time_left = float(ui.get("upgrade_timer_left"))
+		if upgrade_button:
+			upgrade_button.disabled = true
+			upgrade_button.text = "UPGRADING (%s)" % _format_time(time_left)
+		if finish_button:
+			var cost = max(5, int(ceil(time_left / 60.0)))
+			finish_button.text = "Finish Now (%d 💎)" % cost
+			finish_button.disabled = false
+		return
+
 	var lvl = int(building_data.get("level", 1))
 	var max_lvl = int(building_data.get("max_level", 30))
 	if lvl >= max_lvl:
@@ -364,6 +376,7 @@ func refresh_requirements_and_buttons() -> void:
 	# Upgrade button matches availability
 	if upgrade_button:
 		upgrade_button.disabled = !all_met
+		upgrade_button.text = "Upgrade"
 		
 	# Finish Button dynamically updates with missing resource crystal cost
 	if finish_button:
@@ -373,6 +386,20 @@ func refresh_requirements_and_buttons() -> void:
 			# standard immediate time speedup
 			var base_speed_cost = int(building_data.get("upgrade_time_seconds", 300) / 60)
 			finish_button.text = "Finish Now (%d 💎)" % max(5, base_speed_cost)
+
+func _process(_delta: float) -> void:
+	var ui = _get_ui_manager()
+	if ui and ui.get("upgrading_building_id") == building_id:
+		refresh_requirements_and_buttons()
+
+func _format_time(seconds: float) -> String:
+	var total_secs = int(ceil(seconds))
+	var secs = total_secs % 60
+	var mins = (total_secs / 60) % 60
+	var hrs = total_secs / 3600
+	if hrs > 0:
+		return "%02d:%02d:%02d" % [hrs, mins, secs]
+	return "%02d:%02d" % [mins, secs]
 
 # Format utility (e.g. 150000 -> 150K)
 func _format_amount(amt: int) -> String:
@@ -442,16 +469,21 @@ func _on_close_button_pressed() -> void:
 func _on_upgrade_button_pressed() -> void:
 	var result = {}
 	var ui = _get_ui_manager()
-	if ui and ui.has_method("upgrade_building"):
+	if ui and ui.has_method("start_building_upgrade"):
+		result = ui.call("start_building_upgrade", building_id)
+	elif ui and ui.has_method("upgrade_building"):
 		result = ui.call("upgrade_building", building_id)
 	else:
 		result = _local_upgrade_building(building_id)
 
 	if result.get("success", false):
-		_show_celebration_overlay(
-			"STRUCTURE UPGRADED",
-			"Congratulations, my Lord! Your %s has been upgraded to Level %d, expanding your empire's administrative scope and capacity." % [building_data.get("name", ""), int(building_data.get("level", 1)) + 1]
-		)
+		if ui and ui.get("upgrading_building_id") == building_id:
+			ui.call("show_toast", "Construction started for %s!" % building_data.get("name", ""))
+		else:
+			_show_celebration_overlay(
+				"STRUCTURE UPGRADED",
+				"Congratulations, my Lord! Your %s has been upgraded to Level %d, expanding your empire's administrative scope and capacity." % [building_data.get("name", ""), int(building_data.get("level", 1)) + 1]
+			)
 		load_building_data()
 	else:
 		# error visual feedback
@@ -460,13 +492,35 @@ func _on_upgrade_button_pressed() -> void:
 
 # Execute instant buy/finish upgrade via premium crystals
 func _on_finish_button_pressed() -> void:
+	var ui = _get_ui_manager()
+	
+	# If currently upgrading, finish the active timer
+	if ui and ui.get("upgrading_building_id") == building_id:
+		var time_left = float(ui.get("upgrade_timer_left"))
+		var cost = max(5, int(ceil(time_left / 60.0)))
+		var current_crystals = int(ui.get("royal_crystals"))
+		if current_crystals >= cost:
+			var result = ui.call("instant_finish_building_upgrade", building_id, cost)
+			if result.get("success", false):
+				_show_celebration_overlay(
+					"IMMEDIATE UPGRADE COMPLETE",
+					"Instant Crystal Construction finished! Your %s has immediately reached Level %d. The realm flourishes under your gold-rimmed wisdom." % [building_data.get("name", ""), int(building_data.get("level", 1)) + 1]
+				)
+				load_building_data()
+			else:
+				if animation_player and animation_player.has_animation("error_shake"):
+					animation_player.play("error_shake")
+		else:
+			if animation_player and animation_player.has_animation("error_shake"):
+				animation_player.play("error_shake")
+		return
+
 	var cost = missing_resources_crystal_cost
 	if cost <= 0:
 		# default time-based finish cost
 		cost = max(5, int(building_data.get("upgrade_time_seconds", 300) / 60))
 
 	var current_crystals = 0
-	var ui = _get_ui_manager()
 	if ui and "royal_crystals" in ui:
 		current_crystals = int(ui.get("royal_crystals"))
 	else:

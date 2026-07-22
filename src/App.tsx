@@ -18,8 +18,20 @@ import {
   ChevronRight, 
   ChevronDown, 
   Sparkles, 
-  Info
+  Info,
+  Palette
 } from 'lucide-react';
+import { 
+  HeroesIcon, 
+  WayfinderIcon, 
+  BagIcon, 
+  QuestIcon, 
+  AllianceIcon, 
+  MapHexBadge, 
+  CityHexBadge 
+} from './components/VectorIcons';
+import WorldArtBibleTab from './components/WorldArtBibleTab';
+import SovereignProductionHudTab from './components/SovereignProductionHudTab';
 
 // Verification status for the 10 modules
 const MODULES = [
@@ -36,7 +48,7 @@ const MODULES = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'hud' | 'docs' | 'explorer' | 'guide'>('hud');
+  const [activeTab, setActiveTab] = useState<'hud' | 'bible' | 'docs' | 'explorer' | 'guide'>('hud');
   const [activeDoc, setActiveDoc] = useState<'readme' | 'merge' | 'deps' | 'opt' | 'qa'>('readme');
   
   // Sovereign HUD Studio State
@@ -58,6 +70,50 @@ export default function App() {
   });
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [lordName] = useState('Lord Sovereign');
+
+  // Floating click collectibles
+  const [collectibles, setCollectibles] = useState({
+    food: true,
+    wood: true,
+    stone: true,
+    iron: true,
+  });
+  const [floatingTexts, setFloatingTexts] = useState<{ id: number; text: string; x: number; y: number }[]>([]);
+
+  const collectResource = (type: 'food' | 'wood' | 'stone' | 'iron', x: number, y: number, event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (!collectibles[type]) return;
+    setCollectibles(prev => ({ ...prev, [type]: false }));
+    
+    let floatVal = "";
+    if (type === 'food') {
+      setFood(f => f + 15000);
+      floatVal = "+15.0K";
+    } else if (type === 'wood') {
+      setWood(w => w + 8000);
+      floatVal = "+8.0K";
+    } else if (type === 'stone') {
+      setStone(s => s + 4000);
+      floatVal = "+4.0K";
+    } else if (type === 'iron') {
+      setIron(i => i + 2000);
+      floatVal = "+2.0K";
+    }
+
+    const textId = Date.now();
+    setFloatingTexts(prev => [...prev, { id: textId, text: floatVal, x, y }]);
+    setTimeout(() => {
+      setFloatingTexts(prev => prev.filter(t => t.id !== textId));
+    }, 1200);
+
+    setPowerRating(p => p + 500);
+    triggerToast(`Collected ${type.toUpperCase()} from building yield! (+500 Power)`);
+
+    // Reset building collectible after 8 seconds
+    setTimeout(() => {
+      setCollectibles(prev => ({ ...prev, [type]: true }));
+    }, 8000);
+  };
 
   const triggerToast = (msg: string) => {
     setToastMsg(msg);
@@ -201,6 +257,17 @@ export default function App() {
               👑 Sovereign HUD
             </button>
             <button 
+              onClick={() => setActiveTab('bible')}
+              className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'bible' 
+                  ? 'bg-gradient-to-r from-purple-550 to-indigo-500 text-white font-semibold shadow-md bg-indigo-600' 
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              <Palette className="w-4 h-4" />
+              🎨 World Art Bible
+            </button>
+            <button 
               onClick={() => setActiveTab('docs')}
               className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-medium transition-all ${
                 activeTab === 'docs' 
@@ -238,599 +305,14 @@ export default function App() {
           {/* Content Window */}
           <div className="bg-slate-900/30 rounded-2xl border border-slate-800 p-6 flex-1 shadow-2xl min-h-[500px]">
             
+            {/* TAB: WORLD ART BIBLE */}
+            {activeTab === 'bible' && (
+              <WorldArtBibleTab />
+            )}
+
             {/* TAB 0: SOVEREIGN HUD STUDIO */}
             {activeTab === 'hud' && (
-              <div className="flex flex-col gap-6">
-                <div className="border-b border-slate-800 pb-4">
-                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-amber-500 animate-pulse" /> Crownspire Sovereign HUD Studio
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Redesigned high-fidelity HUD matching Whiteout Survival / Call of Dragons quality. Experience the White Marble and Royal Gold finish, glowing Sapphire Crystals, and responsive mobile navigation sockets.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-                  
-                  {/* LEFT: Mobile Viewport Simulator (xl:col-span-5) */}
-                  <div className="xl:col-span-5 flex flex-col items-center gap-4">
-                    <span className="text-xs font-mono text-slate-500 uppercase tracking-widest font-semibold">Active Game Canvas (720x1280 Ported)</span>
-                    
-                    {/* Device Housing */}
-                    <div className="w-[340px] h-[600px] rounded-[36px] bg-[#0c101b] border-[6px] border-slate-800 shadow-[0_25px_60px_rgba(0,0,0,0.85)] relative overflow-hidden flex flex-col justify-between select-none ring-1 ring-slate-700/50">
-                      
-                      {/* 1. TOP RESOURCE BAR & LORD SECTION */}
-                      <div 
-                        className="absolute top-0 left-0 w-full h-[120px] bg-cover bg-center z-30 pt-3 px-3 flex flex-col gap-1.5"
-                        style={{ backgroundImage: "url('/assets/hud/top_bar_bg.svg')" }}
-                      >
-                        
-                        {/* Lord Profile & Settings Row */}
-                        <div className="flex items-center justify-between">
-                          
-                          {/* Lord Profile (Left) */}
-                          <div className="flex items-center gap-1.5 bg-slate-950/40 px-2 py-0.5 rounded-full border border-white/5 backdrop-blur-sm">
-                            <div className="relative">
-                              {/* Avatar */}
-                              <div className="w-8 h-8 rounded-full bg-slate-700 border-2 border-[#EBC463] overflow-hidden flex items-center justify-center">
-                                <span className="text-base">🧝</span>
-                              </div>
-                              {/* VIP badge */}
-                              <span className="absolute -bottom-1 -right-1 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-[8px] font-bold px-1 rounded-full border border-amber-300 font-mono scale-90">
-                                VIP{vipLevel}
-                              </span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] font-bold text-white tracking-wide font-sans leading-none">{lordName}</span>
-                              <span className="text-[8px] text-teal-400 font-mono font-bold leading-none mt-0.5">PWR: {((powerRating)/1000000).toFixed(2)}M</span>
-                            </div>
-                          </div>
-
-                          {/* Quick Utility Icons (Right) */}
-                          <div className="flex items-center gap-1.5">
-                            {/* Mail button */}
-                            <button 
-                              onClick={() => triggerToast("Mail Inbox opened! (Checking battle updates...)")}
-                              className="relative w-7 h-7 rounded-full bg-slate-950/60 hover:bg-slate-900 border border-[#EBC463]/40 flex items-center justify-center text-xs text-slate-200 transition-all active:scale-95"
-                            >
-                              ✉️
-                              <span className="absolute w-2 h-2 rounded-full bg-red-500 top-0 right-0 animate-pulse"></span>
-                            </button>
-                            
-                            {/* Settings gear */}
-                            <button 
-                              onClick={() => triggerToast("Lord Settings & Promo codes activated!")}
-                              className="w-7 h-7 rounded-full bg-slate-950/60 hover:bg-slate-900 border border-[#EBC463]/40 flex items-center justify-center text-xs text-[#EBC463] transition-all active:scale-95"
-                            >
-                              ⚙️
-                            </button>
-                          </div>
-
-                        </div>
-
-                        {/* Five Horizontal Resource Panels */}
-                        <div className="grid grid-cols-5 gap-0.5 mt-1 bg-slate-950/20 p-1 rounded-lg backdrop-blur-xs">
-                          
-                          {/* Resource 1: Food */}
-                          <div className="flex flex-col items-center bg-white/5 border border-white/5 rounded px-0.5 py-0.5 relative">
-                            <span className="text-[8px] text-slate-400 leading-none scale-90">Food</span>
-                            <span className="text-[9px] font-mono font-bold text-emerald-400 mt-0.5">🌾{(food/1000).toFixed(0)}k</span>
-                            <button onClick={() => setFood(f => f + 50000)} className="absolute -bottom-1 right-0 w-3 h-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[8px] font-bold flex items-center justify-center rounded-full border border-amber-300 scale-75">+</button>
-                          </div>
-
-                          {/* Resource 2: Wood */}
-                          <div className="flex flex-col items-center bg-white/5 border border-white/5 rounded px-0.5 py-0.5 relative">
-                            <span className="text-[8px] text-slate-400 leading-none scale-90">Wood</span>
-                            <span className="text-[9px] font-mono font-bold text-amber-500 mt-0.5">🪵{(wood/1000).toFixed(0)}k</span>
-                            <button onClick={() => setWood(w => w + 50000)} className="absolute -bottom-1 right-0 w-3 h-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[8px] font-bold flex items-center justify-center rounded-full border border-amber-300 scale-75">+</button>
-                          </div>
-
-                          {/* Resource 3: Stone */}
-                          <div className="flex flex-col items-center bg-white/5 border border-white/5 rounded px-0.5 py-0.5 relative">
-                            <span className="text-[8px] text-slate-400 leading-none scale-90">Stone</span>
-                            <span className="text-[9px] font-mono font-bold text-slate-300 mt-0.5">🪨{(stone/1000).toFixed(0)}k</span>
-                            <button onClick={() => setStone(s => s + 30000)} className="absolute -bottom-1 right-0 w-3 h-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[8px] font-bold flex items-center justify-center rounded-full border border-amber-300 scale-75">+</button>
-                          </div>
-
-                          {/* Resource 4: Iron */}
-                          <div className="flex flex-col items-center bg-white/5 border border-white/5 rounded px-0.5 py-0.5 relative">
-                            <span className="text-[8px] text-slate-400 leading-none scale-90">Iron</span>
-                            <span className="text-[9px] font-mono font-bold text-blue-400 mt-0.5">🔩{(iron/1000).toFixed(0)}k</span>
-                            <button onClick={() => setIron(i => i + 20000)} className="absolute -bottom-1 right-0 w-3 h-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[8px] font-bold flex items-center justify-center rounded-full border border-amber-300 scale-75">+</button>
-                          </div>
-
-                          {/* Resource 5: Crystals */}
-                          <div className="flex flex-col items-center bg-[#0d2235]/40 border border-[#00d2ff]/20 rounded px-0.5 py-0.5 relative">
-                            <span className="text-[8px] text-[#00d2ff] leading-none scale-90 font-bold">Royal</span>
-                            <span className="text-[9px] font-mono font-bold text-sky-300 mt-0.5">💎{(crystals/1000).toFixed(1)}k</span>
-                            <button onClick={() => { setCrystals(c => c + 1000); setPowerRating(p => p + 50000); triggerToast("Acquired +1.0K Royal Crystals!"); }} className="absolute -bottom-1 right-0 w-3 h-3 bg-[#00d2ff] hover:bg-cyan-400 text-slate-950 text-[8px] font-bold flex items-center justify-center rounded-full border border-cyan-300 scale-75">+</button>
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                      {/* 2. DYNAMIC ENVIRONMENT WINDOW (MIDDLE CANVAS) */}
-                      <div className="flex-1 w-full bg-[#0a0d16] relative pt-[120px] pb-[85px] overflow-hidden flex flex-col justify-between">
-                        
-                        {isCityView ? (
-                          /* KINGDOM CITY VIEW */
-                          <div className="absolute inset-0 bg-gradient-to-b from-[#09101f] via-[#0e1628] to-[#122340] flex flex-col justify-between p-4 pt-[130px] pb-[90px] z-10">
-                            
-                            {/* Moon Light Shine */}
-                            <div className="absolute top-[40px] right-[50px] w-24 h-24 rounded-full bg-cyan-500/10 blur-2xl animate-pulse"></div>
-                            
-                            {/* Hand-painted styled Castle Citadel vector mock */}
-                            <div className="flex flex-col items-center justify-center my-auto relative z-10 text-center">
-                              <span className="text-7xl animate-bounce duration-[2000ms]">🏰</span>
-                              <h4 className="text-white font-bold font-sans tracking-wide mt-2 text-sm text-shadow">Royal Citadel (Level 25)</h4>
-                              <p className="text-[10px] text-teal-400 font-mono mt-0.5">Resource Collection Rate: +14,250 / hr</p>
-                              
-                              <div className="mt-4 bg-slate-950/60 border border-[#EBC463]/30 p-2 rounded-xl max-w-[200px] text-left">
-                                <span className="text-[8px] text-[#EBC463] uppercase tracking-wider font-bold">Barracks Active training</span>
-                                <div className="flex items-center gap-1.5 mt-0.5">
-                                  <span className="text-xs">⚔️</span>
-                                  <div className="flex-1">
-                                    <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
-                                      <div className="h-full bg-gradient-to-r from-teal-400 to-cyan-400 w-[72%]"></div>
-                                    </div>
-                                    <span className="text-[7px] text-slate-400 font-mono mt-0.5 block leading-none">Tier 12 Archangels (02:45)</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                          </div>
-                        ) : (
-                          /* HEX WILDERNESS WORLD MAP VIEW */
-                          <div className="absolute inset-0 bg-gradient-to-b from-[#070e17] via-[#091c28] to-[#070e17] flex flex-col justify-between p-4 pt-[130px] pb-[90px] z-10">
-                            
-                            {/* Wilderness mock structure */}
-                            <div className="absolute inset-0 opacity-15 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #334155 10%, transparent 11%), radial-gradient(circle, #334155 10%, transparent 11%)', backgroundSize: '24px 24px', backgroundPosition: '0 0, 12px 12px' }}></div>
-
-                            <div className="flex flex-col items-center justify-center my-auto relative z-10 text-center">
-                              <span className="text-6xl animate-pulse">🐉</span>
-                              <h4 className="text-[#38bdf8] font-bold font-sans tracking-wide mt-2 text-sm">Ancient Beast Lair (Hex 240, 510)</h4>
-                              <p className="text-[10px] text-amber-400 font-mono mt-0.5">March queue dispatched: 45,000 Paladins</p>
-                              
-                              {/* March Queue Arrow */}
-                              <div className="mt-4 bg-slate-950/85 border border-[#38bdf8]/40 px-3 py-1 rounded-lg flex items-center gap-2 max-w-[180px]">
-                                <span className="text-[10px] animate-ping text-sky-400">➡️</span>
-                                <span className="text-[8px] font-mono text-slate-200">En route to Dragon (ETA 01:15)</span>
-                              </div>
-                            </div>
-
-                          </div>
-                        )}
-
-                        {/* Floater UI Overlays */}
-                        {/* 1. Left Side Quest Tracker */}
-                        <div className="absolute left-3 bottom-[96px] z-20 bg-slate-950/85 border border-slate-800 p-2 rounded-xl max-w-[140px] shadow-lg">
-                          <span className="text-[7px] text-[#EBC463] uppercase tracking-wider font-mono font-bold">Chapter Quest IV</span>
-                          <h5 className="text-[9px] text-white font-bold leading-none mt-0.5">Train Tier 12 Paladin</h5>
-                          <p className="text-[7px] text-slate-400 leading-none mt-1">Status: 2,500 / 5,000</p>
-                          <button 
-                            onClick={() => { setFood(f => f + 150000); setWood(w => w + 150000); setPowerRating(p => p + 100000); triggerToast("Quest rewards claimed: +150K Wheat & Timber!"); }}
-                            className="w-full mt-1.5 py-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-[8px] font-bold rounded"
-                          >
-                            Claim Reward
-                          </button>
-                        </div>
-
-                        {/* 2. Right Side Action Stack */}
-                        <div className="absolute right-3 bottom-[96px] z-20 flex flex-col gap-1">
-                          <button 
-                            onClick={() => { setFood(f => f + 250000); triggerToast("Applied 1-Hr Wheat Field Speedup boost!"); }}
-                            className="w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-[#EBC463]/40 flex items-center justify-center text-xs shadow-md transition-all active:scale-95"
-                            title="Boost Food production"
-                          >
-                            🌾
-                          </button>
-                          <button 
-                            onClick={() => { setWood(w => w + 250000); triggerToast("Applied 1-Hr Lumber Mill Speedup boost!"); }}
-                            className="w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-[#EBC463]/40 flex items-center justify-center text-xs shadow-md transition-all active:scale-95"
-                            title="Boost Wood production"
-                          >
-                            🪵
-                          </button>
-                          <button 
-                            onClick={() => triggerToast("Acquired instant shield barrier for 8 Hours!")}
-                            className="w-8 h-8 rounded-full bg-slate-950/80 hover:bg-slate-900 border border-[#00d2ff]/40 flex items-center justify-center text-xs shadow-md transition-all active:scale-95"
-                            title="Activate Shield"
-                          >
-                            🛡️
-                          </button>
-                        </div>
-
-                      </div>
-
-                      {/* 3. BOTTOM NAVIGATION BAR (SOCKET CONTROLLERS) */}
-                      <div 
-                        className="absolute bottom-0 left-0 w-full h-[85px] bg-cover bg-bottom z-30 flex items-center"
-                        style={{ backgroundImage: "url('/assets/hud/bottom_bar_bg.svg')" }}
-                      >
-                        
-                        {/* Button 1: Heroes */}
-                        <button 
-                          onClick={() => handleNavClick('heroes')}
-                          onMouseEnter={() => setHoveredButton('heroes')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('heroes')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(8.33% - 24px + 12px)',
-                            bottom: '16px',
-                            backgroundImage: `url(${
-                              (btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'heroes' || btnStateOverride === 'pressed' || activeNav === 'heroes')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'heroes' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'heroes' ? 'scale-90' : 'scale-100'}`}>🛡️</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">Heroes</span>
-                        </button>
-
-                        {/* Button 2: Wayfinder */}
-                        <button 
-                          onClick={() => handleNavClick('wayfinder')}
-                          onMouseEnter={() => setHoveredButton('wayfinder')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('wayfinder')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(25% - 24px + 8px)',
-                            bottom: '22px',
-                            backgroundImage: `url(${
-                              (disabledButtons['wayfinder'] || btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'wayfinder' || btnStateOverride === 'pressed' || activeNav === 'wayfinder')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'wayfinder' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'wayfinder' ? 'scale-90' : 'scale-100'}`}>🧭</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">Wayfinder</span>
-                        </button>
-
-                        {/* Button 3: Bag */}
-                        <button 
-                          onClick={() => handleNavClick('bag')}
-                          onMouseEnter={() => setHoveredButton('bag')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('bag')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(41.66% - 24px + 4px)',
-                            bottom: '26px',
-                            backgroundImage: `url(${
-                              (disabledButtons['bag'] || btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'bag' || btnStateOverride === 'pressed' || activeNav === 'bag')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'bag' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'bag' ? 'scale-90' : 'scale-100'}`}>🎒</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">Bag</span>
-                        </button>
-
-                        {/* Button 4: Quest */}
-                        <button 
-                          onClick={() => handleNavClick('quest')}
-                          onMouseEnter={() => setHoveredButton('quest')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('quest')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(58.33% - 24px - 4px)',
-                            bottom: '26px',
-                            backgroundImage: `url(${
-                              (btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'quest' || btnStateOverride === 'pressed' || activeNav === 'quest')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'quest' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'quest' ? 'scale-90' : 'scale-100'}`}>📜</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">Quest</span>
-                        </button>
-
-                        {/* Button 5: Alliance */}
-                        <button 
-                          onClick={() => handleNavClick('alliance')}
-                          onMouseEnter={() => setHoveredButton('alliance')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('alliance')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(75% - 24px - 8px)',
-                            bottom: '22px',
-                            backgroundImage: `url(${
-                              (btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'alliance' || btnStateOverride === 'pressed' || activeNav === 'alliance')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'alliance' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'alliance' ? 'scale-90' : 'scale-100'}`}>🦁</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">Alliance</span>
-                        </button>
-
-                        {/* Button 6: World / City */}
-                        <button 
-                          onClick={() => handleNavClick('world')}
-                          onMouseEnter={() => setHoveredButton('world')}
-                          onMouseLeave={() => setHoveredButton(null)}
-                          onMouseDown={() => setPressedButton('world')}
-                          onMouseUp={() => setPressedButton(null)}
-                          className="absolute w-12 h-12 rounded-full transition-all flex items-center justify-center z-40"
-                          style={{
-                            left: 'calc(91.66% - 24px - 12px)',
-                            bottom: '16px',
-                            backgroundImage: `url(${
-                              (btnStateOverride === 'disabled')
-                                ? '/assets/hud/btn_base_disabled.svg'
-                                : (pressedButton === 'world' || btnStateOverride === 'pressed' || activeNav === 'world')
-                                  ? '/assets/hud/btn_base_pressed.svg'
-                                  : (hoveredButton === 'world' || btnStateOverride === 'hover')
-                                    ? '/assets/hud/btn_base_hover.svg'
-                                    : '/assets/hud/btn_base_normal.svg'
-                            })`,
-                            backgroundSize: '100% 100%'
-                          }}
-                        >
-                          <span className={`text-xl transition-transform ${pressedButton === 'world' ? 'scale-90' : 'scale-100'}`}>{isCityView ? '🌍' : '🏰'}</span>
-                          <span className="absolute -bottom-4 text-[7px] text-white font-semibold uppercase tracking-wider font-sans leading-none">{isCityView ? 'World' : 'City'}</span>
-                        </button>
-
-                      </div>
-
-                      {/* Floating In-App Toast notification */}
-                      {toastMsg && (
-                        <div className="absolute top-[140px] left-1/2 -translate-x-1/2 bg-[#051c61]/95 border border-[#00d2ff]/40 px-3 py-1.5 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.6)] text-center text-xs text-cyan-200 backdrop-blur-md max-w-[280px] z-50 ring-1 ring-[#00d2ff]/20 font-sans">
-                          {toastMsg}
-                        </div>
-                      )}
-
-                    </div>
-                  </div>
-
-                  {/* RIGHT: Sovereign Command Center Controls (xl:col-span-7) */}
-                  <div className="xl:col-span-7 flex flex-col gap-6">
-                    
-                    {/* Command Deck */}
-                    <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-850/80 shadow-lg space-y-4">
-                      <h3 className="text-sm font-bold text-white flex items-center gap-1.5 border-b border-slate-800 pb-2">
-                        <span>🎛️ Sovereign HUD Command Deck</span>
-                      </h3>
-
-                      {/* Interactive Button State Overrides */}
-                      <div className="space-y-2">
-                        <label className="text-xs text-slate-400 font-medium">Force All Bottom Button States:</label>
-                        <div className="grid grid-cols-5 gap-2">
-                          {[
-                            { id: null, label: 'Dynamic (Real)' },
-                            { id: 'normal', label: 'Normal' },
-                            { id: 'hover', label: 'Hover' },
-                            { id: 'pressed', label: 'Pressed' },
-                            { id: 'disabled', label: 'Disabled' },
-                          ].map((b) => (
-                            <button
-                              key={String(b.id)}
-                              onClick={() => { setBtnStateOverride(b.id as any); triggerToast(`Button overrides set to: ${b.label}!`); }}
-                              className={`py-1.5 rounded text-[11px] font-semibold transition-all ${
-                                btnStateOverride === b.id 
-                                  ? 'bg-[#EBC463] text-slate-950 font-bold border border-yellow-300' 
-                                  : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border border-slate-800'
-                              }`}
-                            >
-                              {b.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Resource Spawner Vault */}
-                      <div className="space-y-2 pt-2">
-                        <label className="text-xs text-slate-400 font-medium">Inject Resource Vault increments (simulated count up):</label>
-                        <div className="grid grid-cols-5 gap-2">
-                          <button onClick={() => { setFood(f => f + 100000); triggerToast("Spawned 100,000 Wheat Field reserves!"); }} className="py-2 px-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded border border-emerald-500/20 text-[10px] font-mono font-bold flex flex-col items-center">
-                            <span>🌾 Wheat</span>
-                            <span className="text-white mt-1">+100K</span>
-                          </button>
-                          <button onClick={() => { setWood(w => w + 100000); triggerToast("Spawned 100,000 Timber Yard reserves!"); }} className="py-2 px-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 rounded border border-amber-500/20 text-[10px] font-mono font-bold flex flex-col items-center">
-                            <span>🪵 Timber</span>
-                            <span className="text-white mt-1">+100K</span>
-                          </button>
-                          <button onClick={() => { setStone(s => s + 50000); triggerToast("Spawned 50,000 Quarry reserves!"); }} className="py-2 px-1 bg-slate-400/10 hover:bg-slate-400/20 text-slate-300 rounded border border-slate-500/20 text-[10px] font-mono font-bold flex flex-col items-center">
-                            <span>🪨 Quarry</span>
-                            <span className="text-white mt-1">+50K</span>
-                          </button>
-                          <button onClick={() => { setIron(i => i + 50000); triggerToast("Spawned 50,000 Iron Mine reserves!"); }} className="py-2 px-1 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded border border-blue-500/20 text-[10px] font-mono font-bold flex flex-col items-center">
-                            <span>🔩 Iron</span>
-                            <span className="text-white mt-1">+50K</span>
-                          </button>
-                          <button onClick={() => { setCrystals(c => c + 5000); setPowerRating(p => p + 150000); triggerToast("Acquired 5,000 Royal Crystals!"); }} className="py-2 px-1 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 rounded border border-cyan-500/20 text-[10px] font-mono font-bold flex flex-col items-center">
-                            <span>💎 Crystals</span>
-                            <span className="text-white mt-1">+5K</span>
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Custom Toggles */}
-                      <div className="grid grid-cols-2 gap-4 pt-2">
-                        <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-850 flex items-center justify-between">
-                          <div className="flex flex-col">
-                            <span className="text-[11px] font-semibold text-white">Active Viewport</span>
-                            <span className="text-[9px] text-slate-400">Toggles background renders</span>
-                          </div>
-                          <button 
-                            onClick={() => { setIsCityView(!isCityView); triggerToast(`Switched active view to ${!isCityView ? 'Citadel City' : 'Wilderness Hex Map'}!`); }}
-                            className="bg-slate-900 hover:bg-slate-850 text-[#EBC463] text-xs font-semibold py-1 px-2.5 rounded-lg border border-[#EBC463]/30 transition-all active:scale-95"
-                          >
-                            {isCityView ? '🏰 Kingdom City' : '🌍 World Map'}
-                          </button>
-                        </div>
-
-                        <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-850 flex items-center justify-between">
-                          <div className="flex flex-col">
-                            <span className="text-[11px] font-semibold text-white">Individual Lockouts</span>
-                            <span className="text-[9px] text-slate-400">Simulate button disabled states</span>
-                          </div>
-                          <button 
-                            onClick={() => { 
-                              setDisabledButtons(d => ({ ...d, 'wayfinder': !d.wayfinder, 'bag': !d.bag })); 
-                              triggerToast(`Toggled Lockouts on Wayfinder & Bag buttons!`);
-                            }}
-                            className={`text-xs font-semibold py-1 px-2.5 rounded-lg border transition-all active:scale-95 ${
-                              (disabledButtons['wayfinder']) 
-                                ? 'bg-red-500/10 text-red-400 border-red-500/30' 
-                                : 'bg-slate-900 text-slate-300 border-slate-800'
-                            }`}
-                          >
-                            {disabledButtons['wayfinder'] ? '🔒 Sockets Locked' : '🔓 Sockets Unlocked'}
-                          </button>
-                        </div>
-                      </div>
-
-                    </div>
-
-                    {/* Vector Blueprint Deck */}
-                    <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-850/80 shadow-lg space-y-4">
-                      <h3 className="text-sm font-bold text-white flex items-center justify-between border-b border-slate-800 pb-2">
-                        <span>💎 Hand-Painted Vector Assets Export Desk</span>
-                        <span className="text-[10px] bg-teal-500/10 text-teal-400 border border-teal-500/20 font-mono px-2 py-0.5 rounded">Ready for Godot</span>
-                      </h3>
-
-                      <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                        Below are the premium hand-drawn vectors generated for the <strong>Crownspire MMO Engine</strong>. They are optimized with infinite scaling, precise bevel details, and gold/sapphire gradients, and have been written successfully to both <code className="text-slate-300 bg-slate-950 px-1 rounded">/public/assets/hud/</code> and <code className="text-slate-300 bg-slate-950 px-1 rounded">/godot/assets/hud/</code>.
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        
-                        {/* Asset 1: Top Bar Bg */}
-                        <div className="bg-slate-950 p-3 rounded-xl border border-slate-850 flex flex-col justify-between gap-3">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h4 className="text-xs font-bold text-white font-mono">top_bar_bg.svg</h4>
-                              <p className="text-[10px] text-slate-500">720x150, Horizontal frame with arch, gold trim, centerpiece sapphire.</p>
-                            </div>
-                            <span className="text-[10px] text-[#EBC463] font-bold">TOP BAR</span>
-                          </div>
-                          {/* Mini visual frame */}
-                          <div className="w-full h-14 bg-[#0a0d16] rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
-                            <img src="/assets/hud/top_bar_bg.svg" className="w-full h-auto object-contain max-h-12 px-2" referrerPolicy="no-referrer" />
-                          </div>
-                          <a href="/assets/hud/top_bar_bg.svg" download className="w-full py-1.5 bg-slate-900 hover:bg-slate-850 text-xs font-semibold text-center text-teal-400 border border-slate-800 hover:border-slate-700 rounded-lg flex items-center justify-center gap-1">
-                            <Download className="w-3.5 h-3.5" /> Download Vector SVG
-                          </a>
-                        </div>
-
-                        {/* Asset 2: Bottom Bar Bg */}
-                        <div className="bg-slate-950 p-3 rounded-xl border border-slate-850 flex flex-col justify-between gap-3">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h4 className="text-xs font-bold text-white font-mono">bottom_bar_bg.svg</h4>
-                              <p className="text-[10px] text-slate-500">720x120, Curved navigation dock with 6 button docking sockets.</p>
-                            </div>
-                            <span className="text-[10px] text-cyan-400 font-bold">BOTTOM BAR</span>
-                          </div>
-                          {/* Mini visual frame */}
-                          <div className="w-full h-14 bg-[#0a0d16] rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
-                            <img src="/assets/hud/bottom_bar_bg.svg" className="w-full h-auto object-contain max-h-12 px-2" referrerPolicy="no-referrer" />
-                          </div>
-                          <a href="/assets/hud/bottom_bar_bg.svg" download className="w-full py-1.5 bg-slate-900 hover:bg-slate-850 text-xs font-semibold text-center text-teal-400 border border-slate-800 hover:border-slate-700 rounded-lg flex items-center justify-center gap-1">
-                            <Download className="w-3.5 h-3.5" /> Download Vector SVG
-                          </a>
-                        </div>
-
-                        {/* Asset 3: Button States Grid */}
-                        <div className="md:col-span-2 bg-slate-950 p-4 rounded-xl border border-slate-850 space-y-3">
-                          <div className="flex items-center justify-between border-b border-slate-850 pb-2">
-                            <h4 className="text-xs font-bold text-white font-mono">Individual Circular Button States (100x100 Sized)</h4>
-                            <span className="text-[10px] text-amber-500 font-bold uppercase">Button States</span>
-                          </div>
-
-                          <div className="grid grid-cols-4 gap-4">
-                            
-                            {/* Normal state */}
-                            <div className="flex flex-col items-center gap-1.5 p-2 bg-slate-900/40 rounded-lg border border-slate-850 text-center">
-                              <span className="text-[9px] text-slate-400 uppercase font-bold">Normal</span>
-                              <div className="w-12 h-12 flex items-center justify-center bg-slate-950 rounded border border-slate-800 p-1">
-                                <img src="/assets/hud/btn_base_normal.svg" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                              </div>
-                              <a href="/assets/hud/btn_base_normal.svg" download className="text-[9px] text-teal-400 font-bold hover:underline">Download</a>
-                            </div>
-
-                            {/* Hover state */}
-                            <div className="flex flex-col items-center gap-1.5 p-2 bg-slate-900/40 rounded-lg border border-slate-850 text-center">
-                              <span className="text-[9px] text-[#EBC463] uppercase font-bold">Hover</span>
-                              <div className="w-12 h-12 flex items-center justify-center bg-slate-950 rounded border border-slate-800 p-1">
-                                <img src="/assets/hud/btn_base_hover.svg" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                              </div>
-                              <a href="/assets/hud/btn_base_hover.svg" download className="text-[9px] text-teal-400 font-bold hover:underline">Download</a>
-                            </div>
-
-                            {/* Pressed state */}
-                            <div className="flex flex-col items-center gap-1.5 p-2 bg-slate-900/40 rounded-lg border border-slate-850 text-center">
-                              <span className="text-[9px] text-cyan-400 uppercase font-bold">Pressed</span>
-                              <div className="w-12 h-12 flex items-center justify-center bg-slate-950 rounded border border-slate-800 p-1">
-                                <img src="/assets/hud/btn_base_pressed.svg" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                              </div>
-                              <a href="/assets/hud/btn_base_pressed.svg" download className="text-[9px] text-teal-400 font-bold hover:underline">Download</a>
-                            </div>
-
-                            {/* Disabled state */}
-                            <div className="flex flex-col items-center gap-1.5 p-2 bg-slate-900/40 rounded-lg border border-slate-850 text-center">
-                              <span className="text-[9px] text-slate-500 uppercase font-bold">Disabled</span>
-                              <div className="w-12 h-12 flex items-center justify-center bg-slate-950 rounded border border-slate-800 p-1">
-                                <img src="/assets/hud/btn_base_disabled.svg" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                              </div>
-                              <a href="/assets/hud/btn_base_disabled.svg" download className="text-[9px] text-teal-400 font-bold hover:underline">Download</a>
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
+              <SovereignProductionHudTab />
             )}
 
             {/* TAB 1: PRODUCTION REPORTS */}

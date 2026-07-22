@@ -33,8 +33,8 @@ func refresh_panel() -> void:
 			player_rank = int(m.get("rank", 1))
 			break
 			
-	# Show broadcast input form if Officer or Leader
-	broadcast_form.visible = (player_rank >= 3)
+	# Show broadcast input form if they have permission to send mail
+	broadcast_form.visible = UIManager.permission_manager.has_permission(player_rank, "send_mail")
 	
 	# Populate circular history
 	var circulars = alliance.get("circulars", []) as Array
@@ -95,6 +95,7 @@ func _on_send_broadcast() -> void:
 	}
 	
 	circulars.insert(0, new_circ)
+	UIManager._save_alliance_databases()
 	
 	# Notify with a toast notification
 	UIManager.alliance_updated.emit()

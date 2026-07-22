@@ -78,6 +78,12 @@ func _ready() -> void:
 		parent = parent.get_parent()
 	if parent:
 		_alliance_scene = parent
+	refresh_panel()
+
+func refresh_panel() -> void:
+	# Pull Honor Points directly from central UIManager
+	_state["player_honor_points"] = UIManager.player_honor_points
+	_refresh_store_ui()
 
 func init_view(state: Dictionary) -> void:
 	_state = state
@@ -173,28 +179,37 @@ func _create_store_item_card(item: Dictionary) -> PanelContainer:
 # ==============================================================================
 
 func _on_purchase_pressed(item: Dictionary) -> void:
-	var honor_points = _state.get("player_honor_points", 0)
-	var cost = item.get("cost", 9999)
-	
-	if honor_points < cost:
-		add_log_requested.emit("Insufficient personal Honor Points! Donate to technologies or construct structures to earn honor.", "warning")
-		return
+	if UIManager.store_manager:
+		var success = UIManager.store_manager.execute_purchase(item)
+		if success:
+			# Refresh and notify
+			_state["player_honor_points"] = UIManager.player_honor_points
+			_refresh_store_ui()
+			UIManager.show_success("Exchange successful! Purchased [%s] for %d Honor. Item sent to bag." % [item.get("name"), item.get("cost", 0)])
+	else:
+		var honor_points = UIManager.player_honor_points
+		var cost = item.get("cost", 9999)
 		
-	# Deduct cost
-	_state["player_honor_points"] = honor_points - cost
-	
-	# Credit to player inventory bag
-	var inventory = _load_inventory()
-	var bag_key = item.get("bag_key")
-	inventory[bag_key] = inventory.get(bag_key, 0) + 1
-	_save_inventory(inventory)
-	
-	# Save alliance state
-	_save_and_sync()
-	
-	# Refresh and notify
-	_refresh_store_ui()
-	add_log_requested.emit("Exchange successful! Purchased [%s] for 🏅%d Honor. Item credited to inventory bag!" % [item.get("name"), cost], "success")
+		if honor_points < cost:
+			UIManager.show_error("Insufficient personal Honor Points! Donate to technologies to earn honor.")
+			return
+			
+		# Deduct cost
+		UIManager.player_honor_points = honor_points - cost
+		_state["player_honor_points"] = UIManager.player_honor_points
+		
+		# Credit to player inventory bag
+		var inventory = _load_inventory()
+		var bag_key = item.get("bag_key")
+		inventory[bag_key] = inventory.get(bag_key, 0) + 1
+		_save_inventory(inventory)
+		
+		# Save alliance state
+		UIManager._save_alliance_databases()
+		
+		# Refresh and notify
+		_refresh_store_ui()
+		UIManager.show_success("Exchange successful! Purchased [%s] for %d Honor. Item sent to bag." % [item.get("name"), cost])
 
 # ==============================================================================
 # PERSISTENCE HELPERS

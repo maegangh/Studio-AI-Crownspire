@@ -37,6 +37,12 @@ func _ready() -> void:
 	load_layout()
 	spawn_buildings()
 	
+	var ui = get_node_or_null("/root/UIManager")
+	if ui and ui.has_signal("building_updated"):
+		ui.building_updated.connect(func(b_id, new_level):
+			spawn_buildings()
+		)
+	
 	# Connect click on empty ground
 	var background = get_node_or_null("Background")
 	if background:
