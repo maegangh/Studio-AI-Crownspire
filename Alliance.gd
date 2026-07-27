@@ -18,7 +18,8 @@ const TABS = [
 	"Gifts",
 	"Help",
 	"Shop",
-	"Territory"
+	"Territory",
+	"Infernal Altar"
 ]
 
 # --- Onready Nodes ---
@@ -330,6 +331,7 @@ func _refresh_alliance_ui() -> void:
 		"Help": sub_scene_path = "res://AllianceHelp.tscn"
 		"Shop": sub_scene_path = "res://AllianceStore.tscn"
 		"Territory": sub_scene_path = "res://AllianceTerritory.tscn"
+		"Infernal Altar": sub_scene_path = "res://Events.tscn"
 		_: return
 		
 	# Fix path to Ranks
@@ -376,6 +378,9 @@ func _refresh_alliance_ui() -> void:
 			var bld_db = _alliance_config.get("allianceBuildings", _get_building_meta_fallbacks())
 			instance.init_view(_alliance_data, bld_db)
 			instance.territory_updated.connect(_on_child_scene_updated)
+		elif _active_tab == "Infernal Altar":
+			if instance.has_method("_on_event_card_selected"):
+				instance._on_event_card_selected("event_infernal_beast")
 	else:
 		push_error("[Alliance] Failed to load %s" % sub_scene_path)
 

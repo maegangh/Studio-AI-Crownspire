@@ -64,6 +64,7 @@ var _events_db: Dictionary = {}
 var _active_category: String = "All"
 var _selected_event_id: String = ""
 var _toast_timer: Timer
+var _infernal_beast_active_track: String = "personal_contribution"
 
 # --- Master Category Listing ---
 const CATEGORIES = ["All", "Server", "Alliance", "Personal", "Season", "Battle Pass"]
@@ -164,6 +165,26 @@ var _events_catalog: Dictionary = {
 			{"name": "Warlord Ragnar", "alliance": "NORSE", "score": 12800},
 			{"name": "Grandmaster Luke", "alliance": "VALR", "score": 9500},
 			{"name": "Dutchess Helen", "alliance": "CSTLE", "score": 5100}
+		]
+	},
+	"event_infernal_beast": {
+		"id": "event_infernal_beast",
+		"type": "alliance",
+		"name": "Infernal Beast",
+		"desc": "An ancient, molten leviathan rises from the Abyssal Core. Defeat Wildlings and Ancient Beast Lairs to earn Infernal Sigils. Donate Sigils to level up the Infernal Altar and unlock up to +20% damage multipliers for your Alliance's 30-minute boss battle!",
+		"max_target": 10000,
+		"milestones": [
+			{"target": 100, "reward_id": "resource_food_100k", "amount": 2, "desc": "2x 100k Food Packs"},
+			{"target": 500, "reward_id": "speedup_universal_1h", "amount": 5, "desc": "5x 1h Speedups"},
+			{"target": 1000, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds"},
+			{"target": 2500, "reward_id": "speedup_universal_1h", "amount": 10, "desc": "10x 1h Speedups"},
+			{"target": 5000, "reward_id": "resource_diamond_1000", "amount": 2, "desc": "2,000 Diamonds"}
+		],
+		"actions": [],
+		"rivals": [
+			{"name": "VALR Alliance", "alliance": "VALR", "score": 8400},
+			{"name": "CSTLE Alliance", "alliance": "CSTLE", "score": 6200},
+			{"name": "SVRN Alliance", "alliance": "SVRN", "score": 3900}
 		]
 	}
 }
@@ -514,6 +535,8 @@ func _on_event_card_selected(event_id: String) -> void:
 	
 	if event_id == "battle_pass":
 		_open_battle_pass_details()
+	elif event_id == "event_infernal_beast":
+		_open_infernal_beast_details()
 	else:
 		_open_standard_event_details(event_id)
 
@@ -563,6 +586,388 @@ func _open_standard_event_details(event_id: String) -> void:
 	_generate_leaderboard_widgets(event, score)
 	
 	_update_active_timers_display()
+
+func _open_infernal_beast_details() -> void:
+	right_detail_empty.visible = false
+	right_detail_bp.visible = false
+	right_detail_normal.visible = true
+	
+	var mgr = get_node_or_null("/root/InfernalBeastManager")
+	if not mgr:
+		return
+		
+	var state = mgr.state
+	var status = state.get("status", "READY")
+	
+	det_title_lbl.text = "Infernal Beast Alliance Event"
+	det_desc_lbl.text = "An ancient, molten leviathan rises from the Abyssal Core. Defeat Wildlings and Ancient Beast Lairs to earn Infernal Sigils. Donate Sigils to level up the Infernal Altar and unlock up to +20% damage multipliers for your Alliance's 30-minute boss battle!"
+	det_type_lbl.text = "ALLIANCE PVE RAID"
+	
+	var type_style = StyleBoxFlat.new()
+	type_style.bg_color = Color(0.85, 0.25, 0.15, 1.0) # Flame Red
+	type_style.corner_radius_top_left = 4
+	type_style.corner_radius_top_right = 4
+	type_style.corner_radius_bottom_right = 4
+	type_style.corner_radius_bottom_left = 4
+	det_type_badge.add_theme_stylebox_override("panel", type_style)
+	
+	var now = Time.get_unix_time_from_system()
+	if status == "COOLDOWN":
+		var rem = max(0, state.get("cooldown_end_timestamp", 0) - now)
+		var hrs = int(rem / 3600.0)
+		var mins = int(fmod(rem, 3600.0) / 60.0)
+		var secs = int(fmod(rem, 60.0))
+		det_timer_lbl.text = "⏳ Cooldown: %02dh %02dm %02ds left" % [hrs, mins, secs]
+	elif status == "READY":
+		det_timer_lbl.text = "🔥 Status: READY TO ACTIVATE"
+	elif status == "ACTIVE":
+		var rem = max(0, state.get("fight_end_timestamp", 0) - now)
+		var mins = int(rem / 60.0)
+		var secs = int(fmod(rem, 60.0))
+		det_timer_lbl.text = "⚔️ BATTLE ACTIVE: %02dm %02ds remaining" % [mins, secs]
+		
+	var cur_contrib = state.get("current_cycle_contribution", 0)
+	var altar_info = mgr.get_altar_info(cur_contrib)
+	
+	det_progress_bar.max_value = float(altar_info["next_threshold"])
+	det_progress_bar.value = float(cur_contrib)
+	det_progress_lbl.text = "Infernal Altar: %s (Level %d) | Bonus: +%d%% | Sigils Donated: %d / %d" % [
+		altar_info["name"], altar_info["level"], altar_info["bonus_pct"], cur_contrib, altar_info["next_threshold"]
+	]
+	
+	# Populate Custom Infernal Altar Actions & Widgets
+	_generate_infernal_beast_actions(mgr)
+	_generate_infernal_beast_milestones(mgr)
+	_generate_leaderboard_widgets(_events_catalog["event_infernal_beast"], cur_contrib)
+
+func _generate_infernal_beast_actions(mgr: InfernalBeastManager) -> void:
+	_clear_container(quest_container)
+	var state = mgr.state
+	var status = state.get("status", "READY")
+	var cur_contrib = state.get("current_cycle_contribution", 0)
+	var altar_info = mgr.get_altar_info(cur_contrib)
+	var sigils = mgr.get_player_sigils()
+	
+	# CARD 1: INFERNAL ALTAR & MANUAL DONATIONS
+	var card1 = _create_event_card_frame("🔥 INFERNAL ALTAR DONATIONS")
+	var vbox1 = card1.get_child(0).get_child(0) # Margin -> VBox
+	
+	var info_lbl = Label.new()
+	info_lbl.text = "Current Altar: %s (Lv.%d) | Current Multiplier: +%d%% Damage Bonus\nOwned Infernal Sigils: %d (Earn from Wildlings & Beast Lairs)" % [
+		altar_info["name"], altar_info["level"], altar_info["bonus_pct"], sigils
+	]
+	info_lbl.add_theme_font_size_override("font_size", 12)
+	info_lbl.add_theme_color_override("font_color", Color(0.9, 0.8, 0.6, 1))
+	vbox1.add_child(info_lbl)
+	
+	var btn_hbox = HBoxContainer.new()
+	btn_hbox.add_theme_constant_override("separation", 8)
+	vbox1.add_child(btn_hbox)
+	
+	var amounts = [1, 10, 100, sigils]
+	var labels = ["DONATE 1", "DONATE 10", "DONATE 100", "DONATE ALL (%d)" % sigils]
+	
+	for i in range(amounts.size()):
+		var amt = amounts[i]
+		if amt <= 0: continue
+		var btn = Button.new()
+		btn.text = labels[i]
+		btn.custom_minimum_size = Vector2(110, 32)
+		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		btn.disabled = (sigils < amt or amt <= 0)
+		btn.pressed.connect(func():
+			var res = mgr.donate_sigils(amt)
+			if res["success"]:
+				_show_toast("Donated %d Infernal Sigils to Altar!" % amt)
+				_open_infernal_beast_details()
+			else:
+				_show_toast(res["message"])
+		)
+		btn_hbox.add_child(btn)
+		
+	quest_container.add_child(card1)
+	
+	# CARD 2: LEADERSHIP ACTIVATION (If status == READY)
+	if status == "READY":
+		var card2 = _create_event_card_frame("⚡ ALLIANCE LEADERSHIP CONTROL")
+		var vbox2 = card2.get_child(0).get_child(0)
+		
+		var ready_lbl = Label.new()
+		ready_lbl.text = "Status: READY FOR ACTIVATION\nStarting the fight now will lock the current Altar Lv.%d (+%d%% Damage Bonus) for the 30-minute battle.\nUnused contribution beyond Lv.%d will automatically carry forward to the next cycle." % [
+			altar_info["level"], altar_info["bonus_pct"], altar_info["level"]
+		]
+		ready_lbl.add_theme_font_size_override("font_size", 12)
+		ready_lbl.add_theme_color_override("font_color", Color(0.2, 0.9, 0.4, 1))
+		vbox2.add_child(ready_lbl)
+		
+		var start_btn = Button.new()
+		start_btn.text = "🔥 START INFERNAL BEAST (R4/R5) 🔥"
+		start_btn.custom_minimum_size = Vector2(240, 38)
+		start_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		start_btn.pressed.connect(func():
+			_show_start_confirmation_dialog(mgr, altar_info)
+		)
+		vbox2.add_child(start_btn)
+		quest_container.add_child(card2)
+		
+	# CARD 3: ACTIVE BATTLE PANEL (If status == ACTIVE)
+	if status == "ACTIVE":
+		var card3 = _create_event_card_frame("⚔️ ACTIVE INFERNAL BEAST BATTLE")
+		var vbox3 = card3.get_child(0).get_child(0)
+		
+		var locked_lvl = state.get("altar_level_locked_for_fight", 1)
+		var locked_pct = int(state.get("altar_damage_bonus_locked", 0.0) * 100.0)
+		var cur_hp = state.get("boss_current_hp", 1000000000)
+		var max_hp = state.get("boss_max_hp", 1000000000)
+		
+		var hp_bar = ProgressBar.new()
+		hp_bar.max_value = float(max_hp)
+		hp_bar.value = float(cur_hp)
+		hp_bar.custom_minimum_size = Vector2(0, 24)
+		vbox3.add_child(hp_bar)
+		
+		var hp_lbl = Label.new()
+		hp_lbl.text = "Boss HP: %s / %s | Locked Altar Lv.%d (+%d%% Bonus)" % [
+			_format_num(cur_hp), _format_num(max_hp), locked_lvl, locked_pct
+		]
+		hp_lbl.add_theme_font_size_override("font_size", 12)
+		hp_lbl.add_theme_color_override("font_color", Color(1, 0.85, 0.3, 1))
+		vbox3.add_child(hp_lbl)
+		
+		var p_dmg = state.get("personal_damage", {}).get("Sovereign_Player", 0)
+		var a_dmg = state.get("alliance_damage", 0)
+		
+		var dmg_lbl = Label.new()
+		dmg_lbl.text = "Your Personal Damage: %s | Alliance Total Damage: %s" % [
+			_format_num(p_dmg), _format_num(a_dmg)
+		]
+		dmg_lbl.add_theme_font_size_override("font_size", 12)
+		vbox3.add_child(dmg_lbl)
+		
+		var act_hbox = HBoxContainer.new()
+		act_hbox.add_theme_constant_override("separation", 10)
+		vbox3.add_child(act_hbox)
+		
+		var rally_btn = Button.new()
+		rally_btn.text = "🛡️ LAUNCH / JOIN ALLIANCE RALLY"
+		rally_btn.custom_minimum_size = Vector2(220, 34)
+		rally_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		rally_btn.pressed.connect(func():
+			var rally_scene = load("res://RallyPanel.tscn")
+			if rally_scene:
+				var inst = rally_scene.instantiate()
+				add_child(inst)
+			else:
+				_show_toast("Rally Panel opened for Infernal Beast!")
+		)
+		act_hbox.add_child(rally_btn)
+		
+		var atk_btn = Button.new()
+		atk_btn.text = "⚔️ ATTACK BOSS (+10M DAMAGE)"
+		atk_btn.custom_minimum_size = Vector2(220, 34)
+		atk_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		atk_btn.pressed.connect(func():
+			var dealt = mgr.record_boss_damage("Sovereign_Player", 10000000, true)
+			_show_toast("Dealt %s Damage to Infernal Beast (+%d%% Altar Bonus applied)!" % [_format_num(dealt), locked_pct])
+			_open_infernal_beast_details()
+		)
+		act_hbox.add_child(atk_btn)
+		
+		quest_container.add_child(card3)
+
+	# CARD 4: DEBUG TOOLKIT (If OS.is_debug_build())
+	if OS.is_debug_build():
+		var card_dbg = _create_event_card_frame("🛠️ DEBUG TESTING PANEL")
+		var vbox_dbg = card_dbg.get_child(0).get_child(0)
+		
+		var dbg_grid = GridContainer.new()
+		dbg_grid.columns = 3
+		dbg_grid.add_theme_constant_override("h_separation", 8)
+		dbg_grid.add_theme_constant_override("v_separation", 8)
+		vbox_dbg.add_child(dbg_grid)
+		
+		var dbg_actions = [
+			{"name": "+100 Sigils", "fn": func(): mgr.debug_add_sigils(100)},
+			{"name": "+1,000 Sigils", "fn": func(): mgr.debug_add_sigils(1000)},
+			{"name": "Donate Next Level", "fn": func(): mgr.debug_donate_next_level()},
+			{"name": "Set READY State", "fn": func(): mgr.debug_set_ready()},
+			{"name": "Force Start Fight", "fn": func(): mgr.debug_start_fight()},
+			{"name": "+50M Boss Damage", "fn": func(): mgr.debug_add_boss_damage(50000000)},
+			{"name": "End Fight (Cooldown)", "fn": func(): mgr.debug_end_fight()},
+			{"name": "Complete Full Cycle", "fn": func(): mgr.debug_complete_cycle()},
+			{"name": "Reset Cycle Progress", "fn": func(): mgr.debug_new_cycle()}
+		]
+		
+		for act in dbg_actions:
+			var btn = Button.new()
+			btn.text = act["name"]
+			btn.custom_minimum_size = Vector2(130, 28)
+			btn.pressed.connect(func():
+				act["fn"].call()
+				_open_infernal_beast_details()
+			)
+			dbg_grid.add_child(btn)
+			
+		quest_container.add_child(card_dbg)
+
+func _create_event_card_frame(title: String) -> PanelContainer:
+	var panel = PanelContainer.new()
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.12, 0.15, 0.18, 1.0)
+	style.border_width_left = 1
+	style.border_width_top = 1
+	style.border_width_right = 1
+	style.border_width_bottom = 1
+	style.border_color = Color(0.25, 0.3, 0.35, 1.0)
+	style.corner_radius_top_left = 6
+	style.corner_radius_top_right = 6
+	style.corner_radius_bottom_right = 6
+	style.corner_radius_bottom_left = 6
+	panel.add_theme_stylebox_override("panel", style)
+	
+	var margin = MarginContainer.new()
+	margin.add_theme_constant_override("margin_left", 12)
+	margin.add_theme_constant_override("margin_top", 10)
+	margin.add_theme_constant_override("margin_right", 12)
+	margin.add_theme_constant_override("margin_bottom", 10)
+	panel.add_child(margin)
+	
+	var vbox = VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 8)
+	margin.add_child(vbox)
+	
+	var title_lbl = Label.new()
+	title_lbl.text = title
+	title_lbl.add_theme_font_size_override("font_size", 14)
+	title_lbl.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15, 1))
+	vbox.add_child(title_lbl)
+	
+	return panel
+
+func _show_start_confirmation_dialog(mgr: InfernalBeastManager, altar_info: Dictionary) -> void:
+	var cur = mgr.state.get("current_cycle_contribution", 0)
+	var used = altar_info["threshold"]
+	var carry = max(0, cur - used)
+	
+	var msg = "CONFIRM INFERNAL BEAST ACTIVATION\n\n" + \
+		"Current Altar: %s (Lv.%d)\n" % [altar_info["name"], altar_info["level"]] + \
+		"Locked Damage Multiplier: +%d%%\n" % altar_info["bonus_pct"] + \
+		"Current Contribution: %d Sigils\n" % cur + \
+		"Contribution Consumed: %d Sigils\n" % used + \
+		"Carryover to Next Cycle: %d Sigils\n" % carry + \
+		"Fight Duration: 30 Minutes\n\n" + \
+		"Are you sure you want to activate the Infernal Beast fight now?"
+		
+	var confirm_popup = ConfirmationDialog.new()
+	confirm_popup.title = "Activate Infernal Beast"
+	confirm_popup.dialog_text = msg
+	add_child(confirm_popup)
+	confirm_popup.popup_centered()
+	
+	confirm_popup.confirmed.connect(func():
+		var res = mgr.start_fight("R5")
+		if res["success"]:
+			_show_toast("Infernal Beast Activated! 30-minute fight started.")
+			_open_infernal_beast_details()
+		else:
+			_show_toast(res["message"])
+		confirm_popup.queue_free()
+	)
+	confirm_popup.canceled.connect(func():
+		confirm_popup.queue_free()
+	)
+
+func _generate_infernal_beast_milestones(mgr: InfernalBeastManager) -> void:
+	_clear_container(milestone_container)
+	
+	# Track Selector Tabs HBox
+	var track_names = ["personal_contribution", "personal_damage", "alliance_damage"]
+	var track_labels = ["Personal Contribution", "Personal Damage", "Alliance Damage"]
+	
+	var track_hbox = HBoxContainer.new()
+	track_hbox.add_theme_constant_override("separation", 8)
+	
+	for i in range(track_names.size()):
+		var t_name = track_names[i]
+		var btn = Button.new()
+		btn.text = track_labels[i]
+		btn.custom_minimum_size = Vector2(140, 28)
+		if t_name == _infernal_beast_active_track:
+			btn.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15, 1))
+		btn.pressed.connect(func():
+			_infernal_beast_active_track = t_name
+			_generate_infernal_beast_milestones(mgr)
+		)
+		track_hbox.add_child(btn)
+		
+	milestone_container.add_child(track_hbox)
+	
+	var list = mgr.MILESTONES.get(_infernal_beast_active_track, [])
+	for idx in range(list.size()):
+		var m = list[idx]
+		var target = m["target"]
+		var desc = m["desc"]
+		var claimed = mgr.is_milestone_claimed(_infernal_beast_active_track, idx)
+		var can_claim = mgr.can_claim_milestone(_infernal_beast_active_track, idx)
+		
+		var cell = PanelContainer.new()
+		cell.custom_minimum_size = Vector2(130, 110)
+		
+		var style = StyleBoxFlat.new()
+		style.bg_color = Color(0.12, 0.15, 0.18, 1.0)
+		style.corner_radius_top_left = 6
+		style.corner_radius_top_right = 6
+		style.corner_radius_bottom_right = 6
+		style.corner_radius_bottom_left = 6
+		style.border_width_left = 1; style.border_width_top = 1; style.border_width_right = 1; style.border_width_bottom = 1
+		
+		if claimed: style.border_color = Color(0.3, 0.35, 0.4, 1)
+		elif can_claim: style.border_color = Color(0.95, 0.75, 0.15, 1)
+		else: style.border_color = Color(0.2, 0.25, 0.3, 1)
+		cell.add_theme_stylebox_override("panel", style)
+		
+		var vbox = VBoxContainer.new()
+		vbox.add_theme_constant_override("separation", 4)
+		vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+		cell.add_child(vbox)
+		
+		var t_lbl = Label.new()
+		t_lbl.text = "TIER %d\n%s" % [idx + 1, _format_num(target)]
+		t_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		t_lbl.add_theme_font_size_override("font_size", 10)
+		vbox.add_child(t_lbl)
+		
+		var d_lbl = Label.new()
+		d_lbl.text = desc
+		d_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		d_lbl.add_theme_font_size_override("font_size", 9)
+		d_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		vbox.add_child(d_lbl)
+		
+		var c_btn = Button.new()
+		c_btn.custom_minimum_size = Vector2(100, 24)
+		c_btn.focus_mode = Control.FOCUS_NONE
+		
+		if claimed:
+			c_btn.text = "CLAIMED"
+			c_btn.disabled = true
+		elif can_claim:
+			c_btn.text = "CLAIM"
+			c_btn.add_theme_color_override("font_color", Color(0.15, 0.9, 0.3, 1))
+			c_btn.pressed.connect(func():
+				var res = mgr.claim_milestone(_infernal_beast_active_track, idx)
+				if res["success"]:
+					_show_toast("Claimed: " + res["reward_desc"])
+					_generate_infernal_beast_milestones(mgr)
+				else:
+					_show_toast(res["message"])
+			)
+		else:
+			c_btn.text = "LOCKED"
+			c_btn.disabled = true
+			
+		vbox.add_child(c_btn)
+		milestone_container.add_child(cell)
 
 func _generate_milestone_widgets(event: Dictionary, current_score: int) -> void:
 	_clear_container(milestone_container)

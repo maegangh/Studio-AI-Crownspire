@@ -19,6 +19,7 @@ UIManager="*res://scripts/UIManager.gd"
 MailManager="*res://autoload/MailManager.gd"
 QuestManager="*res://autoload/QuestManager.gd"
 SettingsManager="*res://autoload/SettingsManager.gd"
+InfernalBeastManager="*res://autoload/InfernalBeastManager.gd"
 
 [display]
 

@@ -13,6 +13,7 @@ const SAVE_FILE_PATH = "user://crownspire_rallies_v1.save"
 
 # --- Static Target Profiles ---
 const RALLY_TARGETS = [
+	{ "id": "infernal_beast", "name": "Infernal Beast [Alliance Raid Boss]", "power": 10000000, "coords": "X: 500, Y: 500" },
 	{ "id": "scourge_wyrm", "name": "Ancient Scourge Wyrm [Lv.40]", "power": 6500000, "coords": "X: 425, Y: 890" },
 	{ "id": "titan_golem", "name": "Shattered Titan Golem [Lv.35]", "power": 4200000, "coords": "X: 112, Y: 642" },
 	{ "id": "bandit_citadel", "name": "Rogue Sovereign Fortress [Lv.30]", "power": 2800000, "coords": "X: 715, Y: 335" },
@@ -365,6 +366,17 @@ func _execute_combat_completion(rally: Dictionary) -> void:
 	
 	if result == "VICTORIOUS":
 		print("[Rally] SUCCESS! " + rally.targetName + " slain! Loot distributed to participants.")
+		
+		var ib_mgr = get_node_or_null("/root/InfernalBeastManager")
+		if ib_mgr:
+			if rally.get("targetId") == "infernal_beast" or ib_mgr.state.get("status") == "ACTIVE":
+				var base_dmg = 15000000
+				var dealt = ib_mgr.record_boss_damage("Sovereign_Player", base_dmg, true)
+				print("[Rally] Infernal Beast rally strike dealt ", dealt, " damage to boss!")
+			else:
+				# General lair / beast rally victory awards +100 Infernal Sigils
+				ib_mgr.add_player_sigils(100)
+				print("[Rally] Awarded +100 Infernal Sigils for victorious Ancient Lair raid!")
 	else:
 		print("[Rally] DEFEATED. Troops retreated to sovereign hospital beds.")
 		
