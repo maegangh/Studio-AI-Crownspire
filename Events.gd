@@ -68,6 +68,7 @@ var _infernal_beast_active_track: String = "personal_contribution"
 var _selected_rookie_day: int = 1
 var sovereign_detail_scroll: ScrollContainer = null
 var ascension_detail_scroll: ScrollContainer = null
+var march_extravaganza_detail_scroll: ScrollContainer = null
 
 # --- Master Category Listing ---
 const CATEGORIES = ["All", "Server", "Alliance", "Personal", "Season", "Battle Pass"]
@@ -215,6 +216,16 @@ var _events_catalog: Dictionary = {
 		"milestones": [],
 		"actions": [],
 		"rivals": []
+	},
+	"march_extravaganza": {
+		"id": "march_extravaganza",
+		"type": "personal",
+		"name": "MARCH EXTRAVAGANZA",
+		"desc": "A 7-Day First-Week Sequential Pack Event offering 5 elite progression packs and unlocking the Grand March Appearance Reward.",
+		"max_target": 5,
+		"milestones": [],
+		"actions": [],
+		"rivals": []
 	}
 }
 
@@ -281,8 +292,7 @@ func _ready() -> void:
 	if settings_mgr and settings_mgr.has_signal("entitlement_confirmed"):
 		settings_mgr.entitlement_confirmed.connect(func(ent_id):
 			_show_toast("✓ Entitlement Confirmed: " + ent_id)
-			if _selected_event_id == "sovereigns_ascension" and is_instance_valid(ascension_detail_scroll) and ascension_detail_scroll.visible:
-				_open_sovereigns_ascension_details()
+			_handle_entitlement_confirmed(ent_id)
 		)
 	
 	# Layout
@@ -566,6 +576,8 @@ func _hide_all_detail_panels() -> void:
 		sovereign_detail_scroll.visible = false
 	if is_instance_valid(ascension_detail_scroll):
 		ascension_detail_scroll.visible = false
+	if is_instance_valid(march_extravaganza_detail_scroll):
+		march_extravaganza_detail_scroll.visible = false
 
 # ==============================================================================
 # DETAIL PANEL CONTROLLERS
@@ -582,6 +594,8 @@ func _on_event_card_selected(event_id: String) -> void:
 		_open_sovereigns_journey_details()
 	elif event_id == "sovereigns_ascension":
 		_open_sovereigns_ascension_details()
+	elif event_id == "march_extravaganza":
+		_open_march_extravaganza_details()
 	else:
 		_open_standard_event_details(event_id)
 
@@ -1789,6 +1803,643 @@ func _open_starter_offer_popup(offer_id: String, offer_cfg: Dictionary) -> void:
 			_open_sovereigns_ascension_details()
 		)
 		add_child(popup)
+
+# ==============================================================================
+# MARCH EXTRAVAGANZA (FIRST-WEEK MARCH APPEARANCE 5-PACK) CONTROLLERS
+# ==============================================================================
+
+func _handle_entitlement_confirmed(ent_id: String) -> void:
+	if _selected_event_id == "sovereigns_ascension" and is_instance_valid(ascension_detail_scroll) and ascension_detail_scroll.visible:
+		_open_sovereigns_ascension_details()
+		
+	if ent_id.begins_with("first_week_march_pack_"):
+		if not _events_db.has("march_extravaganza_packs"):
+			_events_db["march_extravaganza_packs"] = {}
+		var pack_db: Dictionary = _events_db["march_extravaganza_packs"]
+		if pack_db.get(ent_id, false) == true:
+			print("[Events IDEMPOTENT] March pack entitlement already confirmed & granted: ", ent_id)
+			return
+			
+		pack_db[ent_id] = true
+		_save_events_to_disk()
+		
+		# Load Config
+		var march_config: Dictionary = {}
+		var cfg_file = FileAccess.open("res://data/march_extravaganza_config.json", FileAccess.READ)
+		if not cfg_file:
+			cfg_file = FileAccess.open("res://godot/data/march_extravaganza_config.json", FileAccess.READ)
+		if cfg_file:
+			var json = JSON.new()
+			if json.parse(cfg_file.get_as_text()) == OK:
+				march_config = json.get_data()
+			cfg_file.close()
+			
+		var packs_arr = march_config.get("packs", []) as Array
+		var found_pack: Dictionary = {}
+		for p in packs_arr:
+			if p.get("offer_id") == ent_id:
+				found_pack = p
+				break
+				
+		var bundle = found_pack.get("reward_bundle", {}) as Dictionary
+		var rewards = bundle.get("rewards", []) as Array
+		var rewards_to_claim: Array = []
+		
+		for r in rewards:
+			var r_id = str(r.get("id", ""))
+			var r_type = str(r.get("type", "item"))
+			var r_amount = int(r.get("amount", 1))
+			var r_name = str(r.get("name", r_id))
+			
+			rewards_to_claim.append({"name": r_name, "quantity": r_amount, "id": r_id})
+			
+			if r_type == "currency" or r_type == "resource":
+				match r_id:
+					"diamonds", "royal_crystals": UIManager.royal_crystals += r_amount
+					"gold": UIManager.gold += r_amount
+					"food": UIManager.food += r_amount
+					"wood": UIManager.wood += r_amount
+					"stone": UIManager.stone += r_amount
+					"iron": UIManager.iron += r_amount
+			else:
+				_credit_reward_item_to_bag(r_id, r_amount)
+				
+		UIManager.currency_changed.emit("royal_crystals", float(UIManager.royal_crystals))
+		UIManager.currency_changed.emit("gold", float(UIManager.gold))
+		if not rewards_to_claim.is_empty():
+			UIManager.reward_claimed.emit(rewards_to_claim)
+			
+		_show_toast("✓ March Pack Rewards Claimed: " + str(found_pack.get("title", ent_id)))
+		
+		if _selected_event_id == "march_extravaganza" and is_instance_valid(march_extravaganza_detail_scroll) and march_extravaganza_detail_scroll.visible:
+			_open_march_extravaganza_details()
+			_refresh_overall_ui()
+
+func _open_march_extravaganza_details() -> void:
+	right_detail_empty.visible = false
+	right_detail_normal.visible = false
+	right_detail_bp.visible = false
+	if is_instance_valid(sovereign_detail_scroll): sovereign_detail_scroll.visible = false
+	if is_instance_valid(ascension_detail_scroll): ascension_detail_scroll.visible = false
+	
+	if not is_instance_valid(march_extravaganza_detail_scroll):
+		march_extravaganza_detail_scroll = ScrollContainer.new()
+		march_extravaganza_detail_scroll.name = "MarchExtravaganzaDetailsScroll"
+		march_extravaganza_detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		march_extravaganza_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		right_panel.add_child(march_extravaganza_detail_scroll)
+		
+	march_extravaganza_detail_scroll.visible = true
+	_clear_container(march_extravaganza_detail_scroll)
+	
+	var margin = MarginContainer.new()
+	margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	margin.add_theme_constant_override("margin_left", 16)
+	margin.add_theme_constant_override("margin_right", 16)
+	margin.add_theme_constant_override("margin_top", 12)
+	margin.add_theme_constant_override("margin_bottom", 16)
+	march_extravaganza_detail_scroll.add_child(margin)
+	
+	var main_vbox = VBoxContainer.new()
+	main_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	main_vbox.add_theme_constant_override("separation", 14)
+	margin.add_child(main_vbox)
+	
+	# Load Config
+	var march_config: Dictionary = {}
+	var cfg_file = FileAccess.open("res://data/march_extravaganza_config.json", FileAccess.READ)
+	if not cfg_file:
+		cfg_file = FileAccess.open("res://godot/data/march_extravaganza_config.json", FileAccess.READ)
+	if cfg_file:
+		var json = JSON.new()
+		if json.parse(cfg_file.get_as_text()) == OK:
+			march_config = json.get_data()
+		cfg_file.close()
+		
+	# Account Age & Lifecycle Math
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	var account_age_sec = settings_mgr.get_account_age_seconds() if settings_mgr else 0
+	var event_duration_sec = 7 * 86400
+	var seconds_left = max(0, event_duration_sec - account_age_sec)
+	var is_expired = account_age_sec >= event_duration_sec
+	
+	# Completed packs database
+	if not _events_db.has("march_extravaganza_packs"):
+		_events_db["march_extravaganza_packs"] = {}
+	var completed_packs: Dictionary = _events_db["march_extravaganza_packs"]
+	
+	var packs_list = march_config.get("packs", []) as Array
+	var completed_count = 0
+	for p in packs_list:
+		var off_id = p.get("offer_id", "")
+		if completed_packs.get(off_id, false) == true:
+			completed_count += 1
+			
+	# Update score in DB
+	if not _events_db.has("scores"): _events_db["scores"] = {}
+	_events_db["scores"]["march_extravaganza"] = completed_count
+	
+	# ==========================================
+	# 1. HEADER BANNER & COUNTDOWN TIMER
+	# ==========================================
+	var header_panel = PanelContainer.new()
+	var h_style = StyleBoxFlat.new()
+	h_style.bg_color = Color(0.12, 0.1, 0.22, 0.95)
+	h_style.set_corner_radius_all(8)
+	h_style.border_width_left = 2
+	h_style.border_width_top = 2
+	h_style.border_width_right = 2
+	h_style.border_width_bottom = 2
+	h_style.border_color = Color(0.7, 0.4, 0.9, 0.9) # Purple
+	header_panel.add_theme_stylebox_override("panel", h_style)
+	
+	var h_margin = MarginContainer.new()
+	h_margin.add_theme_constant_override("margin_left", 14)
+	h_margin.add_theme_constant_override("margin_right", 14)
+	h_margin.add_theme_constant_override("margin_top", 12)
+	h_margin.add_theme_constant_override("margin_bottom", 12)
+	header_panel.add_child(h_margin)
+	
+	var h_vbox = VBoxContainer.new()
+	h_vbox.add_theme_constant_override("separation", 6)
+	h_margin.add_child(h_vbox)
+	
+	var title_hbar = HBoxContainer.new()
+	
+	var badge = PanelContainer.new()
+	var b_style = StyleBoxFlat.new()
+	b_style.bg_color = Color(0.6, 0.2, 0.8, 0.9)
+	b_style.set_corner_radius_all(4)
+	badge.add_theme_stylebox_override("panel", b_style)
+	var badge_lbl = Label.new()
+	badge_lbl.text = " " + march_config.get("badge_text", "FIRST-WEEK MARCH APPEARANCE 5-PACK") + " "
+	badge_lbl.add_theme_font_size_override("font_size", 10)
+	badge_lbl.add_theme_color_override("font_color", Color(1, 1, 1))
+	badge.add_child(badge_lbl)
+	title_hbar.add_child(badge)
+	
+	var h_spacer = Control.new()
+	h_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title_hbar.add_child(h_spacer)
+	
+	var timer_lbl = Label.new()
+	if is_expired:
+		timer_lbl.text = "❌ EVENT EXPIRED"
+		timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.3, 0.3))
+	else:
+		var d = int(seconds_left / 86400)
+		var h = int(fmod(seconds_left, 86400) / 3600)
+		var m = int(fmod(seconds_left, 3600) / 60)
+		var s = int(fmod(seconds_left, 60))
+		timer_lbl.text = "⏳ Ends In: %dd %02dh %02dm %02ds" % [d, h, m, s]
+		timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.8, 0.2))
+	timer_lbl.add_theme_font_size_override("font_size", 12)
+	title_hbar.add_child(timer_lbl)
+	
+	h_vbox.add_child(title_hbar)
+	
+	var title_lbl = Label.new()
+	title_lbl.text = march_config.get("display_name", "MARCH EXTRAVAGANZA").to_upper()
+	title_lbl.add_theme_font_size_override("font_size", 20)
+	title_lbl.add_theme_color_override("font_color", Color(0.95, 0.85, 1.0))
+	h_vbox.add_child(title_lbl)
+	
+	var desc_lbl = Label.new()
+	desc_lbl.text = march_config.get("desc", "Purchase all 5 sequential packs to complete the event and claim the permanent March Appearance Grand Reward!")
+	desc_lbl.add_theme_font_size_override("font_size", 12)
+	desc_lbl.add_theme_color_override("font_color", Color(0.85, 0.8, 0.95))
+	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	h_vbox.add_child(desc_lbl)
+	
+	main_vbox.add_child(header_panel)
+	
+	# ==========================================
+	# 2. OVERALL PROGRESS METER
+	# ==========================================
+	var meter_panel = PanelContainer.new()
+	var m_style = StyleBoxFlat.new()
+	m_style.bg_color = Color(0.08, 0.08, 0.12, 0.95)
+	m_style.set_corner_radius_all(6)
+	meter_panel.add_theme_stylebox_override("panel", m_style)
+	
+	var m_margin = MarginContainer.new()
+	m_margin.add_theme_constant_override("margin_left", 12)
+	m_margin.add_theme_constant_override("margin_right", 12)
+	m_margin.add_theme_constant_override("margin_top", 10)
+	m_margin.add_theme_constant_override("margin_bottom", 10)
+	meter_panel.add_child(m_margin)
+	
+	var m_vbox = VBoxContainer.new()
+	m_vbox.add_theme_constant_override("separation", 6)
+	m_margin.add_child(m_vbox)
+	
+	var m_hbar = HBoxContainer.new()
+	var m_title = Label.new()
+	m_title.text = "EVENT PROGRESSION"
+	m_title.add_theme_font_size_override("font_size", 12)
+	m_title.add_theme_color_override("font_color", Color(0.9, 0.85, 1.0))
+	m_hbar.add_child(m_title)
+	
+	var m_spc = Control.new()
+	m_spc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	m_hbar.add_child(m_spc)
+	
+	var m_val = Label.new()
+	m_val.text = "%d / 5 PACKS COMPLETED" % completed_count
+	m_val.add_theme_font_size_override("font_size", 12)
+	m_val.add_theme_color_override("font_color", Color(0.4, 0.9, 0.5) if completed_count == 5 else Color(0.9, 0.75, 0.3))
+	m_hbar.add_child(m_val)
+	
+	m_vbox.add_child(m_hbar)
+	
+	var p_bar = ProgressBar.new()
+	p_bar.max_value = 5.0
+	p_bar.value = float(completed_count)
+	p_bar.custom_minimum_size = Vector2(0, 18)
+	m_vbox.add_child(p_bar)
+	
+	main_vbox.add_child(meter_panel)
+	
+	# ==========================================
+	# 3. GRAND MARCH APPEARANCE REWARD CARD
+	# ==========================================
+	var grand_cfg = march_config.get("grand_reward", {}) as Dictionary
+	var grand_name = grand_cfg.get("name", "First-Week March Appearance")
+	var appearance_id = grand_cfg.get("appearance_id", "CONFIGURABLE_FIRST_WEEK_MARCH_APPEARANCE")
+	var debug_fallback_id = grand_cfg.get("debug_fallback_appearance_id", "FROST_WOLF")
+	var grand_icon = grand_cfg.get("icon", "🐎")
+	var grand_claimed = _events_db.get("march_extravaganza_grand_claimed", false) == true
+	
+	var target_appearance_id = appearance_id
+	if target_appearance_id == "CONFIGURABLE_FIRST_WEEK_MARCH_APPEARANCE":
+		target_appearance_id = debug_fallback_id # DEBUG PREVIEW ONLY — NOT FINAL EVENT REWARD
+		
+	var already_owns_skin = settings_mgr.has_march_skin(target_appearance_id) if settings_mgr else false
+	
+	var grand_card = PanelContainer.new()
+	var gc_style = StyleBoxFlat.new()
+	if grand_claimed:
+		gc_style.bg_color = Color(0.12, 0.22, 0.15, 0.95)
+		gc_style.border_width_left = 2
+		gc_style.border_color = Color(0.3, 0.85, 0.4)
+	elif completed_count == 5:
+		gc_style.bg_color = Color(0.2, 0.14, 0.3, 0.95)
+		gc_style.border_width_left = 3
+		gc_style.border_width_top = 2
+		gc_style.border_width_right = 2
+		gc_style.border_width_bottom = 2
+		gc_style.border_color = Color(0.95, 0.75, 0.15, 0.9)
+	else:
+		gc_style.bg_color = Color(0.1, 0.08, 0.16, 0.95)
+		gc_style.border_width_left = 2
+		gc_style.border_color = Color(0.5, 0.3, 0.7)
+	gc_style.set_corner_radius_all(8)
+	grand_card.add_theme_stylebox_override("panel", gc_style)
+	
+	var gc_margin = MarginContainer.new()
+	gc_margin.add_theme_constant_override("margin_left", 14)
+	gc_margin.add_theme_constant_override("margin_right", 14)
+	gc_margin.add_theme_constant_override("margin_top", 12)
+	gc_margin.add_theme_constant_override("margin_bottom", 12)
+	grand_card.add_child(gc_margin)
+	
+	var gc_hbox = HBoxContainer.new()
+	gc_hbox.add_theme_constant_override("separation", 14)
+	gc_margin.add_child(gc_hbox)
+	
+	var g_icon_slot = PanelContainer.new()
+	g_icon_slot.custom_minimum_size = Vector2(48, 48)
+	g_icon_slot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var gisbox = StyleBoxFlat.new()
+	gisbox.bg_color = Color(0.18, 0.12, 0.26)
+	gisbox.set_corner_radius_all(24)
+	g_icon_slot.add_theme_stylebox_override("panel", gisbox)
+	
+	var g_icon_lbl = Label.new()
+	g_icon_lbl.text = grand_icon
+	g_icon_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	g_icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	g_icon_lbl.add_theme_font_size_override("font_size", 22)
+	g_icon_slot.add_child(g_icon_lbl)
+	gc_hbox.add_child(g_icon_slot)
+	
+	var g_txt_vbox = VBoxContainer.new()
+	g_txt_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	g_txt_vbox.add_theme_constant_override("separation", 2)
+	
+	var g_title = Label.new()
+	g_title.text = "GRAND REWARD: " + grand_name.to_upper()
+	g_title.add_theme_font_size_override("font_size", 14)
+	g_title.add_theme_color_override("font_color", Color(0.98, 0.88, 0.4))
+	g_txt_vbox.add_child(g_title)
+	
+	var g_desc = Label.new()
+	var ownership_note = " (CONFIGURABLE / NOT FINAL — Debug Preview: " + debug_fallback_id + ")"
+	if already_owns_skin:
+		ownership_note += " [Owned in Realm Wardrobe]"
+	g_desc.text = grand_cfg.get("desc", "Unlocks permanent ownership of the First-Week March Appearance.") + ownership_note
+	g_desc.add_theme_font_size_override("font_size", 11)
+	g_desc.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
+	g_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	g_txt_vbox.add_child(g_desc)
+	
+	gc_hbox.add_child(g_txt_vbox)
+	
+	var g_btn = Button.new()
+	g_btn.custom_minimum_size = Vector2(160, 36)
+	g_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	g_btn.focus_mode = Control.FOCUS_NONE
+	g_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	g_btn.add_theme_font_size_override("font_size", 11)
+	
+	var g_btn_style = StyleBoxFlat.new()
+	g_btn_style.set_corner_radius_all(5)
+	
+	if grand_claimed:
+		g_btn.text = "✓ GRAND REWARD CLAIMED"
+		g_btn.disabled = true
+		g_btn_style.bg_color = Color(0.18, 0.22, 0.26)
+		g_btn.add_theme_color_override("font_color", Color(0.4, 0.85, 0.5))
+	elif completed_count < 5:
+		g_btn.text = "🔒 LOCKED (%d/5 PACKS)" % completed_count
+		g_btn.disabled = true
+		g_btn_style.bg_color = Color(0.15, 0.15, 0.2)
+		g_btn.add_theme_color_override("font_color", Color(0.5, 0.55, 0.6))
+	else:
+		g_btn.text = "🎁 CLAIM GRAND REWARD"
+		g_btn_style.bg_color = Color(0.85, 0.55, 0.1) # Amber Gold
+		g_btn.add_theme_color_override("font_color", Color(1, 1, 1))
+		g_btn.pressed.connect(func():
+			if already_owns_skin:
+				# Invoke duplicate-resolution integration hook
+				print("[MarchExtravaganza] Duplicate reward detected for appearance '%s'. Invoking duplicate-resolution integration hook..." % target_appearance_id)
+				_events_db["march_extravaganza_grand_claimed"] = true
+				_save_events_to_disk()
+				_show_toast("DUPLICATE REWARD — PRODUCTION COMPENSATION NOT CONFIGURED")
+			else:
+				if settings_mgr:
+					settings_mgr.unlock_march_skin(target_appearance_id)
+				_events_db["march_extravaganza_grand_claimed"] = true
+				_save_events_to_disk()
+				_show_toast("🎉 Claimed First-Week March Appearance: " + grand_name)
+			_open_march_extravaganza_details()
+			_refresh_overall_ui()
+		)
+	g_btn.add_theme_stylebox_override("normal", g_btn_style)
+	gc_hbox.add_child(g_btn)
+	
+	main_vbox.add_child(grand_card)
+	
+	# ==========================================
+	# 4. 5 SEQUENTIAL PACK CARDS
+	# ==========================================
+	var packs_label = Label.new()
+	packs_label.text = "SEQUENTIAL PACK TIERS (PURCHASE PACKS 1 THROUGH 5 IN ORDER):"
+	packs_label.add_theme_font_size_override("font_size", 12)
+	packs_label.add_theme_color_override("font_color", Color(0.9, 0.75, 0.3))
+	main_vbox.add_child(packs_label)
+	
+	var packs_vbox = VBoxContainer.new()
+	packs_vbox.add_theme_constant_override("separation", 8)
+	main_vbox.add_child(packs_vbox)
+	
+	for pack_item in packs_list:
+		var p_idx = int(pack_item.get("pack_index", 1))
+		var offer_id = pack_item.get("offer_id", "")
+		var prereq_id = pack_item.get("prerequisite_pack_id", "")
+		var p_title = pack_item.get("title", "March Tier Pack")
+		var p_price = pack_item.get("display_price", "$1.99 USD")
+		var bundle = pack_item.get("reward_bundle", {}) as Dictionary
+		
+		var is_completed = completed_packs.get(offer_id, false) == true
+		var prereq_completed = prereq_id.is_empty() or completed_packs.get(prereq_id, false) == true
+		var is_unlocked = prereq_completed and not is_expired
+		
+		var p_card = PanelContainer.new()
+		var pc_style = StyleBoxFlat.new()
+		if is_completed:
+			pc_style.bg_color = Color(0.12, 0.22, 0.15, 0.95)
+			pc_style.border_width_left = 2
+			pc_style.border_color = Color(0.3, 0.85, 0.4)
+		elif is_unlocked:
+			pc_style.bg_color = Color(0.14, 0.12, 0.22, 0.95)
+			pc_style.border_width_left = 3
+			pc_style.border_color = Color(0.85, 0.55, 0.1)
+		else:
+			pc_style.bg_color = Color(0.08, 0.08, 0.12, 0.95)
+			pc_style.border_width_left = 2
+			pc_style.border_color = Color(0.25, 0.25, 0.3)
+		pc_style.set_corner_radius_all(6)
+		p_card.add_theme_stylebox_override("panel", pc_style)
+		
+		var pc_margin = MarginContainer.new()
+		pc_margin.add_theme_constant_override("margin_left", 12)
+		pc_margin.add_theme_constant_override("margin_right", 12)
+		pc_margin.add_theme_constant_override("margin_top", 10)
+		pc_margin.add_theme_constant_override("margin_bottom", 10)
+		p_card.add_child(pc_margin)
+		
+		var pc_hbox = HBoxContainer.new()
+		pc_hbox.add_theme_constant_override("separation", 12)
+		pc_margin.add_child(pc_hbox)
+		
+		# Index badge
+		var p_icon_slot = PanelContainer.new()
+		p_icon_slot.custom_minimum_size = Vector2(40, 40)
+		p_icon_slot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var pisbox = StyleBoxFlat.new()
+		pisbox.bg_color = Color(0.18, 0.12, 0.26) if is_unlocked else Color(0.08, 0.08, 0.12)
+		pisbox.set_corner_radius_all(20)
+		p_icon_slot.add_theme_stylebox_override("panel", pisbox)
+		
+		var p_icon_lbl = Label.new()
+		p_icon_lbl.text = "T%d" % p_idx
+		p_icon_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		p_icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		p_icon_lbl.add_theme_font_size_override("font_size", 14)
+		p_icon_lbl.add_theme_color_override("font_color", Color(0.95, 0.85, 0.3) if is_unlocked else Color(0.6, 0.6, 0.7))
+		p_icon_slot.add_child(p_icon_lbl)
+		pc_hbox.add_child(p_icon_slot)
+		
+		# Pack Title & Reward preview
+		var p_txt_vbox = VBoxContainer.new()
+		p_txt_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		p_txt_vbox.add_theme_constant_override("separation", 2)
+		
+		var p_title_lbl = Label.new()
+		p_title_lbl.text = p_title + " — " + p_price
+		p_title_lbl.add_theme_font_size_override("font_size", 13)
+		p_title_lbl.add_theme_color_override("font_color", Color(1, 1, 1))
+		p_txt_vbox.add_child(p_title_lbl)
+		
+		var p_rewards_arr = bundle.get("rewards", []) as Array
+		var r_names_str = ""
+		for r_item in p_rewards_arr:
+			if not r_names_str.is_empty(): r_names_str += " • "
+			r_names_str += str(r_item.get("icon", "📦")) + " " + str(r_item.get("name", ""))
+			
+		var p_desc_lbl = Label.new()
+		if is_completed:
+			p_desc_lbl.text = "Status: Completed & Claimed • " + r_names_str
+		elif is_unlocked:
+			p_desc_lbl.text = "Rewards: " + r_names_str + " (PLACEHOLDER / TEST BALANCE — NOT FINAL)"
+		elif is_expired:
+			p_desc_lbl.text = "Status: Expired (Account Age > 7 Days)"
+		else:
+			p_desc_lbl.text = "Status: Locked • Complete Pack %d First" % (p_idx - 1)
+		p_desc_lbl.add_theme_font_size_override("font_size", 11)
+		p_desc_lbl.add_theme_color_override("font_color", Color(0.7, 0.75, 0.8))
+		p_desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		p_txt_vbox.add_child(p_desc_lbl)
+		
+		pc_hbox.add_child(p_txt_vbox)
+		
+		# Action button
+		var p_act_btn = Button.new()
+		p_act_btn.custom_minimum_size = Vector2(150, 32)
+		p_act_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		p_act_btn.focus_mode = Control.FOCUS_NONE
+		p_act_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		p_act_btn.add_theme_font_size_override("font_size", 11)
+		
+		var p_btn_style = StyleBoxFlat.new()
+		p_btn_style.set_corner_radius_all(5)
+		
+		if is_completed:
+			p_act_btn.text = "✓ COMPLETED"
+			p_act_btn.disabled = true
+			p_btn_style.bg_color = Color(0.18, 0.22, 0.26)
+			p_act_btn.add_theme_color_override("font_color", Color(0.4, 0.85, 0.5))
+		elif is_expired:
+			p_act_btn.text = "EXPIRED"
+			p_act_btn.disabled = true
+			p_btn_style.bg_color = Color(0.18, 0.18, 0.22)
+			p_act_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.55))
+		elif is_unlocked:
+			p_act_btn.text = "PURCHASE " + p_price
+			p_btn_style.bg_color = Color(0.85, 0.55, 0.1) # Amber
+			p_act_btn.add_theme_color_override("font_color", Color(1, 1, 1))
+			p_act_btn.pressed.connect(func():
+				if settings_mgr:
+					settings_mgr.request_purchase(offer_id)
+				_show_toast("Purchase request submitted for %s. Pending trusted confirmation..." % p_title)
+			)
+		else:
+			p_act_btn.text = "🔒 LOCKED (LACK P%d)" % (p_idx - 1)
+			p_act_btn.disabled = true
+			p_btn_style.bg_color = Color(0.15, 0.15, 0.2)
+			p_act_btn.add_theme_color_override("font_color", Color(0.5, 0.55, 0.6))
+			
+		p_act_btn.add_theme_stylebox_override("normal", p_btn_style)
+		pc_hbox.add_child(p_act_btn)
+		
+		packs_vbox.add_child(p_card)
+		
+	# ==========================================
+	# 5. DEBUG TOOLS PANEL
+	# ==========================================
+	if OS.is_debug_build():
+		var dbg_panel = PanelContainer.new()
+		var dbg_style = StyleBoxFlat.new()
+		dbg_style.bg_color = Color(0.18, 0.12, 0.05, 0.95)
+		dbg_style.border_width_left = 2
+		dbg_style.border_width_top = 2
+		dbg_style.border_width_right = 2
+		dbg_style.border_width_bottom = 2
+		dbg_style.border_color = Color(0.85, 0.55, 0.1)
+		dbg_style.set_corner_radius_all(6)
+		dbg_panel.add_theme_stylebox_override("panel", dbg_style)
+		
+		var dbg_margin = MarginContainer.new()
+		dbg_margin.add_theme_constant_override("margin_left", 12)
+		dbg_margin.add_theme_constant_override("margin_right", 12)
+		dbg_margin.add_theme_constant_override("margin_top", 10)
+		dbg_margin.add_theme_constant_override("margin_bottom", 10)
+		dbg_panel.add_child(dbg_margin)
+		
+		var dbg_vbox = VBoxContainer.new()
+		dbg_vbox.add_theme_constant_override("separation", 8)
+		dbg_margin.add_child(dbg_vbox)
+		
+		var dbg_head = Label.new()
+		dbg_head.text = "🛠️ [DEBUG TOOLS ONLY] MARCH EXTRAVAGANZA TESTING SUITE"
+		dbg_head.add_theme_font_size_override("font_size", 12)
+		dbg_head.add_theme_color_override("font_color", Color(1.0, 0.75, 0.2))
+		dbg_vbox.add_child(dbg_head)
+		
+		var dbg_grid = GridContainer.new()
+		dbg_grid.columns = 2
+		dbg_grid.add_theme_constant_override("h_separation", 8)
+		dbg_grid.add_theme_constant_override("v_separation", 6)
+		dbg_vbox.add_child(dbg_grid)
+		
+		var _add_dbg_btn = func(label_txt: String, callback: Callable):
+			var b = Button.new()
+			b.text = label_txt
+			b.focus_mode = Control.FOCUS_NONE
+			b.add_theme_font_size_override("font_size", 10)
+			b.custom_minimum_size = Vector2(0, 28)
+			var b_st = StyleBoxFlat.new()
+			b_st.bg_color = Color(0.35, 0.22, 0.08)
+			b_st.set_corner_radius_all(4)
+			b.add_theme_stylebox_override("normal", b_st)
+			b.pressed.connect(callback)
+			dbg_grid.add_child(b)
+			
+		_add_dbg_btn.call("📅 Set Account Day 1", func():
+			if settings_mgr: settings_mgr.debug_set_rookie_day(1)
+			_open_march_extravaganza_details()
+		)
+		
+		_add_dbg_btn.call("📅 Set Account Day 7", func():
+			if settings_mgr: settings_mgr.debug_set_rookie_day(7)
+			_open_march_extravaganza_details()
+		)
+		
+		_add_dbg_btn.call("⌛ Expire Event (Day 8+)", func():
+			if settings_mgr: settings_mgr.debug_set_rookie_grace_period()
+			_open_march_extravaganza_details()
+		)
+		
+		_add_dbg_btn.call("🔄 Reset Account Age", func():
+			if settings_mgr: settings_mgr.debug_reset_rookie_age_override()
+			_open_march_extravaganza_details()
+		)
+		
+		for i in range(1, 6):
+			var p_id = "first_week_march_pack_" + str(i)
+			_add_dbg_btn.call("✔️ Confirm Pack %d" % i, func():
+				if settings_mgr: settings_mgr.debug_simulate_purchase_confirmation(p_id)
+			)
+			
+		_add_dbg_btn.call("🚀 Confirm All 5 (Catch-Up Test)", func():
+			if settings_mgr:
+				for i in range(1, 6):
+					settings_mgr.debug_simulate_purchase_confirmation("first_week_march_pack_" + str(i))
+		)
+		
+		_add_dbg_btn.call("⚠️ Test Out-of-Order (Pack 3 w/o 2)", func():
+			if completed_packs.get("first_week_march_pack_2", false) == false:
+				_show_toast("⚠️ Out-of-Order Blocked! Pack 2 must be confirmed before Pack 3.")
+			else:
+				if settings_mgr: settings_mgr.debug_simulate_purchase_confirmation("first_week_march_pack_3")
+		)
+		
+		_add_dbg_btn.call("🔁 Test Duplicate Confirm (Pack 1)", func():
+			if settings_mgr:
+				print("[Debug Test] Triggering duplicate Pack 1 confirmation...")
+				settings_mgr.debug_simulate_purchase_confirmation("first_week_march_pack_1")
+		)
+		
+		_add_dbg_btn.call("🧹 Reset March Event State", func():
+			_events_db["march_extravaganza_packs"] = {}
+			_events_db["march_extravaganza_grand_claimed"] = false
+			_save_events_to_disk()
+			_show_toast("Reset March Extravaganza event state.")
+			_open_march_extravaganza_details()
+		)
+		
+		main_vbox.add_child(dbg_panel)
 		popup.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	else:
 		_show_toast("Offer Popup script unavailable.")

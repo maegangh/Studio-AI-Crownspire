@@ -224,11 +224,38 @@ func debug_simulate_purchase_confirmation(offer_id: String) -> void:
 	if not OS.is_debug_build(): return
 	var offer_entitlement_map = {
 		"first_week_permanent_construction_queue": "secondary_construction_queue_permanent",
-		"legendary_hero_starter_pack": "legendary_hero_starter_pack"
+		"legendary_hero_starter_pack": "legendary_hero_starter_pack",
+		"first_week_march_pack_1": "first_week_march_pack_1",
+		"first_week_march_pack_2": "first_week_march_pack_2",
+		"first_week_march_pack_3": "first_week_march_pack_3",
+		"first_week_march_pack_4": "first_week_march_pack_4",
+		"first_week_march_pack_5": "first_week_march_pack_5"
 	}
 	if offer_id in offer_entitlement_map:
 		print("[SettingsManager DEBUG] Simulating trusted confirmation for offer: ", offer_id)
 		confirm_entitlement(offer_entitlement_map[offer_id])
+	else:
+		# Fallback for dynamic offer confirmation in debug mode
+		print("[SettingsManager DEBUG] Simulating trusted confirmation for unmapped offer: ", offer_id)
+		confirm_entitlement(offer_id)
+
+func has_march_skin(skin_id: String) -> bool:
+	_ensure_account_created_timestamp()
+	var prof: Dictionary = settings.get("profile", {})
+	var list: Array = prof.get("unlocked_march_skins", [])
+	return skin_id in list
+
+func unlock_march_skin(skin_id: String) -> void:
+	_ensure_account_created_timestamp()
+	if not settings.has("profile"): settings["profile"] = {}
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("unlocked_march_skins"): prof["unlocked_march_skins"] = []
+	var list: Array = prof["unlocked_march_skins"]
+	if not skin_id in list:
+		list.append(skin_id)
+		save_settings()
+		print("[SettingsManager] Unlocked march skin: ", skin_id)
+		customization_updated.emit("march", skin_id)
 
 func get_entitlements() -> Array:
 	_ensure_account_created_timestamp()
