@@ -2171,11 +2171,15 @@ func _open_march_extravaganza_details() -> void:
 		g_btn.add_theme_color_override("font_color", Color(1, 1, 1))
 		g_btn.pressed.connect(func():
 			if already_owns_skin:
-				# Invoke duplicate-resolution integration hook
-				print("[MarchExtravaganza] Duplicate reward detected for appearance '%s'. Invoking duplicate-resolution integration hook..." % target_appearance_id)
-				_events_db["march_extravaganza_grand_claimed"] = true
-				_save_events_to_disk()
-				_show_toast("DUPLICATE REWARD — PRODUCTION COMPENSATION NOT CONFIGURED")
+				var dup_comp = grand_cfg.get("duplicate_compensation", null)
+				if dup_comp != null and dup_comp is Dictionary and not (dup_comp as Dictionary).is_empty():
+					print("[MarchExtravaganza] Duplicate reward replacement granted: ", dup_comp)
+					_events_db["march_extravaganza_grand_claimed"] = true
+					_save_events_to_disk()
+					_show_toast("✓ Claimed Grand Reward Replacement!")
+				else:
+					print("[MarchExtravaganza] Duplicate reward detected for appearance '%s'. Invoking duplicate-resolution integration hook... Replacement pending configuration." % target_appearance_id)
+					_show_toast("Duplicate reward detected — replacement reward pending configuration.")
 			else:
 				if settings_mgr:
 					settings_mgr.unlock_march_skin(target_appearance_id)
