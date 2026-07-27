@@ -261,9 +261,9 @@ func setup_board_ui() -> void:
 	e_box.add_child(e_desc)
 	
 	var e_buy_btn := Button.new()
-	e_buy_btn.text = "💎 Purchase +5 Attempts (100 Shards)"
+	e_buy_btn.text = "➕ Get More Attempts"
 	e_buy_btn.pressed.connect(func():
-		if CrystalVaultManager and CrystalVaultManager.request_purchase_attempts(5, 100):
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_attempts(5):
 			out_of_energy_overlay.visible = false
 			_on_restart_pressed()
 	)

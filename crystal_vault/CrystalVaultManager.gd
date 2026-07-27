@@ -79,41 +79,37 @@ func select_game_mode(mode_id: String) -> void:
 # PRODUCTION CROWNSPIRE INTEGRATION HOOKS
 #============================================================================
 
-## Interface Hook: Requests attempt purchase. Fallback handles standalone currency deduction.
-func request_purchase_attempts(amount: int = 5, cost_shards: int = 100) -> bool:
+## Interface Hook: Requests attempt purchase. Fires signal for Crownspire production shop.
+func request_purchase_attempts(amount: int = 5, cost_shards: int = 0) -> bool:
 	purchase_attempts_requested.emit(amount, cost_shards)
+	print("[CrystalVaultManager Integration Signal] purchase_attempts_requested emitted -> Amount: %d" % amount)
 	
-	if CVSaveManager == null:
-		return false
-		
-	if CVSaveManager.astral_shards >= cost_shards:
-		CVSaveManager.astral_shards -= cost_shards
-		CVSaveManager.add_attempts(amount)
-		play_sfx("purchase_success")
-		print("[CrystalVaultManager] Purchased %d event attempts for %d Astral Shards." % [amount, cost_shards])
-		return true
-	else:
-		play_sfx("error_locked_structure")
-		print("[CrystalVaultManager] Purchase failed: Insufficient Astral Shards (%d required, %d available)." % [cost_shards, CVSaveManager.astral_shards])
-		return false
+	# Standalone DEBUG-only test grant fallback for local AI Studio testing
+	if OS.is_debug_build():
+		if CVSaveManager != null:
+			CVSaveManager.add_attempts(amount)
+			play_sfx("purchase_success")
+			print("[CrystalVaultManager DEBUG TEST GRANT] Added %d attempts." % amount)
+			return true
+			
+	play_sfx("purchase_request_sent")
+	return false
 
-## Interface Hook: Requests booster purchase. Fallback handles standalone currency deduction.
-func request_purchase_booster(booster_id: String, cost_shards: int = 50) -> bool:
+## Interface Hook: Requests booster purchase. Fires signal for Crownspire production shop.
+func request_purchase_booster(booster_id: String, cost_shards: int = 0) -> bool:
 	purchase_booster_requested.emit(booster_id, cost_shards)
+	print("[CrystalVaultManager Integration Signal] purchase_booster_requested emitted -> Booster: %s" % booster_id)
 	
-	if CVSaveManager == null:
-		return false
-		
-	if CVSaveManager.astral_shards >= cost_shards:
-		CVSaveManager.astral_shards -= cost_shards
-		CVSaveManager.add_booster(booster_id, 1)
-		play_sfx("purchase_success")
-		print("[CrystalVaultManager] Purchased booster '%s' for %d Astral Shards." % [booster_id, cost_shards])
-		return true
-	else:
-		play_sfx("error_locked_structure")
-		print("[CrystalVaultManager] Purchase failed: Insufficient Astral Shards for booster '%s'." % booster_id)
-		return false
+	# Standalone DEBUG-only test grant fallback for local AI Studio testing
+	if OS.is_debug_build():
+		if CVSaveManager != null:
+			CVSaveManager.add_booster(booster_id, 1)
+			play_sfx("purchase_success")
+			print("[CrystalVaultManager DEBUG TEST GRANT] Added 1x booster '%s'." % booster_id)
+			return true
+			
+	play_sfx("purchase_request_sent")
+	return false
 
 ## Interface Hook: Broadcasts claimed event rewards for production ledger sync.
 func notify_event_reward_claimed(reward_type: String, details: Dictionary) -> void:

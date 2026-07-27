@@ -26,27 +26,22 @@
     "event_duration_sec": 345600,
     "max_natural_attempts": 10,
     "attempt_regen_interval_sec": 1800,
-    "attempt_purchase_cost_shards": 100,
-    "attempt_purchase_amount": 5,
     "daily_gifts": [
-      { "day": 1, "label": "Day 1 Supply", "boosters": { "undo": 2 }, "shards": 100 },
-      { "day": 2, "label": "Day 2 Tactical Pack", "boosters": { "withdraw": 2, "extra_slot": 1 }, "shards": 150 },
-      { "day": 3, "label": "Day 3 Sight & Shift", "boosters": { "shuffle": 2, "insight": 2 }, "shards": 200 },
-      { "day": 4, "label": "Day 4 Grand Vault Chest", "boosters": { "undo": 2, "withdraw": 2, "shuffle": 2, "insight": 2, "extra_slot": 2 }, "shards": 300 }
+      { "day": 1, "label": "Day 1 Supply", "boosters": { "undo": 1 }, "shards": 100 },
+      { "day": 2, "label": "Day 2 Tactical Pack", "boosters": { "withdraw": 1 }, "shards": 150 },
+      { "day": 3, "label": "Day 3 Sight & Shift", "boosters": { "shuffle": 1 }, "shards": 200 },
+      { "day": 4, "label": "Day 4 Grand Vault Chest", "boosters": { "insight": 1 }, "shards": 300 }
     ],
     "stages": [
-      { "stage": 1, "name": "Stage 1: Pyramid Altar", "layout_id": "pyramid_peak", "reward_shards": 100, "reward_boosters": { "undo": 1 } },
-      { "stage": 2, "name": "Stage 2: Stellar Bastion", "layout_id": "stellar_fortress", "reward_shards": 150, "reward_boosters": { "withdraw": 1 } },
-      { "stage": 3, "name": "Stage 3: Obsidian Core", "layout_id": "obsidian_obelisk", "reward_shards": 200, "reward_boosters": { "shuffle": 1, "insight": 1 } },
-      { "stage": 4, "name": "Stage 4: Golden Reliquary", "layout_id": "golden_altar", "reward_shards": 250, "reward_boosters": { "extra_slot": 1 } },
-      { "stage": 5, "name": "Stage 5: Dragon Apex", "layout_id": "dragon_spine", "reward_shards": 500, "reward_boosters": { "undo": 2, "withdraw": 2, "shuffle": 2, "insight": 2, "extra_slot": 2 } }
+      { "stage": 1, "name": "Stage 1: Pyramid Altar", "layout_id": "pyramid_peak", "reward_shards": 100, "reward_resources": { "gold": 1000, "wood": 2000 } },
+      { "stage": 2, "name": "Stage 2: Stellar Bastion", "layout_id": "stellar_fortress", "reward_shards": 150, "reward_resources": { "stone": 2000, "iron": 1000 } },
+      { "stage": 3, "name": "Stage 3: Obsidian Core", "layout_id": "obsidian_obelisk", "reward_shards": 200, "reward_resources": { "gold": 3000, "wood": 3000 } },
+      { "stage": 4, "name": "Stage 4: Golden Reliquary", "layout_id": "golden_altar", "reward_shards": 250, "reward_resources": { "starlight_orbs": 5 } },
+      { "stage": 5, "name": "Stage 5: Dragon Apex", "layout_id": "dragon_spine", "reward_shards": 500, "reward_resources": { "starlight_orbs": 10, "gold": 10000 } }
     ],
-    "booster_costs_shards": {
-      "undo": 40,
-      "withdraw": 60,
-      "shuffle": 50,
-      "insight": 50,
-      "extra_slot": 75
+    "debug_placeholders": {
+      "attempt_grant_amount_debug": 5,
+      "booster_grant_amount_debug": 1
     }
   }
 }
