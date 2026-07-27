@@ -154,6 +154,13 @@ func _on_help_clicked(req: Dictionary) -> void:
 		add_log_requested.emit("Speed assistance provided to %s. Earned 🏅%d Honor." % [req.get("sender_name"), honor_granted], "success")
 		
 	_save_and_sync()
+	
+	var q_mgr = get_node_or_null("/root/QuestManager")
+	if q_mgr:
+		q_mgr.trigger_progress("alliance_help", "", 1)
+		q_mgr.trigger_progress("alliance_honor", "", honor_granted)
+		q_mgr.trigger_progress("alliance_activity", "", 1)
+		
 	_refresh_help_ui()
 
 func _on_help_all_pressed() -> void:
@@ -172,6 +179,13 @@ func _on_help_all_pressed() -> void:
 	requests.clear()
 	
 	_save_and_sync()
+	
+	var q_mgr_all = get_node_or_null("/root/QuestManager")
+	if q_mgr_all:
+		q_mgr_all.trigger_progress("alliance_help", "", count)
+		q_mgr_all.trigger_progress("alliance_honor", "", honor_granted)
+		q_mgr_all.trigger_progress("alliance_activity", "", count)
+		
 	_refresh_help_ui()
 	
 	add_log_requested.emit("🏰 Mass logistics deployed! Assisted %d alliance brothers. Earned 🏅%d Honor Points and expanded collective treasury." % [count, honor_granted], "success")

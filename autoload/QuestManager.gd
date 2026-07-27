@@ -742,13 +742,13 @@ func check_rookie_current_state_objectives() -> void:
 	var player_power = int(ui_mgr.get("power")) if ui_mgr.get("power") != null else 10000
 	var alliance_joined = 1 if ui_mgr.player_alliance_id != "" else 0
 	
-	var hero_count = 1
+	var hero_count = 0
 	var max_hero_level = 1
 	var heroes_list = ui_mgr.get("heroes") as Array
 	if heroes_list:
-		hero_count = heroes_list.size()
 		for h in heroes_list:
 			if h is Dictionary and h.get("unlocked", false):
+				hero_count += 1
 				var lvl = int(h.get("level", 1))
 				if lvl > max_hero_level:
 					max_hero_level = lvl

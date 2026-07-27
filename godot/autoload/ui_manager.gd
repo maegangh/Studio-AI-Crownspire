@@ -1177,6 +1177,12 @@ func upgrade_hero_with_xp(hero_id: String) -> Dictionary:
 	if levelled_up:
 		hero_levelled_up.emit(hero_id, h["level"])
 		power += 1500 # Global kingdom power boost
+		
+		var q_mgr = get_node_or_null("/root/QuestManager")
+		if q_mgr:
+			q_mgr.check_rookie_current_state_objectives()
+			q_mgr.trigger_progress("hero_level", "", 1)
+			
 		save_player_state()
 		return {"success": true, "message": "Hero Levelled Up to Level %d!" % h["level"], "levelled_up": true}
 	else:
@@ -1231,6 +1237,11 @@ func upgrade_hero_skill(hero_id: String, skill_id: String) -> Dictionary:
 		
 	hero_skill_upgraded.emit(hero_id, skill_id, s_found["level"])
 	power += 800
+	
+	var q_mgr = get_node_or_null("/root/QuestManager")
+	if q_mgr:
+		q_mgr.trigger_progress("hero_skill", "", 1)
+		
 	save_player_state()
 	return {"success": true, "message": "Skill %s upgraded to Level %d!" % [s_found["name"], s_found["level"]]}
 

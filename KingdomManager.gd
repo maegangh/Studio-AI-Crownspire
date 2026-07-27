@@ -471,6 +471,14 @@ func _on_march_action_completed(target: Node2D, success: bool) -> void:
 				"iron": save_mgr.iron += collected
 			save_mgr.save_game_state()
 			
+		var q_mgr = get_node_or_null("/root/QuestManager")
+		if q_mgr:
+			var res_type = target.resource_type.to_lower()
+			q_mgr.trigger_progress("gather_res", res_type, collected)
+			q_mgr.trigger_progress("gather_res", "", collected)
+			q_mgr.trigger_progress("gather_multi_res", "", 1)
+			q_mgr.trigger_progress("world_march", "", 1)
+			
 		if resource_spawner:
 			resource_spawner.recycle_node(target)
 			

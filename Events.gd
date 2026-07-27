@@ -750,6 +750,9 @@ func _open_sovereigns_journey_details() -> void:
 	
 	var total_completed = quest_mgr.get_rookie_total_completed_count()
 	
+	var milestones = quest_mgr.get_rookie_overall_milestones()
+	var max_target = milestones[-1]["target"] if milestones.size() > 0 else 45
+	
 	var track_top = HBoxContainer.new()
 	var track_title = Label.new()
 	track_title.text = "🏆 OVERALL JOURNEY MILESTONES"
@@ -762,7 +765,7 @@ func _open_sovereigns_journey_details() -> void:
 	track_top.add_child(t_spacer)
 	
 	var track_prog_lbl = Label.new()
-	track_prog_lbl.text = "%d / 45 Objectives Completed" % total_completed
+	track_prog_lbl.text = "%d / %d Objectives Completed" % [total_completed, max_target]
 	track_prog_lbl.add_theme_font_size_override("font_size", 12)
 	track_prog_lbl.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
 	track_top.add_child(track_prog_lbl)
@@ -770,7 +773,7 @@ func _open_sovereigns_journey_details() -> void:
 	
 	var p_bar = ProgressBar.new()
 	p_bar.min_value = 0
-	p_bar.max_value = 45
+	p_bar.max_value = max_target
 	p_bar.value = total_completed
 	p_bar.custom_minimum_size.y = 14
 	p_bar.show_percentage = false
@@ -880,9 +883,11 @@ func _open_sovereigns_journey_details() -> void:
 		
 		var is_unlocked = d <= current_rookie_day
 		var comp_count = quest_mgr.get_rookie_daily_completion_count(d) if is_unlocked else 0
+		var day_q = quest_mgr.get_rookie_quests_for_day(d)
+		var total_q_count = day_q.size()
 		
 		if is_unlocked:
-			d_btn.text = "DAY %d\n(%d/7)" % [d, comp_count]
+			d_btn.text = "DAY %d\n(%d/%d)" % [d, comp_count, total_q_count]
 			d_btn.add_theme_font_size_override("font_size", 11)
 			
 			if d == _selected_rookie_day:
@@ -946,6 +951,8 @@ func _open_sovereigns_journey_details() -> void:
 	dh_hbox.add_child(dh_spacer)
 	
 	# Daily Chest Button
+	var sel_day_quests = quest_mgr.get_rookie_quests_for_day(_selected_rookie_day)
+	var daily_chest_req = min(5, sel_day_quests.size())
 	var day_comp = quest_mgr.get_rookie_daily_completion_count(_selected_rookie_day)
 	var chest_claimed = quest_mgr.is_rookie_daily_chest_claimed(_selected_rookie_day)
 	
@@ -957,8 +964,8 @@ func _open_sovereigns_journey_details() -> void:
 	if chest_claimed:
 		chest_btn.text = "🎁 DAY %d CHEST: CLAIMED ✓" % target_d
 		chest_btn.disabled = true
-	elif day_comp >= 5:
-		chest_btn.text = "🎁 CLAIM DAY %d CHEST (5/5 Completed)!" % target_d
+	elif day_comp >= daily_chest_req:
+		chest_btn.text = "🎁 CLAIM DAY %d CHEST (%d/%d Completed)!" % [target_d, day_comp, daily_chest_req]
 		chest_btn.pressed.connect(func():
 			var r = quest_mgr.claim_rookie_daily_chest(target_d)
 			if r.size() > 0:
@@ -966,7 +973,7 @@ func _open_sovereigns_journey_details() -> void:
 			_open_sovereigns_journey_details()
 		)
 	else:
-		chest_btn.text = "🎁 DAY %d CHEST (%d/5 Objectives)" % [target_d, day_comp]
+		chest_btn.text = "🎁 DAY %d CHEST (%d/%d Objectives)" % [target_d, day_comp, daily_chest_req]
 		chest_btn.disabled = true
 		
 	dh_hbox.add_child(chest_btn)

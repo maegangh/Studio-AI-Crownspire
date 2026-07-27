@@ -244,6 +244,12 @@ func _on_donate_pressed(res_type: String) -> void:
 	_state["player_honor_points"] = _state.get("player_honor_points", 0) + honor_granted
 	_state["alliance_treasury"] = _state.get("alliance_treasury", 0) + treasury_granted
 	
+	var q_mgr = get_node_or_null("/root/QuestManager")
+	if q_mgr:
+		q_mgr.trigger_progress("alliance_donate", "", 1)
+		q_mgr.trigger_progress("alliance_honor", "", honor_granted)
+		q_mgr.trigger_progress("alliance_activity", "", 1)
+	
 	# Apply points to Technology
 	var tech_progress = _get_tech_progress_dict()
 	var current_pts = tech_progress.get(_selected_tech_id, 0)
