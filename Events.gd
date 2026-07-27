@@ -67,6 +67,7 @@ var _toast_timer: Timer
 var _infernal_beast_active_track: String = "personal_contribution"
 var _selected_rookie_day: int = 1
 var sovereign_detail_scroll: ScrollContainer = null
+var ascension_detail_scroll: ScrollContainer = null
 
 # --- Master Category Listing ---
 const CATEGORIES = ["All", "Server", "Alliance", "Personal", "Season", "Battle Pass"]
@@ -202,6 +203,16 @@ var _events_catalog: Dictionary = {
 			{"target": 40, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1200 Royal Crystals"},
 			{"target": 45, "reward_id": "founding_sovereign_frame", "amount": 1, "desc": "Founding Sovereign Frame + 2,000 Crystals"}
 		],
+		"actions": [],
+		"rivals": []
+	},
+	"sovereigns_ascension": {
+		"id": "sovereigns_ascension",
+		"type": "personal",
+		"name": "SOVEREIGN'S ASCENSION",
+		"desc": "A 7-Day First-Week Companion Event rewarding Sovereigns who achieve core kingdom milestones and unlock key starter entitlements.",
+		"max_target": 4,
+		"milestones": [],
 		"actions": [],
 		"rivals": []
 	}
@@ -545,6 +556,8 @@ func _hide_all_detail_panels() -> void:
 	right_detail_bp.visible = false
 	if is_instance_valid(sovereign_detail_scroll):
 		sovereign_detail_scroll.visible = false
+	if is_instance_valid(ascension_detail_scroll):
+		ascension_detail_scroll.visible = false
 
 # ==============================================================================
 # DETAIL PANEL CONTROLLERS
@@ -559,6 +572,8 @@ func _on_event_card_selected(event_id: String) -> void:
 		_open_infernal_beast_details()
 	elif event_id == "sovereigns_journey":
 		_open_sovereigns_journey_details()
+	elif event_id == "sovereigns_ascension":
+		_open_sovereigns_ascension_details()
 	else:
 		_open_standard_event_details(event_id)
 
@@ -1185,6 +1200,626 @@ func _open_sovereigns_journey_details() -> void:
 		
 		dbg_vbox.add_child(row2)
 		main_vbox.add_child(debug_panel)
+
+func _open_sovereigns_ascension_details() -> void:
+	right_detail_empty.visible = false
+	right_detail_normal.visible = false
+	right_detail_bp.visible = false
+	if is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll.visible = false
+		
+	var right_panel = $Layout/Content/HSplit/RightPanel
+	
+	if not is_instance_valid(ascension_detail_scroll):
+		ascension_detail_scroll = ScrollContainer.new()
+		ascension_detail_scroll.name = "AscensionDetailsScroll"
+		ascension_detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ascension_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		right_panel.add_child(ascension_detail_scroll)
+		
+	ascension_detail_scroll.visible = true
+	_clear_container(ascension_detail_scroll)
+	
+	var margin = MarginContainer.new()
+	margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	margin.add_theme_constant_override("margin_left", 16)
+	margin.add_theme_constant_override("margin_right", 16)
+	margin.add_theme_constant_override("margin_top", 12)
+	margin.add_theme_constant_override("margin_bottom", 16)
+	ascension_detail_scroll.add_child(margin)
+	
+	var main_vbox = VBoxContainer.new()
+	main_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	main_vbox.add_theme_constant_override("separation", 14)
+	margin.add_child(main_vbox)
+	
+	# Load Config
+	var ascension_config: Dictionary = {}
+	var asc_file = FileAccess.open("res://data/sovereigns_ascension_config.json", FileAccess.READ)
+	if not asc_file:
+		asc_file = FileAccess.open("res://godot/data/sovereigns_ascension_config.json", FileAccess.READ)
+	if asc_file:
+		var json = JSON.new()
+		if json.parse(asc_file.get_as_text()) == OK:
+			ascension_config = json.get_data()
+		asc_file.close()
+		
+	var offers_config: Dictionary = {}
+	var off_file = FileAccess.open("res://data/starter_offers_config.json", FileAccess.READ)
+	if not off_file:
+		off_file = FileAccess.open("res://godot/data/starter_offers_config.json", FileAccess.READ)
+	if off_file:
+		var json = JSON.new()
+		if json.parse(off_file.get_as_text()) == OK:
+			var data = json.get_data()
+			offers_config = data.get("offers", {})
+		off_file.close()
+		
+	# Account Age & Lifecycle Math
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	var account_age_sec = settings_mgr.get_account_age_seconds() if settings_mgr else 0
+	var event_duration_sec = 7 * 86400
+	var seconds_left = max(0, event_duration_sec - account_age_sec)
+	var is_expired = account_age_sec >= event_duration_sec
+	
+	# ==========================================
+	# 1. HEADER BANNER & COUNTDOWN TIMER
+	# ==========================================
+	var header_panel = PanelContainer.new()
+	var h_style = StyleBoxFlat.new()
+	h_style.bg_color = Color(0.1, 0.14, 0.22, 0.95)
+	h_style.set_corner_radius_all(8)
+	h_style.border_width_left = 2
+	h_style.border_width_top = 2
+	h_style.border_width_right = 2
+	h_style.border_width_bottom = 2
+	h_style.border_color = Color(0.95, 0.75, 0.15, 0.9) # Gold
+	header_panel.add_theme_stylebox_override("panel", h_style)
+	
+	var h_margin = MarginContainer.new()
+	h_margin.add_theme_constant_override("margin_left", 14)
+	h_margin.add_theme_constant_override("margin_right", 14)
+	h_margin.add_theme_constant_override("margin_top", 12)
+	h_margin.add_theme_constant_override("margin_bottom", 12)
+	header_panel.add_child(h_margin)
+	
+	var h_vbox = VBoxContainer.new()
+	h_vbox.add_theme_constant_override("separation", 6)
+	h_margin.add_child(h_vbox)
+	
+	var title_hbar = HBoxContainer.new()
+	
+	var badge = PanelContainer.new()
+	var b_style = StyleBoxFlat.new()
+	b_style.bg_color = Color(0.85, 0.55, 0.1, 0.9)
+	b_style.set_corner_radius_all(4)
+	badge.add_theme_stylebox_override("panel", b_style)
+	var badge_lbl = Label.new()
+	badge_lbl.text = " FIRST-WEEK COMPANION EVENT "
+	badge_lbl.add_theme_font_size_override("font_size", 10)
+	badge_lbl.add_theme_color_override("font_color", Color(1, 1, 1))
+	badge.add_child(badge_lbl)
+	title_hbar.add_child(badge)
+	
+	var h_spacer = Control.new()
+	h_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title_hbar.add_child(h_spacer)
+	
+	var timer_lbl = Label.new()
+	if is_expired:
+		timer_lbl.text = "❌ EVENT EXPIRED"
+		timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.3, 0.3))
+	else:
+		var d = int(seconds_left / 86400)
+		var h = int(fmod(seconds_left, 86400) / 3600)
+		var m = int(fmod(seconds_left, 3600) / 60)
+		var s = int(fmod(seconds_left, 60))
+		timer_lbl.text = "⏳ Ends In: %dd %02dh %02dm %02ds" % [d, h, m, s]
+		timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.8, 0.2))
+	timer_lbl.add_theme_font_size_override("font_size", 12)
+	title_hbar.add_child(timer_lbl)
+	
+	h_vbox.add_child(title_hbar)
+	
+	var title_lbl = Label.new()
+	title_lbl.text = ascension_config.get("display_name", "SOVEREIGN'S ASCENSION").to_upper()
+	title_lbl.add_theme_font_size_override("font_size", 20)
+	title_lbl.add_theme_color_override("font_color", Color(0.98, 0.88, 0.4))
+	h_vbox.add_child(title_lbl)
+	
+	var desc_lbl = Label.new()
+	desc_lbl.text = ascension_config.get("desc", "Complete core kingdom milestones and starter offers to claim the Royal Companion Chest.")
+	desc_lbl.add_theme_font_size_override("font_size", 12)
+	desc_lbl.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
+	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	h_vbox.add_child(desc_lbl)
+	
+	main_vbox.add_child(header_panel)
+	
+	# ==========================================
+	# 2. REQUIREMENTS DATA & STATUS EVALUATION
+	# ==========================================
+	var cur_citadel_lvl = int(UIManager.get_building("citadel").get("level", 1))
+	var req1_complete = cur_citadel_lvl >= 15
+	
+	var quest_mgr = get_node_or_null("/root/QuestManager")
+	var journey_completed_count = quest_mgr.get_rookie_total_completed_count() if quest_mgr else 0
+	var req2_complete = journey_completed_count >= 36
+	
+	var req3_complete = settings_mgr.has_entitlement("secondary_construction_queue_permanent") if settings_mgr else false
+	var req4_complete = settings_mgr.has_entitlement("legendary_hero_starter_pack") if settings_mgr else false
+	
+	var completed_count = (1 if req1_complete else 0) + (1 if req2_complete else 0) + (1 if req3_complete else 0) + (1 if req4_complete else 0)
+	
+	# Overall Progress Meter
+	var meter_panel = PanelContainer.new()
+	var m_style = StyleBoxFlat.new()
+	m_style.bg_color = Color(0.12, 0.15, 0.2, 0.9)
+	m_style.set_corner_radius_all(6)
+	meter_panel.add_theme_stylebox_override("panel", m_style)
+	
+	var m_margin = MarginContainer.new()
+	m_margin.add_theme_constant_override("margin_left", 12)
+	m_margin.add_theme_constant_override("margin_right", 12)
+	m_margin.add_theme_constant_override("margin_top", 10)
+	m_margin.add_theme_constant_override("margin_bottom", 10)
+	meter_panel.add_child(m_margin)
+	
+	var m_vbox = VBoxContainer.new()
+	m_vbox.add_theme_constant_override("separation", 6)
+	m_margin.add_child(m_vbox)
+	
+	var m_hbar = HBoxContainer.new()
+	var m_lbl = Label.new()
+	m_lbl.text = "Overall Ascension Progress: %d / 4 Requirements Satisfied" % completed_count
+	m_lbl.add_theme_font_size_override("font_size", 12)
+	m_lbl.add_theme_color_override("font_color", Color(0.95, 0.8, 0.3))
+	m_hbar.add_child(m_lbl)
+	
+	var m_sp = Control.new()
+	m_sp.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	m_hbar.add_child(m_sp)
+	
+	var status_tag = Label.new()
+	if completed_count == 4:
+		status_tag.text = "★ ALL REQUIREMENTS READY ★"
+		status_tag.add_theme_color_override("font_color", Color(0.3, 0.9, 0.4))
+	else:
+		status_tag.text = "%d Of 4 Completed" % completed_count
+		status_tag.add_theme_color_override("font_color", Color(0.7, 0.75, 0.8))
+	status_tag.add_theme_font_size_override("font_size", 11)
+	m_hbar.add_child(status_tag)
+	m_vbox.add_child(m_hbar)
+	
+	var p_bar = ProgressBar.new()
+	p_bar.max_value = 4.0
+	p_bar.value = float(completed_count)
+	p_bar.custom_minimum_size = Vector2(0, 18)
+	m_vbox.add_child(p_bar)
+	
+	main_vbox.add_child(meter_panel)
+	
+	# ==========================================
+	# 3. 4 REQUIREMENT CARDS GRID
+	# ==========================================
+	var grid_label = Label.new()
+	grid_label.text = "ASCENSION CORNERSTONE REQUIREMENTS:"
+	grid_label.add_theme_font_size_override("font_size", 12)
+	grid_label.add_theme_color_override("font_color", Color(0.9, 0.75, 0.3))
+	main_vbox.add_child(grid_label)
+	
+	var grid = VBoxContainer.new()
+	grid.add_theme_constant_override("separation", 8)
+	main_vbox.add_child(grid)
+	
+	var reqs = ascension_config.get("requirements", []) as Array
+	if reqs.is_empty():
+		reqs = [
+			{ "id": "citadel_level", "title": "Reach Citadel Level 15", "desc": "Upgrade Citadel to Lv.15.", "action_type": "go_citadel", "button_label": "GO TO CITADEL" },
+			{ "id": "sovereign_journey_objectives", "title": "Complete 36 Sovereign's Journey Objectives", "desc": "Finish 36 rookie quests.", "action_type": "go_journey", "button_label": "GO TO JOURNEY" },
+			{ "id": "permanent_construction_queue", "title": "Permanently Unlock Secondary Construction Queue", "desc": "Unlock 2nd builder queue.", "action_type": "view_offer", "offer_id": "first_week_permanent_construction_queue", "button_label": "VIEW OFFER" },
+			{ "id": "legendary_hero_pack", "title": "Purchase First Legendary Hero Starter Pack", "desc": "Recruit General Aurelius.", "action_type": "view_offer", "offer_id": "legendary_hero_starter_pack", "button_label": "VIEW OFFER" }
+		]
+		
+	for req_item in reqs:
+		var r_id = req_item.get("id")
+		var is_done = false
+		var prog_text = ""
+		
+		match r_id:
+			"citadel_level":
+				is_done = req1_complete
+				prog_text = "Current: Level %d / 15 Target" % cur_citadel_lvl
+			"sovereign_journey_objectives":
+				is_done = req2_complete
+				prog_text = "Current: %d / 36 Objectives Completed" % journey_completed_count
+			"permanent_construction_queue":
+				is_done = req3_complete
+				prog_text = "Status: Permanently Unlocked" if req3_complete else "Status: Locked • $4.99 USD First-Week Offer"
+			"legendary_hero_pack":
+				is_done = req4_complete
+				prog_text = "Status: Entitlement Confirmed" if req4_complete else "Status: Locked • $4.99 USD Starter Pack"
+				
+		var req_card = PanelContainer.new()
+		var rc_style = StyleBoxFlat.new()
+		if is_done:
+			rc_style.bg_color = Color(0.12, 0.22, 0.15, 0.95) # Soft Green
+			rc_style.border_width_left = 2
+			rc_style.border_color = Color(0.3, 0.85, 0.4)
+		else:
+			rc_style.bg_color = Color(0.1, 0.12, 0.16, 0.95)
+			rc_style.border_width_left = 2
+			rc_style.border_color = Color(0.3, 0.35, 0.45)
+		rc_style.set_corner_radius_all(6)
+		req_card.add_theme_stylebox_override("panel", rc_style)
+		
+		var rc_margin = MarginContainer.new()
+		rc_margin.add_theme_constant_override("margin_left", 12)
+		rc_margin.add_theme_constant_override("margin_right", 12)
+		rc_margin.add_theme_constant_override("margin_top", 10)
+		rc_margin.add_theme_constant_override("margin_bottom", 10)
+		req_card.add_child(rc_margin)
+		
+		var rc_hbox = HBoxContainer.new()
+		rc_hbox.add_theme_constant_override("separation", 12)
+		rc_margin.add_child(rc_hbox)
+		
+		var icon_slot = PanelContainer.new()
+		icon_slot.custom_minimum_size = Vector2(40, 40)
+		icon_slot.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var isbox = StyleBoxFlat.new()
+		isbox.bg_color = Color(0.06, 0.08, 0.11)
+		isbox.set_corner_radius_all(20)
+		icon_slot.add_theme_stylebox_override("panel", isbox)
+		
+		var icon_lbl = Label.new()
+		match r_id:
+			"citadel_level": icon_lbl.text = "🏰"
+			"sovereign_journey_objectives": icon_lbl.text = "📜"
+			"permanent_construction_queue": icon_lbl.text = "🔨"
+			"legendary_hero_pack": icon_lbl.text = "👑"
+		icon_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		icon_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		icon_lbl.add_theme_font_size_override("font_size", 18)
+		icon_slot.add_child(icon_lbl)
+		rc_hbox.add_child(icon_slot)
+		
+		var txt_vbox = VBoxContainer.new()
+		txt_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		txt_vbox.add_theme_constant_override("separation", 2)
+		
+		var r_title = Label.new()
+		r_title.text = req_item.get("title", "Requirement")
+		r_title.add_theme_font_size_override("font_size", 13)
+		r_title.add_theme_color_override("font_color", Color(1, 1, 1))
+		txt_vbox.add_child(r_title)
+		
+		var r_desc = Label.new()
+		r_desc.text = req_item.get("desc", "") + " — " + prog_text
+		r_desc.add_theme_font_size_override("font_size", 11)
+		r_desc.add_theme_color_override("font_color", Color(0.7, 0.75, 0.8))
+		r_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		txt_vbox.add_child(r_desc)
+		
+		rc_hbox.add_child(txt_vbox)
+		
+		var act_btn = Button.new()
+		act_btn.custom_minimum_size = Vector2(130, 32)
+		act_btn.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		act_btn.focus_mode = Control.FOCUS_NONE
+		act_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		act_btn.add_theme_font_size_override("font_size", 11)
+		
+		var btn_style = StyleBoxFlat.new()
+		btn_style.set_corner_radius_all(5)
+		
+		if is_done:
+			act_btn.text = "✓ COMPLETED"
+			act_btn.disabled = true
+			btn_style.bg_color = Color(0.18, 0.22, 0.26)
+			act_btn.add_theme_color_override("font_color", Color(0.4, 0.85, 0.5))
+		else:
+			var act_type = req_item.get("action_type", "")
+			if act_type == "go_citadel":
+				act_btn.text = "GO TO CITADEL"
+				btn_style.bg_color = Color(0.19, 0.48, 0.82)
+				act_btn.pressed.connect(func():
+					_show_toast("Navigating to Citadel View...")
+					events_closed.emit()
+				)
+			elif act_type == "go_journey":
+				act_btn.text = "GO TO JOURNEY"
+				btn_style.bg_color = Color(0.19, 0.48, 0.82)
+				act_btn.pressed.connect(func():
+					_open_sovereigns_journey_details()
+				)
+			elif act_type == "view_offer":
+				act_btn.text = "VIEW OFFER"
+				btn_style.bg_color = Color(0.85, 0.55, 0.1) # Amber
+				var offer_id = req_item.get("offer_id", "")
+				act_btn.pressed.connect(func():
+					_open_starter_offer_popup(offer_id, offers_config.get(offer_id, {}))
+				)
+				
+		act_btn.add_theme_stylebox_override("normal", btn_style)
+		act_btn.add_theme_stylebox_override("disabled", btn_style)
+		act_btn.add_theme_stylebox_override("hover", btn_style)
+		act_btn.add_theme_stylebox_override("pressed", btn_style)
+		rc_hbox.add_child(act_btn)
+		
+		grid.add_child(req_card)
+		
+	# ==========================================
+	# 4. FINAL 4/4 COMPLETION CHEST PANEL
+	# ==========================================
+	var chest_panel = PanelContainer.new()
+	var c_style = StyleBoxFlat.new()
+	c_style.bg_color = Color(0.14, 0.12, 0.18, 0.98)
+	c_style.set_corner_radius_all(8)
+	c_style.border_width_left = 2
+	c_style.border_width_top = 2
+	c_style.border_width_right = 2
+	c_style.border_width_bottom = 2
+	c_style.border_color = Color(0.95, 0.75, 0.15, 0.9)
+	chest_panel.add_theme_stylebox_override("panel", c_style)
+	
+	var c_margin = MarginContainer.new()
+	c_margin.add_theme_constant_override("margin_left", 14)
+	c_margin.add_theme_constant_override("margin_right", 14)
+	c_margin.add_theme_constant_override("margin_top", 12)
+	c_margin.add_theme_constant_override("margin_bottom", 12)
+	chest_panel.add_child(c_margin)
+	
+	var c_vbox = VBoxContainer.new()
+	c_vbox.add_theme_constant_override("separation", 10)
+	c_margin.add_child(c_vbox)
+	
+	var c_title = Label.new()
+	c_title.text = "📦 ROYAL COMPANION CHEST (4/4 MILESTONE)"
+	c_title.add_theme_font_size_override("font_size", 14)
+	c_title.add_theme_color_override("font_color", Color(0.98, 0.88, 0.4))
+	c_vbox.add_child(c_title)
+	
+	var c_desc = Label.new()
+	c_desc.text = "Satisfy all 4 cornerstone requirements to unlock the ultimate Royal Companion Chest containing massive supplies, crystals, speedups, and hero tokens."
+	c_desc.add_theme_font_size_override("font_size", 11)
+	c_desc.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
+	c_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	c_vbox.add_child(c_desc)
+	
+	# Rewards list grid
+	var rewards_grid = HBoxContainer.new()
+	rewards_grid.add_theme_constant_override("separation", 8)
+	
+	var bundle_rewards = [
+		{ "icon": "💎", "name": "2.5k Crystals", "amount": 2500 },
+		{ "icon": "🪙", "name": "1M Gold", "amount": 1000000 },
+		{ "icon": "🌾", "name": "2M Food", "amount": 2000000 },
+		{ "icon": "🪵", "name": "2M Wood", "amount": 2000000 },
+		{ "icon": "⏱️", "name": "24x 1h Speedups", "amount": 24 },
+		{ "icon": "📜", "name": "10x Hero Tokens", "amount": 10 }
+	]
+	
+	for r in bundle_rewards:
+		var slot = PanelContainer.new()
+		var slot_style = StyleBoxFlat.new()
+		slot_style.bg_color = Color(0.08, 0.1, 0.14)
+		slot_style.set_corner_radius_all(6)
+		slot.add_theme_stylebox_override("panel", slot_style)
+		slot.custom_minimum_size = Vector2(70, 50)
+		
+		var s_v = VBoxContainer.new()
+		s_v.alignment = BoxContainer.ALIGNMENT_CENTER
+		slot.add_child(s_v)
+		
+		var ic = Label.new()
+		ic.text = r["icon"]
+		ic.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		ic.add_theme_font_size_override("font_size", 14)
+		s_v.add_child(ic)
+		
+		var nm = Label.new()
+		nm.text = r["name"]
+		nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		nm.add_theme_font_size_override("font_size", 9)
+		nm.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
+		s_v.add_child(nm)
+		
+		rewards_grid.add_child(slot)
+		
+	c_vbox.add_child(rewards_grid)
+	
+	# Claim Button
+	var is_claimed = _events_db.get("sovereigns_ascension_claimed", false)
+	
+	var claim_btn = Button.new()
+	claim_btn.custom_minimum_size = Vector2(0, 40)
+	claim_btn.focus_mode = Control.FOCUS_NONE
+	claim_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	claim_btn.add_theme_font_size_override("font_size", 14)
+	
+	var cb_style = StyleBoxFlat.new()
+	cb_style.set_corner_radius_all(6)
+	
+	if is_claimed:
+		claim_btn.text = "✓ ROYAL COMPANION CHEST CLAIMED"
+		claim_btn.disabled = true
+		cb_style.bg_color = Color(0.2, 0.22, 0.25)
+		claim_btn.add_theme_color_override("font_color", Color(0.5, 0.8, 0.6))
+	elif completed_count == 4:
+		claim_btn.text = "CLAIM ROYAL COMPANION CHEST (4/4)"
+		cb_style.bg_color = Color(0.18, 0.62, 0.28) # Emerald Green
+		claim_btn.add_theme_color_override("font_color", Color(1, 1, 1))
+		claim_btn.pressed.connect(func():
+			_claim_sovereigns_ascension_chest()
+		)
+	else:
+		claim_btn.text = "🔒 COMPLETE ALL 4 REQUIREMENTS TO UNLOCK (%d/4)" % completed_count
+		claim_btn.disabled = true
+		cb_style.bg_color = Color(0.22, 0.24, 0.28)
+		claim_btn.add_theme_color_override("font_color", Color(0.6, 0.65, 0.7))
+		
+	claim_btn.add_theme_stylebox_override("normal", cb_style)
+	claim_btn.add_theme_stylebox_override("disabled", cb_style)
+	claim_btn.add_theme_stylebox_override("hover", cb_style)
+	claim_btn.add_theme_stylebox_override("pressed", cb_style)
+	c_vbox.add_child(claim_btn)
+	
+	main_vbox.add_child(chest_panel)
+	
+	# ==========================================
+	# 5. DEBUG TESTING PANEL (If OS.is_debug_build())
+	# ==========================================
+	if OS.is_debug_build():
+		var dbg_panel = PanelContainer.new()
+		var dbg_style = StyleBoxFlat.new()
+		dbg_style.bg_color = Color(0.18, 0.12, 0.08, 0.95)
+		dbg_style.set_corner_radius_all(6)
+		dbg_style.border_width_left = 1
+		dbg_style.border_width_top = 1
+		dbg_style.border_width_right = 1
+		dbg_style.border_width_bottom = 1
+		dbg_style.border_color = Color(0.85, 0.5, 0.15)
+		dbg_panel.add_theme_stylebox_override("panel", dbg_style)
+		
+		var dbg_margin = MarginContainer.new()
+		dbg_margin.add_theme_constant_override("margin_left", 10)
+		dbg_margin.add_theme_constant_override("margin_right", 10)
+		dbg_margin.add_theme_constant_override("margin_top", 8)
+		dbg_margin.add_theme_constant_override("margin_bottom", 8)
+		dbg_panel.add_child(dbg_margin)
+		
+		var dbg_vbox = VBoxContainer.new()
+		dbg_vbox.add_theme_constant_override("separation", 6)
+		dbg_margin.add_child(dbg_vbox)
+		
+		var dbg_title = Label.new()
+		dbg_title.text = "🛠️ SOVEREIGN ASCENSION DEBUG & TESTING TOOLBAR"
+		dbg_title.add_theme_font_size_override("font_size", 11)
+		dbg_title.add_theme_color_override("font_color", Color(0.95, 0.65, 0.2))
+		dbg_vbox.add_child(dbg_title)
+		
+		var grid_dbg = GridContainer.new()
+		grid_dbg.columns = 2
+		grid_dbg.add_theme_constant_override("h_separation", 6)
+		grid_dbg.add_theme_constant_override("v_separation", 6)
+		
+		var dbg_btns = [
+			{
+				"name": "Toggle Citadel Lv.15",
+				"fn": func():
+					var b = UIManager.get_building("citadel")
+					if not b.is_empty():
+						b["level"] = 15 if int(b.get("level", 1)) < 15 else 1
+						UIManager.building_updated.emit("citadel", b["level"])
+						_open_sovereigns_ascension_details()
+			},
+			{
+				"name": "Toggle Journey 36 Objs",
+				"fn": func():
+					if quest_mgr:
+						if quest_mgr.get_rookie_total_completed_count() >= 36:
+							quest_mgr.debug_reset_rookie_quests()
+						else:
+							quest_mgr.debug_complete_all_rookie_quests()
+						_open_sovereigns_ascension_details()
+			},
+			{
+				"name": "Toggle Perm Queue Entitled",
+				"fn": func():
+					if settings_mgr:
+						if settings_mgr.has_entitlement("secondary_construction_queue_permanent"):
+							settings_mgr.revoke_entitlement("secondary_construction_queue_permanent")
+						else:
+							settings_mgr.confirm_entitlement("secondary_construction_queue_permanent")
+						_open_sovereigns_ascension_details()
+			},
+			{
+				"name": "Toggle Hero Pack Entitled",
+				"fn": func():
+					if settings_mgr:
+						if settings_mgr.has_entitlement("legendary_hero_starter_pack"):
+							settings_mgr.revoke_entitlement("legendary_hero_starter_pack")
+						else:
+							settings_mgr.confirm_entitlement("legendary_hero_starter_pack")
+						_open_sovereigns_ascension_details()
+			},
+			{
+				"name": "Reset Ascension Claim State",
+				"fn": func():
+					_events_db["sovereigns_ascension_claimed"] = false
+					_save_events_to_disk()
+					_open_sovereigns_ascension_details()
+			},
+			{
+				"name": "Set Account Age Expired",
+				"fn": func():
+					if settings_mgr: settings_mgr.debug_expire_rookie_event()
+					_open_sovereigns_ascension_details()
+			}
+		]
+		
+		for db in dbg_btns:
+			var btn = Button.new()
+			btn.text = db["name"]
+			btn.add_theme_font_size_override("font_size", 10)
+			btn.pressed.connect(db["fn"])
+			grid_dbg.add_child(btn)
+			
+		dbg_vbox.add_child(grid_dbg)
+		main_vbox.add_child(dbg_panel)
+
+func _open_starter_offer_popup(offer_id: String, offer_cfg: Dictionary) -> void:
+	var offer_script = load("res://scripts/SovereignAscensionOfferPopup.gd")
+	if offer_script:
+		var popup = offer_script.new()
+		popup.setup_offer(offer_id, offer_cfg)
+		popup.offer_purchased.connect(func(purchased_id):
+			_show_toast("Starter Offer Purchased! Entitlement Confirmed.")
+			_open_sovereigns_ascension_details()
+		)
+		add_child(popup)
+		popup.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	else:
+		_show_toast("Offer Popup script unavailable.")
+
+func _claim_sovereigns_ascension_chest() -> void:
+	if _events_db.get("sovereigns_ascension_claimed", false): return
+	
+	_events_db["sovereigns_ascension_claimed"] = true
+	_save_events_to_disk()
+	
+	# Credit rewards to inventory
+	UIManager.royal_crystals += 2500
+	UIManager.gold += 1000000
+	UIManager.food += 2000000
+	UIManager.wood += 2000000
+	UIManager.stone += 1000000
+	UIManager.iron += 1000000
+	
+	_credit_reward_item_to_bag("speedup_universal_1h", 24)
+	_credit_reward_item_to_bag("token_recruitment_legendary", 10)
+	
+	UIManager.currency_changed.emit("royal_crystals", float(UIManager.royal_crystals))
+	UIManager.currency_changed.emit("gold", float(UIManager.gold))
+	
+	var rewards_array = [
+		{"name": "Royal Crystals", "quantity": 2500},
+		{"name": "Gold Coins", "quantity": 1000000},
+		{"name": "Food Provisions", "quantity": 2000000},
+		{"name": "Timber Provisions", "quantity": 2000000},
+		{"name": "1h Universal Speedup", "quantity": 24},
+		{"name": "Legendary Hero Token", "quantity": 10}
+	]
+	
+	UIManager.sovereign_companion_reward_requested.emit("bundle_sovereign_ascension_chest", rewards_array)
+	UIManager.reward_claimed.emit(rewards_array)
+	
+	_show_toast("🏆 ROYAL COMPANION CHEST CLAIMED!")
+	add_log_requested.emit("Royal Companion Chest (4/4 Milestone) successfully claimed!", "success")
+	
+	_open_sovereigns_ascension_details()
+	_refresh_overall_ui()
 
 func _open_infernal_beast_details() -> void:
 	right_detail_empty.visible = false

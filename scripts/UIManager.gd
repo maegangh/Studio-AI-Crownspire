@@ -5,6 +5,7 @@ extends Node
 
 signal currency_changed(currency_id: String, new_amount: float)
 signal building_updated(building_id: String, new_level: int)
+signal sovereign_companion_reward_requested(bundle_id: String, rewards: Array)
 
 # --- ALLIANCE SIGNALS ---
 signal alliance_updated()
@@ -229,6 +230,13 @@ func instant_finish_building_upgrade(b_id: String, crystal_cost: int) -> Diction
 	# Complete construction
 	_complete_building_upgrade(b_id)
 	return { "success": true }
+
+func get_max_construction_queues() -> int:
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	if settings_mgr and settings_mgr.has_method("has_entitlement"):
+		if settings_mgr.has_entitlement("secondary_construction_queue_permanent") or settings_mgr.has_entitlement("secondary_construction_queue_30d"):
+			return 2
+	return 1
 
 func _complete_building_upgrade(b_id: String) -> void:
 	var b = get_building(b_id)

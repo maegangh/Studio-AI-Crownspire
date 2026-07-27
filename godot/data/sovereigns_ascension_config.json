@@ -1,0 +1,70 @@
+{
+  "event_id": "sovereigns_ascension",
+  "display_name": "Sovereign's Ascension",
+  "subtitle": "First-Week Companion Event",
+  "desc": "Complete four cornerstone achievements during your first week to claim the Royal Companion Chest.",
+  "event_duration_days": 7,
+  "requirements": [
+    {
+      "id": "citadel_level",
+      "title": "Reach Citadel Level 15",
+      "desc": "Upgrade your main Citadel to Level 15 to establish domain authority.",
+      "type": "gameplay_citadel",
+      "citadel_level_required": 15,
+      "action_type": "go_citadel",
+      "button_label": "GO TO CITADEL"
+    },
+    {
+      "id": "sovereign_journey_objectives",
+      "title": "Complete 36 Sovereign's Journey Objectives",
+      "desc": "Progress through 36 rookie quests across Days 1–7 of Sovereign's Journey.",
+      "type": "gameplay_journey",
+      "sovereigns_journey_objectives_required": 36,
+      "action_type": "go_journey",
+      "button_label": "GO TO JOURNEY"
+    },
+    {
+      "id": "permanent_construction_queue",
+      "title": "Permanently Unlock Secondary Construction Queue",
+      "desc": "Unlock the permanent 2nd builder queue to construct multiple structures simultaneously.",
+      "type": "entitlement",
+      "entitlement_id": "secondary_construction_queue_permanent",
+      "offer_id": "first_week_permanent_construction_queue",
+      "action_type": "view_offer",
+      "button_label": "VIEW OFFER"
+    },
+    {
+      "id": "legendary_hero_pack",
+      "title": "Purchase First Legendary Hero Starter Pack",
+      "desc": "Recruit a Legendary General and receive high-value speedups and resources.",
+      "type": "entitlement",
+      "entitlement_id": "legendary_hero_starter_pack",
+      "offer_id": "legendary_hero_starter_pack",
+      "action_type": "view_offer",
+      "button_label": "VIEW OFFER"
+    }
+  ],
+  "completion_reward_bundle": {
+    "id": "bundle_sovereign_ascension_chest",
+    "name": "Royal Companion Chest",
+    "icon": "📦",
+    "rewards": [
+      { "id": "diamonds", "type": "currency", "amount": 2500, "name": "Royal Crystals", "icon": "💎" },
+      { "id": "gold", "type": "currency", "amount": 1000000, "name": "Gold", "icon": "🪙" },
+      { "id": "food", "type": "resource", "amount": 2000000, "name": "Food", "icon": "🌾" },
+      { "id": "wood", "type": "resource", "amount": 2000000, "name": "Wood", "icon": "🪵" },
+      { "id": "stone", "type": "resource", "amount": 1000000, "name": "Stone", "icon": "🪨" },
+      { "id": "iron", "type": "resource", "amount": 1000000, "name": "Iron", "icon": "⛓️" },
+      { "id": "speedup_universal_1h", "type": "item", "amount": 24, "name": "1h Speedup", "icon": "⏱️" },
+      { "id": "token_recruitment_legendary", "type": "item", "amount": 10, "name": "Legendary Hero Token", "icon": "📜" }
+    ]
+  },
+  "ui_text": {
+    "locked_hint": "Complete all 4 Sovereign achievements to unlock.",
+    "claim_button": "CLAIM ROYAL CHEST",
+    "claimed_label": "✓ CHEST CLAIMED"
+  },
+  "debug_settings": {
+    "allow_simulation_in_debug": true
+  }
+}

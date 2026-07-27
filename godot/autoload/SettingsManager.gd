@@ -10,6 +10,8 @@ extends Node
 signal settings_changed()
 signal customization_updated(category: String, item_id: String)
 signal profile_name_changed(new_name: String)
+signal purchase_requested(offer_id: String)
+signal entitlement_confirmed(entitlement_id: String)
 
 const SAVE_PATH = "user://crownspire_settings_state.save"
 
@@ -50,6 +52,7 @@ var settings: Dictionary = {
 		"public_profile": true
 	},
 	"profile": {
+		"account_created_timestamp": 0,
 		"active_avatar": "🧙",
 		"active_frame": "Royal Filigree",
 		"active_title": "Sovereign of Dawn",
@@ -60,7 +63,8 @@ var settings: Dictionary = {
 		"unlocked_frames": ["Default Wood", "Royal Filigree", "Crystallite Ring"],
 		"unlocked_titles": ["Initiate", "Sovereign of Dawn", "Guild Marshal"],
 		"unlocked_castle_skins": ["Default Citadel", "Crystallite Spire"],
-		"unlocked_march_skins": ["Royal Cavalry", "Sovereign Pegasi"]
+		"unlocked_march_skins": ["Royal Cavalry", "Sovereign Pegasi"],
+		"entitlements": []
 	}
 }
 
@@ -97,8 +101,11 @@ var achievements: Array = [
 	{"id": "ach_5", "name": "Guild Shield", "desc": "Donate 50,000 Honor to Alliance", "progress": "85K / 50K", "completed": true, "reward": "🤝 Guild Ring"}
 ]
 
+var debug_account_age_override_sec: int = -1
+
 func _ready() -> void:
 	load_settings()
+	_ensure_account_created_timestamp()
 	apply_all_settings()
 
 # --- SAVE & LOAD ---
@@ -112,6 +119,7 @@ func save_settings() -> void:
 func load_settings() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("[SettingsManager] No saved preferences found, using defaults.")
+		_ensure_account_created_timestamp()
 		return
 		
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
@@ -124,6 +132,106 @@ func load_settings() -> void:
 			if typeof(loaded_settings) == TYPE_DICTIONARY:
 				_merge_dictionaries(settings, loaded_settings)
 				print("[SettingsManager] Loaded preferences successfully.")
+	_ensure_account_created_timestamp()
+
+func _ensure_account_created_timestamp() -> void:
+	if not settings.has("profile"):
+		settings["profile"] = {}
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("account_created_timestamp") or int(prof["account_created_timestamp"]) <= 0:
+		prof["account_created_timestamp"] = int(Time.get_unix_time_from_system())
+		save_settings()
+		print("[SettingsManager] Initialized account_created_timestamp: ", prof["account_created_timestamp"])
+
+func get_account_created_timestamp() -> int:
+	_ensure_account_created_timestamp()
+	return int(settings["profile"]["account_created_timestamp"])
+
+func get_account_age_seconds() -> int:
+	if OS.is_debug_build() and debug_account_age_override_sec >= 0:
+		return debug_account_age_override_sec
+	var created_ts = get_account_created_timestamp()
+	var now = int(Time.get_unix_time_from_system())
+	return max(0, now - created_ts)
+
+func get_account_age_days() -> float:
+	return float(get_account_age_seconds()) / 86400.0
+
+func get_rookie_event_day() -> int:
+	var sec = get_account_age_seconds()
+	var day_num = int(sec / 86400) + 1
+	return day_num
+
+# --- DEBUG TESTING TOOLS FOR ROOKIE EVENT ---
+func debug_set_rookie_day(day_num: int) -> void:
+	if not OS.is_debug_build(): return
+	var target_day = clamp(day_num, 1, 7)
+	debug_account_age_override_sec = (target_day - 1) * 86400 + 3600
+	print("[SettingsManager DEBUG] Set rookie account age override to Day ", target_day, " (", debug_account_age_override_sec, "s)")
+
+func debug_set_rookie_grace_period() -> void:
+	if not OS.is_debug_build(): return
+	debug_account_age_override_sec = 7 * 86400 + 3600 # Day 8
+	print("[SettingsManager DEBUG] Set rookie account age override to Grace Period (Day 8)")
+
+func debug_expire_rookie_event() -> void:
+	if not OS.is_debug_build(): return
+	debug_account_age_override_sec = 9 * 86400 + 3600 # Day 10 (expired)
+	print("[SettingsManager DEBUG] Set rookie account age override to Expired")
+
+func debug_reset_rookie_age_override() -> void:
+	if not OS.is_debug_build(): return
+	debug_account_age_override_sec = -1
+	print("[SettingsManager DEBUG] Reset account age override to real timestamp")
+
+# ==========================================
+# ENTITLEMENTS & PURCHASE HOOKS
+# ==========================================
+func has_entitlement(entitlement_id: String) -> bool:
+	_ensure_account_created_timestamp()
+	var prof: Dictionary = settings.get("profile", {})
+	var list: Array = prof.get("entitlements", [])
+	return entitlement_id in list
+
+func confirm_entitlement(entitlement_id: String) -> void:
+	_ensure_account_created_timestamp()
+	if not settings.has("profile"): settings["profile"] = {}
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("entitlements"): prof["entitlements"] = []
+	var list: Array = prof["entitlements"]
+	if not entitlement_id in list:
+		list.append(entitlement_id)
+		save_settings()
+		print("[SettingsManager] Confirmed trusted entitlement: ", entitlement_id)
+		entitlement_confirmed.emit(entitlement_id)
+
+func revoke_entitlement(entitlement_id: String) -> void:
+	_ensure_account_created_timestamp()
+	if not settings.has("profile"): return
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("entitlements"): return
+	var list: Array = prof["entitlements"]
+	if entitlement_id in list:
+		list.erase(entitlement_id)
+		save_settings()
+		print("[SettingsManager] Revoked entitlement: ", entitlement_id)
+
+func request_purchase(offer_id: String) -> void:
+	print("[SettingsManager] Purchase requested for offer: ", offer_id)
+	purchase_requested.emit(offer_id)
+	# Simulation under OS.is_debug_build() only
+	if OS.is_debug_build():
+		var offer_entitlement_map = {
+			"first_week_permanent_construction_queue": "secondary_construction_queue_permanent",
+			"legendary_hero_starter_pack": "legendary_hero_starter_pack"
+		}
+		if offer_id in offer_entitlement_map:
+			confirm_entitlement(offer_entitlement_map[offer_id])
+
+func get_entitlements() -> Array:
+	_ensure_account_created_timestamp()
+	var prof: Dictionary = settings.get("profile", {})
+	return prof.get("entitlements", []).duplicate()
 
 func _merge_dictionaries(target: Dictionary, source: Dictionary) -> void:
 	for key in source.keys():

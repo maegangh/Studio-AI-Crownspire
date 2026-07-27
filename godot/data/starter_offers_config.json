@@ -1,0 +1,56 @@
+{
+  "offers": {
+    "first_week_permanent_construction_queue": {
+      "offer_id": "first_week_permanent_construction_queue",
+      "title": "First-Week Permanent Construction Queue",
+      "subtitle": "Exclusive New-Player Offer",
+      "desc": "Double your kingdom construction speed forever with a permanent 2nd builder queue slot.",
+      "introductory_price_usd": 4.99,
+      "introductory_window_days": 7,
+      "post_introductory_options": [
+        { "type": "temporary_30d", "price_usd": 4.99, "desc": "30-Day Builder Pass" },
+        { "type": "permanent", "price_usd": 9.99, "desc": "Permanent Secondary Construction Queue" }
+      ],
+      "entitlement_granted": "secondary_construction_queue_permanent",
+      "purchase_limit": 1,
+      "icon_emoji": "🔨",
+      "highlights": [
+        "Permanent 2nd Construction Queue Slot",
+        "Build two city structures simultaneously",
+        "Includes 500 Royal Crystals bonus",
+        "Includes 10x 1-Hour Construction Speedups"
+      ],
+      "bonus_rewards": [
+        { "id": "diamonds", "amount": 500, "name": "Royal Crystals", "icon": "💎" },
+        { "id": "speedup_construction_1h", "amount": 10, "name": "1h Build Speedup", "icon": "⏱️" }
+      ]
+    },
+    "legendary_hero_starter_pack": {
+      "offer_id": "legendary_hero_starter_pack",
+      "title": "Legendary Hero Starter Pack",
+      "subtitle": "Command the Sovereign Vanguard",
+      "desc": "Unleash a legendary hero to lead your legions into battle with massive starter supplies.",
+      "price_usd": 4.99,
+      "availability_days": 7,
+      "purchase_limit": 1,
+      "featured_hero_id": "hero_general_aurelius",
+      "featured_hero_name": "General Aurelius the Solar Monarch",
+      "featured_hero_emoji": "👑",
+      "entitlement_granted": "legendary_hero_starter_pack",
+      "highlights": [
+        "Unlocks Legendary Hero: General Aurelius",
+        "1,000 Royal Crystals",
+        "50 Hero Progression Shards",
+        "12x 1-Hour Universal Speedups",
+        "500,000 Food & Wood"
+      ],
+      "bonus_rewards": [
+        { "id": "hero_shard_aurelius", "amount": 50, "name": "Aurelius Hero Shards", "icon": "🧬" },
+        { "id": "diamonds", "amount": 1000, "name": "Royal Crystals", "icon": "💎" },
+        { "id": "speedup_universal_1h", "amount": 12, "name": "1h Universal Speedup", "icon": "⏱️" },
+        { "id": "food", "amount": 500000, "name": "Food", "icon": "🌾" },
+        { "id": "wood", "amount": 500000, "name": "Wood", "icon": "🪵" }
+      ]
+    }
+  }
+}

@@ -10,6 +10,8 @@ extends Node
 signal settings_changed()
 signal customization_updated(category: String, item_id: String)
 signal profile_name_changed(new_name: String)
+signal purchase_requested(offer_id: String)
+signal entitlement_confirmed(entitlement_id: String)
 
 const SAVE_PATH = "user://crownspire_settings_state.save"
 
@@ -61,7 +63,8 @@ var settings: Dictionary = {
 		"unlocked_frames": ["Default Wood", "Royal Filigree", "Crystallite Ring"],
 		"unlocked_titles": ["Initiate", "Sovereign of Dawn", "Guild Marshal"],
 		"unlocked_castle_skins": ["Default Citadel", "Crystallite Spire"],
-		"unlocked_march_skins": ["Royal Cavalry", "Sovereign Pegasi"]
+		"unlocked_march_skins": ["Royal Cavalry", "Sovereign Pegasi"],
+		"entitlements": []
 	}
 }
 
@@ -180,6 +183,55 @@ func debug_reset_rookie_age_override() -> void:
 	if not OS.is_debug_build(): return
 	debug_account_age_override_sec = -1
 	print("[SettingsManager DEBUG] Reset account age override to real timestamp")
+
+# ==========================================
+# ENTITLEMENTS & PURCHASE HOOKS
+# ==========================================
+func has_entitlement(entitlement_id: String) -> bool:
+	_ensure_account_created_timestamp()
+	var prof: Dictionary = settings.get("profile", {})
+	var list: Array = prof.get("entitlements", [])
+	return entitlement_id in list
+
+func confirm_entitlement(entitlement_id: String) -> void:
+	_ensure_account_created_timestamp()
+	if not settings.has("profile"): settings["profile"] = {}
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("entitlements"): prof["entitlements"] = []
+	var list: Array = prof["entitlements"]
+	if not entitlement_id in list:
+		list.append(entitlement_id)
+		save_settings()
+		print("[SettingsManager] Confirmed trusted entitlement: ", entitlement_id)
+		entitlement_confirmed.emit(entitlement_id)
+
+func revoke_entitlement(entitlement_id: String) -> void:
+	_ensure_account_created_timestamp()
+	if not settings.has("profile"): return
+	var prof: Dictionary = settings["profile"]
+	if not prof.has("entitlements"): return
+	var list: Array = prof["entitlements"]
+	if entitlement_id in list:
+		list.erase(entitlement_id)
+		save_settings()
+		print("[SettingsManager] Revoked entitlement: ", entitlement_id)
+
+func request_purchase(offer_id: String) -> void:
+	print("[SettingsManager] Purchase requested for offer: ", offer_id)
+	purchase_requested.emit(offer_id)
+	# Simulation under OS.is_debug_build() only
+	if OS.is_debug_build():
+		var offer_entitlement_map = {
+			"first_week_permanent_construction_queue": "secondary_construction_queue_permanent",
+			"legendary_hero_starter_pack": "legendary_hero_starter_pack"
+		}
+		if offer_id in offer_entitlement_map:
+			confirm_entitlement(offer_entitlement_map[offer_id])
+
+func get_entitlements() -> Array:
+	_ensure_account_created_timestamp()
+	var prof: Dictionary = settings.get("profile", {})
+	return prof.get("entitlements", []).duplicate()
 
 func _merge_dictionaries(target: Dictionary, source: Dictionary) -> void:
 	for key in source.keys():
