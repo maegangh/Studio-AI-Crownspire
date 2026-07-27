@@ -10,6 +10,7 @@ const SAVE_PATH = "user://crownspire_quests_state.save"
 # In-memory database of all quests loaded from JSONs
 var quests_db: Array = []
 var milestone_rewards: Array = []
+var sovereigns_journey_config: Dictionary = {}
 
 # Progression states
 var daily_activity_points: int = 0
@@ -71,6 +72,11 @@ func initialize_quests() -> void:
 	activity_points_changed.emit(daily_activity_points, weekly_activity_points)
 
 func _load_database_files() -> void:
+	# Load Sovereign's Journey event configuration first
+	sovereigns_journey_config = _load_json_dict("res://data/sovereigns_journey_config.json")
+	if sovereigns_journey_config.is_empty():
+		sovereigns_journey_config = _load_json_dict("res://godot/data/sovereigns_journey_config.json")
+
 	# Categories files
 	var main_quests = _load_json_file("res://data/quests/main_story.json")
 	var daily_quests = _load_json_file("res://data/quests/daily_quests.json")
@@ -274,9 +280,20 @@ func trigger_progress(objective_type: String, target_id: String, amount: int) ->
 	var updated := false
 	_check_and_process_resets()
 	
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	var rookie_day = settings_mgr.get_rookie_event_day() if (settings_mgr and settings_mgr.has_method("get_rookie_event_day")) else 1
+	var rookie_expired = is_rookie_event_expired()
+	var rookie_unlocked_day = min(7, rookie_day)
+	
 	for q in quests_db:
 		if q["is_completed"] or q["is_claimed"]:
 			continue
+			
+		if q.get("category_id") == "rookie":
+			if rookie_expired:
+				continue # Event ENDED: no Rookie objective progression
+			if int(q.get("day", 1)) > rookie_unlocked_day:
+				continue # Future day objective group not unlocked yet
 			
 		var quest_updated_this_turn = false
 		for obj in q["objectives"]:
@@ -356,9 +373,19 @@ func _on_reward_claimed(items_rewarded: Array) -> void:
 
 func _check_absolute_quest_conditions(type: String, target_id: String, absolute_val: int) -> void:
 	var updated := false
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	var rookie_day = settings_mgr.get_rookie_event_day() if (settings_mgr and settings_mgr.has_method("get_rookie_event_day")) else 1
+	var rookie_expired = is_rookie_event_expired()
+	var rookie_unlocked_day = min(7, rookie_day)
+
 	for q in quests_db:
 		if q["is_completed"] or q["is_claimed"]:
 			continue
+		if q.get("category_id") == "rookie":
+			if rookie_expired:
+				continue
+			if int(q.get("day", 1)) > rookie_unlocked_day:
+				continue
 		for obj in q["objectives"]:
 			if obj.get("type", "") == type and obj.get("target_id", "") == target_id:
 				if absolute_val >= int(obj["target"]):
@@ -723,9 +750,60 @@ func _load_json_file(path: String) -> Array:
 				return data
 	return []
 
-# --- ROOKIE EVENT API ---
+func _load_json_dict(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		print("[Crownspire QuestManager] JSON db not found: ", path)
+		return {}
+		
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file:
+		var json = JSON.new()
+		var error = json.parse(file.get_as_text())
+		file.close()
+		if error == OK:
+			var data = json.get_data()
+			if typeof(data) == TYPE_DICTIONARY:
+				return data
+	return {}
+
+# --- ROOKIE EVENT CONFIG & LIFECYCLE API ---
+
+func get_sovereigns_journey_config() -> Dictionary:
+	return sovereigns_journey_config
+
+func get_rookie_lifecycle_config() -> Dictionary:
+	return sovereigns_journey_config.get("lifecycle", {
+		"unlock_days": 7,
+		"active_duration_days": 7,
+		"grace_period_days": 2,
+		"total_event_days": 9
+	})
+
+func is_rookie_event_active() -> bool:
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	if not settings_mgr or not settings_mgr.has_method("get_account_age_days"):
+		return true
+	var age_days = settings_mgr.get_account_age_days()
+	var total_days = int(get_rookie_lifecycle_config().get("total_event_days", 9))
+	return age_days < float(total_days)
+
+func is_rookie_event_expired() -> bool:
+	return not is_rookie_event_active()
+
+func is_rookie_in_grace_period() -> bool:
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	if not settings_mgr or not settings_mgr.has_method("get_account_age_days"):
+		return false
+	var age_days = settings_mgr.get_account_age_days()
+	var lc = get_rookie_lifecycle_config()
+	var active_days = float(lc.get("active_duration_days", 7))
+	var total_days = float(lc.get("total_event_days", 9))
+	return age_days >= active_days and age_days < total_days
 
 func check_rookie_current_state_objectives() -> void:
+	if is_rookie_event_expired():
+		return # Event ENDED at Day 10+: no objective progression
+		
 	var settings_mgr = get_node_or_null("/root/SettingsManager")
 	if not settings_mgr or not settings_mgr.has_method("get_rookie_event_day"):
 		return
@@ -832,35 +910,80 @@ func get_rookie_daily_completion_count(day_num: int) -> int:
 func is_rookie_daily_chest_claimed(day_num: int) -> bool:
 	return claimed_rookie_daily_chests.has(day_num)
 
+func get_rookie_daily_chest_config(day_num: int) -> Dictionary:
+	var chests = sovereigns_journey_config.get("daily_chests", []) as Array
+	for c in chests:
+		if int(c.get("day", 0)) == day_num:
+			return c
+	return {
+		"day": day_num,
+		"required_completed_objectives": 5,
+		"title": "Day %d Chest" % day_num,
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+		]
+	}
+
 func claim_rookie_daily_chest(day_num: int) -> Array:
 	if is_rookie_daily_chest_claimed(day_num):
 		return []
 		
+	if is_rookie_event_expired():
+		return [] # No new reward earning when event is ENDED at Day 10+
+		
+	var chest_cfg = get_rookie_daily_chest_config(day_num)
+	var req_count = int(chest_cfg.get("required_completed_objectives", 5))
 	var comp_count = get_rookie_daily_completion_count(day_num)
-	if comp_count < 5: # Require 5 completed objectives from that day
+	if comp_count < req_count:
 		return []
 		
 	claimed_rookie_daily_chests.append(day_num)
 	_save_state()
 	
-	var rewards = [
-		{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
-		{"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
-		{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
-	]
-	
+	var rewards = chest_cfg.get("rewards", []) as Array
 	var ui_mgr = get_node_or_null("/root/UIManager")
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	
 	if ui_mgr:
-		ui_mgr.royal_crystals += 300
-		ui_mgr.hero_tokens += 3
-		if ui_mgr.has_method("add_inventory_item"):
-			ui_mgr.add_inventory_item("item_speedup_1h", 3)
+		for r in rewards:
+			var r_type = r.get("type", "")
+			var qty = int(r.get("quantity", 1))
+			match r_type:
+				"royal_crystal": ui_mgr.royal_crystals += qty
+				"gold": ui_mgr.gold += qty
+				"hero_tokens": ui_mgr.hero_tokens += qty
+				"speedup_15m":
+					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_15m", qty)
+				"speedup_1h":
+					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_1h", qty)
+				"speedup_3h":
+					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_3h", qty)
+				"avatar_frame":
+					var frame_id = r.get("id", "")
+					if settings_mgr and frame_id != "":
+						var prof = settings_mgr.settings.get("profile", {})
+						var frames = prof.get("unlocked_frames", []) as Array
+						if not frames.has(frame_id):
+							frames.append(frame_id)
+							prof["unlocked_frames"] = frames
+							settings_mgr.save_settings()
+				_:
+					var item_id = r.get("id", "")
+					if item_id != "" and ui_mgr.has_method("add_inventory_item"):
+						ui_mgr.add_inventory_item(item_id, qty)
+						
 		if ui_mgr.has_signal("reward_claimed"):
-			ui_mgr.reward_claimed.emit([
-				{"name": "Royal Crystals", "quantity": 300, "rarity": 3, "icon": "💎"},
-				{"name": "Hero Tokens", "quantity": 3, "rarity": 3, "icon": "🎖️"},
-				{"name": "1h Speedups", "quantity": 3, "rarity": 2, "icon": "⏳"}
-			])
+			var notify_list: Array[Dictionary] = []
+			for r in rewards:
+				notify_list.append({
+					"name": r.get("name", "Daily Chest Reward"),
+					"quantity": int(r.get("quantity", 1)),
+					"rarity": 3,
+					"icon": r.get("icon", "🎁")
+				})
+			ui_mgr.reward_claimed.emit(notify_list)
 			
 	quest_list_updated.emit()
 	return rewards
@@ -874,93 +997,54 @@ func get_rookie_total_completed_count() -> int:
 	return total
 
 func get_rookie_overall_milestones() -> Array:
+	check_rookie_current_state_objectives()
 	var total_comp = get_rookie_total_completed_count()
-	return [
-		{
-			"index": 0,
-			"target": 10,
-			"completed": total_comp >= 10,
-			"claimed": claimed_rookie_overall_milestones.has(0),
-			"title": "Beginner Sovereign",
-			"rewards": [
-				{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
-				{"type": "speedup_1h", "quantity": 5, "name": "1h Speedups", "icon": "⏳"}
-			]
-		},
-		{
-			"index": 1,
-			"target": 20,
-			"completed": total_comp >= 20,
-			"claimed": claimed_rookie_overall_milestones.has(1),
-			"title": "Realm Defender",
-			"rewards": [
-				{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
-				{"type": "speedup_1h", "quantity": 10, "name": "1h Speedups", "icon": "⏳"}
-			]
-		},
-		{
-			"index": 2,
-			"target": 30,
-			"completed": total_comp >= 30,
-			"claimed": claimed_rookie_overall_milestones.has(2),
-			"title": "Crown Marshal",
-			"rewards": [
-				{"type": "royal_crystal", "quantity": 800, "name": "Royal Crystals", "icon": "💎"},
-				{"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"}
-			]
-		},
-		{
-			"index": 3,
-			"target": 40,
-			"completed": total_comp >= 40,
-			"claimed": claimed_rookie_overall_milestones.has(3),
-			"title": "Grand Monarch",
-			"rewards": [
-				{"type": "royal_crystal", "quantity": 1200, "name": "Royal Crystals", "icon": "💎"},
-				{"type": "speedup_3h", "quantity": 10, "name": "3h Speedups", "icon": "⏳"}
-			]
-		},
-		{
-			"index": 4,
-			"target": 45,
-			"completed": total_comp >= 45,
-			"claimed": claimed_rookie_overall_milestones.has(4),
-			"title": "Founding Sovereign",
-			"rewards": [
-				{"type": "avatar_frame", "id": "Founding Sovereign", "name": "Founding Sovereign Avatar Frame", "icon": "🖼️"},
-				{"type": "royal_crystal", "quantity": 2000, "name": "Royal Crystals", "icon": "💎"},
-				{"type": "gold", "quantity": 500000, "name": "Gold Coins", "icon": "🪙"}
-			]
-		}
-	]
+	var config_milestones = sovereigns_journey_config.get("overall_milestones", []) as Array
+	
+	if config_milestones.is_empty():
+		config_milestones = [
+			{"index": 0, "target": 10, "title": "Beginner Sovereign", "rewards": [{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"}]},
+			{"index": 1, "target": 20, "title": "Realm Defender", "rewards": [{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"}]},
+			{"index": 2, "target": 30, "title": "Crown Marshal", "rewards": [{"type": "royal_crystal", "quantity": 800, "name": "Royal Crystals", "icon": "💎"}]},
+			{"index": 3, "target": 40, "title": "Grand Monarch", "rewards": [{"type": "royal_crystal", "quantity": 1200, "name": "Royal Crystals", "icon": "💎"}]},
+			{"index": 4, "target": 45, "title": "Founding Sovereign", "is_final_cosmetic": true, "rewards": [{"type": "avatar_frame", "id": "Founding Sovereign", "name": "Founding Sovereign Avatar Frame", "icon": "🖼️"}]}
+		]
+		
+	var result: Array = []
+	for m in config_milestones:
+		var m_copy = m.duplicate(true)
+		var target_val = int(m_copy.get("target", 10))
+		var idx = int(m_copy.get("index", 0))
+		m_copy["completed"] = total_comp >= target_val
+		m_copy["claimed"] = claimed_rookie_overall_milestones.has(idx)
+		result.append(m_copy)
+		
+	return result
 
 func claim_rookie_overall_milestone(index: int) -> Array:
-	if index < 0 or index > 4:
-		return []
 	if claimed_rookie_overall_milestones.has(index):
 		return []
 		
+	if is_rookie_event_expired():
+		return [] # No new reward earning when event is ENDED at Day 10+
+		
 	var milestones = get_rookie_overall_milestones()
-	var m = milestones[index]
-	if not m["completed"]:
+	var m: Dictionary = {}
+	for candidate in milestones:
+		if int(candidate.get("index", -1)) == index:
+			m = candidate
+			break
+			
+	if m.is_empty() or not m.get("completed", false):
 		return []
 		
 	claimed_rookie_overall_milestones.append(index)
 	_save_state()
 	
-	var rewards = m["rewards"] as Array
+	var rewards = m.get("rewards", []) as Array
 	var ui_mgr = get_node_or_null("/root/UIManager")
 	var settings_mgr = get_node_or_null("/root/SettingsManager")
 	
-	if settings_mgr and index == 4:
-		var prof = settings_mgr.settings.get("profile", {})
-		var frames = prof.get("unlocked_frames", []) as Array
-		if not frames.has("Founding Sovereign"):
-			frames.append("Founding Sovereign")
-			prof["unlocked_frames"] = frames
-			settings_mgr.save_settings()
-			print("[QuestManager] Unlocked Founding Sovereign Avatar Frame!")
-			
 	if ui_mgr:
 		for r in rewards:
 			var r_type = r.get("type", "")
@@ -973,7 +1057,21 @@ func claim_rookie_overall_milestone(index: int) -> Array:
 					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_1h", qty)
 				"speedup_3h":
 					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_3h", qty)
-					
+				"avatar_frame":
+					var frame_id = r.get("id", "")
+					if settings_mgr and frame_id != "":
+						var prof = settings_mgr.settings.get("profile", {})
+						var frames = prof.get("unlocked_frames", []) as Array
+						if not frames.has(frame_id):
+							frames.append(frame_id)
+							prof["unlocked_frames"] = frames
+							settings_mgr.save_settings()
+							print("[QuestManager] Unlocked Avatar Frame: ", frame_id)
+				_:
+					var item_id = r.get("id", "")
+					if item_id != "" and ui_mgr.has_method("add_inventory_item"):
+						ui_mgr.add_inventory_item(item_id, qty)
+						
 		if ui_mgr.has_signal("reward_claimed"):
 			var notify_list: Array[Dictionary] = []
 			for r in rewards:

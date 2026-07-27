@@ -1,0 +1,135 @@
+{
+  "event_id": "sovereigns_journey",
+  "title": "Sovereign's Journey",
+  "lifecycle": {
+    "unlock_days": 7,
+    "active_duration_days": 7,
+    "grace_period_days": 2,
+    "total_event_days": 9
+  },
+  "daily_chests": [
+    {
+      "day": 1,
+      "required_completed_objectives": 5,
+      "title": "Day 1 Recruit's Cache",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 100, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 1, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 2,
+      "required_completed_objectives": 5,
+      "title": "Day 2 Defender's Vault",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 150, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 2, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_15m", "quantity": 6, "name": "15m Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 3,
+      "required_completed_objectives": 5,
+      "title": "Day 3 Commander's Chest",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 200, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 2, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_1h", "quantity": 2, "name": "1h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 4,
+      "required_completed_objectives": 5,
+      "title": "Day 4 Strategist's Coffer",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 250, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 5,
+      "required_completed_objectives": 5,
+      "title": "Day 5 Warlord's Treasury",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_1h", "quantity": 4, "name": "1h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 6,
+      "required_completed_objectives": 5,
+      "title": "Day 6 Sovereign's Armory",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 400, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 4, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_3h", "quantity": 2, "name": "3h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "day": 7,
+      "required_completed_objectives": 5,
+      "title": "Day 7 Grand Conquest Chest",
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"},
+        {"type": "speedup_3h", "quantity": 4, "name": "3h Speedups", "icon": "⏳"}
+      ]
+    }
+  ],
+  "overall_milestones": [
+    {
+      "index": 0,
+      "target": 10,
+      "title": "Beginner Sovereign",
+      "is_final_cosmetic": false,
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "speedup_1h", "quantity": 5, "name": "1h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "index": 1,
+      "target": 20,
+      "title": "Realm Defender",
+      "is_final_cosmetic": false,
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "speedup_1h", "quantity": 10, "name": "1h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "index": 2,
+      "target": 30,
+      "title": "Crown Marshal",
+      "is_final_cosmetic": false,
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 800, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"}
+      ]
+    },
+    {
+      "index": 3,
+      "target": 40,
+      "title": "Grand Monarch",
+      "is_final_cosmetic": false,
+      "rewards": [
+        {"type": "royal_crystal", "quantity": 1200, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "speedup_3h", "quantity": 10, "name": "3h Speedups", "icon": "⏳"}
+      ]
+    },
+    {
+      "index": 4,
+      "target": 45,
+      "title": "Founding Sovereign",
+      "is_final_cosmetic": true,
+      "rewards": [
+        {"type": "avatar_frame", "id": "Founding Sovereign", "name": "Founding Sovereign Avatar Frame", "icon": "🖼️"},
+        {"type": "royal_crystal", "quantity": 2000, "name": "Royal Crystals", "icon": "💎"},
+        {"type": "gold", "quantity": 500000, "name": "Gold Coins", "icon": "🪙"}
+      ]
+    }
+  ]
+}
