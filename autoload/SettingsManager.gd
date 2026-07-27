@@ -219,14 +219,16 @@ func revoke_entitlement(entitlement_id: String) -> void:
 func request_purchase(offer_id: String) -> void:
 	print("[SettingsManager] Purchase requested for offer: ", offer_id)
 	purchase_requested.emit(offer_id)
-	# Simulation under OS.is_debug_build() only
-	if OS.is_debug_build():
-		var offer_entitlement_map = {
-			"first_week_permanent_construction_queue": "secondary_construction_queue_permanent",
-			"legendary_hero_starter_pack": "legendary_hero_starter_pack"
-		}
-		if offer_id in offer_entitlement_map:
-			confirm_entitlement(offer_entitlement_map[offer_id])
+
+func debug_simulate_purchase_confirmation(offer_id: String) -> void:
+	if not OS.is_debug_build(): return
+	var offer_entitlement_map = {
+		"first_week_permanent_construction_queue": "secondary_construction_queue_permanent",
+		"legendary_hero_starter_pack": "legendary_hero_starter_pack"
+	}
+	if offer_id in offer_entitlement_map:
+		print("[SettingsManager DEBUG] Simulating trusted confirmation for offer: ", offer_id)
+		confirm_entitlement(offer_entitlement_map[offer_id])
 
 func get_entitlements() -> Array:
 	_ensure_account_created_timestamp()

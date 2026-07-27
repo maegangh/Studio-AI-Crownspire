@@ -47,6 +47,7 @@
   "completion_reward_bundle": {
     "id": "bundle_sovereign_ascension_chest",
     "name": "Royal Companion Chest",
+    "balance_status": "PLACEHOLDER / TEST BALANCE — NOT FINAL",
     "icon": "📦",
     "rewards": [
       { "id": "diamonds", "type": "currency", "amount": 2500, "name": "Royal Crystals", "icon": "💎" },

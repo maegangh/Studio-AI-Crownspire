@@ -7,7 +7,7 @@ extends PanelContainer
 # 1. First-Week Permanent Secondary Construction Queue ($4.99 USD)
 # 2. Legendary Hero Starter Pack ($4.99 USD)
 
-signal offer_purchased(offer_id: String)
+signal offer_requested(offer_id: String)
 signal offer_closed()
 
 var current_offer_id: String = ""
@@ -161,6 +161,24 @@ func _build_ui() -> void:
 	price_btn.pressed.connect(_on_purchase_pressed)
 	main_vbox.add_child(price_btn)
 
+	if OS.is_debug_build():
+		var dbg_btn = Button.new()
+		dbg_btn.text = "🛠️ [DEBUG ONLY] SIMULATE TRUSTED CONFIRMATION"
+		dbg_btn.custom_minimum_size = Vector2(0, 28)
+		dbg_btn.focus_mode = Control.FOCUS_NONE
+		dbg_btn.add_theme_font_size_override("font_size", 10)
+		var dbg_style = StyleBoxFlat.new()
+		dbg_style.bg_color = Color(0.7, 0.4, 0.1, 0.9)
+		dbg_style.set_corner_radius_all(4)
+		dbg_btn.add_theme_stylebox_override("normal", dbg_style)
+		dbg_btn.pressed.connect(func():
+			var settings_mgr = get_node_or_null("/root/SettingsManager")
+			if settings_mgr and settings_mgr.has_method("debug_simulate_purchase_confirmation"):
+				settings_mgr.debug_simulate_purchase_confirmation(current_offer_id)
+			queue_free()
+		)
+		main_vbox.add_child(dbg_btn)
+
 func _update_offer_display() -> void:
 	if offer_config.is_empty(): return
 	
@@ -222,7 +240,7 @@ func _on_purchase_pressed() -> void:
 	if settings_mgr:
 		settings_mgr.request_purchase(current_offer_id)
 		
-	offer_purchased.emit(current_offer_id)
+	offer_requested.emit(current_offer_id)
 	queue_free()
 
 func _on_close_pressed() -> void:

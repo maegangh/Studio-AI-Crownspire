@@ -277,6 +277,14 @@ func _ready() -> void:
 	bp_unlock_premium_btn.pressed.connect(_on_unlock_premium_pass_pressed)
 	bp_gain_xp_btn.pressed.connect(_on_gain_bp_xp_pressed)
 	
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	if settings_mgr and settings_mgr.has_signal("entitlement_confirmed"):
+		settings_mgr.entitlement_confirmed.connect(func(ent_id):
+			_show_toast("✓ Entitlement Confirmed: " + ent_id)
+			if _selected_event_id == "sovereigns_ascension" and is_instance_valid(ascension_detail_scroll) and ascension_detail_scroll.visible:
+				_open_sovereigns_ascension_details()
+		)
+	
 	# Layout
 	_setup_horizontal_tabs()
 	_refresh_overall_ui()
@@ -1591,14 +1599,16 @@ func _open_sovereigns_ascension_details() -> void:
 	var rewards_grid = HBoxContainer.new()
 	rewards_grid.add_theme_constant_override("separation", 8)
 	
-	var bundle_rewards = [
-		{ "icon": "💎", "name": "2.5k Crystals", "amount": 2500 },
-		{ "icon": "🪙", "name": "1M Gold", "amount": 1000000 },
-		{ "icon": "🌾", "name": "2M Food", "amount": 2000000 },
-		{ "icon": "🪵", "name": "2M Wood", "amount": 2000000 },
-		{ "icon": "⏱️", "name": "24x 1h Speedups", "amount": 24 },
-		{ "icon": "📜", "name": "10x Hero Tokens", "amount": 10 }
-	]
+	var bundle_rewards = ascension_config.get("completion_reward_bundle", {}).get("rewards", []) as Array
+	if bundle_rewards.is_empty():
+		bundle_rewards = [
+			{ "icon": "💎", "name": "2.5k Crystals", "amount": 2500 },
+			{ "icon": "🪙", "name": "1M Gold", "amount": 1000000 },
+			{ "icon": "🌾", "name": "2M Food", "amount": 2000000 },
+			{ "icon": "🪵", "name": "2M Wood", "amount": 2000000 },
+			{ "icon": "⏱️", "name": "24x 1h Speedups", "amount": 24 },
+			{ "icon": "📜", "name": "10x Hero Tokens", "amount": 10 }
+		]
 	
 	for r in bundle_rewards:
 		var slot = PanelContainer.new()
@@ -1613,13 +1623,13 @@ func _open_sovereigns_ascension_details() -> void:
 		slot.add_child(s_v)
 		
 		var ic = Label.new()
-		ic.text = r["icon"]
+		ic.text = str(r.get("icon", "📦"))
 		ic.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		ic.add_theme_font_size_override("font_size", 14)
 		s_v.add_child(ic)
 		
 		var nm = Label.new()
-		nm.text = r["name"]
+		nm.text = str(r.get("name", "Reward"))
 		nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		nm.add_theme_font_size_override("font_size", 9)
 		nm.add_theme_color_override("font_color", Color(0.8, 0.85, 0.9))
@@ -1774,8 +1784,8 @@ func _open_starter_offer_popup(offer_id: String, offer_cfg: Dictionary) -> void:
 	if offer_script:
 		var popup = offer_script.new()
 		popup.setup_offer(offer_id, offer_cfg)
-		popup.offer_purchased.connect(func(purchased_id):
-			_show_toast("Starter Offer Purchased! Entitlement Confirmed.")
+		popup.offer_requested.connect(func(req_id):
+			_show_toast("Purchase request submitted for %s. Pending trusted confirmation..." % offer_cfg.get("title", req_id))
 			_open_sovereigns_ascension_details()
 		)
 		add_child(popup)
@@ -1789,28 +1799,41 @@ func _claim_sovereigns_ascension_chest() -> void:
 	_events_db["sovereigns_ascension_claimed"] = true
 	_save_events_to_disk()
 	
-	# Credit rewards to inventory
-	UIManager.royal_crystals += 2500
-	UIManager.gold += 1000000
-	UIManager.food += 2000000
-	UIManager.wood += 2000000
-	UIManager.stone += 1000000
-	UIManager.iron += 1000000
+	# Load Config dynamically
+	var ascension_config: Dictionary = {}
+	var asc_file = FileAccess.open("res://data/sovereigns_ascension_config.json", FileAccess.READ)
+	if not asc_file:
+		asc_file = FileAccess.open("res://godot/data/sovereigns_ascension_config.json", FileAccess.READ)
+	if asc_file:
+		var json = JSON.new()
+		if json.parse(asc_file.get_as_text()) == OK:
+			ascension_config = json.get_data()
+		asc_file.close()
+		
+	var bundle_rewards = ascension_config.get("completion_reward_bundle", {}).get("rewards", []) as Array
+	var rewards_array: Array = []
 	
-	_credit_reward_item_to_bag("speedup_universal_1h", 24)
-	_credit_reward_item_to_bag("token_recruitment_legendary", 10)
-	
+	for r in bundle_rewards:
+		var r_id = str(r.get("id", ""))
+		var r_type = str(r.get("type", "item"))
+		var r_amount = int(r.get("amount", 1))
+		var r_name = str(r.get("name", r_id))
+		
+		rewards_array.append({"name": r_name, "quantity": r_amount, "id": r_id})
+		
+		if r_type == "currency" or r_type == "resource":
+			match r_id:
+				"diamonds", "royal_crystals": UIManager.royal_crystals += r_amount
+				"gold": UIManager.gold += r_amount
+				"food": UIManager.food += r_amount
+				"wood": UIManager.wood += r_amount
+				"stone": UIManager.stone += r_amount
+				"iron": UIManager.iron += r_amount
+		else:
+			_credit_reward_item_to_bag(r_id, r_amount)
+			
 	UIManager.currency_changed.emit("royal_crystals", float(UIManager.royal_crystals))
 	UIManager.currency_changed.emit("gold", float(UIManager.gold))
-	
-	var rewards_array = [
-		{"name": "Royal Crystals", "quantity": 2500},
-		{"name": "Gold Coins", "quantity": 1000000},
-		{"name": "Food Provisions", "quantity": 2000000},
-		{"name": "Timber Provisions", "quantity": 2000000},
-		{"name": "1h Universal Speedup", "quantity": 24},
-		{"name": "Legendary Hero Token", "quantity": 10}
-	]
 	
 	UIManager.sovereign_companion_reward_requested.emit("bundle_sovereign_ascension_chest", rewards_array)
 	UIManager.reward_claimed.emit(rewards_array)
