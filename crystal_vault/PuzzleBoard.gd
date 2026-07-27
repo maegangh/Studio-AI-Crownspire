@@ -34,6 +34,7 @@ const TILE_HEIGHT := 64.0
 var active_tiles: Array[Node] = []
 var tray_tiles: Array[Node] = []
 var undo_stack: Array = [] # History snapshots
+var tray_max_capacity: int = 7
 
 var active_mode: String = "expedition" # expedition, endless, daily
 var active_level_id: String = "1_1"
@@ -47,6 +48,9 @@ const COMBO_WINDOW := 5.0 # Seconds before combo resets
 
 var is_game_over: bool = false
 var accessibility_enabled: bool = false
+
+# Energy & Out of Energy Overlay
+var out_of_energy_overlay: PanelContainer = null
 
 # Statistics gathered inside this single run
 var matches_made_this_run: int = 0
@@ -69,21 +73,23 @@ func _ready() -> void:
 		tray_anchors.name = "TrayAnchors"
 		add_child(tray_anchors)
 	
-	# Clear any old anchor placeholders
+	build_tray_anchors(7)
+	setup_board_ui()
+	update_ui_displays()
+
+func build_tray_anchors(capacity: int = 7) -> void:
+	if tray_anchors == null:
+		return
 	for child in tray_anchors.get_children():
 		child.queue_free()
 		
-	# Spawn 7 beautifully centered anchor positions representing the Relic Altar Slots
-	# Centered in our 1024 width viewport (centered around 512, slot width 56)
-	var start_x := 512.0 - ((7.0 / 2.0) * 56.0) + 28.0
-	for i in range(7):
+	# Spawn capacity anchor positions representing the Relic Altar Slots
+	var start_x := 512.0 - ((float(capacity) / 2.0) * 56.0) + 28.0
+	for i in range(capacity):
 		var marker := Marker2D.new()
 		marker.name = "SlotAnchor_%d" % i
-		marker.position = Vector2(start_x + (i * 56.0), 470) # Beautiful bottom-center placement
+		marker.position = Vector2(start_x + (i * 56.0), 470)
 		tray_anchors.add_child(marker)
-		
-	setup_board_ui()
-	update_ui_displays()
 
 func _process(delta: float) -> void:
 	if combo_timer > 0.0:
@@ -105,28 +111,44 @@ func setup_board_ui() -> void:
 	# Create bottom toolbar container
 	toolbar_container = HBoxContainer.new()
 	toolbar_container.alignment = BoxContainer.ALIGNMENT_CENTER
-	toolbar_container.add_theme_constant_override("separation", 15)
-	toolbar_container.position = Vector2(112, 535) # Beautifully centered at bottom
-	toolbar_container.custom_minimum_size = Vector2(800, 45)
+	toolbar_container.add_theme_constant_override("separation", 10)
+	toolbar_container.position = Vector2(62, 535) # Beautifully centered at bottom
+	toolbar_container.custom_minimum_size = Vector2(900, 45)
 	overlay.add_child(toolbar_container)
 	
-	# Undo Button
+	# 1. Undo Button
 	var undo_btn := Button.new()
 	undo_btn.name = "UndoButton"
 	undo_btn.pressed.connect(_on_undo_pressed)
 	toolbar_container.add_child(undo_btn)
 	
-	# Shuffle Button
+	# 2. Withdraw Button
+	var withdraw_btn := Button.new()
+	withdraw_btn.name = "WithdrawButton"
+	withdraw_btn.pressed.connect(_on_withdraw_pressed)
+	toolbar_container.add_child(withdraw_btn)
+	
+	# 3. Shuffle Button
 	var shuffle_btn := Button.new()
 	shuffle_btn.name = "ShuffleButton"
 	shuffle_btn.pressed.connect(_on_shuffle_pressed)
 	toolbar_container.add_child(shuffle_btn)
 	
-	# Hint Button
+	# 4. Insight Button
 	var hint_btn := Button.new()
 	hint_btn.name = "HintButton"
 	hint_btn.pressed.connect(_on_hint_pressed)
 	toolbar_container.add_child(hint_btn)
+	
+	# 5. Extra Slot Button
+	var slot_btn := Button.new()
+	slot_btn.name = "ExtraSlotButton"
+	slot_btn.pressed.connect(_on_extra_slot_pressed)
+	toolbar_container.add_child(slot_btn)
+	
+	# Separator
+	var sep := VSeparator.new()
+	toolbar_container.add_child(sep)
 	
 	# Restart Button
 	var restart_btn := Button.new()
@@ -138,7 +160,7 @@ func setup_board_ui() -> void:
 	# Exit Button
 	var exit_btn := Button.new()
 	exit_btn.name = "ExitButton"
-	exit_btn.text = "🚪 Exit to Lobby"
+	exit_btn.text = "🚪 Exit"
 	exit_btn.pressed.connect(_on_exit_pressed)
 	toolbar_container.add_child(exit_btn)
 	
@@ -214,6 +236,45 @@ func setup_board_ui() -> void:
 	d_box.add_child(d_exit_btn)
 	
 	overlay.add_child(defeat_overlay)
+	
+	# Setup Out of Energy Overlay Panel
+	out_of_energy_overlay = PanelContainer.new()
+	out_of_energy_overlay.name = "OutOfEnergyOverlay"
+	out_of_energy_overlay.visible = false
+	out_of_energy_overlay.custom_minimum_size = Vector2(420, 280)
+	out_of_energy_overlay.position = Vector2(302, 120)
+	
+	var e_box := VBoxContainer.new()
+	e_box.add_theme_constant_override("separation", 14)
+	out_of_energy_overlay.add_child(e_box)
+	
+	var e_title := Label.new()
+	e_title.text = "⚡ ATTEMPTS EXHAUSTED"
+	e_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	e_title.add_theme_font_size_override("font_size", 20)
+	e_title.modulate = Color(1.0, 0.6, 0.2, 1.0)
+	e_box.add_child(e_title)
+	
+	var e_desc := Label.new()
+	e_desc.text = "You have 0 event attempts remaining.\nNatural recovery generates +1 attempt every 30 minutes.\nPurchase additional attempts to continue playing!"
+	e_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	e_box.add_child(e_desc)
+	
+	var e_buy_btn := Button.new()
+	e_buy_btn.text = "💎 Purchase +5 Attempts (100 Shards)"
+	e_buy_btn.pressed.connect(func():
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_attempts(5, 100):
+			out_of_energy_overlay.visible = false
+			_on_restart_pressed()
+	)
+	e_box.add_child(e_buy_btn)
+	
+	var e_exit_btn := Button.new()
+	e_exit_btn.text = "🚪 Return to Lobby"
+	e_exit_btn.pressed.connect(_on_exit_pressed)
+	e_box.add_child(e_exit_btn)
+	
+	overlay.add_child(out_of_energy_overlay)
 
 func update_ui_displays() -> void:
 	if score_lbl:
@@ -221,38 +282,126 @@ func update_ui_displays() -> void:
 	if combo_lbl:
 		combo_lbl.text = "Combo: x%d" % combo if combo > 0 else ""
 		
+	var u_count := CVSaveManager.get_booster_count("undo") if CVSaveManager else 0
+	var w_count := CVSaveManager.get_booster_count("withdraw") if CVSaveManager else 0
+	var s_count := CVSaveManager.get_booster_count("shuffle") if CVSaveManager else 0
+	var i_count := CVSaveManager.get_booster_count("insight") if CVSaveManager else 0
+	var x_count := CVSaveManager.get_booster_count("extra_slot") if CVSaveManager else 0
+	
 	var undo_btn = toolbar_container.get_node_or_null("UndoButton") if toolbar_container else null
 	if undo_btn:
-		var undos_left = max(0, max_undos - undos_used_this_run)
-		undo_btn.text = "↩️ Undo (%d/%d)" % [undos_left, max_undos]
-		undo_btn.disabled = undo_stack.is_empty() or undos_left <= 0 or is_game_over
+		undo_btn.text = "↩️ Undo (%d)" % u_count
+		undo_btn.disabled = is_game_over
+		
+	var withdraw_btn = toolbar_container.get_node_or_null("WithdrawButton") if toolbar_container else null
+	if withdraw_btn:
+		withdraw_btn.text = "📥 Withdraw (%d)" % w_count
+		withdraw_btn.disabled = tray_tiles.is_empty() or is_game_over
 		
 	var shuffle_btn = toolbar_container.get_node_or_null("ShuffleButton") if toolbar_container else null
 	if shuffle_btn:
-		var shuffles_left = max(0, max_shuffles - shuffles_used_this_run)
-		shuffle_btn.text = "🔀 Shuffle (%d/%d)" % [shuffles_left, max_shuffles]
-		shuffle_btn.disabled = active_tiles.is_empty() or shuffles_left <= 0 or is_game_over
+		shuffle_btn.text = "🔀 Shuffle (%d)" % s_count
+		shuffle_btn.disabled = active_tiles.is_empty() or is_game_over
 		
 	var hint_btn = toolbar_container.get_node_or_null("HintButton") if toolbar_container else null
 	if hint_btn:
-		var hints_left = max(0, max_hints - hints_used_this_run)
-		hint_btn.text = "💡 Hint (%d/%d)" % [hints_left, max_hints]
-		hint_btn.disabled = active_tiles.is_empty() or hints_left <= 0 or is_game_over
+		hint_btn.text = "💡 Insight (%d)" % i_count
+		hint_btn.disabled = active_tiles.is_empty() or is_game_over
+		
+	var slot_btn = toolbar_container.get_node_or_null("ExtraSlotButton") if toolbar_container else null
+	if slot_btn:
+		if tray_max_capacity >= 8:
+			slot_btn.text = "✨ 8 Slots Active"
+			slot_btn.disabled = true
+		else:
+			slot_btn.text = "➕ +1 Slot (%d)" % x_count
+			slot_btn.disabled = is_game_over
 
 func _on_undo_pressed() -> void:
 	if is_game_over: return
-	trigger_undo()
+	if CVSaveManager and CVSaveManager.get_booster_count("undo") > 0:
+		if CVSaveManager.use_booster("undo"):
+			trigger_undo()
+	else:
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_booster("undo", 40):
+			if CVSaveManager and CVSaveManager.use_booster("undo"):
+				trigger_undo()
 	update_ui_displays()
-	
+
+func _on_withdraw_pressed() -> void:
+	if is_game_over: return
+	if CVSaveManager and CVSaveManager.get_booster_count("withdraw") > 0:
+		if CVSaveManager.use_booster("withdraw"):
+			trigger_withdraw()
+	else:
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_booster("withdraw", 60):
+			if CVSaveManager and CVSaveManager.use_booster("withdraw"):
+				trigger_withdraw()
+	update_ui_displays()
+
 func _on_shuffle_pressed() -> void:
 	if is_game_over: return
-	trigger_shuffle()
+	if CVSaveManager and CVSaveManager.get_booster_count("shuffle") > 0:
+		if CVSaveManager.use_booster("shuffle"):
+			trigger_shuffle()
+	else:
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_booster("shuffle", 50):
+			if CVSaveManager and CVSaveManager.use_booster("shuffle"):
+				trigger_shuffle()
 	update_ui_displays()
-	
+
 func _on_hint_pressed() -> void:
 	if is_game_over: return
-	trigger_hint()
+	if CVSaveManager and CVSaveManager.get_booster_count("insight") > 0:
+		if CVSaveManager.use_booster("insight"):
+			trigger_hint()
+	else:
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_booster("insight", 50):
+			if CVSaveManager and CVSaveManager.use_booster("insight"):
+				trigger_hint()
 	update_ui_displays()
+
+func _on_extra_slot_pressed() -> void:
+	if is_game_over or tray_max_capacity >= 8: return
+	if CVSaveManager and CVSaveManager.get_booster_count("extra_slot") > 0:
+		if CVSaveManager.use_booster("extra_slot"):
+			trigger_extra_slot()
+	else:
+		if CrystalVaultManager and CrystalVaultManager.request_purchase_booster("extra_slot", 75):
+			if CVSaveManager and CVSaveManager.use_booster("extra_slot"):
+				trigger_extra_slot()
+	update_ui_displays()
+
+func trigger_withdraw() -> void:
+	if tray_tiles.is_empty() or is_game_over:
+		return
+		
+	save_undo_state()
+	
+	# Moves up to 3 tiles from tray back to board
+	var count_to_remove := min(3, tray_tiles.size())
+	var tiles_to_return: Array[Node] = []
+	for i in range(count_to_remove):
+		tiles_to_return.append(tray_tiles.pop_back())
+		
+	for tile in tiles_to_return:
+		tile.grid_x = randf_range(2.0, 5.0)
+		tile.grid_y = randf_range(2.0, 5.0)
+		tile.layer_z = 4 # Highest layer so unblocked
+		var screen_x := tile.grid_x * (TILE_WIDTH * 0.9) + 120.0
+		var screen_y := tile.grid_y * (TILE_HEIGHT * 0.72) + 80.0
+		tile.position = Vector2(screen_x, screen_y)
+		active_tiles.append(tile)
+		
+	evaluate_blocking_states()
+	realign_tray_slots_physically()
+
+func trigger_extra_slot() -> void:
+	if tray_max_capacity >= 8 or is_game_over:
+		return
+	tray_max_capacity = 8
+	build_tray_anchors(8)
+	realign_tray_slots_physically()
 	
 func _on_restart_pressed() -> void:
 	if victory_overlay: victory_overlay.visible = false
@@ -338,6 +487,10 @@ func reset_run_stats() -> void:
 
 ## 1. EXPEDITION LEVEL SPANNER
 func start_expedition_level(level_id: String, layout_id: String) -> void:
+	if CVSaveManager and not CVSaveManager.consume_attempt():
+		if out_of_energy_overlay: out_of_energy_overlay.visible = true
+		return
+		
 	print("[PuzzleBoard] Starting Expedition Level %s (Layout: %s)" % [level_id, layout_id])
 	active_mode = "expedition"
 	active_level_id = level_id
@@ -361,6 +514,10 @@ func start_expedition_level(level_id: String, layout_id: String) -> void:
 
 ## 2. ENDLESS VAULT SPANNER (DIFFICULTY SCALING BASED ON FLOOR)
 func start_endless_floor(floor_num: int) -> void:
+	if CVSaveManager and not CVSaveManager.consume_attempt():
+		if out_of_energy_overlay: out_of_energy_overlay.visible = true
+		return
+		
 	print("[PuzzleBoard] Initializing Endless Vault Floor: %d" % floor_num)
 	active_mode = "endless"
 	active_endless_floor = floor_num
@@ -377,6 +534,10 @@ func start_endless_floor(floor_num: int) -> void:
 
 ## 3. DAILY EXTREME CHALLENGE SPANNER (90 TILE EXTREME MATRIX)
 func start_daily_extreme() -> void:
+	if CVSaveManager and not CVSaveManager.consume_attempt():
+		if out_of_energy_overlay: out_of_energy_overlay.visible = true
+		return
+		
 	print("[PuzzleBoard] Spawning Daily Extreme Challenge...")
 	active_mode = "daily"
 	reset_run_stats()
@@ -446,7 +607,7 @@ func _on_tile_selected(tile: Node) -> void:
 	if is_game_over or tile.is_blocked:
 		return
 		
-	if tray_tiles.size() >= 7:
+	if tray_tiles.size() >= tray_max_capacity:
 		return
 		
 	save_undo_state()
@@ -522,7 +683,7 @@ func check_tray_matching_triplets() -> void:
 		if active_tiles.is_empty() and tray_tiles.is_empty():
 			trigger_victory()
 	else:
-		if tray_tiles.size() >= 7:
+		if tray_tiles.size() >= tray_max_capacity:
 			trigger_defeat()
 		else:
 			update_ui_displays()

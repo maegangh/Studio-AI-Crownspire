@@ -24,6 +24,29 @@ var iron: int = 4000
 # Mode Unlocks
 var unlocked_modes: Array[String] = ["puzzle_expedition", "endless_vault", "daily_extreme"]
 
+# Event System & Energy / Attempt States
+var event_attempts: int = 10
+var max_natural_attempts: int = 10
+var regen_interval_sec: int = 1800 # 30 minutes
+var last_regen_timestamp: int = 0
+var event_start_timestamp: int = 0
+
+# Booster Inventory
+var booster_inventory: Dictionary = {
+	"undo": 3,
+	"withdraw": 2,
+	"shuffle": 3,
+	"insight": 2,
+	"extra_slot": 1
+}
+
+# Daily Vault Gift Claim Tracker
+var claimed_daily_gift_days: Array = []
+var last_gift_claim_date_str: String = ""
+
+# Event Stage Progression
+var claimed_event_stages: Array = []
+
 # Expedition Progression: level_id -> stars (int)
 var completed_levels: Dictionary = {}
 
@@ -67,6 +90,15 @@ func save_game_state() -> void:
 		"daily_completed_today": daily_completed_today,
 		"daily_streak": daily_streak,
 		"last_daily_date": last_daily_date,
+		"event_attempts": event_attempts,
+		"max_natural_attempts": max_natural_attempts,
+		"regen_interval_sec": regen_interval_sec,
+		"last_regen_timestamp": last_regen_timestamp,
+		"event_start_timestamp": event_start_timestamp,
+		"booster_inventory": booster_inventory,
+		"claimed_daily_gift_days": claimed_daily_gift_days,
+		"last_gift_claim_date_str": last_gift_claim_date_str,
+		"claimed_event_stages": claimed_event_stages,
 		"stats": stats,
 		"last_saved": Time.get_datetime_dict_from_system()
 	}
@@ -89,6 +121,9 @@ func save_game_state() -> void:
 func load_game_state() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
 		print("[CVSaveManager] No prior save file discovered. Initializing clean default progression.")
+		var now := int(Time.get_unix_time_from_system())
+		last_regen_timestamp = now
+		event_start_timestamp = now
 		return
 		
 	var save_file := FileAccess.open(SAVE_PATH, FileAccess.READ)
@@ -129,6 +164,23 @@ func load_game_state() -> void:
 	if data.has("daily_streak"): daily_streak = int(data["daily_streak"])
 	if data.has("last_daily_date"): last_daily_date = str(data["last_daily_date"])
 	
+	if data.has("event_attempts"): event_attempts = int(data["event_attempts"])
+	if data.has("max_natural_attempts"): max_natural_attempts = int(data["max_natural_attempts"])
+	if data.has("regen_interval_sec"): regen_interval_sec = int(data["regen_interval_sec"])
+	if data.has("last_regen_timestamp"): last_regen_timestamp = int(data["last_regen_timestamp"])
+	if data.has("event_start_timestamp"): event_start_timestamp = int(data["event_start_timestamp"])
+	
+	if data.has("booster_inventory"): booster_inventory = Dictionary(data["booster_inventory"])
+	if data.has("claimed_daily_gift_days"): claimed_daily_gift_days = Array(data["claimed_daily_gift_days"])
+	if data.has("last_gift_claim_date_str"): last_gift_claim_date_str = str(data["last_gift_claim_date_str"])
+	if data.has("claimed_event_stages"): claimed_event_stages = Array(data["claimed_event_stages"])
+	
+	var now := int(Time.get_unix_time_from_system())
+	if last_regen_timestamp <= 0: last_regen_timestamp = now
+	if event_start_timestamp <= 0: event_start_timestamp = now
+	
+	update_attempt_regen()
+	
 	if data.has("stats"):
 		var loaded_stats: Dictionary = data["stats"]
 		for k in stats.keys():
@@ -138,7 +190,7 @@ func load_game_state() -> void:
 	load_completed.emit()
 	resonance_updated.emit(resonance_rating)
 	resources_updated.emit()
-	print("[CVSaveManager] Progression save successfully loaded. Active resonance: %d" % resonance_rating)
+	print("[CVSaveManager] Progression save successfully loaded. Active attempts: %d/%d" % [event_attempts, max_natural_attempts])
 
 ## Complete profile wipe
 func reset_save_data() -> void:
@@ -155,6 +207,23 @@ func reset_save_data() -> void:
 	daily_streak = 0
 	last_daily_date = ""
 	
+	event_attempts = 10
+	max_natural_attempts = 10
+	var now := int(Time.get_unix_time_from_system())
+	last_regen_timestamp = now
+	event_start_timestamp = now
+	
+	booster_inventory = {
+		"undo": 3,
+		"withdraw": 2,
+		"shuffle": 3,
+		"insight": 2,
+		"extra_slot": 1
+	}
+	claimed_daily_gift_days.clear()
+	last_gift_claim_date_str = ""
+	claimed_event_stages.clear()
+	
 	stats = {
 		"total_matches": 0,
 		"total_wins": 0,
@@ -169,6 +238,128 @@ func reset_save_data() -> void:
 	
 	save_game_state()
 	print("[CVSaveManager] Clean state profile reset completed.")
+
+#============================================================================
+# EVENT ENERGY / ATTEMPT REGENERATION & BOOSTER LOGIC
+#============================================================================
+
+## Recalculates passive offline attempt recovery based on real elapsed time
+func update_attempt_regen() -> void:
+	var now := int(Time.get_unix_time_from_system())
+	if last_regen_timestamp <= 0:
+		last_regen_timestamp = now
+		return
+		
+	if event_attempts < max_natural_attempts:
+		var elapsed := now - last_regen_timestamp
+		if elapsed >= regen_interval_sec:
+			var gained := elapsed / regen_interval_sec
+			event_attempts = min(max_natural_attempts, event_attempts + gained)
+			last_regen_timestamp += gained * regen_interval_sec
+			save_game_state()
+	else:
+		# Keep timestamp updated if at or above cap
+		last_regen_timestamp = now
+
+## Returns a details dictionary for current event attempt status & countdown timers
+func get_attempts_info() -> Dictionary:
+	update_attempt_regen()
+	var now := int(Time.get_unix_time_from_system())
+	var next_sec := 0
+	if event_attempts < max_natural_attempts:
+		next_sec = max(0, regen_interval_sec - (now - last_regen_timestamp))
+		
+	var event_elapsed := max(0, now - event_start_timestamp)
+	var event_time_remaining := max(0, 345600 - (event_elapsed % 345600)) # 4-day loop (345600s)
+	var current_event_day := min(4, 1 + int((event_elapsed % 345600) / 86400))
+	
+	return {
+		"attempts": event_attempts,
+		"max": max_natural_attempts,
+		"next_regen_sec": next_sec,
+		"event_time_remaining": event_time_remaining,
+		"current_event_day": current_event_day
+	}
+
+## Attempts to spend 1 entry attempt for a board run
+func consume_attempt() -> bool:
+	update_attempt_regen()
+	if event_attempts > 0:
+		if event_attempts == max_natural_attempts:
+			last_regen_timestamp = int(Time.get_unix_time_from_system())
+		event_attempts -= 1
+		save_game_state()
+		resources_updated.emit()
+		return true
+	return false
+
+## Adds purchased/rewarded attempts (can exceed natural cap of 10)
+func add_attempts(amount: int) -> void:
+	event_attempts += amount
+	save_game_state()
+	resources_updated.emit()
+
+## Booster Inventory query
+func get_booster_count(booster_id: String) -> int:
+	return int(booster_inventory.get(booster_id, 0))
+
+## Booster consumption
+func use_booster(booster_id: String) -> bool:
+	var count := get_booster_count(booster_id)
+	if count > 0:
+		booster_inventory[booster_id] = count - 1
+		save_game_state()
+		resources_updated.emit()
+		return true
+	return false
+
+## Booster addition
+func add_booster(booster_id: String, amount: int = 1) -> void:
+	booster_inventory[booster_id] = get_booster_count(booster_id) + amount
+	save_game_state()
+	resources_updated.emit()
+
+## Daily Vault Gift check
+func can_claim_daily_gift(event_day: int) -> bool:
+	return not claimed_daily_gift_days.has(event_day)
+
+## Daily Vault Gift claim
+func claim_daily_gift(event_day: int, rewards: Dictionary) -> bool:
+	if not can_claim_daily_gift(event_day):
+		return false
+		
+	claimed_daily_gift_days.append(event_day)
+	if rewards.has("shards"):
+		astral_shards += int(rewards["shards"])
+	if rewards.has("boosters"):
+		var b_dict: Dictionary = rewards["boosters"]
+		for b_id in b_dict.keys():
+			add_booster(b_id, int(b_dict[b_id]))
+			
+	save_game_state()
+	resources_updated.emit()
+	return true
+
+## Event Stage completion check
+func is_stage_claimed(stage_num: int) -> bool:
+	return claimed_event_stages.has(stage_num)
+
+## Event Stage reward claim
+func claim_stage_reward(stage_num: int, rewards: Dictionary) -> bool:
+	if is_stage_claimed(stage_num):
+		return false
+		
+	claimed_event_stages.append(stage_num)
+	if rewards.has("shards"):
+		astral_shards += int(rewards["shards"])
+	if rewards.has("boosters"):
+		var b_dict: Dictionary = rewards["boosters"]
+		for b_id in b_dict.keys():
+			add_booster(b_id, int(b_dict[b_id]))
+			
+	save_game_state()
+	resources_updated.emit()
+	return true
 
 ## Awards generic resources and triggers sync
 func award_reliquary_rewards(shards: int, orbs: int, gold_val: int, wood_val: int, stone_val: int, iron_val: int) -> void:

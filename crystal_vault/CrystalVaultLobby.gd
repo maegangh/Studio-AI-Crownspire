@@ -76,9 +76,11 @@ func setup_tabbed_layout() -> void:
 	
 	# Sidebar Navigation Buttons
 	add_sidebar_tab_button("home", "🏰 Vault Hub")
+	add_sidebar_tab_button("event", "🌟 Event: Astral Convergence")
 	add_sidebar_tab_button("expedition", "🗺️ Expedition Levels")
 	add_sidebar_tab_button("endless", "⚔️ Endless Vault")
 	add_sidebar_tab_button("daily", "🧪 Daily Extreme")
+	add_sidebar_tab_button("boosters", "🎒 Booster Inventory")
 	add_sidebar_tab_button("settings", "⚙️ Vault Preferences")
 	
 	# Disabled Coming Soon Categories (Purely descriptive for social, PvP & Arena scope compliance)
@@ -137,12 +139,16 @@ func switch_to_tab(tab_id: String) -> void:
 	match tab_id:
 		"home":
 			render_home_hub()
+		"event":
+			render_event_hub()
 		"expedition":
 			render_expedition_levels()
 		"endless":
 			render_endless_vault()
 		"daily":
 			render_daily_challenge()
+		"boosters":
+			render_booster_inventory()
 		"settings":
 			render_settings()
 
@@ -154,6 +160,39 @@ func render_home_hub() -> void:
 	title.modulate = Color(0.8, 0.85, 1.0, 1.0)
 	content_vbox.add_child(title)
 	
+	# Event & Energy Summary Banner
+	if CVSaveManager:
+		var att_info := CVSaveManager.get_attempts_info()
+		var e_panel := PanelContainer.new()
+		var e_hbox := HBoxContainer.new()
+		e_hbox.add_theme_constant_override("separation", 20)
+		e_panel.add_child(e_hbox)
+		
+		var att_lbl := Label.new()
+		att_lbl.text = "⚡ Attempts: %d/%d" % [att_info["attempts"], att_info["max"]]
+		att_lbl.add_theme_font_size_override("font_size", 14)
+		att_lbl.modulate = Color(1.0, 0.85, 0.3, 1.0)
+		e_hbox.add_child(att_lbl)
+		
+		if att_info["attempts"] < att_info["max"]:
+			var regen_mins := int(att_info["next_regen_sec"]) / 60
+			var regen_secs := int(att_info["next_regen_sec"]) % 60
+			var timer_lbl := Label.new()
+			timer_lbl.text = "⏱️ +1 in %02d:%02d" % [regen_mins, regen_secs]
+			timer_lbl.modulate = Color(0.7, 0.7, 0.8, 1.0)
+			e_hbox.add_child(timer_lbl)
+			
+		var buy_att_btn := Button.new()
+		buy_att_btn.text = "➕ Buy Attempts (+5 for 100 💎)"
+		buy_att_btn.pressed.connect(func():
+			if CrystalVaultManager and CrystalVaultManager.request_purchase_attempts(5, 100):
+				update_currency_displays()
+				render_home_hub()
+		)
+		e_hbox.add_child(buy_att_btn)
+		
+		content_vbox.add_child(e_panel)
+		
 	var desc := Label.new()
 	desc.text = "Welcome, Software Architect, to Crownspire's sacred Reliquary.\nConsolidate raw stardust elements on the 7-slot tray Altar to purify the crystals.\nMatch triplets to trigger elemental reactions and restore order."
 	desc.autowrap_mode = TextServer.AUTOWRAP_WORD
@@ -185,6 +224,226 @@ func render_home_hub() -> void:
 		streak_lbl.add_theme_font_size_override("font_size", 14)
 		streak_lbl.modulate = Color(1.0, 0.55, 0.2, 1.0)
 		content_vbox.add_child(streak_lbl)
+
+#============================================================================
+# SCREEN 1B: 4-DAY LIMITED EVENT HUB ("ASTRAL CONVERGENCE")
+#============================================================================
+func render_event_hub() -> void:
+	var att_info := CVSaveManager.get_attempts_info() if CVSaveManager else {"attempts": 10, "max": 10, "next_regen_sec": 0, "event_time_remaining": 345600, "current_event_day": 1}
+	
+	# Header Banner
+	var banner_panel := PanelContainer.new()
+	var banner_vbox := VBoxContainer.new()
+	banner_vbox.add_theme_constant_override("separation", 6)
+	banner_panel.add_child(banner_vbox)
+	
+	var title := Label.new()
+	title.text = "🌟 RECURRING EVENT: ASTRAL CONVERGENCE"
+	title.add_theme_font_size_override("font_size", 22)
+	title.modulate = Color(1.0, 0.85, 0.3, 1.0)
+	banner_vbox.add_child(title)
+	
+	var rem_sec := int(att_info["event_time_remaining"])
+	var days_left := rem_sec / 86400
+	var hrs_left := (rem_sec % 86400) / 3600
+	var mins_left := (rem_sec % 3600) / 60
+	
+	var timer_lbl := Label.new()
+	timer_lbl.text = "⏳ Event Ends In: %dd %02dh %02dm  |  Event Day: %d of 4" % [days_left, hrs_left, mins_left, att_info["current_event_day"]]
+	timer_lbl.add_theme_font_size_override("font_size", 13)
+	timer_lbl.modulate = Color(0.8, 0.9, 1.0, 1.0)
+	banner_vbox.add_child(timer_lbl)
+	
+	content_vbox.add_child(banner_panel)
+	
+	# --- SECTION A: DAILY VAULT GIFTS ---
+	var gift_title := Label.new()
+	gift_title.text = "🎁 DAILY VAULT GIFTS (FREE EVENT BOOSTERS)"
+	gift_title.add_theme_font_size_override("font_size", 15)
+	gift_title.modulate = Color(0.5, 0.9, 1.0, 1.0)
+	content_vbox.add_child(gift_title)
+	
+	var gifts_hbox := HBoxContainer.new()
+	gifts_hbox.add_theme_constant_override("separation", 10)
+	content_vbox.add_child(gifts_hbox)
+	
+	var daily_gifts_data := [
+		{"day": 1, "label": "Day 1 Supply", "shards": 100, "boosters": {"undo": 2}},
+		{"day": 2, "label": "Day 2 Tactical", "shards": 150, "boosters": {"withdraw": 2, "extra_slot": 1}},
+		{"day": 3, "label": "Day 3 Sight & Shift", "shards": 200, "boosters": {"shuffle": 2, "insight": 2}},
+		{"day": 4, "label": "Day 4 Grand Relic", "shards": 300, "boosters": {"undo": 2, "withdraw": 2, "shuffle": 2, "insight": 2, "extra_slot": 2}}
+	]
+	
+	for gift in daily_gifts_data:
+		var g_day: int = gift["day"]
+		var g_panel := PanelContainer.new()
+		g_panel.custom_minimum_size = Vector2(170, 110)
+		
+		var g_vbox := VBoxContainer.new()
+		g_vbox.add_theme_constant_override("separation", 4)
+		g_panel.add_child(g_vbox)
+		
+		var g_lbl := Label.new()
+		g_lbl.text = gift["label"]
+		g_lbl.add_theme_font_size_override("font_size", 13)
+		g_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		g_vbox.add_child(g_lbl)
+		
+		var g_desc := Label.new()
+		g_desc.text = "💎 %d Shards\n" % gift["shards"]
+		var b_dict: Dictionary = gift["boosters"]
+		for b_k in b_dict.keys():
+			g_desc.text += "+%d %s " % [b_dict[b_k], b_k.capitalize()]
+		g_desc.add_theme_font_size_override("font_size", 10)
+		g_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		g_desc.modulate = Color(0.8, 0.8, 0.8, 1.0)
+		g_vbox.add_child(g_desc)
+		
+		var is_claimed := not CVSaveManager.can_claim_daily_gift(g_day) if CVSaveManager else false
+		var is_available := (g_day <= att_info["current_event_day"]) and not is_claimed
+		
+		var claim_btn := Button.new()
+		if is_claimed:
+			claim_btn.text = "✅ Claimed"
+			claim_btn.disabled = true
+		elif is_available:
+			claim_btn.text = "Claim Gift!"
+			claim_btn.pressed.connect(func():
+				if CVSaveManager and CVSaveManager.claim_daily_gift(g_day, gift):
+					if CrystalVaultManager:
+						CrystalVaultManager.notify_event_reward_claimed("daily_gift", gift)
+					update_currency_displays()
+					switch_to_tab("event")
+			)
+		else:
+			claim_btn.text = "Locked (Day %d)" % g_day
+			claim_btn.disabled = true
+			
+		g_vbox.add_child(claim_btn)
+		gifts_hbox.add_child(g_panel)
+		
+	# --- SECTION B: EVENT STAGE MILESTONES ---
+	var stage_title := Label.new()
+	stage_title.text = "🏆 EVENT STAGE PROGRESSION"
+	stage_title.add_theme_font_size_override("font_size", 15)
+	stage_title.modulate = Color(1.0, 0.7, 0.4, 1.0)
+	content_vbox.add_child(stage_title)
+	
+	var event_stages_data := [
+		{"stage": 1, "name": "Stage 1: Pyramid Altar", "layout": "pyramid_peak", "shards": 100, "boosters": {"undo": 1}},
+		{"stage": 2, "name": "Stage 2: Stellar Bastion", "layout": "stellar_fortress", "shards": 150, "boosters": {"withdraw": 1}},
+		{"stage": 3, "name": "Stage 3: Obsidian Core", "layout": "obsidian_obelisk", "shards": 200, "boosters": {"shuffle": 1, "insight": 1}},
+		{"stage": 4, "name": "Stage 4: Golden Reliquary", "layout": "golden_altar", "shards": 250, "boosters": {"extra_slot": 1}},
+		{"stage": 5, "name": "Stage 5: Dragon Apex", "layout": "dragon_spine", "shards": 500, "boosters": {"undo": 2, "withdraw": 2, "shuffle": 2, "insight": 2, "extra_slot": 2}}
+	]
+	
+	for s_data in event_stages_data:
+		var s_num: int = s_data["stage"]
+		var s_panel := PanelContainer.new()
+		var s_hbox := HBoxContainer.new()
+		s_hbox.add_theme_constant_override("separation", 15)
+		s_panel.add_child(s_hbox)
+		
+		var s_vbox := VBoxContainer.new()
+		s_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		s_hbox.add_child(s_vbox)
+		
+		var s_lbl := Label.new()
+		s_lbl.text = s_data["name"]
+		s_lbl.add_theme_font_size_override("font_size", 14)
+		s_lbl.modulate = Color(1.0, 0.9, 0.6, 1.0)
+		s_vbox.add_child(s_lbl)
+		
+		var s_rew := Label.new()
+		s_rew.text = "Reward: 💎 %d Shards " % s_data["shards"]
+		var b_dict: Dictionary = s_data["boosters"]
+		for b_k in b_dict.keys():
+			s_rew.text += "+%d %s " % [b_dict[b_k], b_k.capitalize()]
+		s_rew.add_theme_font_size_override("font_size", 11)
+		s_rew.modulate = Color(0.8, 0.8, 0.8, 1.0)
+		s_vbox.add_child(s_rew)
+		
+		var is_claimed := CVSaveManager.is_stage_claimed(s_num) if CVSaveManager else false
+		
+		var play_btn := Button.new()
+		play_btn.text = " Play Stage "
+		play_btn.pressed.connect(func(): launch_puzzle_board("expedition", "stage_%d" % s_num, s_data["layout"]))
+		s_hbox.add_child(play_btn)
+		
+		var claim_btn := Button.new()
+		if is_claimed:
+			claim_btn.text = "✅ Cleared"
+			claim_btn.disabled = true
+		else:
+			claim_btn.text = "Claim Reward"
+			claim_btn.pressed.connect(func():
+				if CVSaveManager and CVSaveManager.claim_stage_reward(s_num, s_data):
+					if CrystalVaultManager:
+						CrystalVaultManager.notify_event_reward_claimed("stage_reward", s_data)
+					update_currency_displays()
+					switch_to_tab("event")
+			)
+		s_hbox.add_child(claim_btn)
+		content_vbox.add_child(s_panel)
+
+#============================================================================
+# SCREEN 1C: BOOSTER INVENTORY & PRESERVED CONSUMABLES SHOP
+#============================================================================
+func render_booster_inventory() -> void:
+	var title := Label.new()
+	title.text = "🎒 TACTICAL BOOSTER INVENTORY"
+	title.add_theme_font_size_override("font_size", 20)
+	title.modulate = Color(0.4, 0.8, 1.0, 1.0)
+	content_vbox.add_child(title)
+	
+	var desc := Label.new()
+	desc.text = "Boosters enhance board manipulation during runs. Unused boosters persist safely across event cycles and sessions."
+	desc.autowrap_mode = TextServer.AUTOWRAP_WORD
+	content_vbox.add_child(desc)
+	
+	var boosters_data := [
+		{"id": "undo", "name": "↩️ Undo Booster", "desc": "Reverses tile selection and restores board/tray positioning.", "cost": 40},
+		{"id": "withdraw", "name": "📥 Withdraw Booster", "desc": "Returns up to 3 tiles from congested tray back to active board.", "cost": 60},
+		{"id": "shuffle", "name": "🔀 Shuffle Booster", "desc": "Rearranges all remaining active board tile elements.", "cost": 50},
+		{"id": "insight", "name": "💡 Insight Booster", "desc": "Highlights available unblocked tile triplet pairs on the board.", "cost": 50},
+		{"id": "extra_slot", "name": "➕ Extra Slot Booster", "desc": "Expands Relic Altar tray capacity from 7 to 8 slots for a run.", "cost": 75}
+	]
+	
+	for b in boosters_data:
+		var b_id: String = b["id"]
+		var count := CVSaveManager.get_booster_count(b_id) if CVSaveManager else 0
+		
+		var panel := PanelContainer.new()
+		var hbox := HBoxContainer.new()
+		hbox.add_theme_constant_override("separation", 15)
+		panel.add_child(hbox)
+		
+		var vbox := VBoxContainer.new()
+		vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hbox.add_child(vbox)
+		
+		var name_lbl := Label.new()
+		name_lbl.text = b["name"] + "  (In Inventory: x%d)" % count
+		name_lbl.add_theme_font_size_override("font_size", 14)
+		name_lbl.modulate = Color(1.0, 0.9, 0.5, 1.0)
+		vbox.add_child(name_lbl)
+		
+		var desc_lbl := Label.new()
+		desc_lbl.text = b["desc"]
+		desc_lbl.add_theme_font_size_override("font_size", 11)
+		desc_lbl.modulate = Color(0.75, 0.75, 0.75, 1.0)
+		vbox.add_child(desc_lbl)
+		
+		var buy_btn := Button.new()
+		buy_btn.text = "Purchase (+1 for %d 💎)" % b["cost"]
+		buy_btn.pressed.connect(func():
+			if CrystalVaultManager and CrystalVaultManager.request_purchase_booster(b_id, b["cost"]):
+				update_currency_displays()
+				switch_to_tab("boosters")
+		)
+		hbox.add_child(buy_btn)
+		
+		content_vbox.add_child(panel)
 
 func add_stat_row(grid: GridContainer, label_text: String, val_text: String) -> void:
 	var lbl := Label.new()
