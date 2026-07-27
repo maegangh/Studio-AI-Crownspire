@@ -16,6 +16,8 @@ var daily_activity_points: int = 0
 var weekly_activity_points: int = 0
 var claimed_daily_milestones: Array = [] # Array of indices
 var claimed_weekly_milestones: Array = [] # Array of indices
+var claimed_rookie_daily_chests: Array = [] # Array of day numbers (1..7)
+var claimed_rookie_overall_milestones: Array = [] # Array of milestone indices (0..4)
 
 # Pinning and resets
 var pinned_quest_ids: Array = []
@@ -79,6 +81,7 @@ func _load_database_files() -> void:
 	var intel_quests = _load_json_file("res://data/quests/intel_quests.json")
 	var wayfinder_quests = _load_json_file("res://data/quests/wayfinder_quests.json")
 	var vault_quests = _load_json_file("res://data/quests/crystal_vault_quests.json")
+	var rookie_quests = _load_json_file("res://data/quests/rookie_quests.json")
 	
 	# Append to master quests database
 	quests_db.append_array(main_quests)
@@ -90,6 +93,7 @@ func _load_database_files() -> void:
 	quests_db.append_array(intel_quests)
 	quests_db.append_array(wayfinder_quests)
 	quests_db.append_array(vault_quests)
+	quests_db.append_array(rookie_quests)
 	
 	# Ensure basic types on quests
 	for q in quests_db:
@@ -155,6 +159,8 @@ func _save_state() -> void:
 		"weekly_points": weekly_activity_points,
 		"claimed_daily_milestones": claimed_daily_milestones,
 		"claimed_weekly_milestones": claimed_weekly_milestones,
+		"claimed_rookie_daily_chests": claimed_rookie_daily_chests,
+		"claimed_rookie_overall_milestones": claimed_rookie_overall_milestones,
 		"pinned_quest_ids": pinned_quest_ids,
 		"last_daily_reset": last_daily_reset,
 		"last_weekly_reset": last_weekly_reset,
@@ -179,6 +185,8 @@ func _load_save_state() -> void:
 				weekly_activity_points = int(state.get("weekly_points", 0))
 				claimed_daily_milestones = state.get("claimed_daily_milestones", [])
 				claimed_weekly_milestones = state.get("claimed_weekly_milestones", [])
+				claimed_rookie_daily_chests = state.get("claimed_rookie_daily_chests", [])
+				claimed_rookie_overall_milestones = state.get("claimed_rookie_overall_milestones", [])
 				pinned_quest_ids = state.get("pinned_quest_ids", [])
 				last_daily_reset = int(state.get("last_daily_reset", 0))
 				last_weekly_reset = int(state.get("last_weekly_reset", 0))
@@ -714,3 +722,268 @@ func _load_json_file(path: String) -> Array:
 			if typeof(data) == TYPE_ARRAY:
 				return data
 	return []
+
+# --- ROOKIE EVENT API ---
+
+func check_rookie_current_state_objectives() -> void:
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	if not settings_mgr or not settings_mgr.has_method("get_rookie_event_day"):
+		return
+		
+	var unlocked_day = min(7, settings_mgr.get_rookie_event_day())
+	var ui_mgr = get_node_or_null("/root/UIManager")
+	if not ui_mgr:
+		return
+		
+	var updated := false
+	
+	# Gather current absolute state metrics
+	var citadel_lvl = int(ui_mgr.get_building("citadel").get("level", 1))
+	var player_power = int(ui_mgr.get("power")) if ui_mgr.get("power") != null else 10000
+	var alliance_joined = 1 if ui_mgr.player_alliance_id != "" else 0
+	
+	var hero_count = 1
+	var max_hero_level = 1
+	var heroes_list = ui_mgr.get("heroes") as Array
+	if heroes_list:
+		hero_count = heroes_list.size()
+		for h in heroes_list:
+			if h is Dictionary and h.get("unlocked", false):
+				var lvl = int(h.get("level", 1))
+				if lvl > max_hero_level:
+					max_hero_level = lvl
+					
+	for q in quests_db:
+		if q.get("category_id") != "rookie":
+			continue
+		if q.get("day", 1) > unlocked_day:
+			continue
+		if q["is_completed"] or q["is_claimed"]:
+			continue
+			
+		var progress_mode = q.get("progress_mode", "accumulated")
+		if progress_mode != "current_state":
+			continue
+			
+		var quest_updated := false
+		for obj in q["objectives"]:
+			if obj["completed"]:
+				continue
+				
+			var o_type = obj.get("type", "")
+			var target_val = int(obj.get("target", 1))
+			var target_id = obj.get("target_id", "")
+			var current_metric = 0
+			
+			match o_type:
+				"building_upgrade":
+					if target_id == "citadel" or target_id == "":
+						current_metric = citadel_lvl
+					else:
+						var b = ui_mgr.get_building(target_id)
+						current_metric = int(b.get("level", 1))
+				"power_milestone":
+					current_metric = player_power
+				"hero_recruit":
+					current_metric = hero_count
+				"hero_level":
+					current_metric = max_hero_level
+				"alliance_join":
+					current_metric = alliance_joined
+					
+			if current_metric >= target_val:
+				obj["current"] = target_val
+				obj["completed"] = true
+				quest_updated = true
+				updated = true
+				quest_progress_changed.emit(q["id"], obj["id"], obj["current"], target_val)
+				
+		if quest_updated:
+			var all_done = true
+			for obj in q["objectives"]:
+				if not obj["completed"]:
+					all_done = false
+					break
+			if all_done:
+				q["is_completed"] = true
+				quest_state_changed.emit(q["id"], "completed")
+				_send_quest_completed_notification(q["name"])
+				
+	if updated:
+		_save_state()
+		quest_list_updated.emit()
+
+func get_rookie_quests_for_day(day_num: int) -> Array:
+	check_rookie_current_state_objectives()
+	var res: Array = []
+	for q in quests_db:
+		if q.get("category_id") == "rookie" and int(q.get("day", 1)) == day_num:
+			res.append(q)
+	return res
+
+func get_rookie_daily_completion_count(day_num: int) -> int:
+	var count = 0
+	var day_quests = get_rookie_quests_for_day(day_num)
+	for q in day_quests:
+		if q["is_completed"]:
+			count += 1
+	return count
+
+func is_rookie_daily_chest_claimed(day_num: int) -> bool:
+	return claimed_rookie_daily_chests.has(day_num)
+
+func claim_rookie_daily_chest(day_num: int) -> Array:
+	if is_rookie_daily_chest_claimed(day_num):
+		return []
+		
+	var comp_count = get_rookie_daily_completion_count(day_num)
+	if comp_count < 5: # Require 5 completed objectives from that day
+		return []
+		
+	claimed_rookie_daily_chests.append(day_num)
+	_save_state()
+	
+	var rewards = [
+		{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+		{"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
+		{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+	]
+	
+	var ui_mgr = get_node_or_null("/root/UIManager")
+	if ui_mgr:
+		ui_mgr.royal_crystals += 300
+		ui_mgr.hero_tokens += 3
+		if ui_mgr.has_method("add_inventory_item"):
+			ui_mgr.add_inventory_item("item_speedup_1h", 3)
+		if ui_mgr.has_signal("reward_claimed"):
+			ui_mgr.reward_claimed.emit([
+				{"name": "Royal Crystals", "quantity": 300, "rarity": 3, "icon": "💎"},
+				{"name": "Hero Tokens", "quantity": 3, "rarity": 3, "icon": "🎖️"},
+				{"name": "1h Speedups", "quantity": 3, "rarity": 2, "icon": "⏳"}
+			])
+			
+	quest_list_updated.emit()
+	return rewards
+
+func get_rookie_total_completed_count() -> int:
+	check_rookie_current_state_objectives()
+	var total = 0
+	for q in quests_db:
+		if q.get("category_id") == "rookie" and q["is_completed"]:
+			total += 1
+	return total
+
+func get_rookie_overall_milestones() -> Array:
+	var total_comp = get_rookie_total_completed_count()
+	return [
+		{
+			"index": 0,
+			"target": 10,
+			"completed": total_comp >= 10,
+			"claimed": claimed_rookie_overall_milestones.has(0),
+			"title": "Beginner Sovereign",
+			"rewards": [
+				{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+				{"type": "speedup_1h", "quantity": 5, "name": "1h Speedups", "icon": "⏳"}
+			]
+		},
+		{
+			"index": 1,
+			"target": 20,
+			"completed": total_comp >= 20,
+			"claimed": claimed_rookie_overall_milestones.has(1),
+			"title": "Realm Defender",
+			"rewards": [
+				{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
+				{"type": "speedup_1h", "quantity": 10, "name": "1h Speedups", "icon": "⏳"}
+			]
+		},
+		{
+			"index": 2,
+			"target": 30,
+			"completed": total_comp >= 30,
+			"claimed": claimed_rookie_overall_milestones.has(2),
+			"title": "Crown Marshal",
+			"rewards": [
+				{"type": "royal_crystal", "quantity": 800, "name": "Royal Crystals", "icon": "💎"},
+				{"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"}
+			]
+		},
+		{
+			"index": 3,
+			"target": 40,
+			"completed": total_comp >= 40,
+			"claimed": claimed_rookie_overall_milestones.has(3),
+			"title": "Grand Monarch",
+			"rewards": [
+				{"type": "royal_crystal", "quantity": 1200, "name": "Royal Crystals", "icon": "💎"},
+				{"type": "speedup_3h", "quantity": 10, "name": "3h Speedups", "icon": "⏳"}
+			]
+		},
+		{
+			"index": 4,
+			"target": 45,
+			"completed": total_comp >= 45,
+			"claimed": claimed_rookie_overall_milestones.has(4),
+			"title": "Founding Sovereign",
+			"rewards": [
+				{"type": "avatar_frame", "id": "Founding Sovereign", "name": "Founding Sovereign Avatar Frame", "icon": "🖼️"},
+				{"type": "royal_crystal", "quantity": 2000, "name": "Royal Crystals", "icon": "💎"},
+				{"type": "gold", "quantity": 500000, "name": "Gold Coins", "icon": "🪙"}
+			]
+		}
+	]
+
+func claim_rookie_overall_milestone(index: int) -> Array:
+	if index < 0 or index > 4:
+		return []
+	if claimed_rookie_overall_milestones.has(index):
+		return []
+		
+	var milestones = get_rookie_overall_milestones()
+	var m = milestones[index]
+	if not m["completed"]:
+		return []
+		
+	claimed_rookie_overall_milestones.append(index)
+	_save_state()
+	
+	var rewards = m["rewards"] as Array
+	var ui_mgr = get_node_or_null("/root/UIManager")
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	
+	if settings_mgr and index == 4:
+		var prof = settings_mgr.settings.get("profile", {})
+		var frames = prof.get("unlocked_frames", []) as Array
+		if not frames.has("Founding Sovereign"):
+			frames.append("Founding Sovereign")
+			prof["unlocked_frames"] = frames
+			settings_mgr.save_settings()
+			print("[QuestManager] Unlocked Founding Sovereign Avatar Frame!")
+			
+	if ui_mgr:
+		for r in rewards:
+			var r_type = r.get("type", "")
+			var qty = int(r.get("quantity", 1))
+			match r_type:
+				"royal_crystal": ui_mgr.royal_crystals += qty
+				"gold": ui_mgr.gold += qty
+				"hero_tokens": ui_mgr.hero_tokens += qty
+				"speedup_1h":
+					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_1h", qty)
+				"speedup_3h":
+					if ui_mgr.has_method("add_inventory_item"): ui_mgr.add_inventory_item("item_speedup_3h", qty)
+					
+		if ui_mgr.has_signal("reward_claimed"):
+			var notify_list: Array[Dictionary] = []
+			for r in rewards:
+				notify_list.append({
+					"name": r.get("name", "Milestone Reward"),
+					"quantity": int(r.get("quantity", 1)),
+					"rarity": 4,
+					"icon": r.get("icon", "👑")
+				})
+			ui_mgr.reward_claimed.emit(notify_list)
+			
+	quest_list_updated.emit()
+	return rewards

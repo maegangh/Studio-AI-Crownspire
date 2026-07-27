@@ -65,6 +65,8 @@ var _active_category: String = "All"
 var _selected_event_id: String = ""
 var _toast_timer: Timer
 var _infernal_beast_active_track: String = "personal_contribution"
+var _selected_rookie_day: int = 1
+var sovereign_detail_scroll: ScrollContainer = null
 
 # --- Master Category Listing ---
 const CATEGORIES = ["All", "Server", "Alliance", "Personal", "Season", "Battle Pass"]
@@ -186,6 +188,22 @@ var _events_catalog: Dictionary = {
 			{"name": "CSTLE Alliance", "alliance": "CSTLE", "score": 6200},
 			{"name": "SVRN Alliance", "alliance": "SVRN", "score": 3900}
 		]
+	},
+	"sovereigns_journey": {
+		"id": "sovereigns_journey",
+		"type": "personal",
+		"name": "SOVEREIGN'S JOURNEY",
+		"desc": "A 7-Day Rookie Event guiding new Sovereigns through Crownspire's core systems with progression rewards, resources, speedups, and the exclusive Founding Sovereign Avatar Frame.",
+		"max_target": 45,
+		"milestones": [
+			{"target": 10, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "300 Royal Crystals"},
+			{"target": 20, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "500 Royal Crystals"},
+			{"target": 30, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "800 Royal Crystals"},
+			{"target": 40, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1200 Royal Crystals"},
+			{"target": 45, "reward_id": "founding_sovereign_frame", "amount": 1, "desc": "Founding Sovereign Frame + 2,000 Crystals"}
+		],
+		"actions": [],
+		"rivals": []
 	}
 }
 
@@ -525,6 +543,8 @@ func _hide_all_detail_panels() -> void:
 	right_detail_empty.visible = true
 	right_detail_normal.visible = false
 	right_detail_bp.visible = false
+	if is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll.visible = false
 
 # ==============================================================================
 # DETAIL PANEL CONTROLLERS
@@ -537,6 +557,8 @@ func _on_event_card_selected(event_id: String) -> void:
 		_open_battle_pass_details()
 	elif event_id == "event_infernal_beast":
 		_open_infernal_beast_details()
+	elif event_id == "sovereigns_journey":
+		_open_sovereigns_journey_details()
 	else:
 		_open_standard_event_details(event_id)
 
@@ -544,6 +566,8 @@ func _open_standard_event_details(event_id: String) -> void:
 	right_detail_empty.visible = false
 	right_detail_bp.visible = false
 	right_detail_normal.visible = true
+	if is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll.visible = false
 	
 	var event = _events_catalog.get(event_id)
 	if not event: return
@@ -587,10 +611,580 @@ func _open_standard_event_details(event_id: String) -> void:
 	
 	_update_active_timers_display()
 
+func _open_sovereigns_journey_details() -> void:
+	right_detail_empty.visible = false
+	right_detail_normal.visible = false
+	right_detail_bp.visible = false
+	
+	var right_panel = $Layout/Content/HSplit/RightPanel
+	if not is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll = ScrollContainer.new()
+		sovereign_detail_scroll.name = "SovereignsJourneyScroll"
+		sovereign_detail_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		sovereign_detail_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		right_panel.add_child(sovereign_detail_scroll)
+		
+	sovereign_detail_scroll.visible = true
+	_clear_container(sovereign_detail_scroll)
+	
+	var settings_mgr = get_node_or_null("/root/SettingsManager")
+	var quest_mgr = get_node_or_null("/root/QuestManager")
+	if not quest_mgr:
+		return
+		
+	# Evaluate current state objectives
+	quest_mgr.check_rookie_current_state_objectives()
+	
+	var current_rookie_day = settings_mgr.get_rookie_event_day() if settings_mgr else 1
+	var age_seconds = settings_mgr.get_account_age_seconds() if settings_mgr else 0
+	
+	if _selected_rookie_day > min(7, current_rookie_day):
+		_selected_rookie_day = min(7, current_rookie_day)
+	if _selected_rookie_day < 1:
+		_selected_rookie_day = 1
+		
+	var main_vbox = VBoxContainer.new()
+	main_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	main_vbox.add_theme_constant_override("separation", 12)
+	sovereign_detail_scroll.add_child(main_vbox)
+	
+	# ==========================================
+	# 1. HEADER BANNER CARD
+	# ==========================================
+	var header_panel = PanelContainer.new()
+	var h_style = StyleBoxFlat.new()
+	h_style.bg_color = Color(0.1, 0.12, 0.18, 0.95)
+	h_style.set_corner_radius_all(8)
+	h_style.border_width_top = 3
+	h_style.border_color = Color(0.95, 0.75, 0.15)
+	header_panel.add_theme_stylebox_override("panel", h_style)
+	
+	var h_margin = MarginContainer.new()
+	h_margin.add_theme_constant_override("margin_left", 14)
+	h_margin.add_theme_constant_override("margin_right", 14)
+	h_margin.add_theme_constant_override("margin_top", 12)
+	h_margin.add_theme_constant_override("margin_bottom", 12)
+	header_panel.add_child(h_margin)
+	
+	var h_vbox = VBoxContainer.new()
+	h_vbox.add_theme_constant_override("separation", 6)
+	h_margin.add_child(h_vbox)
+	
+	# Top bar with Badge and Lifecycle Timer
+	var top_bar = HBoxContainer.new()
+	
+	var badge_panel = PanelContainer.new()
+	var b_style = StyleBoxFlat.new()
+	b_style.bg_color = Color(0.15, 0.45, 0.25, 0.8)
+	b_style.set_corner_radius_all(4)
+	badge_panel.add_theme_stylebox_override("panel", b_style)
+	var b_lbl = Label.new()
+	b_lbl.text = " 👑 F2P ROOKIE EVENT "
+	b_lbl.add_theme_font_size_override("font_size", 11)
+	b_lbl.add_theme_color_override("font_color", Color(0.8, 1.0, 0.8))
+	badge_panel.add_child(b_lbl)
+	top_bar.add_child(badge_panel)
+	
+	var spacer = Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top_bar.add_child(spacer)
+	
+	var timer_lbl = Label.new()
+	timer_lbl.add_theme_font_size_override("font_size", 12)
+	
+	if age_seconds < 7 * 86400:
+		var rem_sec = 7 * 86400 - age_seconds
+		var d = rem_sec / 86400
+		var h = (rem_sec % 86400) / 3600
+		var m = (rem_sec % 3600) / 60
+		timer_lbl.text = "⏳ Day Unlocks End In: %dd %02dh %02dm" % [d, h, m]
+		timer_lbl.add_theme_color_override("font_color", Color(0.95, 0.75, 0.15))
+	elif age_seconds < 9 * 86400:
+		var rem_sec = 9 * 86400 - age_seconds
+		var d = rem_sec / 86400
+		var h = (rem_sec % 86400) / 3600
+		var m = (rem_sec % 3600) / 60
+		timer_lbl.text = "🏁 GRACE PERIOD (All Days Open): %dd %02dh %02dm" % [d, h, m]
+		timer_lbl.add_theme_color_override("font_color", Color(0.3, 0.85, 1.0))
+	else:
+		timer_lbl.text = "❌ SOVEREIGN'S JOURNEY ENDED"
+		timer_lbl.add_theme_color_override("font_color", Color(0.8, 0.3, 0.3))
+		
+	top_bar.add_child(timer_lbl)
+	h_vbox.add_child(top_bar)
+	
+	var title_lbl = Label.new()
+	title_lbl.text = "SOVEREIGN'S JOURNEY"
+	title_lbl.add_theme_font_size_override("font_size", 20)
+	title_lbl.add_theme_color_override("font_color", Color(0.98, 0.85, 0.35))
+	h_vbox.add_child(title_lbl)
+	
+	var desc_lbl = Label.new()
+	desc_lbl.text = "Complete daily progression objectives over your first 7 days to earn vital resources, speedups, hero tokens, and the exclusive Founding Sovereign Avatar Frame."
+	desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc_lbl.add_theme_font_size_override("font_size", 12)
+	desc_lbl.add_theme_color_override("font_color", Color(0.85, 0.85, 0.88))
+	h_vbox.add_child(desc_lbl)
+	
+	main_vbox.add_child(header_panel)
+	
+	# ==========================================
+	# 2. OVERALL JOURNEY TRACK & MILESTONE CHESTS
+	# ==========================================
+	var track_panel = PanelContainer.new()
+	var t_style = StyleBoxFlat.new()
+	t_style.bg_color = Color(0.08, 0.1, 0.15, 0.9)
+	t_style.set_corner_radius_all(6)
+	track_panel.add_theme_stylebox_override("panel", t_style)
+	
+	var t_margin = MarginContainer.new()
+	t_margin.add_theme_constant_override("margin_left", 12)
+	t_margin.add_theme_constant_override("margin_right", 12)
+	t_margin.add_theme_constant_override("margin_top", 10)
+	t_margin.add_theme_constant_override("margin_bottom", 10)
+	track_panel.add_child(t_margin)
+	
+	var t_vbox = VBoxContainer.new()
+	t_vbox.add_theme_constant_override("separation", 8)
+	t_margin.add_child(t_vbox)
+	
+	var total_completed = quest_mgr.get_rookie_total_completed_count()
+	
+	var track_top = HBoxContainer.new()
+	var track_title = Label.new()
+	track_title.text = "🏆 OVERALL JOURNEY MILESTONES"
+	track_title.add_theme_font_size_override("font_size", 13)
+	track_title.add_theme_color_override("font_color", Color(0.95, 0.8, 0.2))
+	track_top.add_child(track_title)
+	
+	var t_spacer = Control.new()
+	t_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	track_top.add_child(t_spacer)
+	
+	var track_prog_lbl = Label.new()
+	track_prog_lbl.text = "%d / 45 Objectives Completed" % total_completed
+	track_prog_lbl.add_theme_font_size_override("font_size", 12)
+	track_prog_lbl.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
+	track_top.add_child(track_prog_lbl)
+	t_vbox.add_child(track_top)
+	
+	var p_bar = ProgressBar.new()
+	p_bar.min_value = 0
+	p_bar.max_value = 45
+	p_bar.value = total_completed
+	p_bar.custom_minimum_size.y = 14
+	p_bar.show_percentage = false
+	t_vbox.add_child(p_bar)
+	
+	# Overall Milestones Grid / Row
+	var milestones_row = HBoxContainer.new()
+	milestones_row.add_theme_constant_override("separation", 6)
+	
+	var milestones = quest_mgr.get_rookie_overall_milestones()
+	for m in milestones:
+		var m_box = PanelContainer.new()
+		m_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		
+		var m_style = StyleBoxFlat.new()
+		m_style.set_corner_radius_all(4)
+		if m["claimed"]:
+			m_style.bg_color = Color(0.08, 0.18, 0.12, 0.9)
+			m_style.border_width_left = 1
+			m_style.border_width_top = 1
+			m_style.border_width_right = 1
+			m_style.border_width_bottom = 1
+			m_style.border_color = Color(0.2, 0.6, 0.3)
+		elif m["completed"]:
+			m_style.bg_color = Color(0.22, 0.18, 0.08, 0.95)
+			m_style.border_width_left = 2
+			m_style.border_width_top = 2
+			m_style.border_width_right = 2
+			m_style.border_width_bottom = 2
+			m_style.border_color = Color(0.95, 0.75, 0.15)
+		else:
+			m_style.bg_color = Color(0.1, 0.1, 0.12, 0.7)
+			m_style.border_width_left = 1
+			m_style.border_width_top = 1
+			m_style.border_width_right = 1
+			m_style.border_width_bottom = 1
+			m_style.border_color = Color(0.25, 0.25, 0.28)
+			
+		m_box.add_theme_stylebox_override("panel", m_style)
+		
+		var mm = MarginContainer.new()
+		mm.add_theme_constant_override("margin_left", 6)
+		mm.add_theme_constant_override("margin_right", 6)
+		mm.add_theme_constant_override("margin_top", 6)
+		mm.add_theme_constant_override("margin_bottom", 6)
+		m_box.add_child(mm)
+		
+		var mv = VBoxContainer.new()
+		mv.add_theme_constant_override("separation", 4)
+		mm.add_child(mv)
+		
+		var m_target_lbl = Label.new()
+		m_target_lbl.text = "🎯 %d Obj" % int(m["target"])
+		m_target_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		m_target_lbl.add_theme_font_size_override("font_size", 11)
+		m_target_lbl.add_theme_color_override("font_color", Color(0.95, 0.8, 0.2) if m["completed"] else Color(0.7, 0.7, 0.7))
+		mv.add_child(m_target_lbl)
+		
+		var m_reward_lbl = Label.new()
+		if int(m["target"]) == 45:
+			m_reward_lbl.text = "🖼️ Frame + 💎 2k"
+			m_reward_lbl.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
+		else:
+			var first_r = m["rewards"][0]
+			m_reward_lbl.text = "%s %s" % [first_r.get("icon", "🎁"), first_r.get("name", "Reward")]
+			m_reward_lbl.add_theme_color_override("font_color", Color(0.85, 0.85, 0.85))
+		m_reward_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		m_reward_lbl.add_theme_font_size_override("font_size", 10)
+		mv.add_child(m_reward_lbl)
+		
+		var m_btn = Button.new()
+		m_btn.custom_minimum_size.y = 22
+		m_btn.add_theme_font_size_override("font_size", 10)
+		
+		var m_idx = int(m["index"])
+		if m["claimed"]:
+			m_btn.text = "✓ CLAIMED"
+			m_btn.disabled = true
+		elif m["completed"]:
+			m_btn.text = "CLAIM!"
+			m_btn.pressed.connect(func():
+				var rewards = quest_mgr.claim_rookie_overall_milestone(m_idx)
+				if rewards.size() > 0:
+					_show_toast("🏆 Overall Milestone Claimed!")
+				_open_sovereigns_journey_details()
+			)
+		else:
+			m_btn.text = "LOCKED"
+			m_btn.disabled = true
+			
+		mv.add_child(m_btn)
+		milestones_row.add_child(m_box)
+		
+	t_vbox.add_child(milestones_row)
+	main_vbox.add_child(track_panel)
+	
+	# ==========================================
+	# 3. DAY SELECTION TABS BAR (DAYS 1 - 7)
+	# ==========================================
+	var day_tabs_box = HBoxContainer.new()
+	day_tabs_box.add_theme_constant_override("separation", 4)
+	
+	for d in range(1, 8):
+		var d_btn = Button.new()
+		d_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		d_btn.custom_minimum_size.y = 36
+		
+		var is_unlocked = d <= current_rookie_day
+		var comp_count = quest_mgr.get_rookie_daily_completion_count(d) if is_unlocked else 0
+		
+		if is_unlocked:
+			d_btn.text = "DAY %d\n(%d/7)" % [d, comp_count]
+			d_btn.add_theme_font_size_override("font_size", 11)
+			
+			if d == _selected_rookie_day:
+				d_btn.add_theme_color_override("font_color", Color(1.0, 0.9, 0.3))
+			else:
+				d_btn.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
+				
+			var d_num = d
+			d_btn.pressed.connect(func():
+				_selected_rookie_day = d_num
+				_open_sovereigns_journey_details()
+			)
+		else:
+			d_btn.text = "🔒 DAY %d\nLocked" % d
+			d_btn.add_theme_font_size_override("font_size", 10)
+			d_btn.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
+			d_btn.disabled = true
+			
+		day_tabs_box.add_child(d_btn)
+		
+	main_vbox.add_child(day_tabs_box)
+	
+	# ==========================================
+	# 4. SELECTED DAY HEADER & DAILY CHEST
+	# ==========================================
+	var day_header_panel = PanelContainer.new()
+	var dh_style = StyleBoxFlat.new()
+	dh_style.bg_color = Color(0.12, 0.14, 0.2, 0.9)
+	dh_style.set_corner_radius_all(6)
+	day_header_panel.add_theme_stylebox_override("panel", dh_style)
+	
+	var dh_margin = MarginContainer.new()
+	dh_margin.add_theme_constant_override("margin_left", 12)
+	dh_margin.add_theme_constant_override("margin_right", 12)
+	dh_margin.add_theme_constant_override("margin_top", 8)
+	dh_margin.add_theme_constant_override("margin_bottom", 8)
+	day_header_panel.add_child(dh_margin)
+	
+	var dh_hbox = HBoxContainer.new()
+	dh_margin.add_child(dh_hbox)
+	
+	var day_theme_titles = [
+		"",
+		"DAY 1 — FOUNDATIONS OF THE CROWN",
+		"DAY 2 — KNOWLEDGE & PROSPERITY",
+		"DAY 3 — LEGION RISING",
+		"DAY 4 — HEROES OF THE REALM",
+		"DAY 5 — BEYOND THE WALLS",
+		"DAY 6 — STRENGTH IN UNITY",
+		"DAY 7 — RISE OF THE SOVEREIGN"
+	]
+	
+	var dh_title = Label.new()
+	dh_title.text = day_theme_titles[_selected_rookie_day] if _selected_rookie_day <= 7 else "DAY " + str(_selected_rookie_day)
+	dh_title.add_theme_font_size_override("font_size", 13)
+	dh_title.add_theme_color_override("font_color", Color(0.95, 0.85, 0.3))
+	dh_hbox.add_child(dh_title)
+	
+	var dh_spacer = Control.new()
+	dh_spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	dh_hbox.add_child(dh_spacer)
+	
+	# Daily Chest Button
+	var day_comp = quest_mgr.get_rookie_daily_completion_count(_selected_rookie_day)
+	var chest_claimed = quest_mgr.is_rookie_daily_chest_claimed(_selected_rookie_day)
+	
+	var chest_btn = Button.new()
+	chest_btn.custom_minimum_size.y = 28
+	chest_btn.add_theme_font_size_override("font_size", 11)
+	
+	var target_d = _selected_rookie_day
+	if chest_claimed:
+		chest_btn.text = "🎁 DAY %d CHEST: CLAIMED ✓" % target_d
+		chest_btn.disabled = true
+	elif day_comp >= 5:
+		chest_btn.text = "🎁 CLAIM DAY %d CHEST (5/5 Completed)!" % target_d
+		chest_btn.pressed.connect(func():
+			var r = quest_mgr.claim_rookie_daily_chest(target_d)
+			if r.size() > 0:
+				_show_toast("🎁 Day %d Chest Claimed!" % target_d)
+			_open_sovereigns_journey_details()
+		)
+	else:
+		chest_btn.text = "🎁 DAY %d CHEST (%d/5 Objectives)" % [target_d, day_comp]
+		chest_btn.disabled = true
+		
+	dh_hbox.add_child(chest_btn)
+	main_vbox.add_child(day_header_panel)
+	
+	# ==========================================
+	# 5. SELECTED DAY OBJECTIVES LIST
+	# ==========================================
+	var day_quests = quest_mgr.get_rookie_quests_for_day(_selected_rookie_day)
+	
+	for q in day_quests:
+		var q_card = PanelContainer.new()
+		var qc_style = StyleBoxFlat.new()
+		qc_style.bg_color = Color(0.1, 0.11, 0.15, 0.85)
+		qc_style.set_corner_radius_all(6)
+		qc_style.border_width_left = 1
+		qc_style.border_width_top = 1
+		qc_style.border_width_right = 1
+		qc_style.border_width_bottom = 1
+		
+		if q["is_claimed"]:
+			qc_style.border_color = Color(0.2, 0.25, 0.22)
+		elif q["is_completed"]:
+			qc_style.border_color = Color(0.95, 0.75, 0.15)
+		else:
+			qc_style.border_color = Color(0.2, 0.22, 0.28)
+			
+		q_card.add_theme_stylebox_override("panel", qc_style)
+		
+		var q_margin = MarginContainer.new()
+		q_margin.add_theme_constant_override("margin_left", 12)
+		q_margin.add_theme_constant_override("margin_right", 12)
+		q_margin.add_theme_constant_override("margin_top", 10)
+		q_margin.add_theme_constant_override("margin_bottom", 10)
+		q_card.add_child(q_margin)
+		
+		var q_hbox = HBoxContainer.new()
+		q_margin.add_child(q_hbox)
+		
+		var left_vbox = VBoxContainer.new()
+		left_vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		left_vbox.add_theme_constant_override("separation", 4)
+		q_hbox.add_child(left_vbox)
+		
+		var q_title = Label.new()
+		q_title.text = q.get("name", "Objective")
+		q_title.add_theme_font_size_override("font_size", 13)
+		q_title.add_theme_color_override("font_color", Color(0.95, 0.9, 0.8) if not q["is_claimed"] else Color(0.6, 0.6, 0.6))
+		left_vbox.add_child(q_title)
+		
+		var q_desc = Label.new()
+		q_desc.text = q.get("description", "")
+		q_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		q_desc.add_theme_font_size_override("font_size", 11)
+		q_desc.add_theme_color_override("font_color", Color(0.75, 0.75, 0.78))
+		left_vbox.add_child(q_desc)
+		
+		# Objective progress
+		var objectives = q.get("objectives", []) as Array
+		if objectives.size() > 0:
+			var obj = objectives[0]
+			var obj_curr = int(obj.get("current", 0))
+			var obj_target = int(obj.get("target", 1))
+			
+			var obj_hbox = HBoxContainer.new()
+			var obj_bar = ProgressBar.new()
+			obj_bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			obj_bar.min_value = 0
+			obj_bar.max_value = obj_target
+			obj_bar.value = obj_curr
+			obj_bar.custom_minimum_size.y = 12
+			obj_bar.show_percentage = false
+			obj_hbox.add_child(obj_bar)
+			
+			var obj_lbl = Label.new()
+			obj_lbl.text = " %d / %d" % [obj_curr, obj_target]
+			obj_lbl.add_theme_font_size_override("font_size", 11)
+			obj_lbl.add_theme_color_override("font_color", Color(0.85, 0.85, 0.85))
+			obj_hbox.add_child(obj_lbl)
+			
+			left_vbox.add_child(obj_hbox)
+			
+		# Rewards list
+		var r_hbox = HBoxContainer.new()
+		r_hbox.add_theme_constant_override("separation", 8)
+		for r in q.get("rewards", []):
+			var r_lbl = Label.new()
+			r_lbl.text = "%s %s" % [r.get("icon", "🎁"), _format_large_number(int(r.get("quantity", 1)))]
+			r_lbl.add_theme_font_size_override("font_size", 10)
+			r_lbl.add_theme_color_override("font_color", Color(0.9, 0.8, 0.3))
+			r_hbox.add_child(r_lbl)
+		left_vbox.add_child(r_hbox)
+		
+		# Claim Button
+		var q_btn = Button.new()
+		q_btn.custom_minimum_size = Vector2(100, 32)
+		q_btn.add_theme_font_size_override("font_size", 11)
+		
+		var q_id = q["id"]
+		if q["is_claimed"]:
+			q_btn.text = "✓ CLAIMED"
+			q_btn.disabled = true
+		elif q["is_completed"]:
+			q_btn.text = "CLAIM REWARD"
+			q_btn.pressed.connect(func():
+				var rewards = quest_mgr.claim_rewards(q_id)
+				if rewards.size() > 0:
+					_show_toast("✨ Objective Reward Claimed!")
+				_open_sovereigns_journey_details()
+			)
+		else:
+			q_btn.text = "IN PROGRESS"
+			q_btn.disabled = true
+			
+		q_hbox.add_child(q_btn)
+		main_vbox.add_child(q_card)
+		
+	# ==========================================
+	# 6. DEBUG TESTING TOOLBAR
+	# ==========================================
+	if OS.is_debug_build():
+		var debug_panel = PanelContainer.new()
+		var dbg_style = StyleBoxFlat.new()
+		dbg_style.bg_color = Color(0.18, 0.12, 0.08, 0.95)
+		dbg_style.set_corner_radius_all(6)
+		dbg_style.border_width_left = 1
+		dbg_style.border_width_top = 1
+		dbg_style.border_width_right = 1
+		dbg_style.border_width_bottom = 1
+		dbg_style.border_color = Color(0.85, 0.5, 0.15)
+		debug_panel.add_theme_stylebox_override("panel", dbg_style)
+		
+		var dbg_margin = MarginContainer.new()
+		dbg_margin.add_theme_constant_override("margin_left", 10)
+		dbg_margin.add_theme_constant_override("margin_right", 10)
+		dbg_margin.add_theme_constant_override("margin_top", 8)
+		dbg_margin.add_theme_constant_override("margin_bottom", 8)
+		debug_panel.add_child(dbg_margin)
+		
+		var dbg_vbox = VBoxContainer.new()
+		dbg_vbox.add_theme_constant_override("separation", 6)
+		dbg_margin.add_child(dbg_vbox)
+		
+		var dbg_title = Label.new()
+		dbg_title.text = "🛠️ ROOKIE EVENT DEBUG & TESTING TOOLBAR"
+		dbg_title.add_theme_font_size_override("font_size", 11)
+		dbg_title.add_theme_color_override("font_color", Color(0.95, 0.65, 0.2))
+		dbg_vbox.add_child(dbg_title)
+		
+		# Day Jump Buttons
+		var row1 = HBoxContainer.new()
+		row1.add_theme_constant_override("separation", 4)
+		for d in range(1, 8):
+			var btn = Button.new()
+			btn.text = "Day %d" % d
+			btn.add_theme_font_size_override("font_size", 10)
+			var target_d = d
+			btn.pressed.connect(func():
+				if settings_mgr: settings_mgr.debug_set_rookie_day(target_d)
+				_selected_rookie_day = target_d
+				_open_sovereigns_journey_details()
+			)
+			row1.add_child(btn)
+		dbg_vbox.add_child(row1)
+		
+		# Special Controls
+		var row2 = HBoxContainer.new()
+		row2.add_theme_constant_override("separation", 4)
+		
+		var grace_btn = Button.new()
+		grace_btn.text = "Grace Period (Day 8)"
+		grace_btn.add_theme_font_size_override("font_size", 10)
+		grace_btn.pressed.connect(func():
+			if settings_mgr: settings_mgr.debug_set_rookie_grace_period()
+			_open_sovereigns_journey_details()
+		)
+		row2.add_child(grace_btn)
+		
+		var end_btn = Button.new()
+		end_btn.text = "Expire Event (Day 10)"
+		end_btn.add_theme_font_size_override("font_size", 10)
+		end_btn.pressed.connect(func():
+			if settings_mgr: settings_mgr.debug_expire_rookie_event()
+			_open_sovereigns_journey_details()
+		)
+		row2.add_child(end_btn)
+		
+		var reset_btn = Button.new()
+		reset_btn.text = "Reset Age Override"
+		reset_btn.add_theme_font_size_override("font_size", 10)
+		reset_btn.pressed.connect(func():
+			if settings_mgr: settings_mgr.debug_reset_rookie_age_override()
+			_open_sovereigns_journey_details()
+		)
+		row2.add_child(reset_btn)
+		
+		var auto_comp_btn = Button.new()
+		auto_comp_btn.text = "Auto-Complete Current Day Obj"
+		auto_comp_btn.add_theme_font_size_override("font_size", 10)
+		auto_comp_btn.pressed.connect(func():
+			for dq in day_quests:
+				for obj in dq.get("objectives", []):
+					obj["current"] = int(obj.get("target", 1))
+					obj["completed"] = true
+				dq["is_completed"] = true
+			_open_sovereigns_journey_details()
+		)
+		row2.add_child(auto_comp_btn)
+		
+		dbg_vbox.add_child(row2)
+		main_vbox.add_child(debug_panel)
+
 func _open_infernal_beast_details() -> void:
 	right_detail_empty.visible = false
 	right_detail_bp.visible = false
 	right_detail_normal.visible = true
+	if is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll.visible = false
 	
 	var mgr = get_node_or_null("/root/InfernalBeastManager")
 	if not mgr:
@@ -1340,6 +1934,8 @@ func _open_battle_pass_details() -> void:
 	right_detail_empty.visible = false
 	right_detail_normal.visible = false
 	right_detail_bp.visible = true
+	if is_instance_valid(sovereign_detail_scroll):
+		sovereign_detail_scroll.visible = false
 	
 	# Current battle pass XP status
 	var total_xp = _events_db.get("scores", {}).get("bp_xp", 0)

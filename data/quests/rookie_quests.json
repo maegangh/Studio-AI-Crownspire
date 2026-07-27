@@ -1,0 +1,818 @@
+[
+	{
+		"id": "rookie_d1_citadel",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Establish Royal Keep",
+		"description": "Upgrade your Citadel to Level 3 to anchor your dominion.",
+		"quest_points": 15,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_citadel", "type": "building_upgrade", "target_id": "citadel", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 10000, "name": "Provisions", "icon": "🌾"},
+			{"type": "wood", "quantity": 10000, "name": "Timber", "icon": "🪵"}
+		]
+	},
+	{
+		"id": "rookie_d1_build",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Realm Construction",
+		"description": "Complete 3 building upgrades across your kingdom.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_build", "type": "building_upgrade", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"},
+			{"type": "stone", "quantity": 5000, "name": "Granite", "icon": "🪨"}
+		]
+	},
+	{
+		"id": "rookie_d1_research",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Scholar's First Decree",
+		"description": "Complete 1 technology research in the Academy.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_research", "type": "research_tech", "target_id": "", "target": 1, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "gold", "quantity": 5000, "name": "Gold Coins", "icon": "🪙"},
+			{"type": "speedup_15m", "quantity": 2, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d1_train",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Mustering the Guard",
+		"description": "Train 200 total troops in your barracks.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_train", "type": "troop_train", "target_id": "", "target": 200, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 15000, "name": "Provisions", "icon": "🌾"},
+			{"type": "wood", "quantity": 15000, "name": "Timber", "icon": "🪵"}
+		]
+	},
+	{
+		"id": "rookie_d1_wildlings",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Border Patrol",
+		"description": "Vanquish 3 wildling marauders near your walls.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_wildlings", "type": "wildling_defeat", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "hero_tokens", "quantity": 1, "name": "Hero Token", "icon": "🎖️"},
+			{"type": "royal_crystal", "quantity": 100, "name": "Royal Crystals", "icon": "💎"}
+		]
+	},
+	{
+		"id": "rookie_d1_gather",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Harvest Season",
+		"description": "Gather 10,000 total resources from farms and deposits.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_gather", "type": "gather_res", "target_id": "", "target": 10000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 10000, "name": "Timber", "icon": "🪵"},
+			{"type": "food", "quantity": 10000, "name": "Provisions", "icon": "🌾"}
+		]
+	},
+	{
+		"id": "rookie_d1_power",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 1,
+		"name": "Sovereign Might I",
+		"description": "Reach 10,000 Total Kingdom Power.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d1_power", "type": "power_milestone", "target_id": "", "target": 10000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 150, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_1h", "quantity": 2, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+
+	{
+		"id": "rookie_d2_research_2",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Alchemical Breakthrough",
+		"description": "Complete 3 technology research projects.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_research", "type": "research_tech", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"},
+			{"type": "gold", "quantity": 10000, "name": "Gold Coins", "icon": "🪙"}
+		]
+	},
+	{
+		"id": "rookie_d2_gather_food",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Grain Silos Full",
+		"description": "Gather 25,000 Food from the realm.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_food", "type": "gather_res", "target_id": "food", "target": 25000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 20000, "name": "Timber", "icon": "🪵"},
+			{"type": "speedup_15m", "quantity": 3, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d2_gather_wood",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Lumber Reserve",
+		"description": "Gather 25,000 Wood from forests and sawmills.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_wood", "type": "gather_res", "target_id": "wood", "target": 25000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 20000, "name": "Provisions", "icon": "🌾"},
+			{"type": "speedup_15m", "quantity": 3, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d2_gather_stone",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Granite Quarrying",
+		"description": "Gather 15,000 Stone from quarries.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_stone", "type": "gather_res", "target_id": "stone", "target": 15000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "iron", "quantity": 10000, "name": "Iron Ore", "icon": "⚙️"},
+			{"type": "gold", "quantity": 10000, "name": "Gold Coins", "icon": "🪙"}
+		]
+	},
+	{
+		"id": "rookie_d2_gather_iron",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Iron Supply Line",
+		"description": "Gather 10,000 Iron Ore from iron mines.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_iron", "type": "gather_res", "target_id": "iron", "target": 10000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "stone", "quantity": 15000, "name": "Granite", "icon": "🪨"},
+			{"type": "speedup_15m", "quantity": 3, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d2_citadel_5",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Keep Expansion",
+		"description": "Upgrade your Citadel to Level 5.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_citadel", "type": "building_upgrade", "target_id": "citadel", "target": 5, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 200, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d2_build_5",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 2,
+		"name": "Architectural Growth",
+		"description": "Complete 5 building upgrades.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d2_build", "type": "building_upgrade", "target_id": "", "target": 5, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 25000, "name": "Timber", "icon": "🪵"},
+			{"type": "stone", "quantity": 15000, "name": "Granite", "icon": "🪨"}
+		]
+	},
+
+	{
+		"id": "rookie_d3_train_infantry",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Shields of the Sovereign",
+		"description": "Train 300 Infantry troops.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_infantry", "type": "troop_train", "target_id": "infantry", "target": 300, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 20000, "name": "Provisions", "icon": "🌾"},
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d3_train_marksmen",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Volley of Arbalests",
+		"description": "Train 300 Marksmen troops.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_marksmen", "type": "troop_train", "target_id": "marksmen", "target": 300, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 20000, "name": "Timber", "icon": "🪵"},
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d3_train_cavalry",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Thunder of Hooves",
+		"description": "Train 300 Cavalry troops.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_cavalry", "type": "troop_train", "target_id": "cavalry", "target": 300, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "iron", "quantity": 15000, "name": "Iron Ore", "icon": "⚙️"},
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d3_train_total",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Grand Legion Muster",
+		"description": "Train 1,200 total troops across all unit types.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_total_troops", "type": "troop_train", "target_id": "", "target": 1200, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "speedup_1h", "quantity": 4, "name": "1h Speedups", "icon": "⏳"},
+			{"type": "royal_crystal", "quantity": 200, "name": "Royal Crystals", "icon": "💎"}
+		]
+	},
+	{
+		"id": "rookie_d3_batches",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Barracks Discipline",
+		"description": "Complete 3 troop training batches.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_batches", "type": "troop_batch", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 25000, "name": "Provisions", "icon": "🌾"},
+			{"type": "gold", "quantity": 15000, "name": "Gold Coins", "icon": "🪙"}
+		]
+	},
+	{
+		"id": "rookie_d3_power_25k",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 3,
+		"name": "Sovereign Might II",
+		"description": "Reach 25,000 Total Kingdom Power.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d3_power", "type": "power_milestone", "target_id": "", "target": 25000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 250, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "hero_tokens", "quantity": 2, "name": "Hero Tokens", "icon": "🎖️"}
+		]
+	},
+
+	{
+		"id": "rookie_d4_recruit",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Assemble the Vanguard",
+		"description": "Recruit or unlock 2 Legion Heroes.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_recruit", "type": "hero_recruit", "target_id": "", "target": 2, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "hero_tokens", "quantity": 3, "name": "Hero Tokens", "icon": "🎖️"},
+			{"type": "royal_crystal", "quantity": 200, "name": "Royal Crystals", "icon": "💎"}
+		]
+	},
+	{
+		"id": "rookie_d4_shards",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Heroic Lineage",
+		"description": "Obtain 10 Hero Shards.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_shards", "type": "hero_shard", "target_id": "", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "hero_shard", "hero_id": "maegan", "quantity": 5, "name": "Sovereign Shards", "icon": "👑"},
+			{"type": "gold", "quantity": 20000, "name": "Gold Coins", "icon": "🪙"}
+		]
+	},
+	{
+		"id": "rookie_d4_hero_level",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Veteran Commander",
+		"description": "Raise any Hero to Level 10.",
+		"quest_points": 15,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_hero_lvl", "type": "hero_level", "target_id": "", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"},
+			{"type": "food", "quantity": 30000, "name": "Provisions", "icon": "🌾"}
+		]
+	},
+	{
+		"id": "rookie_d4_skill",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Mastering the Blade",
+		"description": "Upgrade a Hero Skill 1 time.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_skill", "type": "hero_skill", "target_id": "", "target": 1, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "gold", "quantity": 20000, "name": "Gold Coins", "icon": "🪙"},
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d4_wildlings_lvl3",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Challenging the Outlaws",
+		"description": "Vanquish 5 Level 3+ Wildling Bands.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_wild_3", "type": "wildling_defeat", "target_id": "lvl_3", "target": 5, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 150, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "iron", "quantity": 20000, "name": "Iron Ore", "icon": "⚙️"}
+		]
+	},
+	{
+		"id": "rookie_d4_power_50k",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 4,
+		"name": "Sovereign Might III",
+		"description": "Reach 50,000 Total Kingdom Power.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d4_power", "type": "power_milestone", "target_id": "", "target": 50000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_3h", "quantity": 2, "name": "3h Speedups", "icon": "⏳"}
+		]
+	},
+
+	{
+		"id": "rookie_d5_wildling_10",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Scourge of the Frontier",
+		"description": "Vanquish 10 Wildling Bands on the world map.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_wild_10", "type": "wildling_defeat", "target_id": "", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "speedup_1h", "quantity": 4, "name": "1h Speedups", "icon": "⏳"},
+			{"type": "food", "quantity": 40000, "name": "Provisions", "icon": "🌾"}
+		]
+	},
+	{
+		"id": "rookie_d5_wildling_lvl5",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Vanquish Elite Warlords",
+		"description": "Vanquish 3 Level 5+ Wildling Bands.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_wild_5", "type": "wildling_defeat", "target_id": "lvl_5", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 250, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "hero_tokens", "quantity": 2, "name": "Hero Tokens", "icon": "🎖️"}
+		]
+	},
+	{
+		"id": "rookie_d5_gather_world",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Expeditionary Harvest",
+		"description": "Gather 50,000 resources from world map tiles.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_gather_res", "type": "gather_res", "target_id": "", "target": 50000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 30000, "name": "Timber", "icon": "🪵"},
+			{"type": "stone", "quantity": 20000, "name": "Granite", "icon": "🪨"}
+		]
+	},
+	{
+		"id": "rookie_d5_gather_types",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Versatile Provisions",
+		"description": "Gather 3 different resource types from the wilderness.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_multi_res", "type": "gather_multi_res", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "gold", "quantity": 25000, "name": "Gold Coins", "icon": "🪙"},
+			{"type": "speedup_15m", "quantity": 4, "name": "15m Speedups", "icon": "⚡"}
+		]
+	},
+	{
+		"id": "rookie_d5_beast_lair",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Abyssal Raid",
+		"description": "Participate in 1 Ancient Beast Lair rally or battle.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_lair", "type": "beast_lair_rally", "target_id": "", "target": 1, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d5_marches",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 5,
+		"name": "Map Vanguard",
+		"description": "Complete 5 world map marches.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d5_marches", "type": "world_march", "target_id": "", "target": 5, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 35000, "name": "Provisions", "icon": "🌾"},
+			{"type": "iron", "quantity": 20000, "name": "Iron Ore", "icon": "⚙️"}
+		]
+	},
+
+	{
+		"id": "rookie_d6_join_alliance",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "United Shields",
+		"description": "Be a member of an active Alliance.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_alliance", "type": "alliance_join", "target_id": "", "target": 1, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "alliance_honor", "quantity": 1000, "name": "Alliance Honor", "icon": "🛡️"},
+			{"type": "royal_crystal", "quantity": 200, "name": "Royal Crystals", "icon": "💎"}
+		]
+	},
+	{
+		"id": "rookie_d6_donate",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "Tech Benefactor",
+		"description": "Donate 5 times to Alliance Research Technology.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_donate", "type": "alliance_donate", "target_id": "", "target": 5, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "alliance_honor", "quantity": 500, "name": "Alliance Honor", "icon": "🛡️"},
+			{"type": "speedup_1h", "quantity": 3, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d6_help",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "Brotherhood in Arms",
+		"description": "Render Alliance Help 10 times to allies.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_help", "type": "alliance_help", "target_id": "", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "alliance_honor", "quantity": 800, "name": "Alliance Honor", "icon": "🛡️"},
+			{"type": "gold", "quantity": 25000, "name": "Gold Coins", "icon": "🪙"}
+		]
+	},
+	{
+		"id": "rookie_d6_rally",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "War Banner Unfurled",
+		"description": "Initiate or join 1 Alliance Rally.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_rally", "type": "alliance_rally", "target_id": "", "target": 1, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 250, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_1h", "quantity": 4, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d6_honor",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "Guild Prestige",
+		"description": "Earn 500 Alliance Honor.",
+		"quest_points": 15,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_honor", "type": "alliance_honor", "target_id": "", "target": 500, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 40000, "name": "Timber", "icon": "🪵"},
+			{"type": "food", "quantity": 40000, "name": "Provisions", "icon": "🌾"}
+		]
+	},
+	{
+		"id": "rookie_d6_citadel_8",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 6,
+		"name": "Fortress Bastion",
+		"description": "Upgrade your Citadel to Level 8.",
+		"quest_points": 20,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d6_citadel", "type": "building_upgrade", "target_id": "citadel", "target": 8, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_3h", "quantity": 2, "name": "3h Speedups", "icon": "⏳"}
+		]
+	},
+
+	{
+		"id": "rookie_d7_citadel_10",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Ascension to Sovereignty",
+		"description": "Reach Citadel Level 10.",
+		"quest_points": 25,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_citadel", "type": "building_upgrade", "target_id": "citadel", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "speedup_3h", "quantity": 4, "name": "3h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d7_power_100k",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Crown of Emerald Spire",
+		"description": "Reach 100,000 Total Kingdom Power.",
+		"quest_points": 25,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_power", "type": "power_milestone", "target_id": "", "target": 100000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"}
+		]
+	},
+	{
+		"id": "rookie_d7_train_2k",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Army of the Sovereign",
+		"description": "Train 2,000 total troops.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_train", "type": "troop_train", "target_id": "", "target": 2000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "food", "quantity": 50000, "name": "Provisions", "icon": "🌾"},
+			{"type": "speedup_1h", "quantity": 5, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d7_wildling_15",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Sovereign Banishment",
+		"description": "Vanquish 15 Wildling Bands.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_wild", "type": "wildling_defeat", "target_id": "", "target": 15, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "royal_crystal", "quantity": 300, "name": "Royal Crystals", "icon": "💎"},
+			{"type": "iron", "quantity": 30000, "name": "Iron Ore", "icon": "⚙️"}
+		]
+	},
+	{
+		"id": "rookie_d7_gather_100k",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Realm Abundance",
+		"description": "Gather 100,000 total resources.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_gather", "type": "gather_res", "target_id": "", "target": 100000, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "wood", "quantity": 50000, "name": "Timber", "icon": "🪵"},
+			{"type": "stone", "quantity": 30000, "name": "Granite", "icon": "🪨"}
+		]
+	},
+	{
+		"id": "rookie_d7_alliance_activity",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Pillar of the Guild",
+		"description": "Complete 10 Alliance gameplay actions.",
+		"quest_points": 20,
+		"progress_mode": "accumulated",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_al_act", "type": "alliance_activity", "target_id": "", "target": 10, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "alliance_honor", "quantity": 1500, "name": "Alliance Honor", "icon": "🛡️"},
+			{"type": "speedup_1h", "quantity": 4, "name": "1h Speedups", "icon": "⏳"}
+		]
+	},
+	{
+		"id": "rookie_d7_hero_3",
+		"event_id": "sovereigns_journey",
+		"category_id": "rookie",
+		"day": 7,
+		"name": "Supreme Champions",
+		"description": "Recruit or unlock 3 Legion Heroes.",
+		"quest_points": 25,
+		"progress_mode": "current_state",
+		"enabled": true,
+		"objectives": [
+			{"id": "obj_d7_heroes", "type": "hero_recruit", "target_id": "", "target": 3, "current": 0, "completed": false}
+		],
+		"rewards": [
+			{"type": "hero_tokens", "quantity": 5, "name": "Hero Tokens", "icon": "🎖️"},
+			{"type": "royal_crystal", "quantity": 500, "name": "Royal Crystals", "icon": "💎"}
+		]
+	}
+]

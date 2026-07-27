@@ -514,6 +514,16 @@ func _on_march_action_completed(target: Node2D, success: bool) -> void:
 			ib_mgr.add_player_sigils(sigil_gain)
 			print("[KingdomManager] Awarded +", sigil_gain, " Infernal Sigils for vanquishing Level ", target.level, " Wildling.")
 
+		# Trigger Rookie Quest Progress
+		var q_mgr = get_node_or_null("/root/QuestManager")
+		if q_mgr:
+			q_mgr.trigger_progress("wildling_defeat", "", 1)
+			q_mgr.trigger_progress("world_march", "", 1)
+			if target.level >= 3:
+				q_mgr.trigger_progress("wildling_defeat", "lvl_3", 1)
+			if target.level >= 5:
+				q_mgr.trigger_progress("wildling_defeat", "lvl_5", 1)
+
 		if wildling_spawner:
 			wildling_spawner.recycle_node(target)
 
