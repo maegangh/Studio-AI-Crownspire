@@ -1,0 +1,47 @@
+{
+  "cooldown_duration_sec": 171000.0,
+  "fight_duration_sec": 1800.0,
+  "boss_max_hp": 1000000000,
+  "boss_refill_on_defeat": true,
+  "sigil_drops": {
+    "wildling": {
+      "base": 5,
+      "per_level": 2
+    },
+    "ancient_beast_lair": {
+      "victory_amount": 100
+    }
+  },
+  "altar_levels": [
+    {"level": 1, "threshold": 0, "bonus": 0.00, "name": "Lv.1 Basic Fissure"},
+    {"level": 2, "threshold": 1000, "bonus": 0.05, "name": "Lv.2 Ember Hearth"},
+    {"level": 3, "threshold": 3000, "bonus": 0.10, "name": "Lv.3 Molten Crucible"},
+    {"level": 4, "threshold": 6000, "bonus": 0.15, "name": "Lv.4 Pyre Sanctum"},
+    {"level": 5, "threshold": 10000, "bonus": 0.20, "name": "Lv.5 Abyssal Crown"}
+  ],
+  "milestones": {
+    "personal_contribution": [
+      {"target": 100, "reward_id": "resource_food_100k", "amount": 2, "desc": "2x 100k Food Packs"},
+      {"target": 500, "reward_id": "speedup_universal_1h", "amount": 5, "desc": "5x 1h Speedups"},
+      {"target": 1000, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds"},
+      {"target": 2500, "reward_id": "speedup_universal_1h", "amount": 10, "desc": "10x 1h Speedups"},
+      {"target": 5000, "reward_id": "resource_diamond_1000", "amount": 2, "desc": "2,000 Diamonds"}
+    ],
+    "personal_damage": [
+      {"target": 5000000, "reward_id": "resource_iron_25k", "amount": 4, "desc": "4x 25k Iron Ore"},
+      {"target": 10000000, "reward_id": "speedup_training_1h", "amount": 5, "desc": "5x 1h Training Orders"},
+      {"target": 25000000, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds"},
+      {"target": 50000000, "reward_id": "speedup_research_1h", "amount": 10, "desc": "10x 1h Research Scrolls"},
+      {"target": 100000000, "reward_id": "resource_diamond_1000", "amount": 3, "desc": "3,000 Diamonds"},
+      {"target": 250000000, "reward_id": "crafting_obsidian", "amount": 5, "desc": "5x Volcanic Obsidian Plates"}
+    ],
+    "alliance_damage": [
+      {"target": 100000000, "reward_id": "alliance_guild_points", "amount": 500, "desc": "500 Alliance Guild Points"},
+      {"target": 250000000, "reward_id": "alliance_guild_points", "amount": 1000, "desc": "1,000 Alliance Guild Points"},
+      {"target": 500000000, "reward_id": "alliance_guild_points", "amount": 2000, "desc": "2,000 Alliance Guild Points"},
+      {"target": 1000000000, "reward_id": "resource_diamond_1000", "amount": 1, "desc": "1,000 Diamonds & 5,000 Guild Pts"},
+      {"target": 2000000000, "reward_id": "resource_diamond_1000", "amount": 2, "desc": "2,000 Diamonds & 10,000 Guild Pts"},
+      {"target": 5000000000, "reward_id": "resource_diamond_1000", "amount": 5, "desc": "5,000 Diamonds & 20,000 Guild Pts"}
+    ]
+  }
+}

@@ -369,14 +369,15 @@ func _execute_combat_completion(rally: Dictionary) -> void:
 		
 		var ib_mgr = get_node_or_null("/root/InfernalBeastManager")
 		if ib_mgr:
-			if rally.get("targetId") == "infernal_beast" or ib_mgr.state.get("status") == "ACTIVE":
+			if rally.get("targetId") == "infernal_beast":
 				var base_dmg = 15000000
 				var dealt = ib_mgr.record_boss_damage("Sovereign_Player", base_dmg, true)
 				print("[Rally] Infernal Beast rally strike dealt ", dealt, " damage to boss!")
 			else:
-				# General lair / beast rally victory awards +100 Infernal Sigils
-				ib_mgr.add_player_sigils(100)
-				print("[Rally] Awarded +100 Infernal Sigils for victorious Ancient Lair raid!")
+				# General lair / beast rally victory awards Infernal Sigils from config
+				var lair_sigils = ib_mgr.get_lair_sigil_drop()
+				ib_mgr.add_player_sigils(lair_sigils)
+				print("[Rally] Awarded +", lair_sigils, " Infernal Sigils for victorious Ancient Lair raid!")
 	else:
 		print("[Rally] DEFEATED. Troops retreated to sovereign hospital beds.")
 		

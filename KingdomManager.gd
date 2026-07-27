@@ -510,7 +510,7 @@ func _on_march_action_completed(target: Node2D, success: bool) -> void:
 		# Award Infernal Sigils for Infernal Beast Altar progression
 		var ib_mgr = get_node_or_null("/root/InfernalBeastManager")
 		if ib_mgr:
-			var sigil_gain = 5 + (target.level * 2)
+			var sigil_gain = ib_mgr.get_wildling_sigil_drop(target.level)
 			ib_mgr.add_player_sigils(sigil_gain)
 			print("[KingdomManager] Awarded +", sigil_gain, " Infernal Sigils for vanquishing Level ", target.level, " Wildling.")
 
